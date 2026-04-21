@@ -1,0 +1,172 @@
+{
+  "boundary_methods" : [ {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/io/ObjectInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 4079,
+      "pc" : 152,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }]
+    }]
+  }, {
+    "caller" : {
+      "name" : "SqlOrderBy",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Ljava/util/List;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1510,
+      "pc" : 66,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }]
+  }, {
+    "caller" : {
+      "name" : "invoke",
+      "declaringClass" : "Lsun/reflect/DelegatingMethodAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 43,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor5;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 601,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/RandomAccessFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 617,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/RandomAccessFile$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/RandomAccessFile;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "makePairwiseConvertByEditor",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleImpl;",
+      "returnType" : "Ljava/lang/invoke/MethodHandle;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodHandle;", "Ljava/lang/invoke/MethodType;", "Z", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 231,
+      "pc" : 169,
+      "targets" : [ {
+        "method" : {
+          "name" : "copyWithExtendL",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }
+  ]
+}

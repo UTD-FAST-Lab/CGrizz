@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-19T17:28:40.621660",
+  "success": false,
+  "loops_used": 0,
+  "reason": "Test case generation failed.",
+  "identity": {
+    "program_name": "VC4",
+    "tool_name": "WALA",
+    "algorithm": "0-CFA",
+    "boundary_index": 0,
+    "boundary_id": "b0_Class.<clinit>__ClassLoader.loadClass"
+  },
+  "artifacts": {
+    "unsoundness_report": "../results/VC4/WALA/0-CFA/b0_Class.<clinit>__ClassLoader.loadClass/unsoundness_report.json",
+    "reproducing_test_case": null,
+    "non_reproducing_test_case": null,
+    "staticcg": null,
+    "dyncg": null,
+    "boundary": null,
+    "annotated_sa_tool": null,
+    "modified_analysis": null
+  },
+  "feedback_history": {
+    "reproduce_feedback": [],
+    "trace_feedback": []
+  }
+}

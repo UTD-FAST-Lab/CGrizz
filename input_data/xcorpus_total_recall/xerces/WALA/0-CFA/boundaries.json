@@ -1,0 +1,5009 @@
+{
+  "boundary_methods" : [ {
+    "caller" : {
+      "name" : "copyMethod",
+      "declaringClass" : "Ljava/lang/reflect/ReflectAccess;",
+      "returnType" : "Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Method;" ]
+    },
+    "callSites" : [ {
+      "line" : 140,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "copy",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/reflect/Method;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getConstructor0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Constructor;",
+      "parameterTypes" : [ "[Ljava/lang/Class;", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 3075,
+      "pc" : 10,
+      "targets" : [ {
+        "method" : {
+          "name" : "privateGetDeclaredConstructors",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "[Ljava/lang/reflect/Constructor;",
+          "parameterTypes" : [ "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 3079,
+      "pc" : 56,
+      "targets" : [ {
+        "method" : {
+          "name" : "copyConstructor",
+          "declaringClass" : "Lsun/reflect/ReflectionFactory;",
+          "returnType" : "Ljava/lang/reflect/Constructor;",
+          "parameterTypes" : [ "Ljava/lang/reflect/Constructor;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "B" ]
+    },
+    "callSites" : [ {
+      "line" : 597,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineInitVerify",
+      "declaringClass" : "Ljava/security/SignatureSpi;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/PublicKey;", "Ljava/security/spec/AlgorithmParameterSpec;" ]
+    },
+    "callSites" : [ {
+      "line" : 90,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineSetParameter",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 96,
+      "pc" : 24,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInitVerify",
+          "declaringClass" : "Lsun/security/rsa/RSASignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/PublicKey;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineInitVerify",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/PublicKey;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "current",
+      "declaringClass" : "Lsun/nio/ch/NativeThread;",
+      "returnType" : "J",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 936,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MemberName;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 940,
+      "pc" : 73,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/lang/invoke/MemberName;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 947,
+      "pc" : 149,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "encodePoint",
+      "declaringClass" : "Lsun/security/util/ECUtil;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/security/spec/ECPoint;", "Ljava/security/spec/EllipticCurve;" ]
+    },
+    "callSites" : [ {
+      "line" : 68,
+      "pc" : 27,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAffineY",
+          "declaringClass" : "Ljava/security/spec/ECPoint;",
+          "returnType" : "Ljava/math/BigInteger;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 67,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAffineX",
+          "declaringClass" : "Ljava/security/spec/ECPoint;",
+          "returnType" : "Ljava/math/BigInteger;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 67,
+      "pc" : 30,
+      "targets" : [ {
+        "method" : {
+          "name" : "asLongBuffer",
+          "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+          "returnType" : "Ljava/nio/LongBuffer;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 66,
+      "pc" : 24,
+      "targets" : [ {
+        "method" : {
+          "name" : "order",
+          "declaringClass" : "Ljava/nio/ByteBuffer;",
+          "returnType" : "Ljava/nio/ByteBuffer;",
+          "parameterTypes" : [ "Ljava/nio/ByteOrder;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "equals",
+      "declaringClass" : "Ljava/util/Arrays;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "[Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 2829,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$Name;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "implClose",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 378,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Lorg/apache/xerces/impl/XMLEntityManager$RewindableInputStream;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljavax/crypto/KeyGenerator;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 454,
+      "pc" : 29,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsKeyMaterialGenerator;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsPrfGenerator;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsMasterSecretGenerator;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketCreate",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "setProperty",
+      "declaringClass" : "Ljava/lang/System;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 798,
+      "pc" : 31,
+      "targets" : [ {
+        "method" : {
+          "name" : "setProperty",
+          "declaringClass" : "Ljava/util/Properties;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 251,
+      "pc" : 24,
+      "targets" : [ {
+        "method" : {
+          "name" : "fillInStackTrace",
+          "declaringClass" : "Lorg/apache/xerces/impl/XMLEntityScanner$1;",
+          "returnType" : "Ljava/lang/Throwable;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/net/SocketInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getManifestNum",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryCrc",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "encoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newEncoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 86,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "encode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[C", "I", "I", "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketAvailable",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getProperty",
+      "declaringClass" : "Ljava/lang/System;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 758,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "getProperty",
+          "declaringClass" : "Ljava/util/Properties;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getNextEntry",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyField",
+      "declaringClass" : "Ljava/lang/reflect/ReflectAccess;",
+      "returnType" : "Ljava/lang/reflect/Field;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Field;" ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "copy",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/reflect/Field;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPhase",
+      "declaringClass" : "Ljavax/crypto/KeyAgreement;",
+      "returnType" : "Ljava/security/Key;",
+      "parameterTypes" : [ "Ljava/security/Key;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 567,
+      "pc" : 10,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDoPhase",
+          "declaringClass" : "Lsun/security/ec/ECDHKeyAgreement;",
+          "returnType" : "Ljava/security/Key;",
+          "parameterTypes" : [ "Ljava/security/Key;", "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "add",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : 98,
+      "pc" : 13,
+      "targets" : [ {
+        "method" : {
+          "name" : "put",
+          "declaringClass" : "Ljava/nio/DirectLongBufferU;",
+          "returnType" : "Ljava/nio/LongBuffer;",
+          "parameterTypes" : [ "I", "J" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "permitsImpl",
+      "declaringClass" : "Lsun/security/util/DisabledAlgorithmConstraints$KeySizeConstraint;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/security/Key;" ]
+    },
+    "callSites" : [ {
+      "line" : 942,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAlgorithm",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getOutputSize",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "I",
+      "parameterTypes" : [ "I" ]
+    },
+    "callSites" : [ {
+      "line" : 966,
+      "pc" : 47,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetOutputSize",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "I",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "invoke0",
+      "declaringClass" : "Lsun/reflect/NativeMethodAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Method;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "values",
+          "declaringClass" : "Lsun/security/ssl/SupportedGroupsExtension$NamedGroupType;",
+          "returnType" : "[Lsun/security/ssl/SupportedGroupsExtension$NamedGroupType;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "values",
+          "declaringClass" : "Ljava/security/CryptoPrimitive;",
+          "returnType" : "[Ljava/security/CryptoPrimitive;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "values",
+          "declaringClass" : "Lsun/security/validator/CADistrustPolicy;",
+          "returnType" : "[Lsun/security/validator/CADistrustPolicy;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "reset",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 709,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReset",
+          "declaringClass" : "Lsun/nio/cs/ext/ISO2022_JP$Decoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEncoded",
+      "declaringClass" : "Ljava/security/AlgorithmParameters;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 362,
+      "pc" : 21,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetEncoded",
+          "declaringClass" : "Lsun/security/util/ECParameters;",
+          "returnType" : "[B",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceNode",
+      "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 1106,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "searchFields",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Field;",
+      "parameterTypes" : [ "[Ljava/lang/reflect/Field;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 2958,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "startsWithLOC",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "open",
+      "declaringClass" : "Ljava/io/FileInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 195,
+      "pc" : 2,
+      "targets" : [ {
+        "method" : {
+          "name" : "open0",
+          "declaringClass" : "Ljava/io/FileInputStream;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "putVal",
+      "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 1012,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MemberName;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getMetaInfEntryNames",
+      "declaringClass" : "Ljava/util/jar/JarFile;",
+      "returnType" : "[Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getName",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 642,
+      "pc" : 11,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName0",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/security/provider/certpath/AlgorithmChecker;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/cert/TrustAnchor;", "Ljava/security/AlgorithmConstraints;", "Ljava/util/Date;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "getTrustedCert",
+          "declaringClass" : "Ljava/security/cert/TrustAnchor;",
+          "returnType" : "Ljava/security/cert/X509Certificate;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 145,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "getTrustedCert",
+          "declaringClass" : "Ljava/security/cert/TrustAnchor;",
+          "returnType" : "Ljava/security/cert/X509Certificate;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 1397,
+      "pc" : 35,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "V",
+          "parameterTypes" : [ "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "acquireMethodAccessor",
+      "declaringClass" : "Ljava/lang/reflect/Method;",
+      "returnType" : "Lsun/reflect/MethodAccessor;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 559,
+      "pc" : 13,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMethodAccessor",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Lsun/reflect/MethodAccessor;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Lsun/nio/fs/UnixNativeDispatcher;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "printStackTrace",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Throwable$PrintStreamOrWriter;" ]
+    },
+    "callSites" : [ {
+      "line" : 666,
+      "pc" : 141,
+      "targets" : [ {
+        "method" : {
+          "name" : "getCause",
+          "declaringClass" : "Lorg/xml/sax/SAXException;",
+          "returnType" : "Ljava/lang/Throwable;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketWrite0",
+      "declaringClass" : "Ljava/net/SocketOutputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/FileDescriptor;", "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "readBytes",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 284,
+      "pc" : 135,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Lorg/apache/xerces/impl/XMLEntityManager$RewindableInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getKeyManagers",
+      "declaringClass" : "Ljavax/net/ssl/KeyManagerFactory;",
+      "returnType" : "[Ljavax/net/ssl/KeyManager;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 289,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetKeyManagers",
+          "declaringClass" : "Lsun/security/ssl/KeyManagerFactoryImpl;",
+          "returnType" : "[Ljavax/net/ssl/KeyManager;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getKeySize",
+      "declaringClass" : "Lsun/security/util/KeyUtil;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/security/AlgorithmParameters;" ]
+    },
+    "callSites" : [ {
+      "line" : 121,
+      "pc" : 110,
+      "targets" : [ {
+        "method" : {
+          "name" : "getKeySize",
+          "declaringClass" : "Lsun/security/util/ECKeySizeParameterSpec;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getKeyUniverse",
+      "declaringClass" : "Ljava/util/EnumMap;",
+      "returnType" : "[Ljava/lang/Enum;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 754,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getEnumConstantsShared",
+          "declaringClass" : "Ljava/lang/System$2;",
+          "returnType" : "[Ljava/lang/Enum;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntrySize",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "hash",
+      "declaringClass" : "Ljava/util/HashMap;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 340,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Lorg/apache/xerces/impl/dtd/models/CMStateSet;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generateCertPath",
+      "declaringClass" : "Ljava/security/cert/CertificateFactory;",
+      "returnType" : "Ljava/security/cert/CertPath;",
+      "parameterTypes" : [ "Ljava/util/List;" ]
+    },
+    "callSites" : [ {
+      "line" : 422,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGenerateCertPath",
+          "declaringClass" : "Lsun/security/provider/X509Factory;",
+          "returnType" : "Ljava/security/cert/CertPath;",
+          "parameterTypes" : [ "Ljava/util/List;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineReset",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 626,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineReset",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "inflateBytes",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J", "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "checkConstraints",
+      "declaringClass" : "Lsun/security/util/DisabledAlgorithmConstraints;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/util/Set;", "Ljava/lang/String;", "Ljava/security/Key;", "Ljava/security/AlgorithmParameters;" ]
+    },
+    "callSites" : [ {
+      "line" : 282,
+      "pc" : 41,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAlgorithm",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "implInit",
+      "declaringClass" : "Ljavax/crypto/KeyAgreement;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljavax/crypto/KeyAgreementSpi;", "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 346,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lsun/security/ec/ECDHKeyAgreement;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/Key;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generateKey",
+      "declaringClass" : "Ljavax/crypto/KeyGenerator;",
+      "returnType" : "Ljavax/crypto/SecretKey;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 546,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGenerateKey",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsPrfGenerator$V12;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineGenerateKey",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsKeyMaterialGenerator;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineGenerateKey",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsMasterSecretGenerator;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "defineClass",
+      "declaringClass" : "Lsun/misc/Unsafe;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[B", "I", "I", "Ljava/lang/ClassLoader;", "Ljava/security/ProtectionDomain;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "addClass",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 601,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "entrypoint",
+      "declaringClass" : "LEntrypoint;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 23,
+      "pc" : 18,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDocumentBuilder",
+          "declaringClass" : "Lorg/apache/xerces/jaxp/DocumentBuilderFactoryImpl;",
+          "returnType" : "Ljavax/xml/parsers/DocumentBuilder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 21,
+      "pc" : 8,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 32,
+      "pc" : 45,
+      "targets" : [ {
+        "method" : {
+          "name" : "parse",
+          "declaringClass" : "Ljavax/xml/parsers/DocumentBuilder;",
+          "returnType" : "Lorg/w3c/dom/Document;",
+          "parameterTypes" : [ "Ljava/io/InputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 24,
+      "pc" : 30,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "setErrorHandler",
+          "declaringClass" : "Lorg/apache/xerces/jaxp/DocumentBuilderImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Lorg/xml/sax/ErrorHandler;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 22,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "setValidating",
+          "declaringClass" : "Ljavax/xml/parsers/DocumentBuilderFactory;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getCertificate",
+      "declaringClass" : "Ljava/security/KeyStore;",
+      "returnType" : "Ljava/security/cert/Certificate;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 1081,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetCertificate",
+          "declaringClass" : "Lsun/security/provider/JavaKeyStore$DualFormatJKS;",
+          "returnType" : "Ljava/security/cert/Certificate;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doFinal",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 2051,
+      "pc" : 15,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDoFinal",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "[B",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initProto",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generateKeyPair",
+      "declaringClass" : "Ljava/security/KeyPairGenerator$Delegate;",
+      "returnType" : "Ljava/security/KeyPair;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 703,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "generateKeyPair",
+          "declaringClass" : "Lsun/security/ec/ECKeyPairGenerator;",
+          "returnType" : "Ljava/security/KeyPair;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/net/SocketOutputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CoderResult;",
+      "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 579,
+      "pc" : 57,
+      "targets" : [ {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/UnicodeDecoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/ext/EUC_JP$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/SingleByte$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/ext/DoubleByte$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/ext/ISO2022_JP$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getDeclaredMethods0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "[Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "updateAAD",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 2718,
+      "pc" : 50,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdateAAD",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "checkServerCerts",
+      "declaringClass" : "Lsun/security/ssl/CertificateMessage$T12CertificateConsumer;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lsun/security/ssl/ClientHandshakeContext;", "[Ljava/security/cert/X509Certificate;" ]
+    },
+    "callSites" : [ {
+      "line" : 638,
+      "pc" : 133,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkServerTrusted",
+          "declaringClass" : "Lsun/security/ssl/X509TrustManagerImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[Ljava/security/cert/X509Certificate;", "Ljava/lang/String;", "Ljava/net/Socket;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tryHandlePending",
+      "declaringClass" : "Ljava/lang/ref/Reference;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 217,
+      "pc" : 109,
+      "targets" : [ {
+        "method" : {
+          "name" : "enqueue",
+          "declaringClass" : "Ljava/lang/ref/ReferenceQueue;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/ref/Reference;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketSetOption",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I", "Z", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 118,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "socketSetOption0",
+          "declaringClass" : "Ljava/net/PlainSocketImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ "I", "Z", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "parseString",
+      "declaringClass" : "Ljazzer/InputParser;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "makeAltNames",
+      "declaringClass" : "Lsun/security/x509/X509CertImpl;",
+      "returnType" : "Ljava/util/Collection;",
+      "parameterTypes" : [ "Lsun/security/x509/GeneralNames;" ]
+    },
+    "callSites" : [ {
+      "line" : 1593,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "isEmpty",
+          "declaringClass" : "Lsun/security/x509/GeneralNames;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1598,
+      "pc" : 49,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/GeneralName;",
+          "returnType" : "Lsun/security/x509/GeneralNameInterface;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1597,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "names",
+          "declaringClass" : "Lsun/security/x509/GeneralNames;",
+          "returnType" : "Ljava/util/List;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "lookupAllHostAddr",
+      "declaringClass" : "Ljava/net/Inet4AddressImpl;",
+      "returnType" : "[Ljava/net/InetAddress;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getSocketFactory",
+      "declaringClass" : "Ljavax/net/ssl/SSLContext;",
+      "returnType" : "Ljavax/net/ssl/SSLSocketFactory;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 294,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetSocketFactory",
+          "declaringClass" : "Lsun/security/ssl/SSLContextImpl;",
+          "returnType" : "Ljavax/net/ssl/SSLSocketFactory;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getUniverse",
+      "declaringClass" : "Ljava/util/EnumSet;",
+      "returnType" : "[Ljava/lang/Enum;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 407,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getEnumConstantsShared",
+          "declaringClass" : "Ljava/lang/System$2;",
+          "returnType" : "[Ljava/lang/Enum;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/parsers/SecuritySupport$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lcom/sun/crypto/provider/SunJCE$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/net/www/protocol/http/HttpURLConnection$$Lambda$1/665576141;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/parsers/SecuritySupport$7;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleStatics$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/parsers/SecuritySupport$6;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/provider/KeyStoreDelegator$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/Class$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/parsers/SecuritySupport$4;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/impl/dv/SecuritySupport$2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/parsers/SecuritySupport$2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/ssl/AlpnExtension$$Lambda$2/1987375157;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/impl/dv/SecuritySupport$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/util/UntrustedCertificates$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/invoke/InnerClassLambdaMetafactory$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleImpl$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/impl/XMLEntityManager$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/ec/SunEC$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lorg/apache/xerces/impl/dv/SecuritySupport$4;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/validator/CADistrustPolicy$2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljazzer/InputParser;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 5,
+      "pc" : 2,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/StringCoding$StringEncoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/nio/charset/Charset;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 282,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "newEncoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/util/Hashtable;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 364,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Lorg/apache/xerces/impl/dtd/XMLDTDDescription;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/lang/reflect/Constructor;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 423,
+      "pc" : 79,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/DelegatingConstructorAccessorImpl;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/BootstrapConstructorAccessorImpl;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 420,
+      "pc" : 73,
+      "targets" : [ {
+        "method" : {
+          "name" : "acquireConstructorAccessor",
+          "declaringClass" : "Ljava/lang/reflect/Constructor;",
+          "returnType" : "Lsun/reflect/ConstructorAccessor;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getParameterSpec",
+      "declaringClass" : "Ljava/security/AlgorithmParameters;",
+      "returnType" : "Ljava/security/spec/AlgorithmParameterSpec;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 344,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetParameterSpec",
+          "declaringClass" : "Lsun/security/util/ECParameters;",
+          "returnType" : "Ljava/security/spec/AlgorithmParameterSpec;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineGetParameterSpec",
+          "declaringClass" : "Lcom/sun/crypto/provider/DHParameters;",
+          "returnType" : "Ljava/security/spec/AlgorithmParameterSpec;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "reset",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "permits",
+      "declaringClass" : "Lsun/security/util/DisabledAlgorithmConstraints$Constraints;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/security/Key;" ]
+    },
+    "callSites" : [ {
+      "line" : 446,
+      "pc" : 2,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAlgorithm",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 37,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "register",
+          "declaringClass" : "Ljava/lang/ref/Finalizer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryBytes",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "J", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "[C",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 48,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "isIPv6Supported",
+      "declaringClass" : "Ljava/net/InetAddressImplFactory;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initialize",
+      "declaringClass" : "Ljava/security/KeyPairGenerator$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 674,
+      "pc" : 29,
+      "targets" : [ {
+        "method" : {
+          "name" : "initialize",
+          "declaringClass" : "Lsun/security/ec/ECKeyPairGenerator;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "open",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "J", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/nio/charset/Charset;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 131,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Lsun/nio/ch/FileDispatcherImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/security/ssl/AlpnExtension;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 69,
+      "pc" : 110,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/389993238;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "defineClass1",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[B", "I", "I", "Ljava/security/ProtectionDomain;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "addClass",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read0",
+      "declaringClass" : "Lsun/nio/ch/FileDispatcherImpl;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/io/FileDescriptor;", "J", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineVerify",
+      "declaringClass" : "Ljava/security/Signature$Delegate;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 1394,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineVerify",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineVerify",
+          "declaringClass" : "Lsun/security/rsa/RSASignature;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getMethod",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 1784,
+      "pc" : 13,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMethod0",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/reflect/Method;",
+          "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/Class;", "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getTotal",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntry",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J", "[B", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getLocalizedMessage",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 392,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMessage",
+          "declaringClass" : "Lorg/apache/xerces/impl/io/MalformedByteSequenceException;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getMessage",
+          "declaringClass" : "Lorg/xml/sax/SAXException;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "size0",
+      "declaringClass" : "Lsun/nio/ch/FileDispatcherImpl;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/io/FileDescriptor;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getNetProperty",
+      "declaringClass" : "Lsun/net/www/protocol/http/HttpURLConnection;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 215,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1599771323;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "nextIndex",
+      "declaringClass" : "Ljava/util/SubList$1;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 724,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "nextIndex",
+          "declaringClass" : "Ljava/util/AbstractList$ListItr;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getTrustManagers",
+      "declaringClass" : "Ljavax/net/ssl/TrustManagerFactory;",
+      "returnType" : "[Ljavax/net/ssl/TrustManager;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 285,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGetTrustManagers",
+          "declaringClass" : "Lsun/security/ssl/TrustManagerFactoryImpl;",
+          "returnType" : "[Ljavax/net/ssl/TrustManager;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getKeyUsage",
+      "declaringClass" : "Lsun/security/x509/X509CertImpl;",
+      "returnType" : "[Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1501,
+      "pc" : 29,
+      "targets" : [ {
+        "method" : {
+          "name" : "getBits",
+          "declaringClass" : "Lsun/security/x509/KeyUsageExtension;",
+          "returnType" : "[Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "fillInStackTrace",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "Ljava/lang/Throwable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 784,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "fillInStackTrace",
+          "declaringClass" : "Ljava/lang/Throwable;",
+          "returnType" : "Ljava/lang/Throwable;",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljavax/net/ssl/TrustManagerFactory;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/KeyStore;" ]
+    },
+    "callSites" : [ {
+      "line" : 250,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lsun/security/ssl/TrustManagerFactoryImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/KeyStore;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "blockedOn",
+      "declaringClass" : "Ljava/nio/channels/spi/AbstractInterruptibleChannel;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lsun/nio/ch/Interruptible;" ]
+    },
+    "callSites" : [ {
+      "line" : 211,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "blockedOn",
+          "declaringClass" : "Ljava/lang/System$2;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Thread;", "Lsun/nio/ch/Interruptible;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "find",
+      "declaringClass" : "Ljava/util/HashMap$TreeNode;",
+      "returnType" : "Ljava/util/HashMap$TreeNode;",
+      "parameterTypes" : [ "I", "Ljava/lang/Object;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 1891,
+      "pc" : 68,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/apache/xerces/impl/dtd/models/CMStateSet;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/security/ssl/ECDHKeyExchange$ECDHEPossession;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lsun/security/ssl/ECDHKeyExchange$ECDHECredentials;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 124,
+      "pc" : 8,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParams",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/security/spec/ECParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 129,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPrivate",
+          "declaringClass" : "Ljava/security/KeyPair;",
+          "returnType" : "Ljava/security/PrivateKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 130,
+      "pc" : 47,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPublic",
+          "declaringClass" : "Ljava/security/KeyPair;",
+          "returnType" : "Ljava/security/PublicKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "charsetName",
+      "declaringClass" : "Ljava/lang/StringCoding$StringEncoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 290,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "historicalName",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryCSize",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetEncoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 84,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 299,
+      "pc" : 53,
+      "targets" : [ {
+        "method" : {
+          "name" : "isLegalReplacement",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "load",
+      "declaringClass" : "Ljava/lang/ClassLoader$NativeLibrary;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFromClass",
+          "declaringClass" : "Ljava/lang/ClassLoader$NativeLibrary;",
+          "returnType" : "Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getObject",
+      "declaringClass" : "Ljava/util/Currency$CurrencyNameGetter;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/util/spi/CurrencyNameProvider;", "Ljava/util/Locale;", "Ljava/lang/String;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 642,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "getSymbol",
+          "declaringClass" : "Lsun/util/locale/provider/CurrencyNameProviderImpl;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/util/Locale;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getcwd",
+      "declaringClass" : "Lsun/nio/fs/UnixNativeDispatcher;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryMethod",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "parseExtension",
+      "declaringClass" : "Lsun/security/x509/CertificateExtensions;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lsun/security/x509/Extension;" ]
+    },
+    "callSites" : [ {
+      "line" : 114,
+      "pc" : 103,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/SubjectAlternativeNameExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/PrivateKeyUsageExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/CRLDistributionPointsExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/CertificatePoliciesExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/NetscapeCertTypeExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/SubjectKeyIdentifierExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/KeyUsageExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/BasicConstraintsExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/AuthorityKeyIdentifierExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/ExtendedKeyUsageExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Lsun/security/x509/AuthorityInfoAccessExtension;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "aliases",
+      "declaringClass" : "Ljava/security/KeyStore;",
+      "returnType" : "Ljava/util/Enumeration;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1235,
+      "pc" : 21,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineAliases",
+          "declaringClass" : "Lsun/security/provider/JavaKeyStore$DualFormatJKS;",
+          "returnType" : "Ljava/util/Enumeration;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tryOperation",
+      "declaringClass" : "Ljava/security/Signature$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/SignatureSpi;", "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 1295,
+      "pc" : 106,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineSetParameter",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "load",
+      "declaringClass" : "Ljava/security/KeyStore;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/InputStream;", "[C" ]
+    },
+    "callSites" : [ {
+      "line" : 1445,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineLoad",
+          "declaringClass" : "Lsun/security/provider/JavaKeyStore$DualFormatJKS;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/InputStream;", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getNode",
+      "declaringClass" : "Ljava/util/HashMap;",
+      "returnType" : "Ljava/util/HashMap$Node;",
+      "parameterTypes" : [ "I", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 573,
+      "pc" : 59,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/apache/xerces/impl/dtd/models/CMStateSet;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 580,
+      "pc" : 126,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/apache/xerces/impl/dtd/models/CMStateSet;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 417,
+      "pc" : 56,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/lang/Class$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/reflect/Constructor;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketRead0",
+      "declaringClass" : "Ljava/net/SocketInputStream;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/io/FileDescriptor;", "[B", "I", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "freeEntry",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J", "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/FileInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 334,
+      "pc" : 58,
+      "targets" : [ {
+        "method" : {
+          "name" : "closeAll",
+          "declaringClass" : "Ljava/io/FileDescriptor;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/Closeable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 334,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/FileInputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/FileInputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryTime",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "loadLibrary",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/String;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 1823,
+      "pc" : 88,
+      "targets" : [ {
+        "method" : {
+          "name" : "findLibrary",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findLibrary",
+          "declaringClass" : "Lsun/misc/Launcher$ExtClassLoader;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createLong",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "Ljava/nio/ByteBuffer;",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "I", "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "J", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketConnect",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/net/InetAddress;", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/InputStream;", "Ljava/lang/Object;", "Ljava/nio/charset/Charset;" ]
+    },
+    "callSites" : [ {
+      "line" : 232,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_16;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/ext/ISO2022_JP;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/ext/SJIS;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/MS1251;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/MS1252;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/ext/EUC_JP;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Lsun/nio/ch/IOUtil;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "open0",
+      "declaringClass" : "Lsun/nio/fs/UnixNativeDispatcher;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/security/AlgorithmParameters;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 293,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lsun/security/util/ECParameters;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toString",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "[B", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 56,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generateCertificate",
+      "declaringClass" : "Ljava/security/cert/CertificateFactory;",
+      "returnType" : "Ljava/security/cert/Certificate;",
+      "parameterTypes" : [ "Ljava/io/InputStream;" ]
+    },
+    "callSites" : [ {
+      "line" : 339,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGenerateCertificate",
+          "declaringClass" : "Lsun/security/provider/X509Factory;",
+          "returnType" : "Ljava/security/cert/Certificate;",
+          "parameterTypes" : [ "Ljava/io/InputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "end",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "implInit",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljavax/crypto/CipherSpi;", "I", "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/AlgorithmParameters;", "Ljava/security/SecureRandom;" ]
+    },
+    "callSites" : [ {
+      "line" : 809,
+      "pc" : 68,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "V",
+          "parameterTypes" : [ "I", "Ljava/security/Key;", "Ljava/security/spec/AlgorithmParameterSpec;", "Ljava/security/SecureRandom;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Lsun/nio/cs/SingleByte$Decoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Lsun/nio/ch/NativeThread;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generateSecret",
+      "declaringClass" : "Ljavax/crypto/KeyAgreement;",
+      "returnType" : "Ljavax/crypto/SecretKey;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 648,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGenerateSecret",
+          "declaringClass" : "Lsun/security/ec/ECDHKeyAgreement;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "findLoadedClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 1031,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "findLoadedClass0",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "Ljava/lang/Class;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "hashCode",
+      "declaringClass" : "Ljava/util/Arrays;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 4146,
+      "pc" : 43,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/lang/invoke/MethodType;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "findBundleInCache",
+      "declaringClass" : "Ljava/util/ResourceBundle;",
+      "returnType" : "Ljava/util/ResourceBundle;",
+      "parameterTypes" : [ "Ljava/util/ResourceBundle$CacheKey;", "Ljava/util/ResourceBundle$Control;" ]
+    },
+    "callSites" : [ {
+      "line" : 1650,
+      "pc" : 122,
+      "targets" : [ {
+        "method" : {
+          "name" : "getCacheKey",
+          "declaringClass" : "Ljava/util/ResourceBundle$BundleReference;",
+          "returnType" : "Ljava/util/ResourceBundle$CacheKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "nextBytes",
+      "declaringClass" : "Ljava/security/SecureRandom;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 468,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineNextBytes",
+          "declaringClass" : "Lsun/security/provider/NativePRNG;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getSubjectAlternativeNames",
+      "declaringClass" : "Lsun/security/x509/X509CertImpl;",
+      "returnType" : "Ljava/util/Collection;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1694,
+      "pc" : 37,
+      "targets" : [ {
+        "method" : {
+          "name" : "get",
+          "declaringClass" : "Lsun/security/x509/SubjectAlternativeNameExtension;",
+          "returnType" : "Lsun/security/x509/GeneralNames;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "start",
+      "declaringClass" : "Ljava/lang/Thread;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 719,
+      "pc" : 26,
+      "targets" : [ {
+        "method" : {
+          "name" : "start0",
+          "declaringClass" : "Ljava/lang/Thread;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 715,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "add",
+          "declaringClass" : "Ljava/lang/ThreadGroup;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Thread;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/security/ssl/ECDHClientKeyExchange$ECDHClientKeyExchangeMessage;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lsun/security/ssl/HandshakeContext;", "Ljava/security/interfaces/ECPublicKey;" ]
+    },
+    "callSites" : [ {
+      "line" : 78,
+      "pc" : 13,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParams",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/security/spec/ECParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 77,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "getW",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/security/spec/ECPoint;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/Signature$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 1372,
+      "pc" : 11,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/rsa/RSASignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/net/Inet4Address;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "create",
+      "declaringClass" : "Lsun/nio/cs/ThreadLocalCoders$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 98,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "charsetName",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 139,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "historicalName",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineDigest",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 617,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDigest",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "[B",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getTrafficKey",
+      "declaringClass" : "Lsun/security/ssl/SSLTrafficKeyDerivation$LegacyTrafficKeyDerivation;",
+      "returnType" : "Ljavax/crypto/SecretKey;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 288,
+      "pc" : 257,
+      "targets" : [ {
+        "method" : {
+          "name" : "getServerIv",
+          "declaringClass" : "Lsun/security/internal/spec/TlsKeyMaterialSpec;",
+          "returnType" : "Ljavax/crypto/spec/IvParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 284,
+      "pc" : 224,
+      "targets" : [ {
+        "method" : {
+          "name" : "getClientIv",
+          "declaringClass" : "Lsun/security/internal/spec/TlsKeyMaterialSpec;",
+          "returnType" : "Ljavax/crypto/spec/IvParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 282,
+      "pc" : 216,
+      "targets" : [ {
+        "method" : {
+          "name" : "getServerCipherKey",
+          "declaringClass" : "Lsun/security/internal/spec/TlsKeyMaterialSpec;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 280,
+      "pc" : 208,
+      "targets" : [ {
+        "method" : {
+          "name" : "getClientCipherKey",
+          "declaringClass" : "Lsun/security/internal/spec/TlsKeyMaterialSpec;",
+          "returnType" : "Ljavax/crypto/SecretKey;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "inReady",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 363,
+      "pc" : 11,
+      "targets" : [ {
+        "method" : {
+          "name" : "available",
+          "declaringClass" : "Lorg/apache/xerces/impl/XMLEntityManager$RewindableInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/net/InetAddress;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close0",
+      "declaringClass" : "Lsun/nio/ch/FileDispatcherImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/FileDescriptor;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljavax/net/ssl/KeyManagerFactory;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/KeyStore;", "[C" ]
+    },
+    "callSites" : [ {
+      "line" : 256,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lsun/security/ssl/KeyManagerFactoryImpl$SunX509;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/KeyStore;", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doFinal",
+      "declaringClass" : "Ljavax/crypto/Cipher;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/ByteBuffer;" ]
+    },
+    "callSites" : [ {
+      "line" : 2463,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDoFinal",
+          "declaringClass" : "Ljavax/crypto/CipherSpi;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/ByteBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntryFlag",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/util/logging/LoggingSupport$1;",
+      "returnType" : "Lsun/util/logging/LoggingProxy;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 57,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "get",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "iovMax",
+      "declaringClass" : "Lsun/nio/ch/IOUtil;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/security/AlgorithmParameters;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;" ]
+    },
+    "callSites" : [ {
+      "line" : 275,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lcom/sun/crypto/provider/DHParameters;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineInit",
+          "declaringClass" : "Lsun/security/util/ECParameters;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/security/spec/AlgorithmParameterSpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generatePublic",
+      "declaringClass" : "Ljava/security/KeyFactory;",
+      "returnType" : "Ljava/security/PublicKey;",
+      "parameterTypes" : [ "Ljava/security/spec/KeySpec;" ]
+    },
+    "callSites" : [ {
+      "line" : 334,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineGeneratePublic",
+          "declaringClass" : "Lsun/security/ec/ECKeyFactory;",
+          "returnType" : "Ljava/security/PublicKey;",
+          "parameterTypes" : [ "Ljava/security/spec/KeySpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "engineGeneratePublic",
+          "declaringClass" : "Lsun/security/rsa/RSAKeyFactory;",
+          "returnType" : "Ljava/security/PublicKey;",
+          "parameterTypes" : [ "Ljava/security/spec/KeySpec;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getObject",
+      "declaringClass" : "Lsun/util/locale/provider/CalendarDataUtility$CalendarWeekParameterGetter;",
+      "returnType" : "Ljava/lang/Integer;",
+      "parameterTypes" : [ "Ljava/util/spi/CalendarDataProvider;", "Ljava/util/Locale;", "Ljava/lang/String;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 197,
+      "pc" : 114,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFirstDayOfWeek",
+          "declaringClass" : "Lsun/util/locale/provider/CalendarDataProviderImpl;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/util/Locale;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 200,
+      "pc" : 124,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMinimalDaysInFirstWeek",
+          "declaringClass" : "Lsun/util/locale/provider/CalendarDataProviderImpl;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/util/Locale;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "socketClose0",
+      "declaringClass" : "Ljava/net/PlainSocketImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "valueOf",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 2994,
+      "pc" : 10,
+      "targets" : [ {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/xml/sax/SAXParseException;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Ljava/lang/invoke/MethodType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "setModePadding",
+      "declaringClass" : "Ljavax/crypto/Cipher$Transform;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljavax/crypto/CipherSpi;" ]
+    },
+    "callSites" : [ {
+      "line" : 380,
+      "pc" : 27,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineSetPadding",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 377,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineSetMode",
+          "declaringClass" : "Lcom/sun/crypto/provider/AESCipher;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/security/internal/spec/TlsKeyMaterialParameterSpec;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljavax/crypto/SecretKey;", "I", "I", "[B", "[B", "Ljava/lang/String;", "I", "I", "I", "I", "Ljava/lang/String;", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 97,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "getAlgorithm",
+          "declaringClass" : "Lcom/sun/crypto/provider/TlsMasterSecretGenerator$TlsMasterSecretKey;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J", "J", "J", "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getKeySize",
+      "declaringClass" : "Lsun/security/util/KeyUtil;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/security/Key;" ]
+    },
+    "callSites" : [ {
+      "line" : 91,
+      "pc" : 120,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParams",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/security/spec/ECParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/Signature$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "B" ]
+    },
+    "callSites" : [ {
+      "line" : 1366,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ "B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "J",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 83,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "get",
+          "declaringClass" : "Ljava/nio/DirectLongBufferU;",
+          "returnType" : "J",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getNamedCurveFromKey",
+      "declaringClass" : "Lsun/security/util/DisabledAlgorithmConstraints;",
+      "returnType" : "Ljava/util/List;",
+      "parameterTypes" : [ "Ljava/security/Key;" ]
+    },
+    "callSites" : [ {
+      "line" : 257,
+      "pc" : 11,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParams",
+          "declaringClass" : "Lsun/security/ec/ECPublicKeyImpl;",
+          "returnType" : "Ljava/security/spec/ECParameterSpec;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/net/Inet6Address;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "forName0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z", "Ljava/lang/ClassLoader;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/DSA;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/nio/cs/ext/SJIS;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA2$SHA256;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA5$SHA384;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/x509/NetscapeCertTypeExtension;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA5;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/nio/cs/MS1252;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Ljava/util/logging/LoggingProxyImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/rsa/RSAKeyFactory;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/certpath/PKIXCertPathValidator;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/nio/cs/MS1251;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/krb5/PrincipalName;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/rsa/RSAPSSSignature;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/KeyStoreDelegator;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA2;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/x509/ExtendedKeyUsageExtension;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA2$SHA224;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/SHA5$SHA512;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "encode",
+      "declaringClass" : "Ljava/lang/StringCoding$StringEncoder;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "[C", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 304,
+      "pc" : 48,
+      "targets" : [ {
+        "method" : {
+          "name" : "encode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[C", "I", "I", "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "available",
+      "declaringClass" : "Ljava/io/FileInputStream;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 306,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "available0",
+          "declaringClass" : "Ljava/io/FileInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "recurseDirectories",
+      "declaringClass" : "LEntrypoint;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/File;" ]
+    },
+    "callSites" : [ {
+      "line" : 41,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkPackageAccess",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Lsun/nio/ch/FileChannelImpl;",
+      "returnType" : "J",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "findNative",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "J",
+          "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  } ]
+}

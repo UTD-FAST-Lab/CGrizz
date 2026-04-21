@@ -1,0 +1,3833 @@
+{
+  "boundary_methods" : [ {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/io/ObjectInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 4079,
+      "pc" : 152,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 4080,
+      "pc" : 160,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "closeAll",
+      "declaringClass" : "Ljava/io/FileDescriptor;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/Closeable;" ]
+    },
+    "callSites" : [ {
+      "line" : 212,
+      "pc" : 121,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/io/RandomAccessFile$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/io/FileOutputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/io/FileInputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlOrderBy",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Ljava/util/List;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1510,
+      "pc" : 66,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1508,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 220,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Lorg/axiondb/jdbc/AxionConnection;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 97,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "abortTransaction",
+      "declaringClass" : "Lorg/axiondb/engine/TransactionManagerImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lorg/axiondb/Transaction;" ]
+    },
+    "callSites" : [ {
+      "line" : 116,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/UNIXProcess$Platform;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 155,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "invoke",
+      "declaringClass" : "Lsun/reflect/DelegatingMethodAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 43,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor5;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor3;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor4;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "insertNotfull",
+      "declaringClass" : "Lorg/axiondb/util/ObjectBTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Object;", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 628,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Lorg/axiondb/util/BTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 831,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlRemount",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 209,
+      "pc" : 234,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 214,
+      "pc" : 314,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlWhere",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1740,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "encoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newEncoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "lambda$static$1",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "Ljava/util/concurrent/Executor;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 227,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 86,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "encode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[C", "I", "I", "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "rowDeleted",
+      "declaringClass" : "Lorg/axiondb/engine/BaseArrayIndex;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lorg/axiondb/event/RowEvent;" ]
+    },
+    "callSites" : [ {
+      "line" : 199,
+      "pc" : 189,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 197,
+      "pc" : 133,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 181,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Lorg/axiondb/util/ObjectBTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 842,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlTableRef",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/TableIdentifier;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1461,
+      "pc" : 115,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1456,
+      "pc" : 21,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "runWorker",
+      "declaringClass" : "Ljava/util/concurrent/ThreadPoolExecutor;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/util/concurrent/ThreadPoolExecutor$Worker;" ]
+    },
+    "callSites" : [ {
+      "line" : 1149,
+      "pc" : 95,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$7/1330106945;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "execute",
+      "declaringClass" : "Lorg/axiondb/jdbc/AxionStatement;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 97,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 92,
+      "pc" : 31,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "convert",
+      "declaringClass" : "Lorg/axiondb/util/ExceptionConverter;",
+      "returnType" : "Ljava/sql/SQLException;",
+      "parameterTypes" : [ "Ljava/lang/RuntimeException;" ]
+    },
+    "callSites" : [ {
+      "line" : 69,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlLiteral",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Literal;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1319,
+      "pc" : 98,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1344,
+      "pc" : 472,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1325,
+      "pc" : 189,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1339,
+      "pc" : 407,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1349,
+      "pc" : 546,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1354,
+      "pc" : 620,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1334,
+      "pc" : 325,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1329,
+      "pc" : 243,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlWhereNot",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1807,
+      "pc" : 146,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlDropSequence",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 521,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 523,
+      "pc" : 65,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlCreateIndex",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ "Z", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 355,
+      "pc" : 143,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 361,
+      "pc" : 255,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 351,
+      "pc" : 83,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 382,
+      "pc" : 481,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 363,
+      "pc" : 307,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 349,
+      "pc" : 31,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 357,
+      "pc" : 195,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 377,
+      "pc" : 418,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createOrLoadFreeIdsFile",
+      "declaringClass" : "Lorg/axiondb/engine/DiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 634,
+      "pc" : 102,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 626,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "commit",
+      "declaringClass" : "Lorg/axiondb/jdbc/AxionConnection;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 128,
+      "pc" : 86,
+      "targets" : [ {
+        "method" : {
+          "name" : "error",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Throwable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 115,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/FileInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 334,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/FileInputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/FileInputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "loadIndices",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/File;" ]
+    },
+    "callSites" : [ {
+      "line" : 191,
+      "pc" : 276,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 156,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 170,
+      "pc" : 69,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlDropTable",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 511,
+      "pc" : 65,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 509,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createOrLoadDataFile",
+      "declaringClass" : "Lorg/axiondb/engine/DiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 646,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 648,
+      "pc" : 50,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlCompareOp",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/ComparisonOperator;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1944,
+      "pc" : 318,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1924,
+      "pc" : 74,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1954,
+      "pc" : 440,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1949,
+      "pc" : 379,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1939,
+      "pc" : 257,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1929,
+      "pc" : 135,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1934,
+      "pc" : 196,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlIsClause",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/ComparisonOperator;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1968,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1972,
+      "pc" : 102,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1979,
+      "pc" : 161,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlCreateSequence",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 392,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 394,
+      "pc" : 73,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "rollback",
+      "declaringClass" : "Lorg/axiondb/engine/TransactableTableImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 412,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlOrderByList",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Ljava/util/List;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1545,
+      "pc" : 44,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "convert",
+      "declaringClass" : "Lorg/axiondb/util/ExceptionConverter;",
+      "returnType" : "Ljava/sql/SQLException;",
+      "parameterTypes" : [ "Lorg/axiondb/AxionException;" ]
+    },
+    "callSites" : [ {
+      "line" : 62,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "forName0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z", "Ljava/lang/ClassLoader;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "resolveExpression",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDatabase;",
+      "returnType" : "Lorg/axiondb/expression/Expression;",
+      "parameterTypes" : [ "Lorg/axiondb/expression/ExpressionIdentifier;", "[Lorg/axiondb/TableIdentifier;" ]
+    },
+    "callSites" : [ {
+      "line" : 736,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 601,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lorg/axiondb/engine/DiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/io/File;" ]
+    },
+    "callSites" : [ {
+      "line" : 96,
+      "pc" : 181,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 138,
+      "pc" : 415,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 90,
+      "pc" : 78,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlWhereAnd",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1789,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lorg/axiondb/engine/SortedMapIndex;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Lorg/axiondb/Column;", "Ljava/util/SortedMap;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 103,
+      "pc" : 106,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "addIndexType",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDatabase;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Lorg/axiondb/IndexFactory;" ]
+    },
+    "callSites" : [ {
+      "line" : 543,
+      "pc" : 126,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "[B", "I", "[B", "I", "[B", "[I", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 257,
+      "pc" : 39,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1094834071;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "evaluate",
+      "declaringClass" : "Lorg/axiondb/InWhereNode;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Lorg/axiondb/RowDecorator;" ]
+    },
+    "callSites" : [ {
+      "line" : 101,
+      "pc" : 85,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "resolveFunction",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDatabase;",
+      "returnType" : "Lorg/axiondb/functions/ConcreteFunction;",
+      "parameterTypes" : [ "Lorg/axiondb/functions/FunctionIdentifier;", "[Lorg/axiondb/TableIdentifier;" ]
+    },
+    "callSites" : [ {
+      "line" : 718,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 729,
+      "pc" : 159,
+      "targets" : [ {
+        "method" : {
+          "name" : "info",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 721,
+      "pc" : 48,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 724,
+      "pc" : 104,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlBetweenClause",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "[Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1990,
+      "pc" : 76,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1987,
+      "pc" : 15,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/InputStream;", "Ljava/lang/Object;", "Ljava/nio/charset/Charset;" ]
+    },
+    "callSites" : [ {
+      "line" : 232,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlOrderDirection",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1558,
+      "pc" : 58,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1562,
+      "pc" : 115,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initStreams",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[I" ]
+    },
+    "callSites" : [ {
+      "line" : 288,
+      "pc" : 125,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "write",
+      "declaringClass" : "Lorg/axiondb/util/ObjectBTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 797,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 37,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "register",
+          "declaringClass" : "Ljava/lang/ref/Finalizer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lorg/axiondb/engine/DiskDatabase;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/io/File;", "Ljava/util/Properties;" ]
+    },
+    "callSites" : [ {
+      "line" : 91,
+      "pc" : 52,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 121,
+      "pc" : 322,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Lsun/reflect/DelegatingConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 45,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor4;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor5;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor13;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor14;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor15;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor11;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor17;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor10;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor16;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor7;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor9;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor3;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor12;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor6;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedConstructorAccessor8;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/lang/reflect/Constructor;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 423,
+      "pc" : 79,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor23;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor11;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor5;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor10;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor7;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Lsun/reflect/GeneratedSerializationConstructorAccessor22;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "next",
+      "declaringClass" : "Lorg/axiondb/engine/rowiterators/LazyRowRowIterator;",
+      "returnType" : "Lorg/axiondb/Row;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 108,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "[C",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 48,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "executeQuery",
+      "declaringClass" : "Lorg/axiondb/engine/commands/CheckFileStateCommand;",
+      "returnType" : "Lorg/axiondb/jdbc/AxionResultSet;",
+      "parameterTypes" : [ "Lorg/axiondb/Database;" ]
+    },
+    "callSites" : [ {
+      "line" : 81,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 103,
+      "pc" : 189,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/nio/charset/Charset;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 131,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "emitNewArray",
+      "declaringClass" : "Ljava/lang/invoke/InvokerBytecodeGenerator;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/invoke/LambdaForm$Name;" ]
+    },
+    "callSites" : [ {
+      "line" : 889,
+      "pc" : 26,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkMethod",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke_MT",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/607635164;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "commitTransaction",
+      "declaringClass" : "Lorg/axiondb/engine/TransactionManagerImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lorg/axiondb/Transaction;" ]
+    },
+    "callSites" : [ {
+      "line" : 103,
+      "pc" : 172,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 80,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetEncoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 84,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 299,
+      "pc" : 53,
+      "targets" : [ {
+        "method" : {
+          "name" : "isLegalReplacement",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tooComplex",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 127,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L4;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_LL;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lorg/axiondb/jdbc/AxionConnection;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/io/File;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 79,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "launchMechanism",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/UNIXProcess$LaunchMechanism;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 127,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CoderResult;",
+      "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 579,
+      "pc" : 57,
+      "targets" : [ {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "rollback",
+      "declaringClass" : "Lorg/axiondb/engine/SnapshotIsolationTransaction;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 187,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "rowInserted",
+      "declaringClass" : "Lorg/axiondb/engine/SortedMapIndex;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lorg/axiondb/event/RowEvent;" ]
+    },
+    "callSites" : [ {
+      "line" : 177,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/invoke/InnerClassLambdaMetafactory$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/misc/ObjectInputFilter$Config$$Lambda$10/1390301622;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$4/1971489295;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$1/1744347043;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$2/1618212626;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/Class$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$3/1023714065;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyWithExtendL",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L;",
+      "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 233,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "invokeStatic_L4_L",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$DMH/1509514333;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/FileOutputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 354,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/FileOutputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/FileOutputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 417,
+      "pc" : 56,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/lang/Class$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/reflect/Constructor;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "addFunction",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDatabase;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Lorg/axiondb/FunctionFactory;" ]
+    },
+    "callSites" : [ {
+      "line" : 623,
+      "pc" : 126,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/RandomAccessFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 617,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/RandomAccessFile$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/RandomAccessFile;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toString",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "[B", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 56,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlFunction",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1079,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getWrappedTable",
+      "declaringClass" : "Lorg/axiondb/engine/SnapshotIsolationTransaction;",
+      "returnType" : "Lorg/axiondb/TransactableTable;",
+      "parameterTypes" : [ "Lorg/axiondb/TableIdentifier;" ]
+    },
+    "callSites" : [ {
+      "line" : 275,
+      "pc" : 47,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlSelectList",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Ljava/util/List;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1442,
+      "pc" : 80,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createTransaction",
+      "declaringClass" : "Lorg/axiondb/engine/TransactionManagerImpl;",
+      "returnType" : "Lorg/axiondb/Transaction;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 73,
+      "pc" : 40,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 69,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "addDataType",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDatabase;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Lorg/axiondb/DataTypeFactory;" ]
+    },
+    "callSites" : [ {
+      "line" : 592,
+      "pc" : 126,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "nextBytes",
+      "declaringClass" : "Ljava/security/SecureRandom;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 468,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineNextBytes",
+          "declaringClass" : "Lsun/security/provider/NativePRNG;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createOrLoadMetaFile",
+      "declaringClass" : "Lorg/axiondb/engine/BaseDiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 143,
+      "pc" : 40,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 146,
+      "pc" : 86,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createOrLoadPidxFile",
+      "declaringClass" : "Lorg/axiondb/engine/DiskTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 614,
+      "pc" : 92,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlCommand",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 159,
+      "pc" : 231,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "charsetName",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 139,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "historicalName",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "commit",
+      "declaringClass" : "Lorg/axiondb/engine/SnapshotIsolationTransaction;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 173,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineDigest",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 617,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDigest",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "[B",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/concurrent/ThreadPoolExecutor$Worker;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/util/concurrent/ThreadPoolExecutor;", "Ljava/lang/Runnable;" ]
+    },
+    "callSites" : [ {
+      "line" : 619,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "newThread",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$5/1395089624;",
+          "returnType" : "Ljava/lang/Thread;",
+          "parameterTypes" : [ "Ljava/lang/Runnable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getRowByOffset",
+      "declaringClass" : "Lorg/axiondb/engine/DiskTable;",
+      "returnType" : "Lorg/axiondb/Row;",
+      "parameterTypes" : [ "I", "J", "Ljava/io/RandomAccessFile;" ]
+    },
+    "callSites" : [ {
+      "line" : 673,
+      "pc" : 99,
+      "targets" : [ {
+        "method" : {
+          "name" : "error",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Throwable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "makePairwiseConvertByEditor",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleImpl;",
+      "returnType" : "Ljava/lang/invoke/MethodHandle;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodHandle;", "Ljava/lang/invoke/MethodType;", "Z", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 231,
+      "pc" : 169,
+      "targets" : [ {
+        "method" : {
+          "name" : "copyWithExtendL",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "copyWithExtendL",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_LL;",
+          "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlLValueTerm",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1381,
+      "pc" : 137,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1369,
+      "pc" : 29,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1384,
+      "pc" : 199,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "apply",
+      "declaringClass" : "Lorg/axiondb/engine/SnapshotIsolationTransaction;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 201,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "addIndex",
+      "declaringClass" : "Lorg/axiondb/engine/BaseTable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Lorg/axiondb/Index;" ]
+    },
+    "callSites" : [ {
+      "line" : 214,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 211,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "helperPath",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 119,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlDelete",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 417,
+      "pc" : 14,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 421,
+      "pc" : 106,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "insertNotfull",
+      "declaringClass" : "Lorg/axiondb/util/BTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 620,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "compare",
+      "declaringClass" : "Lorg/axiondb/RowComparator;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 75,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 91,
+      "pc" : 146,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "commit",
+      "declaringClass" : "Lorg/axiondb/engine/TransactableTableImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 385,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor3;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/ObjectInputStream$$Lambda$9/2016828666;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/misc/ObjectInputFilter$Config$$Lambda$10/1390301622;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor5;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/security/provider/NativePRNG;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/nio/cs/UTF_16LE;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor4;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$1/1744347043;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/nio/cs/UTF_16;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/reflect/GeneratedMethodAccessor2;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/nio/cs/UTF_16BE;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/security/provider/SHA;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$4/1971489295;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/ObjectInputStream$$Lambda$8/1544614339;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Lsun/nio/cs/ISO_8859_1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "write",
+      "declaringClass" : "Lorg/axiondb/util/BTree;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 786,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/ObjectInputFilter$Config;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 250,
+      "pc" : 10,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlWhereOr",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/Selectable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1761,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$6/1191747167;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tryToApply",
+      "declaringClass" : "Lorg/axiondb/engine/TransactionManagerImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 165,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "debug",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "SqlDrop",
+      "declaringClass" : "Lorg/axiondb/parser/AxionSqlParser;",
+      "returnType" : "Lorg/axiondb/AxionCommand;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 489,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "apply",
+      "declaringClass" : "Lorg/axiondb/engine/TransactableTableImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 428,
+      "pc" : 3,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDebugEnabled",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/SimpleLog;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "makeSite",
+      "declaringClass" : "Ljava/lang/invoke/CallSite;",
+      "returnType" : "Ljava/lang/invoke/CallSite;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodHandle;", "Ljava/lang/String;", "Ljava/lang/invoke/MethodType;", "Ljava/lang/Object;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 302,
+      "pc" : 184,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkMethod",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke_MT",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1807837413;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 334,
+      "pc" : 392,
+      "targets" : [ {
+        "method" : {
+          "name" : "getTarget",
+          "declaringClass" : "Ljava/lang/invoke/ConstantCallSite;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  } ]
+}

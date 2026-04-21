@@ -1,0 +1,45 @@
+{
+  "boundaries" : [ {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lcats/vc4/vc/Class;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "loadClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 12,
+    "pc" : 16,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 917,
+      "notCovered" : 916
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "register",
+      "declaringClass" : "Ljava/lang/ref/Finalizer;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "line" : 37,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 6,
+      "notCovered" : 5
+    }
+  } ]
+}

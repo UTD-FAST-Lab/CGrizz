@@ -1,0 +1,42 @@
+{
+  "boundary_methods" : [{
+    "caller" : {
+      "name" : "cleanUp",
+      "declaringClass" : "Lorg/axiondb/tools/Console;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 233,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        }
+      } ]
+    }]
+    },
+    {
+        "caller" : {
+        "name" : "executeSql",
+        "declaringClass" : "Lorg/axiondb/tools/Console;",
+        "returnType" : "V",
+        "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "callSites" : [ {
+        "line" : 174,
+        "pc" : 5,
+        "targets" : [ {
+            "method" : {
+            "name" : "execute",
+            "declaringClass" : "Lorg/axiondb/jdbc/AxionStatement;",
+            "returnType" : "Z",
+            "parameterTypes" : [ "Ljava/lang/String;" ]
+            }
+        } ]
+        }]
+    }]
+}

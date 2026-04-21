@@ -1,0 +1,4082 @@
+{
+  "boundary_methods" : [ {
+    "caller" : {
+      "name" : "exit",
+      "declaringClass" : "Ljava/lang/Thread;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 763,
+      "pc" : 31,
+      "targets" : [ {
+        "method" : {
+          "name" : "threadTerminated",
+          "declaringClass" : "Ljava/lang/ThreadGroup;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Thread;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "list",
+      "declaringClass" : "Ljava/io/File;",
+      "returnType" : "[Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/io/FilenameFilter;" ]
+    },
+    "callSites" : [ {
+      "line" : 1200,
+      "pc" : 39,
+      "targets" : [ {
+        "method" : {
+          "name" : "accept",
+          "declaringClass" : "Lorg/axiondb/engine/BaseDiskTable$1;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/io/File;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "compare",
+      "declaringClass" : "Ljava/util/TreeMap;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 1294,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/math/BigDecimal;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "hash",
+      "declaringClass" : "Ljava/util/HashMap;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 340,
+      "pc" : 9,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Lorg/axiondb/ColumnIdentifier;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Lorg/axiondb/TableIdentifier;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/UNIXProcess$Platform;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 155,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "encoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newEncoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "lambda$static$1",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "Ljava/util/concurrent/Executor;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 227,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 86,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "encode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[C", "I", "I", "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Lsun/nio/ch/ChannelInputStream;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/nio/channels/ReadableByteChannel;", "Ljava/nio/ByteBuffer;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 65,
+      "pc" : 89,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Lsun/nio/ch/FileChannelImpl;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyField",
+      "declaringClass" : "Ljava/lang/reflect/ReflectAccess;",
+      "returnType" : "Ljava/lang/reflect/Field;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Field;" ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "copy",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/reflect/Field;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/invoke/MemberName;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/reflect/Method;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 540,
+      "pc" : 127,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 542,
+      "pc" : 155,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParameterTypes",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "[Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 542,
+      "pc" : 148,
+      "targets" : [ {
+        "method" : {
+          "name" : "getReturnType",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyMethod",
+      "declaringClass" : "Ljava/lang/reflect/ReflectAccess;",
+      "returnType" : "Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Method;" ]
+    },
+    "callSites" : [ {
+      "line" : 140,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "copy",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/reflect/Method;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createURLStreamHandler",
+      "declaringClass" : "Lsun/misc/Launcher$Factory;",
+      "returnType" : "Ljava/net/URLStreamHandler;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 522,
+      "pc" : 37,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "equals",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 913,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/net/URLStreamHandler;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/net/URL;", "Ljava/net/URL;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "readInt",
+      "declaringClass" : "Ljava/io/DataInputStream;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 388,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 387,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 389,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 390,
+      "pc" : 28,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "entrypoint",
+      "declaringClass" : "LEntrypoint;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 28,
+      "pc" : 46,
+      "targets" : [ {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 25,
+      "pc" : 27,
+      "targets" : [ {
+        "method" : {
+          "name" : "toFile",
+          "declaringClass" : "Lsun/nio/fs/AbstractPath;",
+          "returnType" : "Ljava/io/File;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 45,
+      "pc" : 136,
+      "targets" : [ {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getService",
+      "declaringClass" : "Lsun/security/jca/ProviderList;",
+      "returnType" : "Ljava/security/Provider$Service;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 332,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "getService",
+          "declaringClass" : "Ljava/security/Provider;",
+          "returnType" : "Ljava/security/Provider$Service;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/concurrent/atomic/AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 335,
+      "pc" : 84,
+      "targets" : [ {
+        "method" : {
+          "name" : "getType",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 326,
+      "pc" : 24,
+      "targets" : [ {
+        "method" : {
+          "name" : "getModifiers",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "searchFields",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Field;",
+      "parameterTypes" : [ "[Ljava/lang/reflect/Field;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 2958,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "resolve",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+      "returnType" : "Ljava/lang/invoke/MemberName;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MemberName;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/lang/NoSuchFieldError;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "generatePath",
+      "declaringClass" : "Ljava/nio/file/TempFileHelper;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "Ljava/nio/file/Path;" ]
+    },
+    "callSites" : [ {
+      "line" : 62,
+      "pc" : 66,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParent",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 60,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFileSystem",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/nio/file/FileSystem;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 60,
+      "pc" : 59,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPath",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 64,
+      "pc" : 87,
+      "targets" : [ {
+        "method" : {
+          "name" : "resolve",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ "Ljava/nio/file/Path;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "countRunAndMakeAscending",
+      "declaringClass" : "Ljava/util/ComparableTimSort;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[Ljava/lang/Object;", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 320,
+      "pc" : 42,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/io/ObjectStreamField;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 325,
+      "pc" : 105,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/io/ObjectStreamField;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 321,
+      "pc" : 66,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/io/ObjectStreamField;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "loadImpl",
+      "declaringClass" : "Ljava/net/InetAddress;",
+      "returnType" : "Ljava/net/InetAddressImpl;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 1557,
+      "pc" : 46,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "buildCallSite",
+      "declaringClass" : "Ljava/lang/invoke/InnerClassLambdaMetafactory;",
+      "returnType" : "Ljava/lang/invoke/CallSite;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 215,
+      "pc" : 84,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/reflect/Constructor;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/net/URL;", "Ljava/lang/String;", "Ljava/net/URLStreamHandler;" ]
+    },
+    "callSites" : [ {
+      "line" : 640,
+      "pc" : 504,
+      "targets" : [ {
+        "method" : {
+          "name" : "parseURL",
+          "declaringClass" : "Lsun/net/www/protocol/file/Handler;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/net/URL;", "Ljava/lang/String;", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "parseURL",
+          "declaringClass" : "Lsun/net/www/protocol/jar/Handler;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/net/URL;", "Ljava/lang/String;", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 144,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Lsun/nio/ch/ChannelInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 123,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/nio/channels/spi/AbstractInterruptibleChannel;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 601,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEnumConstantsShared",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "[Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 3320,
+      "pc" : 47,
+      "targets" : [ {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyConstructor",
+      "declaringClass" : "Ljava/lang/reflect/ReflectAccess;",
+      "returnType" : "Ljava/lang/reflect/Constructor;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;" ]
+    },
+    "callSites" : [ {
+      "line" : 148,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "copy",
+          "declaringClass" : "Ljava/lang/reflect/Constructor;",
+          "returnType" : "Ljava/lang/reflect/Constructor;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/invoke/InnerClassLambdaMetafactory$1;",
+      "returnType" : "[Ljava/lang/reflect/Constructor;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 200,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getDeclaredConstructors",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "[Ljava/lang/reflect/Constructor;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 204,
+      "pc" : 18,
+      "targets" : [ {
+        "method" : {
+          "name" : "setAccessible",
+          "declaringClass" : "Ljava/lang/reflect/AccessibleObject;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "_threadTerminated",
+      "declaringClass" : "Ljdk/internal/misc/TerminatingThreadLocal;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 74,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "threadTerminated",
+          "declaringClass" : "Lsun/nio/fs/NativeBuffers$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "threadTerminated",
+          "declaringClass" : "Lsun/nio/ch/Util$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createFile",
+      "declaringClass" : "Ljava/nio/file/Files;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/nio/file/Path;", "[Ljava/nio/file/attribute/FileAttribute;" ]
+    },
+    "callSites" : [ {
+      "line" : 632,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/nio/channels/spi/AbstractInterruptibleChannel;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "setInitialValue",
+      "declaringClass" : "Ljava/lang/ThreadLocal;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 195,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "initialValue",
+          "declaringClass" : "Ljava/math/BigDecimal$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "initialValue",
+          "declaringClass" : "Lsun/nio/ch/Util$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "countRunAndMakeAscending",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[Ljava/lang/Object;", "I", "I", "Ljava/util/Comparator;" ]
+    },
+    "callSites" : [ {
+      "line" : 355,
+      "pc" : 43,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$5;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$4;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$6;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 360,
+      "pc" : 109,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$6;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 356,
+      "pc" : 68,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$5;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "[B", "I", "[B", "I", "[B", "[I", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 257,
+      "pc" : 39,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1094834071;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/security/Provider$Service;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 1595,
+      "pc" : 170,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/reflect/Constructor;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 1571,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "getService",
+          "declaringClass" : "Ljava/security/Provider;",
+          "returnType" : "Ljava/security/Provider$Service;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "provider",
+      "declaringClass" : "Ljava/nio/file/Files;",
+      "returnType" : "Ljava/nio/file/spi/FileSystemProvider;",
+      "parameterTypes" : [ "Ljava/nio/file/Path;" ]
+    },
+    "callSites" : [ {
+      "line" : 97,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFileSystem",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/nio/file/FileSystem;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 97,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "provider",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+          "returnType" : "Ljava/nio/file/spi/FileSystemProvider;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getDefaultPort",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 833,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getDefaultPort",
+          "declaringClass" : "Ljava/net/URLStreamHandler;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getConnection",
+      "declaringClass" : "Ljava/sql/DriverManager;",
+      "returnType" : "Ljava/sql/Connection;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/util/Properties;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 664,
+      "pc" : 171,
+      "targets" : [ {
+        "method" : {
+          "name" : "connect",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionDriver;",
+          "returnType" : "Ljava/sql/Connection;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/util/Properties;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "readUnsignedShort",
+      "declaringClass" : "Ljava/io/DataInputStream;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 338,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 337,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "read",
+          "declaringClass" : "Ljava/io/ObjectInputStream$BlockDataInputStream;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/StreamDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/InputStream;", "Ljava/lang/Object;", "Ljava/nio/charset/Charset;" ]
+    },
+    "callSites" : [ {
+      "line" : 232,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "resolve",
+      "declaringClass" : "Ljava/lang/invoke/MemberName$Factory;",
+      "returnType" : "Ljava/lang/invoke/MemberName;",
+      "parameterTypes" : [ "B", "Ljava/lang/invoke/MemberName;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 976,
+      "pc" : 44,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkForTypeAlias",
+          "declaringClass" : "Ljava/lang/invoke/MemberName;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 37,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "register",
+          "declaringClass" : "Ljava/lang/ref/Finalizer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/security/jca/ProviderConfig$2;",
+      "returnType" : "Ljava/security/Provider;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 221,
+      "pc" : 79,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newByteChannel",
+      "declaringClass" : "Ljava/nio/file/Files;",
+      "returnType" : "Ljava/nio/channels/SeekableByteChannel;",
+      "parameterTypes" : [ "Ljava/nio/file/Path;", "Ljava/util/Set;", "[Ljava/nio/file/attribute/FileAttribute;" ]
+    },
+    "callSites" : [ {
+      "line" : 361,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "newByteChannel",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystemProvider;",
+          "returnType" : "Ljava/nio/channels/SeekableByteChannel;",
+          "parameterTypes" : [ "Ljava/nio/file/Path;", "Ljava/util/Set;", "[Ljava/nio/file/attribute/FileAttribute;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/nio/charset/Charset;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 131,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "newDecoder",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "binarySort",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/Object;", "I", "I", "I", "Ljava/util/Comparator;" ]
+    },
+    "callSites" : [ {
+      "line" : 296,
+      "pc" : 93,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$6;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "[C",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 153,
+      "pc" : 48,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "gallopLeft",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;", "I", "I", "I", "Ljava/util/Comparator;" ]
+    },
+    "callSites" : [ {
+      "line" : 560,
+      "pc" : 162,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 545,
+      "pc" : 77,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 542,
+      "pc" : 44,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 585,
+      "pc" : 287,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 936,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$FieldReflectorKey;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$WeakClassKey;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 940,
+      "pc" : 73,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$WeakClassKey;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$FieldReflectorKey;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 947,
+      "pc" : 149,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$WeakClassKey;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$FieldReflectorKey;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "searchMethods",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "[Ljava/lang/reflect/Method;", "Ljava/lang/String;", "[Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 3006,
+      "pc" : 26,
+      "targets" : [ {
+        "method" : {
+          "name" : "getName",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 3007,
+      "pc" : 37,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParameterTypes",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "[Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "emitNewArray",
+      "declaringClass" : "Ljava/lang/invoke/InvokerBytecodeGenerator;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/invoke/LambdaForm$Name;" ]
+    },
+    "callSites" : [ {
+      "line" : 889,
+      "pc" : 26,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkMethod",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "invoke_MT",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/607635164;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/Thread;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 750,
+      "pc" : 11,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/util/concurrent/ThreadPoolExecutor$Worker;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Lorg/axiondb/tools/Console;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "Ljava/io/PrintWriter;" ]
+    },
+    "callSites" : [ {
+      "line" : 91,
+      "pc" : 117,
+      "targets" : [ {
+        "method" : {
+          "name" : "createStatement",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionConnection;",
+          "returnType" : "Ljava/sql/Statement;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetEncoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 303,
+      "pc" : 84,
+      "targets" : [ {
+        "method" : {
+          "name" : "implReplaceWith",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 299,
+      "pc" : 53,
+      "targets" : [ {
+        "method" : {
+          "name" : "isLegalReplacement",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "create",
+      "declaringClass" : "Ljava/nio/file/TempFileHelper;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/nio/file/Path;", "Ljava/lang/String;", "Ljava/lang/String;", "Z", "[Ljava/nio/file/attribute/FileAttribute;" ]
+    },
+    "callSites" : [ {
+      "line" : 96,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFileSystem",
+          "declaringClass" : "Lsun/nio/fs/UnixPath;",
+          "returnType" : "Ljava/nio/file/FileSystem;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "put",
+      "declaringClass" : "Ljava/nio/HeapByteBuffer;",
+      "returnType" : "Ljava/nio/ByteBuffer;",
+      "parameterTypes" : [ "Ljava/nio/ByteBuffer;" ]
+    },
+    "callSites" : [ {
+      "line" : 223,
+      "pc" : 156,
+      "targets" : [ {
+        "method" : {
+          "name" : "get",
+          "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+          "returnType" : "Ljava/nio/ByteBuffer;",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 218,
+      "pc" : 111,
+      "targets" : [ {
+        "method" : {
+          "name" : "isDirect",
+          "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tooComplex",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 127,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L4;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_LL;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/nio/file/Paths;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 84,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPath",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "setSpeciesDataToConcreteBMHClass",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Factory;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/invoke/BoundMethodHandle$SpeciesData;" ]
+    },
+    "callSites" : [ {
+      "line" : 792,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "set",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "executeSql",
+      "declaringClass" : "Lorg/axiondb/tools/Console;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 174,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "execute",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionStatement;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 175,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "getResultSet",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionStatement;",
+          "returnType" : "Ljava/sql/ResultSet;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getObject",
+      "declaringClass" : "Ljava/util/ResourceBundle;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 441,
+      "pc" : 2,
+      "targets" : [ {
+        "method" : {
+          "name" : "handleGetObject",
+          "declaringClass" : "Lsun/util/resources/ParallelListResourceBundle;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "handleGetObject",
+          "declaringClass" : "Lsun/util/resources/OpenListResourceBundle;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newBundle",
+      "declaringClass" : "Ljava/util/ResourceBundle$Control;",
+      "returnType" : "Ljava/util/ResourceBundle;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/util/Locale;", "Ljava/lang/String;", "Ljava/lang/ClassLoader;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 2662,
+      "pc" : 41,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/Class$4;",
+      "returnType" : "Ljava/lang/Void;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 3315,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "setAccessible",
+          "declaringClass" : "Ljava/lang/reflect/AccessibleObject;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Z" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "load",
+      "declaringClass" : "Ljava/lang/ClassLoader$NativeLibrary;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFromClass",
+          "declaringClass" : "Ljava/lang/ClassLoader$NativeLibrary;",
+          "returnType" : "Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "launchMechanism",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/UNIXProcess$LaunchMechanism;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 127,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CoderResult;",
+      "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 579,
+      "pc" : 57,
+      "targets" : [ {
+        "method" : {
+          "name" : "decodeLoop",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "Ljava/nio/charset/CoderResult;",
+          "parameterTypes" : [ "Ljava/nio/ByteBuffer;", "Ljava/nio/CharBuffer;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "lookup",
+      "declaringClass" : "Lsun/nio/cs/FastCharsetProvider;",
+      "returnType" : "Ljava/nio/charset/Charset;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 121,
+      "pc" : 125,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "copyWithExtendL",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L;",
+      "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 233,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "invokeStatic_L4_L",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$DMH/1509514333;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "putVal",
+      "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 1012,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$WeakClassKey;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$FieldReflectorKey;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toString",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 236,
+      "pc" : 23,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Lorg/axiondb/Column;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createLong",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "Ljava/nio/ByteBuffer;",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "I", "J" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "J", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getService",
+      "declaringClass" : "Lsun/security/jca/GetInstance;",
+      "returnType" : "Ljava/security/Provider$Service;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 85,
+      "pc" : 63,
+      "targets" : [ {
+        "method" : {
+          "name" : "getService",
+          "declaringClass" : "Ljava/security/Provider;",
+          "returnType" : "Ljava/security/Provider$Service;",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "newFactory",
+      "declaringClass" : "Lorg/apache/commons/logging/LogFactory;",
+      "returnType" : "Lorg/apache/commons/logging/LogFactory;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/ClassLoader;" ]
+    },
+    "callSites" : [ {
+      "line" : 504,
+      "pc" : 30,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toString",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "[B", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 56,
+      "pc" : 62,
+      "targets" : [ {
+        "method" : {
+          "name" : "decode",
+          "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+          "returnType" : "I",
+          "parameterTypes" : [ "[B", "I", "I", "[C" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getResourceAsStream",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/io/InputStream;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 239,
+      "pc" : 18,
+      "targets" : [ {
+        "method" : {
+          "name" : "getInputStream",
+          "declaringClass" : "Lsun/net/www/protocol/jar/JarURLConnection;",
+          "returnType" : "Ljava/io/InputStream;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 242,
+      "pc" : 38,
+      "targets" : [ {
+        "method" : {
+          "name" : "getJarFile",
+          "declaringClass" : "Lsun/net/www/protocol/jar/JarURLConnection;",
+          "returnType" : "Ljava/util/jar/JarFile;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getContext",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/security/AccessControlContext;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 828,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "optimize",
+          "declaringClass" : "Ljava/security/AccessControlContext;",
+          "returnType" : "Ljava/security/AccessControlContext;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "open0",
+      "declaringClass" : "Ljava/io/FileInputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/FileNotFoundException;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I" ]
+    },
+    "callSites" : [ {
+      "line" : 228,
+      "pc" : 172,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPath",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "containsKey",
+      "declaringClass" : "Ljava/util/ResourceBundle;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 1824,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "handleKeySet",
+          "declaringClass" : "Lsun/util/resources/OpenListResourceBundle;",
+          "returnType" : "Ljava/util/Set;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getLoader",
+      "declaringClass" : "Lsun/misc/URLClassPath;",
+      "returnType" : "Lsun/misc/URLClassPath$Loader;",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "callSites" : [ {
+      "line" : 581,
+      "pc" : 22,
+      "targets" : [ {
+        "method" : {
+          "name" : "getException",
+          "declaringClass" : "Ljava/security/PrivilegedActionException;",
+          "returnType" : "Ljava/lang/Exception;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "nextBytes",
+      "declaringClass" : "Ljava/security/SecureRandom;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    },
+    "callSites" : [ {
+      "line" : 468,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineNextBytes",
+          "declaringClass" : "Lsun/security/provider/NativePRNG;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "hashCode",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 928,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "hashCode",
+          "declaringClass" : "Ljava/net/URLStreamHandler;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/net/URL;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/security/provider/NativePRNG$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/nio/ch/Util$2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/misc/ObjectInputFilter$Config$$Lambda$10/1390301622;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$4/1971489295;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$1/1744347043;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$2/1618212626;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/Class$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$3;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/reflect/ClassDefiner$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/nio/fs/UnixNativeDispatcher$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/reflect/MethodAccessorGenerator$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/io/ObjectStreamClass$2;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$3/1023714065;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/nio/ch/IOUtil$1;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getConstructor0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/reflect/Constructor;",
+      "parameterTypes" : [ "[Ljava/lang/Class;", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 3078,
+      "pc" : 42,
+      "targets" : [ {
+        "method" : {
+          "name" : "getParameterTypes",
+          "declaringClass" : "Ljava/lang/reflect/Constructor;",
+          "returnType" : "[Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getNode",
+      "declaringClass" : "Ljava/util/HashMap;",
+      "returnType" : "Ljava/util/HashMap$Node;",
+      "parameterTypes" : [ "I", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 580,
+      "pc" : 126,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/axiondb/ColumnIdentifier;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/axiondb/TableIdentifier;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 573,
+      "pc" : 59,
+      "targets" : [ {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/axiondb/ColumnIdentifier;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "equals",
+          "declaringClass" : "Lorg/axiondb/TableIdentifier;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "put",
+      "declaringClass" : "Ljava/util/TreeMap;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 568,
+      "pc" : 141,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/math/BigDecimal;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "charsetName",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 139,
+      "pc" : 17,
+      "targets" : [ {
+        "method" : {
+          "name" : "historicalName",
+          "declaringClass" : "Lsun/nio/cs/UTF_8;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineDigest",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 617,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineDigest",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "[B",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "closeAll",
+      "declaringClass" : "Ljava/io/FileDescriptor;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/Closeable;" ]
+    },
+    "callSites" : [ {
+      "line" : 212,
+      "pc" : 121,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/io/RandomAccessFile$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/FilterOutputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 158,
+      "pc" : 8,
+      "targets" : [ {
+        "method" : {
+          "name" : "flush",
+          "declaringClass" : "Ljava/io/DataOutputStream;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "binarySort",
+      "declaringClass" : "Ljava/util/ComparableTimSort;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/Object;", "I", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 262,
+      "pc" : 94,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/io/ObjectStreamField;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "makePairwiseConvertByEditor",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleImpl;",
+      "returnType" : "Ljava/lang/invoke/MethodHandle;",
+      "parameterTypes" : [ "Ljava/lang/invoke/MethodHandle;", "Ljava/lang/invoke/MethodType;", "Z", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 231,
+      "pc" : 169,
+      "targets" : [ {
+        "method" : {
+          "name" : "copyWithExtendL",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "copyWithExtendL",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_LL;",
+          "returnType" : "Ljava/lang/invoke/BoundMethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/invoke/MethodType;", "Ljava/lang/invoke/LambdaForm;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "buildFromSorted",
+      "declaringClass" : "Ljava/util/TreeMap;",
+      "returnType" : "Ljava/util/TreeMap$Entry;",
+      "parameterTypes" : [ "I", "I", "I", "I", "Ljava/util/Iterator;", "Ljava/io/ObjectInputStream;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 2567,
+      "pc" : 106,
+      "targets" : [ {
+        "method" : {
+          "name" : "readObject",
+          "declaringClass" : "Ljava/io/ObjectInputStream;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 2568,
+      "pc" : 123,
+      "targets" : [ {
+        "method" : {
+          "name" : "readObject",
+          "declaringClass" : "Ljava/io/ObjectInputStream;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "helperPath",
+      "declaringClass" : "Ljava/lang/UNIXProcess$Platform;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 119,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1129670968;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/nio/file/TempFileHelper;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 53,
+      "pc" : 28,
+      "targets" : [ {
+        "method" : {
+          "name" : "supportedFileAttributeViews",
+          "declaringClass" : "Lsun/nio/fs/LinuxFileSystem;",
+          "returnType" : "Ljava/util/Set;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getLocalizedMessage",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 392,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMessage",
+          "declaringClass" : "Lorg/axiondb/parser/TokenMgrError;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "getMessage",
+          "declaringClass" : "Lorg/axiondb/parser/ParseException;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "readAllBytes",
+      "declaringClass" : "Ljava/nio/file/Files;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/nio/file/Path;" ]
+    },
+    "callSites" : [ {
+      "line" : 3159,
+      "pc" : 116,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Ljava/nio/channels/spi/AbstractInterruptibleChannel;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 3154,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "size",
+          "declaringClass" : "Lsun/nio/ch/FileChannelImpl;",
+          "returnType" : "J",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "defaultFileSystem",
+      "declaringClass" : "Ljava/nio/file/FileSystems$DefaultFileSystemHolder;",
+      "returnType" : "Ljava/nio/file/FileSystem;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 103,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFileSystem",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystemProvider;",
+          "returnType" : "Ljava/nio/file/FileSystem;",
+          "parameterTypes" : [ "Ljava/net/URI;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "forName0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z", "Ljava/lang/ClassLoader;", "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/UpperFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/CountFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/types/TimestampType;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/CharFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/MaxFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/ConcatFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Ljava/nio/file/spi/FileSystemProvider;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/LowerFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/RowNumFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/functions/MinFunction;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "<clinit>",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionDriver;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getPermissions",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ "Ljava/security/CodeSource;" ]
+    },
+    "callSites" : [ {
+      "line" : 671,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPermission",
+          "declaringClass" : "Lsun/net/www/protocol/file/FileURLConnection;",
+          "returnType" : "Ljava/security/Permission;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "ensureOpen",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 913,
+      "pc" : 28,
+      "targets" : [ {
+        "method" : {
+          "name" : "getException",
+          "declaringClass" : "Ljava/security/PrivilegedActionException;",
+          "returnType" : "Ljava/lang/Exception;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toPath",
+      "declaringClass" : "Ljava/io/File;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 2273,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "getPath",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+          "returnType" : "Ljava/nio/file/Path;",
+          "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "readUTF",
+      "declaringClass" : "Ljava/io/DataInputStream;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/io/DataInput;" ]
+    },
+    "callSites" : [ {
+      "line" : 609,
+      "pc" : 87,
+      "targets" : [ {
+        "method" : {
+          "name" : "readFully",
+          "declaringClass" : "Ljava/io/RandomAccessFile;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 589,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "readUnsignedShort",
+          "declaringClass" : "Ljava/io/RandomAccessFile;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getDateTimePattern",
+      "declaringClass" : "Lsun/util/locale/provider/LocaleResources;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "I", "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 480,
+      "pc" : 139,
+      "targets" : [ {
+        "method" : {
+          "name" : "containsKey",
+          "declaringClass" : "Lsun/util/resources/ParallelListResourceBundle;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getDecimalFormatSymbolsData",
+      "declaringClass" : "Lsun/util/locale/provider/LocaleResources;",
+      "returnType" : "[Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 182,
+      "pc" : 120,
+      "targets" : [ {
+        "method" : {
+          "name" : "containsKey",
+          "declaringClass" : "Lsun/util/resources/ParallelListResourceBundle;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 184,
+      "pc" : 155,
+      "targets" : [ {
+        "method" : {
+          "name" : "containsKey",
+          "declaringClass" : "Lsun/util/resources/ParallelListResourceBundle;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 192,
+      "pc" : 8,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFileSystem",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystemProvider;",
+          "returnType" : "Ljava/nio/file/FileSystem;",
+          "parameterTypes" : [ "Ljava/net/URI;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "findClassLoader",
+      "declaringClass" : "Lorg/apache/commons/logging/LogFactory;",
+      "returnType" : "Ljava/lang/ClassLoader;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 454,
+      "pc" : 66,
+      "targets" : [ {
+        "method" : {
+          "name" : "invoke",
+          "declaringClass" : "Ljava/lang/reflect/Method;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "valueOf",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 2994,
+      "pc" : 10,
+      "targets" : [ {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/functions/BaseFunction;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/UnsignedShortType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/BigDecimalType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/functions/FunctionIdentifier;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/ObjectType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/IntegerType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/Literal;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/ColumnIdentifier;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/BindVariable;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/TableIdentifier;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/ByteType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/LongType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/ComparisonOperator;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/BinaryBranchWhereNode;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/BooleanType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/ShortType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/UnsignedByteType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/UnsignedIntegerType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/LeafWhereNode;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/TimestampType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Ljava/lang/StackTraceElement;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/CharacterType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/LOBType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/CompressedLOBType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/FloatType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "toString",
+          "declaringClass" : "Lorg/axiondb/types/StringType;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createProvider",
+      "declaringClass" : "Lsun/nio/fs/DefaultFileSystemProvider;",
+      "returnType" : "Ljava/nio/file/spi/FileSystemProvider;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "line" : 48,
+      "pc" : 19,
+      "targets" : [ {
+        "method" : {
+          "name" : "newInstance",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getEntry",
+      "declaringClass" : "Ljava/util/TreeMap;",
+      "returnType" : "Ljava/util/TreeMap$Entry;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 352,
+      "pc" : 44,
+      "targets" : [ {
+        "method" : {
+          "name" : "compareTo",
+          "declaringClass" : "Ljava/math/BigDecimal;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getLog",
+      "declaringClass" : "Lorg/apache/commons/logging/LogFactory;",
+      "returnType" : "Lorg/apache/commons/logging/Log;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 381,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getInstance",
+          "declaringClass" : "Lorg/apache/commons/logging/impl/LogFactoryImpl;",
+          "returnType" : "Lorg/apache/commons/logging/Log;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "mergeLo",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I", "I", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 717,
+      "pc" : 189,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "openConnection",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Ljava/net/URLConnection;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 1027,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "openConnection",
+          "declaringClass" : "Lsun/net/www/protocol/jar/Handler;",
+          "returnType" : "Ljava/net/URLConnection;",
+          "parameterTypes" : [ "Ljava/net/URL;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "openConnection",
+          "declaringClass" : "Lsun/net/www/protocol/file/Handler;",
+          "returnType" : "Ljava/net/URLConnection;",
+          "parameterTypes" : [ "Ljava/net/URL;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 220,
+      "pc" : 33,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/662441761;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "I", "Ljava/lang/String;", "Ljava/net/URLStreamHandler;" ]
+    },
+    "callSites" : [ {
+      "line" : 436,
+      "pc" : 365,
+      "targets" : [ {
+        "method" : {
+          "name" : "checkNestedProtocol",
+          "declaringClass" : "Lsun/net/www/protocol/jar/Handler;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "gallopRight",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/Object;", "[Ljava/lang/Object;", "I", "I", "I", "Ljava/util/Comparator;" ]
+    },
+    "callSites" : [ {
+      "line" : 613,
+      "pc" : 44,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 656,
+      "pc" : 287,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 632,
+      "pc" : 166,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$6/1191747167;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "mergeHi",
+      "declaringClass" : "Ljava/util/TimSort;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I", "I", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 837,
+      "pc" : 227,
+      "targets" : [ {
+        "method" : {
+          "name" : "compare",
+          "declaringClass" : "Lorg/apache/commons/collections/comparators/ComparatorChain;",
+          "returnType" : "I",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "printResultSet",
+      "declaringClass" : "Lorg/axiondb/tools/Console;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/sql/ResultSet;" ]
+    },
+    "callSites" : [ {
+      "line" : 189,
+      "pc" : 40,
+      "targets" : [ {
+        "method" : {
+          "name" : "getColumnLabel",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSetMetaData;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 199,
+      "pc" : 105,
+      "targets" : [ {
+        "method" : {
+          "name" : "wasNull",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 196,
+      "pc" : 163,
+      "targets" : [ {
+        "method" : {
+          "name" : "next",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "Z",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 198,
+      "pc" : 97,
+      "targets" : [ {
+        "method" : {
+          "name" : "getString",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 184,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "getMetaData",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "Ljava/sql/ResultSetMetaData;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 211,
+      "pc" : 190,
+      "targets" : [ {
+        "method" : {
+          "name" : "getColumnLabel",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSetMetaData;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 185,
+      "pc" : 12,
+      "targets" : [ {
+        "method" : {
+          "name" : "getColumnCount",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSetMetaData;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "toExternalForm",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 972,
+      "pc" : 5,
+      "targets" : [ {
+        "method" : {
+          "name" : "toExternalForm",
+          "declaringClass" : "Ljava/net/URLStreamHandler;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/net/URL;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "createDirectory",
+      "declaringClass" : "Ljava/nio/file/Files;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/nio/file/Path;", "[Ljava/nio/file/attribute/FileAttribute;" ]
+    },
+    "callSites" : [ {
+      "line" : 674,
+      "pc" : 6,
+      "targets" : [ {
+        "method" : {
+          "name" : "createDirectory",
+          "declaringClass" : "Lsun/nio/fs/UnixFileSystemProvider;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/nio/file/Path;", "[Ljava/nio/file/attribute/FileAttribute;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "lambda$new$2",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "Ljava/lang/Void;",
+      "parameterTypes" : [ "[I" ]
+    },
+    "callSites" : [ {
+      "line" : 258,
+      "pc" : 2,
+      "targets" : [ {
+        "method" : {
+          "name" : "initStreams",
+          "declaringClass" : "Ljava/lang/UNIXProcess;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "cleanUp",
+      "declaringClass" : "Lorg/axiondb/tools/Console;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 233,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionResultSet;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 234,
+      "pc" : 20,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Lorg/axiondb/jdbc/BaseAxionStatement;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 235,
+      "pc" : 36,
+      "targets" : [ {
+        "method" : {
+          "name" : "close",
+          "declaringClass" : "Lorg/axiondb/jdbc/AxionConnection;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "loadLibrary",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/lang/String;", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 1823,
+      "pc" : 88,
+      "targets" : [ {
+        "method" : {
+          "name" : "findLibrary",
+          "declaringClass" : "Ljava/lang/ClassLoader;",
+          "returnType" : "Ljava/lang/String;",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "initializeData",
+      "declaringClass" : "Ljava/text/DateFormatSymbols;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/util/Locale;" ]
+    },
+    "callSites" : [ {
+      "line" : 716,
+      "pc" : 99,
+      "targets" : [ {
+        "method" : {
+          "name" : "containsKey",
+          "declaringClass" : "Lsun/util/resources/ParallelListResourceBundle;",
+          "returnType" : "Z",
+          "parameterTypes" : [ "Ljava/lang/String;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  } ]
+}

@@ -1,0 +1,417 @@
+{
+  "boundary_methods" : [ {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "callSites" : [ {
+      "line" : -1,
+      "pc" : -1,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Lsun/misc/ObjectInputFilter$Config$$Lambda$10/1390301622;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$4/1971489295;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$1/1744347043;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$2/1618212626;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$Platform$$Lambda$3/1023714065;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "runWorker",
+      "declaringClass" : "Ljava/util/concurrent/ThreadPoolExecutor;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/util/concurrent/ThreadPoolExecutor$Worker;" ]
+    },
+    "callSites" : [ {
+      "line" : 1149,
+      "pc" : 95,
+      "targets" : [ {
+        "method" : {
+          "name" : "run",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$7/1330106945;",
+          "returnType" : "V",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getInterfaces",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "[Ljava/lang/Class;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 852,
+      "pc" : 24,
+      "targets" : [ {
+        "method" : {
+          "name" : "getInterfaces0",
+          "declaringClass" : "Ljava/lang/Class;",
+          "returnType" : "[Ljava/lang/Class;",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "engineUpdate",
+      "declaringClass" : "Ljava/security/MessageDigest$Delegate;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "callSites" : [ {
+      "line" : 601,
+      "pc" : 7,
+      "targets" : [ {
+        "method" : {
+          "name" : "engineUpdate",
+          "declaringClass" : "Lsun/security/provider/DigestBase;",
+          "returnType" : "V",
+          "parameterTypes" : [ "[B", "I", "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Ljava/io/RandomAccessFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 337,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "read0",
+          "declaringClass" : "Ljava/io/RandomAccessFile;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "close",
+      "declaringClass" : "Ljava/io/FileOutputStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 354,
+      "pc" : 58,
+      "targets" : [ {
+        "method" : {
+          "name" : "closeAll",
+          "declaringClass" : "Ljava/io/FileDescriptor;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/Closeable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 354,
+      "pc" : 55,
+      "targets" : [ {
+        "method" : {
+          "name" : "<init>",
+          "declaringClass" : "Ljava/io/FileOutputStream$1;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/io/FileOutputStream;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/UNIXProcess;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B", "[B", "I", "[B", "I", "[B", "[I", "Z" ]
+    },
+    "callSites" : [ {
+      "line" : 257,
+      "pc" : 39,
+      "targets" : [ {
+        "method" : {
+          "name" : "linkCallSite",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MemberName;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;", "[Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "findMethodHandleType",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodType;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "[Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkMethodHandleConstant",
+          "declaringClass" : "Ljava/lang/invoke/MethodHandleNatives;",
+          "returnType" : "Ljava/lang/invoke/MethodHandle;",
+          "parameterTypes" : [ "Ljava/lang/Class;", "I", "Ljava/lang/Class;", "Ljava/lang/String;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "linkToTargetMethod",
+          "declaringClass" : "Ljava/lang/invoke/LambdaForm$MH/1094834071;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "set",
+      "declaringClass" : "Ljava/lang/reflect/Field;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 764,
+      "pc" : 41,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFieldAccessor",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Lsun/reflect/FieldAccessor;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 764,
+      "pc" : 46,
+      "targets" : [ {
+        "method" : {
+          "name" : "set",
+          "declaringClass" : "Lsun/reflect/UnsafeStaticObjectFieldAccessorImpl;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;", "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "getUniverse",
+      "declaringClass" : "Ljava/util/EnumSet;",
+      "returnType" : "[Ljava/lang/Enum;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "callSites" : [ {
+      "line" : 407,
+      "pc" : 4,
+      "targets" : [ {
+        "method" : {
+          "name" : "getEnumConstantsShared",
+          "declaringClass" : "Ljava/lang/System$2;",
+          "returnType" : "[Ljava/lang/Enum;",
+          "parameterTypes" : [ "Ljava/lang/Class;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 37,
+      "pc" : 0,
+      "targets" : [ {
+        "method" : {
+          "name" : "register",
+          "declaringClass" : "Ljava/lang/ref/Finalizer;",
+          "returnType" : "V",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "fillInStackTrace",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "Ljava/lang/Throwable;",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 784,
+      "pc" : 16,
+      "targets" : [ {
+        "method" : {
+          "name" : "fillInStackTrace",
+          "declaringClass" : "Ljava/lang/Throwable;",
+          "returnType" : "Ljava/lang/Throwable;",
+          "parameterTypes" : [ "I" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "tooComplex",
+      "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "line" : 127,
+      "pc" : 1,
+      "targets" : [ {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L3;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_L4;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      }, {
+        "method" : {
+          "name" : "fieldCount",
+          "declaringClass" : "Ljava/lang/invoke/BoundMethodHandle$Species_LL;",
+          "returnType" : "I",
+          "parameterTypes" : [ ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "get",
+      "declaringClass" : "Ljava/lang/reflect/Field;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "line" : 393,
+      "pc" : 45,
+      "targets" : [ {
+        "method" : {
+          "name" : "get",
+          "declaringClass" : "Lsun/reflect/UnsafeQualifiedStaticObjectFieldAccessorImpl;",
+          "returnType" : "Ljava/lang/Object;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    }, {
+      "line" : 393,
+      "pc" : 41,
+      "targets" : [ {
+        "method" : {
+          "name" : "getFieldAccessor",
+          "declaringClass" : "Ljava/lang/reflect/Field;",
+          "returnType" : "Lsun/reflect/FieldAccessor;",
+          "parameterTypes" : [ "Ljava/lang/Object;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/concurrent/ThreadPoolExecutor$Worker;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/util/concurrent/ThreadPoolExecutor;", "Ljava/lang/Runnable;" ]
+    },
+    "callSites" : [ {
+      "line" : 619,
+      "pc" : 25,
+      "targets" : [ {
+        "method" : {
+          "name" : "newThread",
+          "declaringClass" : "Ljava/lang/UNIXProcess$$Lambda$5/1395089624;",
+          "returnType" : "Ljava/lang/Thread;",
+          "parameterTypes" : [ "Ljava/lang/Runnable;" ]
+        },
+        "reachable" : 0,
+        "not_covered" : 0
+      } ]
+    } ]
+  } ]
+}
