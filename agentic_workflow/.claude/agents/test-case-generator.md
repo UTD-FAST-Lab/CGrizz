@@ -12,7 +12,7 @@ You are given a static analysis unsoundness boundary and a structured report exp
 You will receive:
 - **Unsoundness report JSON** — includes `edgeId`, `caller`, `target`, `pattern_class`, `toolLimitation.reason`, and `potentialTestCase` section
 - **Target program path** — directory containing the original program
-- **Output directory** — where to write test cases
+- **Output directories** — where to write test cases or reproducing and non_reproducing
 
 ## Test Case 1: Reproducing (Positive)
 
@@ -52,6 +52,7 @@ You will receive:
 <output_dir>/
 ├── reproducing/
 │   ├── pom.xml
+│   ├── expected_missed_edge.json
 │   ├── jcg.conf
 │   ├── src/main/java/com/example/...
 │   └── README.md
@@ -97,28 +98,26 @@ Example with concrete values:
 }
 ```
 
+**expected_missed_edge.json requirements:**
+Create a JSON file next to `pom.xml` with this exact structure:
+
+```json
+{
+  "caller": "<package>.<class>.<method>(params)",
+  "callee": "<package>.<class>.<method>(params)"
+}
+```
+
+Example with concrete values:
+```json
+{
+  "caller": "com.example.TestClass.<clinit>()",
+  "callee": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)"
+}
+```
+
 **Both projects must:**
 - Be valid Maven projects (`mvn clean package` must succeed and produce a JAR)
 - Include a correctly configured `jcg.conf` file
 - Be minimal — only code needed to trigger (or not trigger) the edge
 - Have a `README.md` explaining the call path and what differs from the other test case
-
-## Return
-
-After writing both test cases (pom.xml, jcg.conf, source code, README.md), return JSON:
-
-```json
-{
-  "reproducing_path": "<output_dir>/reproducing",
-  "reproducing_jar": "<output_dir>/reproducing/target/app-1.0-SNAPSHOT.jar",
-  "reproducing_entry_point": "com.example.App",
-  "non_reproducing_path": "<output_dir>/non_reproducing or null>",
-  "non_reproducing_jar": "<or null if skipped>",
-  "non_reproducing_entry_point": "<or null if skipped>",
-  "reason_for_skip": "<or null if both generated>"
-}
-```
-
-If test case 2 is infeasible, set `non_reproducing_path`, `non_reproducing_jar`, and `non_reproducing_entry_point` to `null` and explain in `reason_for_skip`.
-
-**Important:** Paths in jcg.conf must be absolute paths to the generated JAR files in the `target` directory.

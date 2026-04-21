@@ -16,6 +16,7 @@ config = {
     "STATICCG_MEMORY": "400G", 
     "STATICCG_CONTAINER": "staticcg_container",
     "DYNAMICCG_CONTAINER": "dyncg_container",
+    "BOUNDARY_CONTAINER": "boundary_container",
     "JCG_IMAGE": "jcg_image_test_case",
 }
 
@@ -24,16 +25,13 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
         """Generate static call graph"""
         build_jcg_image()
         
-        staticcg_path = reproducing_test_case_path / "staticcg"
+        staticcg_path = Path(reproducing_test_case_path) / "staticcg"
         os.makedirs(staticcg_path, exist_ok=True)
         (staticcg_path / "log.txt").touch()
 
-        if os.path.exists(reproducing_test_case_path / "target"):
-            project_build(reproducing_test_case_path)
-
         mounts = [
-            (str(reproducing_test_case_path / "target"), "/repo", True),
-            (str(reproducing_test_case_path / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
+            (str(Path(reproducing_test_case_path) / "target"), "/repo", True),
+            (str(Path(reproducing_test_case_path) / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
             (str(staticcg_path), "/staticcg", False),
             (str(staticcg_path / "log.txt"), "/log.txt", False),
         ]
@@ -59,12 +57,12 @@ def dynamic_callgraph(project: str, reproducing_test_case_path: str):
         """Generate dynamic call graph for a specific experiment directory"""
         build_jcg_image()
         
-        dyncg_path = reproducing_test_case_path / "dyncg"
+        dyncg_path = Path(reproducing_test_case_path) / "dyncg"
         os.makedirs(dyncg_path, exist_ok=True)
         
         mounts = [
-            (str(reproducing_test_case_path / "target"), "/repo", True),
-            (str(reproducing_test_case_path / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
+            (str(Path(reproducing_test_case_path) / "target"), "/repo", True),
+            (str(Path(reproducing_test_case_path) / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
             (str(dyncg_path), "/dyncg", False),
         ]
         
@@ -89,9 +87,9 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
     
     build_jcg_image()
     
-    dyncg_path = reproducing_test_case_path / "dyncg" / project / "Dynamic" / "Dynamic"
-    staticcg_path = reproducing_test_case_path / "staticcg" / project / framework / algo
-    boundary_path = reproducing_test_case_path / "boundary" / framework / algo
+    dyncg_path = Path(reproducing_test_case_path) / "dyncg" / project / "Dynamic" / "Dynamic"
+    staticcg_path = Path(reproducing_test_case_path) / "staticcg" / project / framework / algo
+    boundary_path = Path(reproducing_test_case_path) / "boundary" / framework / algo
 
     if os.path.exists(boundary_path / "boundaries.json"):
         return  # Boundary already generated, skip

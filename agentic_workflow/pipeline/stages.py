@@ -123,6 +123,7 @@ Return JSON only:
     )
 
     result = parse_json_from_response(response)
+    log.info(f"{state.label()} Report generation result: {result}")
     if result and "report_path" in result:
         state.unsoundness_report = result["report_path"]
         log.info(f"{state.label()} Report → {state.unsoundness_report}")
@@ -159,21 +160,34 @@ Use the test-case-generator agent to generate test cases for this boundary.
 Reproducing test case     : {state.reproducing_test_case_path}/
 Non-reproducing test case: {state.non_reproducing_test_case_path}/
 
-Return the JSON result from the agent directly.""",
+Return the JSON result from the agent directly.
+## Return
+
+Return JSON only:
+{{
+  "reproducing": "true | false (if generation failed)",
+  "non_reproducing": "true | false (if generation failed or skipped)",
+}}
+
+
+""",
         options=options,
         stage_name=f"{state.label()} TestCaseGeneration",
     )
 
     result = parse_json_from_response(response)
-    if result and "reproducing_path" in result:
-        state.reproducing_test_case_path     = result["reproducing_path"]
-        state.non_reproducing_test_case_path = result.get("non_reproducing_path")
-        log.info(f"{state.label()} Reproducing test case → {state.reproducing_test_case_path}")
-        if state.non_reproducing_test_case_path:
-            log.info(f"{state.label()} Non-reproducing test case → {state.non_reproducing_test_case_path}")
-        else:
-            log.info(f"{state.label()} Non-reproducing skipped: {result.get('reason_for_skip')}")
-        return True
+    log.info(f"{state.label()} Test case generation result: {result}")
+    if result:
+        # repro = bool(result.get("reproducing", "false").lower() == "true")
+        repro = bool(result.get("reproducing", False))
+        # non_repro = bool(result.get("non_reproducing", "false").lower() == "true")
+        non_repro = bool(result.get("non_reproducing", False))
+        if not non_repro:
+            log.warning(f"{state.label()} Non-reproducing test case generation failed or skipped.")
+            state.non_reproducing_test_case_path = None
+        if repro:
+            log.info(f"{state.label()} Reproducing test case generated.")
+            return True
 
     log.error(f"{state.label()} Test case generation failed.")
     return False
@@ -195,14 +209,14 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     state.staticcg_path, state.dyncg_path, state.boundary_path = \
         run_analysis_interface(state)
 
-    # Read expected edge from the unsoundness report
+    # Read expected edge from the test case directory
     try:
-        report      = json.loads(Path(state.unsoundness_report).read_text())
-        missing     = report["potentialTestCase"]["TestCaseMissingEdge"]
-        exp_caller  = missing["caller"]
-        exp_callee  = missing["callee"]
+        base_path   = Path(state.reproducing_test_case_path)
+        report      = json.loads((base_path / "expected_missed_edge.json").read_text())
+        exp_caller  = report["caller"]
+        exp_callee  = report["callee"]
     except Exception as e:
-        msg = f"Could not read expected edge from unsoundness report: {e}"
+        msg = f"Could not read expected edge from test case report: {e}"
         log.error(f"{state.label()} {msg}")
         return False, msg
 
@@ -247,12 +261,33 @@ Use the root-cause-annotator agent to annotate the SA tool for this boundary.
 
 {annotated_out}/
 
-Return the JSON result from the agent directly.""",
+Return the JSON result from the agent directly.
+
+Return JSON only:
+
+{{
+  "annotated_tool_path": "<output_dir>/",
+  "annotated_file":      "<relative/path/to/ModifiedFile.java>",
+  "injected_at_line":    <line_number>,
+  "skipped":             false,
+  "skip_reason":         null
+}}
+
+If the log already exists for the same reason (`skipped: true`):
+
+{{
+  "annotated_tool_path": "<source_dir>/",
+  "annotated_file":      null,
+  "injected_at_line":    null,
+  "skipped":             true,
+  "skip_reason":         "Existing [UNSOUNDNESS] log with same reason found at <file>:<line>"
+}}""",
         options=options,
         stage_name=f"{state.label()} RootCauseAnnotation",
     )
 
     annot_result = parse_json_from_response(annot_response)
+    log.info(f"{state.label()} Annotation result: {annot_result}")
     if not annot_result or "annotated_tool_path" not in annot_result:
         log.error(f"{state.label()} Annotation failed.")
         return False, "Annotation step failed — could not parse result."
@@ -309,6 +344,7 @@ Return JSON only:
     trace_result = parse_json_from_response(trace_response)
     if trace_result:
         has_logs = bool(trace_result.get("trace_contains_logs", False))
+        # has_logs = bool(trace_result.get("trace_contains_logs", "false").lower() == "true")
         feedback = trace_result.get("feedback", "No feedback provided.")
         log.info(f"{state.label()} Trace contains logs: {has_logs}")
         return has_logs, feedback
@@ -436,44 +472,38 @@ def _entry_matches(entry: dict, expected_caller: str, expected_callee: str) -> b
 
 
 def _edge_in_boundary(
-    boundary_dir: str,
+    boundary_path: str,
     expected_caller: str,
     expected_callee: str,
 ) -> tuple[bool, str]:
     """
-    Parse all JSON files in boundary_dir (same structure as boundaries.json:
-    {"boundaries": [...]}) and check whether any entry structurally matches
+    Parse the JSON file at boundary_path and check whether any entry structurally matches
     the expected caller → callee edge.
 
     Returns:
         (found: bool, feedback: str)
     """
-    files = list(Path(boundary_dir).glob("*.json"))
-    if not files:
-        return False, f"No JSON files found in boundary directory: {boundary_dir}"
+    try:
+        data = json.loads(Path(boundary_path).read_text())
+        entries = data.get("boundaries", [])
+    except (json.JSONDecodeError, AttributeError):
+        log.warning(f"Could not parse boundary file: {boundary_path}")
+        return False, f"Could not parse boundary file: {boundary_path}"
 
-    for bf in files:
-        try:
-            data     = json.loads(bf.read_text())
-            entries  = data.get("boundaries", [])
-        except (json.JSONDecodeError, AttributeError):
-            log.warning(f"Could not parse boundary file: {bf}")
-            continue
-
-        for entry in entries:
-            if _entry_matches(entry, expected_caller, expected_callee):
-                caller  = entry.get("caller", {})
-                callee  = entry.get("missedCallee", {})
-                return True, (
-                    f"Edge confirmed in {bf.name}: "
-                    f"{_descriptor_to_classname(caller.get('declaringClass','?'))}"
-                    f".{caller.get('name','?')} → "
-                    f"{_descriptor_to_classname(callee.get('declaringClass','?'))}"
-                    f".{callee.get('name','?')}"
-                )
+    for entry in entries:
+        if _entry_matches(entry, expected_caller, expected_callee):
+            caller = entry.get("caller", {})
+            callee = entry.get("missedCallee", {})
+            return True, (
+                f"Edge confirmed in {Path(boundary_path).name}: "
+                f"{_descriptor_to_classname(caller.get('declaringClass','?'))}"
+                f".{caller.get('name','?')} → "
+                f"{_descriptor_to_classname(callee.get('declaringClass','?'))}"
+                f".{callee.get('name','?')}"
+            )
 
     return False, (
         f"Edge not found in boundary output. "
         f"Expected: {expected_caller} → {expected_callee}. "
-        f"Searched {len(files)} file(s) in {boundary_dir}."
+        f"Searched {Path(boundary_path).name}."
     )

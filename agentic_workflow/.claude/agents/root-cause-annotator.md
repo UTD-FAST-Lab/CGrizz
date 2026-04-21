@@ -65,26 +65,3 @@ if (symbolTable.isStringConstant(use)) {
 1. Copy the entire SA tool source directory to the output directory.
 2. Apply the modification to the copied file only.
 3. Do not modify any other files.
-
-## Return
-
-```json
-{
-  "annotated_tool_path": "<output_dir>/",
-  "annotated_file":      "<relative/path/to/ModifiedFile.java>",
-  "injected_at_line":    <line_number>,
-  "skipped":             false,
-  "skip_reason":         null
-}
-```
-
-If the log already exists for the same reason (`skipped: true`):
-```json
-{
-  "annotated_tool_path": "<source_dir>/",
-  "annotated_file":      null,
-  "injected_at_line":    null,
-  "skipped":             true,
-  "skip_reason":         "Existing [UNSOUNDNESS] log with same reason found at <file>:<line>"
-}
-```

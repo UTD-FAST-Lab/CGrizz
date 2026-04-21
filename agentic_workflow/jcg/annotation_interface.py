@@ -27,15 +27,15 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
         """Generate static call graph"""
         build_jcg_image()
         
-        staticcg_path = reproducing_test_case_path / "staticcg"
+        staticcg_path = Path(reproducing_test_case_path) / "staticcg"
         os.makedirs(staticcg_path, exist_ok=True)
         (staticcg_path / "log.txt").touch()
 
         project_build(reproducing_test_case_path)
 
         mounts = [
-            (str(reproducing_test_case_path / "target"), "/repo", True),
-            (str(reproducing_test_case_path / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
+            (str(Path(reproducing_test_case_path) / "target"), "/repo", True),
+            (str(Path(reproducing_test_case_path) / "jcg.conf"), f"/jcg-conf/{project}.conf", True),
             (str(staticcg_path), "/staticcg", False),
             (str(staticcg_path / "log.txt"), "/log.txt", False),
         ]

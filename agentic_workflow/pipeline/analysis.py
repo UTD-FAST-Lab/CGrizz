@@ -14,7 +14,9 @@ Two responsibilities:
 """
 
 import logging
+import subprocess
 from pathlib import Path
+import sys
 
 from pipeline.state import PipelineState
 from config import (
@@ -54,17 +56,18 @@ def run_analysis_interface(state: PipelineState) -> tuple[str, str, str]:
     log.info(f"{state.label()} SA tool   : {state.sa_tool_path}")
     log.info(f"{state.label()} Algorithm : {state.algorithm}")
 
-    
-    import subprocess
+    analysis_interface_path = Path(__file__).parent.parent / "jcg" / "analysis_interface.py"
+
     subprocess.run(
         [
-            "../jcg/analysis_interface.py",
+            sys.executable,
+            str(analysis_interface_path),
             '--framework', state.tool_name,
             '--algorithm', state.algorithm,
             '--project', 'reproducing',
             '--type', 'boundary',
-            '--reproducing_test_case_path', state.reproducing_test_case_path,
-        ],
+            '--reproducing_test_case_path', str(Path(state.reproducing_test_case_path).resolve()),
+        ]
     )
     
 
@@ -91,16 +94,17 @@ def run_annotated_sa(state: PipelineState) -> str:
     log.info(f"{state.label()} Annotated tool : {state.annotated_sa_tool_path}")
     log.info(f"{state.label()} Test case      : {state.reproducing_test_case_path}")
 
-    
-    import subprocess
+    annotation_interface_path = Path(__file__).parent.parent / "jcg" / "annotation_interface.py"
+
     subprocess.run(
         [
-            '../jcg/annotation_interface.py',
+            sys.executable,
+            str(annotation_interface_path),
             '--framework', state.tool_name,
             '--algorithm', state.algorithm,
             '--project', 'reproducing',
-            '--reproducing_test_case_path', state.reproducing_test_case_path,
-            '--annotated_sa_tool_path', state.annotated_sa_tool_path,
+            '--reproducing_test_case_path', str(Path(state.reproducing_test_case_path).resolve()),
+            '--annotated_sa_tool_path', str(Path(state.annotated_sa_tool_path).resolve()),
         ]
     )
     
