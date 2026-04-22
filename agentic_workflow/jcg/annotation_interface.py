@@ -17,9 +17,9 @@ config = {
     "STATICCG_CONTAINER": "staticcg_container",
     "DYNAMICCG_CONTAINER": "dyncg_container",
     "JCG_IMAGE": "jcg_image_annotation",
-    "WALA_ORG_PATH": "",
-    "OPAL_ORG_PATH": "",
-    "SOOT_ORG_PATH": ""
+    "WALA_ORG_PATH": Path(__file__).parent.parent.parent / "tools" / "wala",
+    "OPAL_ORG_PATH": Path(__file__).parent.parent.parent / "tools" / "opal",
+    "SOOT_ORG_PATH": Path(__file__).parent.parent.parent / "tools" / "soot"
 }
 
 
@@ -166,8 +166,8 @@ def docker_build(tag: str, dockerfile: Path, context: Path,
 
 def main():
     parser = argparse.ArgumentParser(description="JCG Runner")
-    parser.add_argument("--framework", required=False, help="Framework to analyze ()")
-    parser.add_argument("--algorithm", required=False, help="Algorithm to use (e.g., Class Hierarchy Analysis)")
+    parser.add_argument("--framework", required=False, help="Framework to analyze (WALA)")
+    parser.add_argument("--algorithm", required=False, help="Algorithm to use (e.g., 0-CFA)")
     parser.add_argument("--project", required=True, help="Project name (must match test case directory)")
 
     parser.add_argument("--reproducing_test_case_path", required=True, help="Path to the reproducing test case")

@@ -34,4 +34,4 @@ echo "Running analysis..."
 timeout --foreground $TIMEOUT \
   sbt -java-home /opt/jdk8u342-b07/jre -J-Xmx${MX} \
     "; project jcg_evaluation; $*" \
-  | tee /log.txt
+  2>&1 | tee /log.txt

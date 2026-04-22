@@ -36,6 +36,7 @@ from config import (
     OUT_TEST_CASE_DIR,
     OUT_ANNOTATED_TOOL_DIR,
     OUT_EXECUTION_TRACE,
+    OUT_STATICCG_DIR
 )
 
 log = logging.getLogger("pipeline")

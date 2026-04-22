@@ -1,0 +1,4 @@
+{
+  "caller": "com.example.App.<clinit>()",
+  "callee": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)"
+}
