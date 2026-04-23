@@ -1270,11 +1270,11 @@ public abstract class SSAPropagationCallGraphBuilder extends PropagationCallGrap
       }
 
       // side effect of new: may call class initializer
+      // Log unsoundness: WALA skips modeling ClassLoader.loadClass before <clinit>
+      System.out.println("[UNSOUNDNESS] implicit_class_loading | caller=" + node.getMethod() + " | site=" + instruction);
       if (DEBUG) {
         System.err.println("visitNew call clinit: " + klass);
       }
-      // [UNSOUNDNESS] JVM implicitly calls ClassLoader.loadClass before instantiation, but WALA does not model this edge
-      System.err.println("[UNSOUNDNESS] implicit_jvm_classloading | caller=" + node.getMethod() + " | site=" + instruction.getNewSite());
       processClassInitializer(klass);
       processFinalizeMethod(klass);
 

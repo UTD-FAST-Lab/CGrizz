@@ -66,7 +66,7 @@ Choose one:
 - `toolLimitation.reason`: concise explanation of why the tool misses it
 - `toolLimitation.toolCodeEvidence.relevantFiles`: specific tool source files/line numbers
 - `toolLimitation.toolCodeEvidence.codeSnippet`: short code excerpt (1-5 lines) showing the limitation
-- `potentialTestCase`: describe a minimal test case that reproduces the edge (if possible)
+- `potentialTestCase`: describe a minimal test case that reproduces the identified unsoundness issue based on the `toolLimitation.reason` and `pattern_class`
 
 
 ## Output

@@ -1,50 +1,36 @@
-# Non-Reproducing Test Case: No Implicit ClassLoader.loadClass
+# Non-Reproducing Test Case: Direct Instantiation in Main Method
 
-## Overview
+## Description
 
-This test case demonstrates a semantically similar program that does NOT trigger the unsoundness. The implicit class loading is avoided by removing the `new` instruction from the static initializer.
-
-## Key Difference
-
-In the reproducing test, the static field was initialized with `new Helper()`:
-```java
-static Object helper = new Helper();  // Triggers implicit class loading in <clinit>()
-```
-
-In this non-reproducing test, the static field is initialized to `null`:
-```java
-static Object helper = null;  // No class loading in <clinit>()
-```
+This test case does NOT reproduce the unsoundness. The `NEW` instruction for `HelperClass` occurs in the `main()` method, not in the static initializer (`<clinit>`), so the implicit `ClassLoader.loadClass()` call is associated with `Main.main()` rather than `Main.<clinit>()`.
 
 ## Call Path
 
-1. JVM loads `App` class
-2. `App.<clinit>()` executes (static initializer)
-3. Static field `helper` is initialized to `null` (no class loading needed)
-4. `main()` method executes
-5. `new Helper()` is called in `main()` - class loading happens here
-6. `Helper` class is loaded and constructor is invoked
+1. JVM loads `Main` class
+2. `Main.<clinit>()` executes (but does nothing - no static fields to initialize)
+3. `Main.main()` is invoked
+4. Inside `main()`, `new HelperClass()` is executed
+5. JVM implicitly calls `ClassLoader.loadClass("com.example.HelperClass")` from within `main()` context
+6. `HelperClass.<clinit>()` executes
+7. `HelperClass` instance is created
 
-## Why This Does NOT Reproduce the Unsoundness
+## Expected Behavior
 
-The implicit `ClassLoader.loadClass` call no longer happens during static initialization (`<clinit>()`). Instead, the Helper class is loaded during normal execution of `main()`, where WALA can properly track the call graph.
+**Runtime (JVM):** The edge `Main.main() -> ClassLoader.loadClass(String)` exists (not `Main.<clinit>() -> ClassLoader.loadClass(String)`).
 
-WALA can analyze this program correctly because:
-- No implicit class loading occurs in the static initializer
-- The `new Helper()` call happens in a regular method (`main()`)
-- WALA's standard analysis handles this call path without missing edges
+**WALA 0-CFA:** WALA will still abstract away the `ClassLoader.loadClass()` call, but the missed edge would be from `Main.main()` to `ClassLoader.loadClass()`, not from `Main.<clinit>()` as in the original boundary.
 
-## Building and Running
+## Root Cause Removed
+
+By moving the `NEW` instruction from the static initializer to the main method, we remove the specific pattern where `<clinit>() -> ClassLoader.loadClass()` is triggered. The class loading now happens in a different context (main method execution rather than class initialization).
+
+## Build and Run
 
 ```bash
 mvn clean package
-java -jar target/implicit-classloader-non-reproducing-1.0-SNAPSHOT.jar
+java -jar target/class-loading-non-reproducing-1.0-SNAPSHOT.jar
 ```
 
-## Expected Output
+## Difference from Reproducing Test Case
 
-```
-App loaded, helper created: Helper instance
-```
-
-The output is the same as the reproducing test, but the call graph structure is different and WALA can analyze it correctly.
+The reproducing test case has a static field initialized with `new HelperClass()`, which triggers `ClassLoader.loadClass()` from within `Main.<clinit>()`. This test case instantiates `HelperClass` inside `main()`, so the class loading (if modeled) would be associated with `Main.main()` instead. The specific unsoundness boundary `Main.<clinit>() -> ClassLoader.loadClass()` is not triggered.

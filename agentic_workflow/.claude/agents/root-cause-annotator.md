@@ -49,7 +49,7 @@ If the exact caller/site variables are not in scope at the injection point, walk
 
 You may add surrounding logic (e.g. an `if` or `else` branch, a null-check, a guard condition) to ensure the log fires only when the root cause is actually occurring — not on every invocation.
 
-**Example:**
+**Example 1:**
 ```java
 // Before the method returns null due to non-constant string
 if (symbolTable.isStringConstant(use)) {
@@ -59,6 +59,20 @@ if (symbolTable.isStringConstant(use)) {
     // fall through to return null
 }
 ```
+
+**Example 2:**
+
+**Scenario:** Unsoundness report for `ClassLoader.loadClass`.
+
+**Incorrect placement (do NOT add):**
+`visitNew(SSANewInstruction instruction)`  
+Reason: `ClassLoader.loadClass` is **not invoked on every `new` instruction**.
+
+**Correct placement:**
+`processClassInitializer(IClass klass)`
+
+**Why:**  
+Class loading/initialization in the JVM happens **once per class (lazily)**, not per allocation. Place the logic where class initialization is handled, not at allocation sites.
 
 ## Step 4: Copy and write
 

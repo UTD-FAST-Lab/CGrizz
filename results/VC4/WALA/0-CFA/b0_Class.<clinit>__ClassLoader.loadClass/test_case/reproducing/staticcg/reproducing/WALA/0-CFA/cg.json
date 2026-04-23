@@ -28910,6 +28910,44 @@
     } ]
   }, {
     "method" : {
+      "name" : "main",
+      "declaringClass" : "Lcom/example/Main;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/String;" ]
+    },
+    "callSites" : [ {
+      "declaredTarget" : {
+        "name" : "println",
+        "declaringClass" : "Ljava/io/PrintStream;",
+        "returnType" : "V",
+        "parameterTypes" : [ "Ljava/lang/String;" ]
+      },
+      "line" : 9,
+      "pc" : 5,
+      "targets" : [ {
+        "name" : "println",
+        "declaringClass" : "Ljava/io/PrintStream;",
+        "returnType" : "V",
+        "parameterTypes" : [ "Ljava/lang/String;" ]
+      } ]
+    }, {
+      "declaredTarget" : {
+        "name" : "doWork",
+        "declaringClass" : "Lcom/example/HelperClass;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
+      },
+      "line" : 10,
+      "pc" : 11,
+      "targets" : [ {
+        "name" : "doWork",
+        "declaringClass" : "Lcom/example/HelperClass;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
+      } ]
+    } ]
+  }, {
+    "method" : {
       "name" : "readLock",
       "declaringClass" : "Ljava/util/concurrent/locks/ReentrantReadWriteLock;",
       "returnType" : "Ljava/util/concurrent/locks/ReentrantReadWriteLock$ReadLock;",
@@ -52281,6 +52319,939 @@
         "name" : "clone",
         "declaringClass" : "Ljava/lang/Object;",
         "returnType" : "Ljava/lang/Object;",
+        "parameterTypes" : [ ]
+      } ]
+    } ]
+  }, {
+    "method" : {
+      "name" : "valueOf",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "callSites" : [ {
+      "declaredTarget" : {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Object;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      },
+      "line" : 2994,
+      "pc" : 10,
+      "targets" : [ {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ECPointFormatsExtension$ECPointFormatsSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Timestamp;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/MessageDigest;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/calendar/Era;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/CertificateExtensions;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ECDHServerKeyExchange$ECDHServerKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Integer;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/PskKeyExchangeModesExtension$PskKeyExchangeModesSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ExtendedMasterSecretExtension$ExtendedMasterSecretSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/io/File;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/nio/channels/FileLock;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/nio/fs/UnixPath;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/net/ProgressSource;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/CodeSigner;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/Extension;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$HRRKeyShareSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/jca/ProviderConfig;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/calendar/ImmutableGregorianDate;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Formatter$FormatSpecifier;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/EnumMap$1;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/DHServerKeyExchange$DHServerKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/PrivilegedActionException;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljavax/net/ssl/SNIServerName;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/StringBuilder;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Provider;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T10CertificateVerifyMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/X500Name;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Enum;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/calendar/CalendarDate;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljavax/crypto/CryptoPermission;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Boolean;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/locale/UnicodeLocaleExtension;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CookieExtension$CookieSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ServerNameExtension$CHServerNamesSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ServerHello$ServerHelloMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/locale/BaseLocale;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Byte;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ServerNameExtension$SHServerNamesSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/AlgorithmParameters;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/ParameterizedTypeImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/util/NamedCurve;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/URL;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/math/BigInteger;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ClientHello$ClientHelloMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/text/AttributeEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Class;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Provider$UString;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/net/www/http/HttpClient;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/certpath/ResponderId;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/concurrent/locks/AbstractQueuedSynchronizer;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/SerialNumber;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/rsa/RSAPublicKeyImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/HashMap$Node;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Package;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/StringBuffer;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/CodeSource;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SignatureAlgorithmsExtension$SignatureSchemesSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/X509CertImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SSLSessionImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/PolicyParser$PrincipalEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Date;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/DSAPublicKey;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SupportedGroupsExtension$SupportedGroupsSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$CHKeyShareSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/nio/charset/CoderResult;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/RenegoInfoExtension$RenegotiationInfoSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/misc/ExtensionInfo;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/TypeVariableImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequest;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/Plaintext;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SupportedVersionsExtension$SHSupportedVersionsSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/AbstractCollection;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$SHKeyShareSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/PolicyFile$PolicyEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequestSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KrbClientKeyExchange$KrbClientKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/certpath/ResponderId$Type;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Collections$UnmodifiableCollection;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/regex/Pattern;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SSLHandshake;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/nio/charset/Charset;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/X509Key;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/locale/Extension;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/AbstractMap;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/util/DerValue;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequestV2Spec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Signature;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/PolicyFile$SelfPermission;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljavax/net/ssl/SNIHostName;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/NewSessionTicket$NewSessionTicketMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Throwable;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/Proxy;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T12CertificateVerifyMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CipherSuite$MacAlg;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/jar/Attributes$Name;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Long;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/InetSocketAddress;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/X509CRLEntryImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/reflect/Constructor;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateAuthoritiesExtension$CertificateAuthoritiesSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/nio/CharBuffer;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$PskIdentity;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/URI;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/RSAClientKeyExchange$RSAClientKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$SHPreSharedKeySpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/text/PatternEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/Alert$AlertMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/ThreadGroup;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Locale;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CipherSuite$KeyExchange;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/nio/ByteBuffer;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/jca/ProviderList;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/DHClientKeyExchange$DHClientKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T13CertificateRequestMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/ResourceBundle$1;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$CHPreSharedKeySpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Formatter$FixedString;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T10CertificateRequestMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateMessage$T12CertificateMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/String;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/UnresolvedPermission;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ServerHelloDone$ServerHelloDoneMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/GeneralName;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/pkcs/PKCS9Attributes;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Permission;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/pkcs/PKCS9Attribute;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/PermissionCollection;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/certpath/OCSPResponse$SingleResponse;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/Provider$Service;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/HttpCookie;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Vector;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$UnmodifiableEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/RDN;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateMessage$T13CertificateMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/time/temporal/ValueRange;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/UnparseableExtension;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateVerify$S30CertificateVerifyMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Object;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T13CertificateVerifyMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/pkcs/SignerInfo;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/StackTraceElement;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/AlgorithmId;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/PolicyParser$KeyStoreEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/text/FieldPosition;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/AVA;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/TreeMap$Entry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Character;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/net/www/MimeEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/ECDHClientKeyExchange$ECDHClientKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SSLCipher;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/RSAServerKeyExchange$RSAServerKeyExchangeMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SessionId;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/MaxFragExtension$MaxFragLenSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljavax/security/auth/x500/X500Principal;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateMessage$CertificateEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/x509/GeneralNames;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KeyUpdate$KeyUpdateMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/GenericArrayTypeImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/Hashtable$Entry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SSLExtension;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/AlpnExtension$AlpnSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/util/calendar/LocalGregorianCalendar$Date;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/HelloRequest$HelloRequestMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/Finished$FinishedMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T12CertificateRequestMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/SupportedVersionsExtension$CHSupportedVersionsSpec;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertificateStatus$CertificateStatusMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/WildcardTypeImpl;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/net/InetAddress;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/util/AbstractMap$SimpleImmutableEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/EncryptedExtensions$EncryptedExtensionsMessage;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Character$Subset;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/PolicyParser$DomainEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/lang/Thread;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljavax/security/auth/PrivateCredentialPermission$CredOwner;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$OCSPStatusRequest;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/util/ObjectIdentifier;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$KeyShareEntry;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/security/ProtectionDomain;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Lsun/security/provider/certpath/CertId;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/text/AttributedCharacterIterator$Attribute;",
+        "returnType" : "Ljava/lang/String;",
+        "parameterTypes" : [ ]
+      }, {
+        "name" : "toString",
+        "declaringClass" : "Ljava/time/temporal/ChronoField;",
+        "returnType" : "Ljava/lang/String;",
         "parameterTypes" : [ ]
       } ]
     } ]
@@ -129891,89 +130862,6 @@
         "declaringClass" : "Ljava/util/concurrent/ForkJoinWorkerThread;",
         "returnType" : "V",
         "parameterTypes" : [ ]
-      } ]
-    } ]
-  }, {
-    "method" : {
-      "name" : "main",
-      "declaringClass" : "Lcom/example/App;",
-      "returnType" : "V",
-      "parameterTypes" : [ "[Ljava/lang/String;" ]
-    },
-    "callSites" : [ {
-      "declaredTarget" : {
-        "name" : "append",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/StringBuilder;",
-        "parameterTypes" : [ "Ljava/lang/String;" ]
-      },
-      "line" : 28,
-      "pc" : 12,
-      "targets" : [ {
-        "name" : "append",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/StringBuilder;",
-        "parameterTypes" : [ "Ljava/lang/String;" ]
-      } ]
-    }, {
-      "declaredTarget" : {
-        "name" : "<init>",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      },
-      "line" : 28,
-      "pc" : 7,
-      "targets" : [ {
-        "name" : "<init>",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      } ]
-    }, {
-      "declaredTarget" : {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      },
-      "line" : 28,
-      "pc" : 21,
-      "targets" : [ {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      } ]
-    }, {
-      "declaredTarget" : {
-        "name" : "append",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/StringBuilder;",
-        "parameterTypes" : [ "Ljava/lang/Object;" ]
-      },
-      "line" : 28,
-      "pc" : 18,
-      "targets" : [ {
-        "name" : "append",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/StringBuilder;",
-        "parameterTypes" : [ "Ljava/lang/Object;" ]
-      } ]
-    }, {
-      "declaredTarget" : {
-        "name" : "println",
-        "declaringClass" : "Ljava/io/PrintStream;",
-        "returnType" : "V",
-        "parameterTypes" : [ "Ljava/lang/String;" ]
-      },
-      "line" : 28,
-      "pc" : 24,
-      "targets" : [ {
-        "name" : "println",
-        "declaringClass" : "Ljava/io/PrintStream;",
-        "returnType" : "V",
-        "parameterTypes" : [ "Ljava/lang/String;" ]
       } ]
     } ]
   }, {
@@ -285946,6 +286834,29 @@
     } ]
   }, {
     "method" : {
+      "name" : "<init>",
+      "declaringClass" : "Lcom/example/HelperClass;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "declaredTarget" : {
+        "name" : "<init>",
+        "declaringClass" : "Ljava/lang/Object;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
+      },
+      "line" : 3,
+      "pc" : 1,
+      "targets" : [ {
+        "name" : "<init>",
+        "declaringClass" : "Ljava/lang/Object;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
+      } ]
+    } ]
+  }, {
+    "method" : {
       "name" : "getProtectionDomain",
       "declaringClass" : "Ljava/security/SecureClassLoader;",
       "returnType" : "Ljava/security/ProtectionDomain;",
@@ -435295,29 +436206,6 @@
       "parameterTypes" : [ "Ljava/io/OutputStream;" ]
     },
     "callSites" : [ ]
-  }, {
-    "method" : {
-      "name" : "<clinit>",
-      "declaringClass" : "Lcom/example/App;",
-      "returnType" : "V",
-      "parameterTypes" : [ ]
-    },
-    "callSites" : [ {
-      "declaredTarget" : {
-        "name" : "<init>",
-        "declaringClass" : "Lcom/example/Helper;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      },
-      "line" : 23,
-      "pc" : 4,
-      "targets" : [ {
-        "name" : "<init>",
-        "declaringClass" : "Lcom/example/Helper;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      } ]
-    } ]
   }, {
     "method" : {
       "name" : "deriveKey",
@@ -593816,6 +594704,14 @@
     } ]
   }, {
     "method" : {
+      "name" : "isInputShutdown",
+      "declaringClass" : "Ljava/net/Socket;",
+      "returnType" : "Z",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ ]
+  }, {
+    "method" : {
       "name" : "initDefault",
       "declaringClass" : "Ljava/util/Locale;",
       "returnType" : "Ljava/util/Locale;",
@@ -594040,22 +594936,6 @@
         "parameterTypes" : [ ]
       } ]
     } ]
-  }, {
-    "method" : {
-      "name" : "isInputShutdown",
-      "declaringClass" : "Ljava/net/Socket;",
-      "returnType" : "Z",
-      "parameterTypes" : [ ]
-    },
-    "callSites" : [ ]
-  }, {
-    "method" : {
-      "name" : "toString",
-      "declaringClass" : "Lcom/example/Helper;",
-      "returnType" : "Ljava/lang/String;",
-      "parameterTypes" : [ ]
-    },
-    "callSites" : [ ]
   }, {
     "method" : {
       "name" : "<init>",
@@ -684516,6 +685396,29 @@
         "declaringClass" : "Ljava/lang/StringBuilder;",
         "returnType" : "Ljava/lang/StringBuilder;",
         "parameterTypes" : [ "I" ]
+      } ]
+    } ]
+  }, {
+    "method" : {
+      "name" : "doWork",
+      "declaringClass" : "Lcom/example/HelperClass;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "declaredTarget" : {
+        "name" : "println",
+        "declaringClass" : "Ljava/io/PrintStream;",
+        "returnType" : "V",
+        "parameterTypes" : [ "Ljava/lang/String;" ]
+      },
+      "line" : 5,
+      "pc" : 5,
+      "targets" : [ {
+        "name" : "println",
+        "declaringClass" : "Ljava/io/PrintStream;",
+        "returnType" : "V",
+        "parameterTypes" : [ "Ljava/lang/String;" ]
       } ]
     } ]
   }, {
@@ -843096,6 +843999,29 @@
         "declaringClass" : "Ljava/lang/Enum;",
         "returnType" : "V",
         "parameterTypes" : [ "Ljava/lang/String;", "I" ]
+      } ]
+    } ]
+  }, {
+    "method" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lcom/example/Main;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "callSites" : [ {
+      "declaredTarget" : {
+        "name" : "<init>",
+        "declaringClass" : "Lcom/example/HelperClass;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
+      },
+      "line" : 6,
+      "pc" : 4,
+      "targets" : [ {
+        "name" : "<init>",
+        "declaringClass" : "Lcom/example/HelperClass;",
+        "returnType" : "V",
+        "parameterTypes" : [ ]
       } ]
     } ]
   }, {
@@ -1114613,29 +1115539,6 @@
   }, {
     "method" : {
       "name" : "<init>",
-      "declaringClass" : "Lcom/example/Helper;",
-      "returnType" : "V",
-      "parameterTypes" : [ ]
-    },
-    "callSites" : [ {
-      "declaredTarget" : {
-        "name" : "<init>",
-        "declaringClass" : "Ljava/lang/Object;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      },
-      "line" : 12,
-      "pc" : 1,
-      "targets" : [ {
-        "name" : "<init>",
-        "declaringClass" : "Ljava/lang/Object;",
-        "returnType" : "V",
-        "parameterTypes" : [ ]
-      } ]
-    } ]
-  }, {
-    "method" : {
-      "name" : "<init>",
       "declaringClass" : "Ljava/util/logging/LogManager$SystemLoggerContext;",
       "returnType" : "V",
       "parameterTypes" : [ "Ljava/util/logging/LogManager;" ]
@@ -1122572,944 +1123475,6 @@
         "name" : "cancellationRequested",
         "declaringClass" : "Ljava/util/stream/Sink$ChainedReference;",
         "returnType" : "Z",
-        "parameterTypes" : [ ]
-      } ]
-    } ]
-  }, {
-    "method" : {
-      "name" : "valueOf",
-      "declaringClass" : "Ljava/lang/String;",
-      "returnType" : "Ljava/lang/String;",
-      "parameterTypes" : [ "Ljava/lang/Object;" ]
-    },
-    "callSites" : [ {
-      "declaredTarget" : {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Object;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      },
-      "line" : 2994,
-      "pc" : 10,
-      "targets" : [ {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Timestamp;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/MessageDigest;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/calendar/Era;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/CertificateExtensions;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ECDHServerKeyExchange$ECDHServerKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Integer;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/PskKeyExchangeModesExtension$PskKeyExchangeModesSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ExtendedMasterSecretExtension$ExtendedMasterSecretSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/io/File;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/nio/channels/FileLock;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/nio/fs/UnixPath;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/net/ProgressSource;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/CodeSigner;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/Extension;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$HRRKeyShareSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/jca/ProviderConfig;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/calendar/ImmutableGregorianDate;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Formatter$FormatSpecifier;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/EnumMap$1;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/DHServerKeyExchange$DHServerKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/PrivilegedActionException;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljavax/net/ssl/SNIServerName;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/StringBuilder;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Provider;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T10CertificateVerifyMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/X500Name;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Enum;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/calendar/CalendarDate;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljavax/crypto/CryptoPermission;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Boolean;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/locale/UnicodeLocaleExtension;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CookieExtension$CookieSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ServerNameExtension$CHServerNamesSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ServerHello$ServerHelloMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/locale/BaseLocale;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Byte;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ServerNameExtension$SHServerNamesSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/AlgorithmParameters;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/ParameterizedTypeImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/util/NamedCurve;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/URL;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/math/BigInteger;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ClientHello$ClientHelloMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/text/AttributeEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Class;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Provider$UString;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/net/www/http/HttpClient;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/certpath/ResponderId;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/concurrent/locks/AbstractQueuedSynchronizer;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ECPointFormatsExtension$ECPointFormatsSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lcom/example/Helper;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/SerialNumber;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/rsa/RSAPublicKeyImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/HashMap$Node;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Package;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/StringBuffer;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/CodeSource;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SignatureAlgorithmsExtension$SignatureSchemesSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/X509CertImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SSLSessionImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/PolicyParser$PrincipalEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Date;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/DSAPublicKey;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SupportedGroupsExtension$SupportedGroupsSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$CHKeyShareSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/nio/charset/CoderResult;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/RenegoInfoExtension$RenegotiationInfoSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/misc/ExtensionInfo;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/TypeVariableImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequest;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/Plaintext;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SupportedVersionsExtension$SHSupportedVersionsSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/AbstractCollection;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$SHKeyShareSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/PolicyFile$PolicyEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequestSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KrbClientKeyExchange$KrbClientKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/certpath/ResponderId$Type;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Collections$UnmodifiableCollection;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/regex/Pattern;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SSLHandshake;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/nio/charset/Charset;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/X509Key;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/locale/Extension;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/AbstractMap;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/util/DerValue;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$CertStatusRequestV2Spec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Signature;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/PolicyFile$SelfPermission;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljavax/net/ssl/SNIHostName;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/NewSessionTicket$NewSessionTicketMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Throwable;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/Proxy;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T12CertificateVerifyMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CipherSuite$MacAlg;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/jar/Attributes$Name;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Long;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/InetSocketAddress;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/X509CRLEntryImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/reflect/Constructor;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateAuthoritiesExtension$CertificateAuthoritiesSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/nio/CharBuffer;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$PskIdentity;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/URI;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/RSAClientKeyExchange$RSAClientKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$SHPreSharedKeySpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/text/PatternEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/Alert$AlertMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/ThreadGroup;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Locale;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CipherSuite$KeyExchange;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/nio/ByteBuffer;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/jca/ProviderList;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/DHClientKeyExchange$DHClientKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T13CertificateRequestMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/ResourceBundle$1;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/PreSharedKeyExtension$CHPreSharedKeySpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Formatter$FixedString;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T10CertificateRequestMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateMessage$T12CertificateMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/String;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/UnresolvedPermission;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ServerHelloDone$ServerHelloDoneMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/GeneralName;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/pkcs/PKCS9Attributes;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Permission;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/pkcs/PKCS9Attribute;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/PermissionCollection;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/certpath/OCSPResponse$SingleResponse;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/Provider$Service;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/HttpCookie;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Vector;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$UnmodifiableEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/RDN;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateMessage$T13CertificateMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/time/temporal/ValueRange;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/UnparseableExtension;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateVerify$S30CertificateVerifyMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Object;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateVerify$T13CertificateVerifyMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/pkcs/SignerInfo;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/StackTraceElement;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/AlgorithmId;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/PolicyParser$KeyStoreEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/text/FieldPosition;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/AVA;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/TreeMap$Entry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Character;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/net/www/MimeEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/ECDHClientKeyExchange$ECDHClientKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/concurrent/ConcurrentHashMap;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SSLCipher;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/RSAServerKeyExchange$RSAServerKeyExchangeMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SessionId;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/MaxFragExtension$MaxFragLenSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljavax/security/auth/x500/X500Principal;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateMessage$CertificateEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/x509/GeneralNames;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KeyUpdate$KeyUpdateMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/GenericArrayTypeImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/Hashtable$Entry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SSLExtension;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/AlpnExtension$AlpnSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/util/calendar/LocalGregorianCalendar$Date;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/HelloRequest$HelloRequestMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/Finished$FinishedMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateRequest$T12CertificateRequestMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/SupportedVersionsExtension$CHSupportedVersionsSpec;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertificateStatus$CertificateStatusMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/reflect/generics/reflectiveObjects/WildcardTypeImpl;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/net/InetAddress;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/util/AbstractMap$SimpleImmutableEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/EncryptedExtensions$EncryptedExtensionsMessage;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Character$Subset;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/PolicyParser$DomainEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/lang/Thread;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljavax/security/auth/PrivateCredentialPermission$CredOwner;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/CertStatusExtension$OCSPStatusRequest;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/util/ObjectIdentifier;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/ssl/KeyShareExtension$KeyShareEntry;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/security/ProtectionDomain;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Lsun/security/provider/certpath/CertId;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/text/AttributedCharacterIterator$Attribute;",
-        "returnType" : "Ljava/lang/String;",
-        "parameterTypes" : [ ]
-      }, {
-        "name" : "toString",
-        "declaringClass" : "Ljava/time/temporal/ChronoField;",
-        "returnType" : "Ljava/lang/String;",
         "parameterTypes" : [ ]
       } ]
     } ]

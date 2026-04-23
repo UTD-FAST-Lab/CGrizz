@@ -1,30 +1,30 @@
 {
-  "edgeId": "VC4_E1",
-  "caller": "Lcats/vc4/vc/Class;.<clinit>()V",
+  "edgeId": "E1",
+  "caller": "cats.vc4.vc.Class.<clinit>()V",
   "callerLine": 12,
-  "target": "Ljava/lang/ClassLoader;.loadClass(Ljava/lang/String;)Ljava/lang/Class;",
-  "pattern_class": "implicit_jvm_classloading",
+  "target": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;",
+  "pattern_class": "implicit_class_loading",
   "evidence": [
-    "/home/mohammad/projects/AgenticCGEvaluation/programs/cats/VC4/src/main/java/cats/vc4/vc/Class.java:12 — static field 'types' initialized with array containing 'new Class()' and 'new ClassImpl()'",
-    "/home/mohammad/projects/AgenticCGEvaluation/programs/cats/VC4/target/classes/cats/vc4/vc/Class.class:PC16 — bytecode 'new #15' (cats/vc4/vc/ClassImpl) in <clinit> method",
-    "JVM specification — 'new' bytecode triggers ClassLoader.loadClass(className) before object allocation if class not yet loaded"
+    "/home/mohammad/projects/AgenticCGEvaluation/programs/cats/VC4/src/main/java/cats/vc4/vc/Class.java:12 — static field initialization with array containing new Class() and new ClassImpl()",
+    "/home/mohammad/projects/AgenticCGEvaluation/programs/cats/VC4/target/classes/cats/vc4/vc/Class.class bytecode PC 16 — NEW instruction for ClassImpl triggers implicit class loading",
+    "JVM specification: NEW bytecode instruction triggers class loading via ClassLoader.loadClass if the class is not already loaded"
   ],
   "toolLimitation": {
-    "reason": "WALA models explicit reflective calls to ClassLoader.loadClass() and Class.forName() when they appear as invocations in application code with string constant arguments (handled by ClassFactoryContextSelector). However, WALA does not model the implicit ClassLoader.loadClass() calls that the JVM internally makes when executing 'new' bytecode instructions to ensure the target class is loaded before instantiation. The visitNew method in SSAPropagationCallGraphBuilder processes the allocation, creates instance keys, and calls processClassInitializer to handle <clinit> methods, but treats the JVM's internal class loading mechanism as outside the application call graph's scope.",
+    "reason": "WALA abstracts away the JVM's class loading mechanism. When processing NEW instructions, WALA directly models the class initialization (<clinit>) via processClassInitializer() but does not model the implicit ClassLoader.loadClass() call that precedes class initialization in the actual JVM. The tool treats class loading as an implicit operation outside the call graph, directly connecting to <clinit> methods without modeling the ClassLoader invocation chain.",
     "rootCause": "design_decision",
     "toolCodeEvidence": {
       "relevantFiles": [
-        "/home/mohammad/projects/AgenticCGEvaluation/tools/WALA-1.5.7/com.ibm.wala.core/src/main/java/com/ibm/wala/ipa/callgraph/propagation/SSAPropagationCallGraphBuilder.java:1238-1277",
-        "/home/mohammad/projects/AgenticCGEvaluation/tools/WALA-1.5.7/com.ibm.wala.core/src/main/java/com/ibm/wala/analysis/reflection/ClassFactoryContextSelector.java:64-72"
+        "/home/mohammad/projects/AgenticCGEvaluation/tools/wala/com.ibm.wala.core/src/main/java/com/ibm/wala/ipa/callgraph/propagation/SSAPropagationCallGraphBuilder.java:1272-1276",
+        "/home/mohammad/projects/AgenticCGEvaluation/tools/wala/com.ibm.wala.core/src/main/java/com/ibm/wala/ipa/callgraph/propagation/SSAPropagationCallGraphBuilder.java:1588-1626"
       ],
-      "codeSnippet": "// SSAPropagationCallGraphBuilder.java:1238-1277\npublic void visitNew(SSANewInstruction instruction) {\n  InstanceKey iKey = getInstanceKeyForAllocation(instruction.getNewSite());\n  if (iKey == null) { return; }\n  PointerKey def = getPointerKeyForLocal(instruction.getDef());\n  IClass klass = iKey.getConcreteType();\n  if (klass == null) { return; }\n  \n  // Create constraint for pointer analysis\n  if (!contentsAreInvariant(symbolTable, du, instruction.getDef())) {\n    system.newConstraint(def, iKey);\n  }\n  \n  // side effect of new: may call class initializer\n  processClassInitializer(klass);  // Handles <clinit>, but NOT ClassLoader.loadClass\n  processFinalizeMethod(klass);\n  // ... rest of method\n}\n\n// ClassFactoryContextSelector.java:64-72\npublic static boolean isClassFactory(MethodReference m) {\n  if (m.equals(FOR_NAME_REF)) { return true; }      // Only explicit Class.forName\n  if (m.equals(LOAD_CLASS_REF)) { return true; }    // Only explicit ClassLoader.loadClass\n  return false;\n  // Does not recognize implicit JVM class loading from 'new' bytecode\n}"
+      "codeSnippet": "// At line 1272-1276 in visitNew():\n// side effect of new: may call class initializer\nif (DEBUG) {\n  System.err.println(\"visitNew call clinit: \" + klass);\n}\nprocessClassInitializer(klass);\n\n// At line 1606-1618 in processClassInitializer():\n// add an invocation from the fake root method to the <clinit>\nMethodReference m = klass.getClassInitializer().getReference();\nCallSiteReference site = CallSiteReference.make(1, m, IInvokeInstruction.Dispatch.STATIC);\n// ... directly adds <clinit> call to FakeWorldClinitNode without modeling ClassLoader.loadClass"
     }
   },
   "potentialTestCase": {
-    "description": "Create a Java program with a class containing a static initializer that instantiates another class via 'new'. The static initializer executes when the class is loaded. At runtime, when the JVM executes the 'new' instruction for the second class, it implicitly calls ClassLoader.loadClass() to load that class before instantiation. WALA's call graph will include the edge from <clinit> to the constructor of the instantiated class, but will not include the edge from <clinit> to ClassLoader.loadClass(). Example: class App { static Helper h = new Helper(); public static void main(String[] args) {} } class Helper {}. The missed edge is App.<clinit>() → ClassLoader.loadClass(\"Helper\").",
+    "description": "Create a minimal Java program with a main class that has a static initializer containing a NEW instruction for another class (e.g., static field initialized with new HelperClass()). The NEW instruction will trigger ClassLoader.loadClass() at runtime to load HelperClass before calling its <clinit>. WALA will model the <clinit> call but miss the ClassLoader.loadClass edge.",
     "TestCaseMissingEdge": {
-      "caller": "Lcom/example/App;.<clinit>()V",
-      "callee": "Ljava/lang/ClassLoader;.loadClass(Ljava/lang/String;)Ljava/lang/Class;"
+      "caller": "com.example.Main.<clinit>()",
+      "callee": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)"
     }
   }
 }

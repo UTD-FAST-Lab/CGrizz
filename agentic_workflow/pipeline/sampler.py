@@ -122,10 +122,29 @@ Return JSON only — no explanation outside the JSON block:
     )
 
     collected = []
+    final_result: Optional[str] = None
+
     async for message in query(prompt=prompt, options=options):
-        for block in message.content:
-            if block.type == "text":
-                collected.append(block.text)
+        if isinstance(message, SystemMessage):
+            # SDK internal message — no content attribute, nothing to collect
+            continue
+ 
+        elif isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, "type") and block.type == "text":
+                    collected.append(block.text)
+ 
+        elif isinstance(message, ResultMessage):
+            # ResultMessage carries the final text in .result (a string)
+            # and metadata like cost, stop_reason, session_id.
+            # Use it as the authoritative response if present.
+            if message.result:
+                final_result = message.result
+            log.debug(
+                f"[{stage_name}] Result metadata — "
+                f"stop_reason={message.stop_reason}, "
+                f"turns={message.num_turns}"
+            )
 
     raw = "\n".join(collected)
     log.info(f"[{program_name}/{tool_name}/{algorithm}] Sampler response: {len(raw)} chars")
