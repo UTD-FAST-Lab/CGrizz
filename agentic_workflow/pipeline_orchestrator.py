@@ -58,7 +58,7 @@ from pathlib import Path
 
 from pipeline.state import PipelineState
 from pipeline.stages import run_pipeline
-from pipeline.sampler import run_boundary_sampler
+from pipeline.sampler import run_boundary_sampler, run_global_dedup_sampler
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -193,7 +193,7 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
 
     async def run_all():
         # Run sampler to get representative subset
-        selected_boundaries, selected_indices = await run_boundary_sampler(
+        selected_boundaries, selected_indices, _ = await run_boundary_sampler(
             boundaries=boundaries,
             program_name=analysis["program_name"],
             tool_name=analysis["sa_tool_name"],
@@ -201,7 +201,6 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
             output_dir=analysis_output_dir,
             max_boundaries=analysis.get("max_boundaries"),
         )
-
         # Build states for selected boundaries
         states = [
             make_state(
@@ -243,10 +242,12 @@ def run_parallel_all(args: argparse.Namespace) -> None:
     ]
 
     async def run_all():
-        states = []
+        states: list[PipelineState] = []
+        global_rationale: dict[int, str] = {}
+
         for analysis, boundaries in analysis_boundaries:
-            # Run sampler to get representative subset
-            selected_boundaries, selected_indices = await run_boundary_sampler(
+            # Run per-program sampler to get representative subset
+            selected_boundaries, selected_indices, rationale = await run_boundary_sampler(
                 boundaries=boundaries,
                 program_name=analysis["program_name"],
                 tool_name=analysis["sa_tool_name"],
@@ -260,8 +261,10 @@ def run_parallel_all(args: argparse.Namespace) -> None:
                 max_boundaries=analysis.get("max_boundaries"),
             )
 
-            # Build states for selected boundaries
+            # Build states, threading rationale for the global dedup pass
             for b, orig_i in zip(selected_boundaries, selected_indices):
+                global_idx = len(states)
+                global_rationale[global_idx] = rationale.get(str(orig_i), "")
                 states.append(make_state(
                     program_name=analysis["program_name"],
                     tool_name=analysis["sa_tool_name"],
@@ -274,8 +277,16 @@ def run_parallel_all(args: argparse.Namespace) -> None:
                     base_output_dir=Path(args.output_dir),
                 ))
 
-        total_analyses  = len(config["analyses"])
-        total_runs      = len(states)
+        # Cross-program deduplication (only when more than one program)
+        if len(config["analyses"]) > 1:
+            states = await run_global_dedup_sampler(
+                states=states,
+                per_program_rationale=global_rationale,
+                output_dir=Path(args.output_dir),
+            )
+
+        total_analyses = len(config["analyses"])
+        total_runs     = len(states)
         log.info(
             f"Mode: parallel-all | "
             f"analyses: {total_analyses} | total runs: {total_runs} | "

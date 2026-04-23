@@ -1,0 +1,578 @@
+{
+  "source_boundaries_count": 149,
+  "selected_count": 16,
+  "sampler_model": "claude-haiku-4-5-20251001",
+  "boundaries": [
+    {
+      "original_index": 6,
+      "rationale": "Charset decoder polymorphism (UTF_8 vs US_ASCII) with high impact (4/6 not covered).",
+      "caller": {
+        "name": "decoder",
+        "declaringClass": "Ljava/util/zip/ZipCoder;",
+        "returnType": "Ljava/nio/charset/CharsetDecoder;",
+        "parameterTypes": []
+      },
+      "missedCallee": {
+        "name": "newDecoder",
+        "declaringClass": "Lsun/nio/cs/UTF_8;",
+        "returnType": "Ljava/nio/charset/CharsetDecoder;",
+        "parameterTypes": []
+      },
+      "line": 144,
+      "pc": 12,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [
+        {
+          "name": "newDecoder",
+          "declaringClass": "Lsun/nio/cs/US_ASCII;",
+          "returnType": "Ljava/nio/charset/CharsetDecoder;",
+          "parameterTypes": []
+        }
+      ],
+      "impact": {
+        "totalReachable": 6,
+        "notCovered": 4
+      }
+    },
+    {
+      "original_index": 11,
+      "rationale": "Representative of ZipFile\u2192ClassLoader.findNative native dispatch pattern (2/4 impact, same class caller collapse).",
+      "caller": {
+        "name": "getEntryCrc",
+        "declaringClass": "Ljava/util/zip/ZipFile;",
+        "returnType": "J",
+        "parameterTypes": [
+          "J"
+        ]
+      },
+      "missedCallee": {
+        "name": "findNative",
+        "declaringClass": "Ljava/lang/ClassLoader;",
+        "returnType": "J",
+        "parameterTypes": [
+          "Ljava/lang/ClassLoader;",
+          "Ljava/lang/String;"
+        ]
+      },
+      "line": -1,
+      "pc": -1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 4,
+        "notCovered": 2
+      }
+    },
+    {
+      "original_index": 28,
+      "rationale": "Reflection field copying miss (3/4 impact) representing ReflectAccess polymorphism.",
+      "caller": {
+        "name": "copyField",
+        "declaringClass": "Ljava/lang/reflect/ReflectAccess;",
+        "returnType": "Ljava/lang/reflect/Field;",
+        "parameterTypes": [
+          "Ljava/lang/reflect/Field;"
+        ]
+      },
+      "missedCallee": {
+        "name": "copy",
+        "declaringClass": "Ljava/lang/reflect/Field;",
+        "returnType": "Ljava/lang/reflect/Field;",
+        "parameterTypes": []
+      },
+      "line": 144,
+      "pc": 1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 4,
+        "notCovered": 3
+      }
+    },
+    {
+      "original_index": 33,
+      "rationale": "Package access control checking miss, representative of access control guard patterns.",
+      "caller": {
+        "name": "getDeclaredMethods0",
+        "declaringClass": "Ljava/lang/Class;",
+        "returnType": "[Ljava/lang/reflect/Method;",
+        "parameterTypes": [
+          "Z"
+        ]
+      },
+      "missedCallee": {
+        "name": "checkPackageAccess",
+        "declaringClass": "Ljava/lang/ClassLoader;",
+        "returnType": "V",
+        "parameterTypes": [
+          "Ljava/lang/Class;",
+          "Ljava/security/ProtectionDomain;"
+        ]
+      },
+      "line": -1,
+      "pc": -1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 2,
+        "notCovered": 1
+      }
+    },
+    {
+      "original_index": 37,
+      "rationale": "Representative of Inflater\u2192findNative native dispatch pattern (2/4 impact, same class caller collapse).",
+      "caller": {
+        "name": "initIDs",
+        "declaringClass": "Ljava/util/zip/Inflater;",
+        "returnType": "V",
+        "parameterTypes": []
+      },
+      "missedCallee": {
+        "name": "findNative",
+        "declaringClass": "Ljava/lang/ClassLoader;",
+        "returnType": "J",
+        "parameterTypes": [
+          "Ljava/lang/ClassLoader;",
+          "Ljava/lang/String;"
+        ]
+      },
+      "line": -1,
+      "pc": -1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 4,
+        "notCovered": 2
+      }
+    },
+    {
+      "original_index": 47,
+      "rationale": "Charset encoder polymorphism (UTF_8 vs US_ASCII), different method than [6] decoder, 3/4 impact.",
+      "caller": {
+        "name": "encoder",
+        "declaringClass": "Ljava/util/zip/ZipCoder;",
+        "returnType": "Ljava/nio/charset/CharsetEncoder;",
+        "parameterTypes": []
+      },
+      "missedCallee": {
+        "name": "newEncoder",
+        "declaringClass": "Lsun/nio/cs/UTF_8;",
+        "returnType": "Ljava/nio/charset/CharsetEncoder;",
+        "parameterTypes": []
+      },
+      "line": 153,
+      "pc": 12,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [
+        {
+          "name": "newEncoder",
+          "declaringClass": "Lsun/nio/cs/US_ASCII;",
+          "returnType": "Ljava/nio/charset/CharsetEncoder;",
+          "parameterTypes": []
+        }
+      ],
+      "impact": {
+        "totalReachable": 4,
+        "notCovered": 3
+      }
+    },
+    {
+      "original_index": 64,
+      "rationale": "Reflection method copying miss (4/5 impact), part of critical reflection polymorphism family.",
+      "caller": {
+        "name": "copyMethod",
+        "declaringClass": "Ljava/lang/reflect/ReflectAccess;",
+        "returnType": "Ljava/lang/reflect/Method;",
+        "parameterTypes": [
+          "Ljava/lang/reflect/Method;"
+        ]
+      },
+      "missedCallee": {
+        "name": "copy",
+        "declaringClass": "Ljava/lang/reflect/Method;",
+        "returnType": "Ljava/lang/reflect/Method;",
+        "parameterTypes": []
+      },
+      "line": 140,
+      "pc": 1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 5,
+        "notCovered": 4
+      }
+    },
+    {
+      "original_index": 75,
+      "rationale": "Reflection factory constructor creation (6/8 impact), critical polymorphism in Class.getConstructor0 chain.",
+      "caller": {
+        "name": "getConstructor0",
+        "declaringClass": "Ljava/lang/Class;",
+        "returnType": "Ljava/lang/reflect/Constructor;",
+        "parameterTypes": [
+          "[Ljava/lang/Class;",
+          "I"
+        ]
+      },
+      "missedCallee": {
+        "name": "copyConstructor",
+        "declaringClass": "Lsun/reflect/ReflectionFactory;",
+        "returnType": "Ljava/lang/reflect/Constructor;",
+        "parameterTypes": [
+          "Ljava/lang/reflect/Constructor;"
+        ]
+      },
+      "line": 3079,
+      "pc": 56,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 8,
+        "notCovered": 6
+      }
+    },
+    {
+      "original_index": 78,
+      "rationale": "Object initialization finalizer registration miss (4/5 impact) with execution trace, unique initialization pattern.",
+      "caller": {
+        "name": "<init>",
+        "declaringClass": "Ljava/lang/Object;",
+        "returnType": "V",
+        "parameterTypes": []
+      },
+      "missedCallee": {
+        "name": "register",
+        "declaringClass": "Ljava/lang/ref/Finalizer;",
+        "returnType": "V",
+        "parameterTypes": [
+          "Ljava/lang/Object;"
+        ]
+      },
+      "line": 37,
+      "pc": 0,
+      "tracesLeadingToBoundary": [
+        [
+          {
+            "name": "main",
+            "declaringClass": "Lcats/csr2/csr/Demo;",
+            "returnType": "V",
+            "parameterTypes": [
+              "[Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/ArrayIndexOutOfBoundsException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/IndexOutOfBoundsException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/RuntimeException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/Exception;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/Throwable;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/Object;",
+            "returnType": "V",
+            "parameterTypes": []
+          }
+        ]
+      ],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 5,
+        "notCovered": 4
+      }
+    },
+    {
+      "original_index": 84,
+      "rationale": "MethodHandle privileged action miss (2/7 impact), representative of privileged action polymorphism.",
+      "caller": {
+        "name": "doPrivileged",
+        "declaringClass": "Ljava/security/AccessController;",
+        "returnType": "Ljava/lang/Object;",
+        "parameterTypes": [
+          "Ljava/security/PrivilegedAction;"
+        ]
+      },
+      "missedCallee": {
+        "name": "run",
+        "declaringClass": "Ljava/lang/invoke/MethodHandleStatics$1;",
+        "returnType": "Ljava/lang/Object;",
+        "parameterTypes": []
+      },
+      "line": -1,
+      "pc": -1,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 7,
+        "notCovered": 2
+      }
+    },
+    {
+      "original_index": 89,
+      "rationale": "Recursive Throwable.fillInStackTrace miss (1/1 coverage gap) with trace, unusual self-referential miss.",
+      "caller": {
+        "name": "fillInStackTrace",
+        "declaringClass": "Ljava/lang/Throwable;",
+        "returnType": "Ljava/lang/Throwable;",
+        "parameterTypes": []
+      },
+      "missedCallee": {
+        "name": "fillInStackTrace",
+        "declaringClass": "Ljava/lang/Throwable;",
+        "returnType": "Ljava/lang/Throwable;",
+        "parameterTypes": [
+          "I"
+        ]
+      },
+      "line": 784,
+      "pc": 16,
+      "tracesLeadingToBoundary": [
+        [
+          {
+            "name": "main",
+            "declaringClass": "Lcats/csr2/csr/Demo;",
+            "returnType": "V",
+            "parameterTypes": [
+              "[Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/ArrayIndexOutOfBoundsException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/IndexOutOfBoundsException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/RuntimeException;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/Exception;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "<init>",
+            "declaringClass": "Ljava/lang/Throwable;",
+            "returnType": "V",
+            "parameterTypes": [
+              "Ljava/lang/String;"
+            ]
+          },
+          {
+            "name": "fillInStackTrace",
+            "declaringClass": "Ljava/lang/Throwable;",
+            "returnType": "Ljava/lang/Throwable;",
+            "parameterTypes": []
+          }
+        ]
+      ],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 1,
+        "notCovered": 1
+      }
+    },
+    {
+      "original_index": 90,
+      "rationale": "DirectByteBuffer asLongBuffer polymorphism (5/13 impact), high-impact buffer conversion miss.",
+      "caller": {
+        "name": "<init>",
+        "declaringClass": "Lsun/misc/PerfCounter;",
+        "returnType": "V",
+        "parameterTypes": [
+          "Ljava/lang/String;",
+          "I"
+        ]
+      },
+      "missedCallee": {
+        "name": "asLongBuffer",
+        "declaringClass": "Ljava/nio/DirectByteBuffer;",
+        "returnType": "Ljava/nio/LongBuffer;",
+        "parameterTypes": []
+      },
+      "line": 67,
+      "pc": 30,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 13,
+        "notCovered": 5
+      }
+    },
+    {
+      "original_index": 113,
+      "rationale": "Constructor.newInstance accessor acquisition (10/15 impact), highest-impact boundary, critical reflection chain.",
+      "caller": {
+        "name": "newInstance",
+        "declaringClass": "Ljava/lang/reflect/Constructor;",
+        "returnType": "Ljava/lang/Object;",
+        "parameterTypes": [
+          "[Ljava/lang/Object;"
+        ]
+      },
+      "missedCallee": {
+        "name": "acquireConstructorAccessor",
+        "declaringClass": "Ljava/lang/reflect/Constructor;",
+        "returnType": "Lsun/reflect/ConstructorAccessor;",
+        "parameterTypes": []
+      },
+      "line": 420,
+      "pc": 73,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 15,
+        "notCovered": 10
+      }
+    },
+    {
+      "original_index": 114,
+      "rationale": "Application-level caller (Demo.main), only boundary with application code origin and execution trace.",
+      "caller": {
+        "name": "main",
+        "declaringClass": "Lcats/csr2/csr/Demo;",
+        "returnType": "V",
+        "parameterTypes": [
+          "[Ljava/lang/String;"
+        ]
+      },
+      "missedCallee": {
+        "name": "<init>",
+        "declaringClass": "Ljava/lang/ArrayIndexOutOfBoundsException;",
+        "returnType": "V",
+        "parameterTypes": [
+          "Ljava/lang/String;"
+        ]
+      },
+      "line": 13,
+      "pc": 2,
+      "tracesLeadingToBoundary": [
+        [
+          {
+            "name": "main",
+            "declaringClass": "Lcats/csr2/csr/Demo;",
+            "returnType": "V",
+            "parameterTypes": [
+              "[Ljava/lang/String;"
+            ]
+          }
+        ]
+      ],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 1,
+        "notCovered": 0
+      }
+    },
+    {
+      "original_index": 131,
+      "rationale": "Class.getMethod0 lookup miss (3/6 impact), part of reflection method resolution chain.",
+      "caller": {
+        "name": "getMethod",
+        "declaringClass": "Ljava/lang/Class;",
+        "returnType": "Ljava/lang/reflect/Method;",
+        "parameterTypes": [
+          "Ljava/lang/String;",
+          "[Ljava/lang/Class;"
+        ]
+      },
+      "missedCallee": {
+        "name": "getMethod0",
+        "declaringClass": "Ljava/lang/Class;",
+        "returnType": "Ljava/lang/reflect/Method;",
+        "parameterTypes": [
+          "Ljava/lang/String;",
+          "[Ljava/lang/Class;",
+          "Z"
+        ]
+      },
+      "line": 1784,
+      "pc": 13,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 6,
+        "notCovered": 3
+      }
+    },
+    {
+      "original_index": 137,
+      "rationale": "Constructor delegation constructor accessor (9/12 impact), second-highest impact, critical reflection polymorphism.",
+      "caller": {
+        "name": "newInstance",
+        "declaringClass": "Ljava/lang/reflect/Constructor;",
+        "returnType": "Ljava/lang/Object;",
+        "parameterTypes": [
+          "[Ljava/lang/Object;"
+        ]
+      },
+      "missedCallee": {
+        "name": "newInstance",
+        "declaringClass": "Lsun/reflect/DelegatingConstructorAccessorImpl;",
+        "returnType": "Ljava/lang/Object;",
+        "parameterTypes": [
+          "[Ljava/lang/Object;"
+        ]
+      },
+      "line": 423,
+      "pc": 79,
+      "tracesLeadingToBoundary": [],
+      "staticCalleesAtSite": [],
+      "impact": {
+        "totalReachable": 12,
+        "notCovered": 9
+      }
+    }
+  ]
+}

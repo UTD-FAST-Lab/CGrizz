@@ -60,20 +60,6 @@ if (symbolTable.isStringConstant(use)) {
 }
 ```
 
-**Example 2:**
-
-**Scenario:** Unsoundness report for `ClassLoader.loadClass`.
-
-**Incorrect placement (do NOT add):**
-`visitNew(SSANewInstruction instruction)`  
-Reason: `ClassLoader.loadClass` is **not invoked on every `new` instruction**.
-
-**Correct placement:**
-`processClassInitializer(IClass klass)`
-
-**Why:**  
-Class loading/initialization in the JVM happens **once per class (lazily)**, not per allocation. Place the logic where class initialization is handled, not at allocation sites.
-
 ## Step 4: Copy and write
 
 1. Copy the entire SA tool source directory to the output directory.

@@ -7,23 +7,54 @@ before any per-boundary pipelines are spawned.
 Reads the full boundaries list, sends compact summaries to a fast model,
 and returns the subset worth analyzing — filtered for uniqueness, impact,
 and trace diversity.
+
+Also provides run_global_dedup_sampler() for cross-program deduplication
+after all per-program sampling is done.
 """
 
 import json
 import logging
 from pathlib import Path
+from typing import Optional
 
-from claude_agent_sdk import ClaudeAgentOptions, query
+from claude_agent_sdk import (
+    ClaudeAgentOptions,
+    query,
+    AssistantMessage,
+    ResultMessage,
+    SystemMessage,
+)
 
-from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES
+from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES
+from pipeline.state import PipelineState
 
 log = logging.getLogger("pipeline.sampler")
 
 
-# ── Compact summary (no PipelineState needed) ─────────────────────────────────
+# ── Library class detection ───────────────────────────────────────────────────
+
+_LIBRARY_PREFIXES = (
+    "Ljava/", "Ljavax/", "Lsun/", "Ljdk/",
+    "Lcom/sun/", "Lorg/xml/", "Lorg/w3c/", "Lorg/ietf/",
+)
+
+
+def _is_application_class(cls: str) -> bool:
+    return bool(cls) and not any(cls.startswith(p) for p in _LIBRARY_PREFIXES)
+
+
+def _has_application_edge(state: PipelineState) -> bool:
+    b = state.boundary
+    return (
+        _is_application_class(b.get("caller", {}).get("declaringClass", ""))
+        or _is_application_class(b.get("missedCallee", {}).get("declaringClass", ""))
+    )
+
+
+# ── Compact summaries ─────────────────────────────────────────────────────────
 
 def _boundary_compact(b: dict) -> str:
-    """One-block text summary of a boundary dict for use in the sampler prompt."""
+    """One-block text summary of a boundary dict for use in the per-program sampler prompt."""
     caller  = b.get("caller", {})
     missed  = b.get("missedCallee", {})
     impact  = b.get("impact", {})
@@ -50,7 +81,26 @@ def _boundary_compact(b: dict) -> str:
     )
 
 
-# ── Main sampler ──────────────────────────────────────────────────────────────
+def _boundary_cross_compact(state: PipelineState, rationale: str) -> str:
+    """Compact summary for cross-program dedup — caller and missedCallee only."""
+    b      = state.boundary
+    caller = b.get("caller", {})
+    missed = b.get("missedCallee", {})
+
+    params   = ", ".join(caller.get("parameterTypes", []))
+    ret      = caller.get("returnType", "?")
+    caller_s = f"{caller.get('declaringClass', '?')}.{caller.get('name', '?')}({params}) → {ret}"
+    missed_s = f"{missed.get('declaringClass', '?')}.{missed.get('name', '?')}"
+
+    return (
+        f"program={state.program_name}\n"
+        f"Caller   : {caller_s}\n"
+        f"Missed   : {missed_s}\n"
+        f"Rationale: {rationale or '(none)'}"
+    )
+
+
+# ── Per-program sampler ───────────────────────────────────────────────────────
 
 async def run_boundary_sampler(
     boundaries:     list[dict],
@@ -59,7 +109,7 @@ async def run_boundary_sampler(
     algorithm:      str,
     output_dir:     Path,
     max_boundaries: int | None = None,
-) -> tuple[list[dict], list[int]]:
+) -> tuple[list[dict], list[int], dict]:
     """
     Select a representative, high-value subset of boundaries to analyze.
 
@@ -73,7 +123,7 @@ async def run_boundary_sampler(
         max_boundaries: Optional hard cap on selections. None = no cap.
 
     Returns:
-        (selected_boundaries, original_indices)
+        (selected_boundaries, original_indices, rationale)
         Falls back to the full list if the agent fails or returns empty.
     """
     n = len(boundaries)
@@ -105,7 +155,7 @@ Boundary entries:
 
 {numbered}
 
-Return JSON only — no explanation outside the JSON block:
+Return JSON only:
 {{
   "selected": [0, 2, ...],
   "rationale": {{
@@ -126,27 +176,23 @@ Return JSON only — no explanation outside the JSON block:
 
     async for message in query(prompt=prompt, options=options):
         if isinstance(message, SystemMessage):
-            # SDK internal message — no content attribute, nothing to collect
             continue
- 
+
         elif isinstance(message, AssistantMessage):
             for block in message.content:
                 if hasattr(block, "type") and block.type == "text":
                     collected.append(block.text)
- 
+
         elif isinstance(message, ResultMessage):
-            # ResultMessage carries the final text in .result (a string)
-            # and metadata like cost, stop_reason, session_id.
-            # Use it as the authoritative response if present.
             if message.result:
                 final_result = message.result
             log.debug(
-                f"[{stage_name}] Result metadata — "
+                f" Result metadata — "
                 f"stop_reason={message.stop_reason}, "
                 f"turns={message.num_turns}"
             )
 
-    raw = "\n".join(collected)
+    raw = "\n".join(collected) or (final_result or "")
     log.info(f"[{program_name}/{tool_name}/{algorithm}] Sampler response: {len(raw)} chars")
 
     selected_indices, rationale = _parse_sampler_response(raw, n)
@@ -173,7 +219,146 @@ Return JSON only — no explanation outside the JSON block:
         f"[{program_name}/{tool_name}/{algorithm}] "
         f"Sampler selected {len(selected_indices)}/{n}: {selected_indices}"
     )
-    return selected_boundaries, selected_indices
+    return selected_boundaries, selected_indices, rationale
+
+
+# ── Cross-program dedup sampler ───────────────────────────────────────────────
+
+async def run_global_dedup_sampler(
+    states:                list[PipelineState],
+    per_program_rationale: dict[int, str],
+    output_dir:            Path,
+) -> list[PipelineState]:
+    """
+    Cross-program deduplication pass.
+
+    After per-program sampling, identifies boundaries from different programs
+    that share the same unsoundness root cause and keeps one representative.
+
+    Boundaries with application edges are always kept without consulting the LLM.
+    Only caller + missedCallee are sent to the model — traces and impact are
+    program-specific and inconsistent across programs.
+    Pass-1 per-program rationale is included to give the LLM richer signal.
+
+    Returns the deduplicated list of PipelineState objects (structure preserved).
+    Falls back to the full states list if the LLM fails or returns empty.
+    """
+    n = len(states)
+    log.info(f"[global] Cross-program dedup: {n} boundaries across programs.")
+
+    if n <= 1:
+        return states
+
+    # Partition: application edges are always kept; library-only go to LLM
+    forced_states:           list[PipelineState] = []
+    candidates:              list[PipelineState] = []
+    candidate_global_indices: list[int]          = []
+
+    for global_idx, state in enumerate(states):
+        if _has_application_edge(state):
+            forced_states.append(state)
+        else:
+            candidates.append(state)
+            candidate_global_indices.append(global_idx)
+
+    log.info(
+        f"[global] Application edges forced-kept: {len(forced_states)}, "
+        f"candidates for dedup: {len(candidates)}"
+    )
+
+    if len(candidates) <= 1:
+        return forced_states + candidates
+
+    nc = len(candidates)
+    numbered = "\n\n".join(
+        f"[{i}]\n{_boundary_cross_compact(candidates[i], per_program_rationale.get(candidate_global_indices[i], ''))}"
+        for i in range(nc)
+    )
+
+    ta_pairs = sorted({(s.tool_name, s.algorithm) for s in candidates})
+    ta_str   = ", ".join(f"{t}/{a}" for t, a in ta_pairs)
+
+    prompt = f"""\
+You are given {nc} boundary entries collected across multiple programs analyzed with {ta_str}. \
+Each entry describes a call site where the static analysis tool missed a callee.
+
+Your task: identify entries that represent the same unsoundness root cause — same kind of \
+caller pattern AND same kind of missed callee — and keep only one representative per pattern.
+
+Apply these criteria in order:
+1. **Uniqueness** — if multiple entries share the same caller method name pattern AND the same \
+kind of missed callee (e.g. both are virtual dispatch misses to a concrete subclass named similarly), \
+keep only the best representative. Use the Rationale field to judge which is more informative.
+2. **Distinct patterns** — entries with different call mechanisms (e.g. one is a reflective call miss, \
+another is a polymorphism miss) must both be kept even if class names look similar.
+3. Do NOT use impact ratios or trace counts — these are program-specific and not comparable across programs.
+
+Boundary entries:
+
+{numbered}
+
+Return JSON only:
+{{
+  "selected": [0, 2, ...],
+  "rationale": {{
+    "0": "<one sentence why this entry was kept or chosen as representative>",
+    "2": "<one sentence why this entry was kept or chosen as representative>"
+  }}
+}}"""
+
+    options = ClaudeAgentOptions(
+        model=MODEL_FAST,
+        allowed_tools=[],
+        setting_sources=["user", "project"],
+        cwd=str(Path(__file__).parent.parent),
+    )
+
+    collected = []
+    final_result: Optional[str] = None
+
+    async for message in query(prompt=prompt, options=options):
+        if isinstance(message, SystemMessage):
+            continue
+        elif isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, "type") and block.type == "text":
+                    collected.append(block.text)
+        elif isinstance(message, ResultMessage):
+            if message.result:
+                final_result = message.result
+            log.debug(
+                f"[global] Result metadata — "
+                f"stop_reason={message.stop_reason}, "
+                f"turns={message.num_turns}"
+            )
+
+    raw = "\n".join(collected) or (final_result or "")
+    log.info(f"[global] Dedup response: {len(raw)} chars")
+
+    selected_indices, rationale = _parse_sampler_response(raw, nc)
+
+    if not selected_indices:
+        log.warning("[global] Dedup returned empty selection — keeping all candidates.")
+        selected_indices = list(range(nc))
+        rationale = {}
+
+    selected_candidates = [candidates[i] for i in selected_indices]
+    final_states = forced_states + selected_candidates
+
+    _write_global_dedup_output(
+        output_dir=output_dir,
+        total_input=n,
+        forced_states=forced_states,
+        selected_candidates=selected_candidates,
+        selected_candidate_indices=selected_indices,
+        rationale=rationale,
+    )
+
+    log.info(
+        f"[global] Dedup: {len(final_states)}/{n} kept "
+        f"({len(forced_states)} forced app-edges + {len(selected_candidates)} from LLM)"
+    )
+    return final_states
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -205,7 +390,6 @@ def _parse_sampler_response(response: str, n: int) -> tuple[list[int], dict]:
     raw_indices = data.get("selected", [])
     rationale   = {str(k): v for k, v in data.get("rationale", {}).items()}
 
-    # Validate indices are in-range integers
     valid = []
     for idx in raw_indices:
         if isinstance(idx, int) and 0 <= idx < n:
@@ -242,3 +426,43 @@ def _write_sampler_output(
     out_path = output_dir / OUT_SELECTED_BOUNDARIES
     out_path.write_text(json.dumps(out, indent=2))
     log.info(f"Sampler output → {out_path}")
+
+
+def _write_global_dedup_output(
+    output_dir:              Path,
+    total_input:             int,
+    forced_states:           list[PipelineState],
+    selected_candidates:     list[PipelineState],
+    selected_candidate_indices: list[int],
+    rationale:               dict,
+) -> None:
+    """Write global_selected_boundaries.json at the base output directory."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    selected_entries = []
+    for state in forced_states:
+        selected_entries.append({
+            "program":     state.program_name,
+            "boundary_id": state.boundary_id,
+            "kept_reason": "application_edge",
+            "rationale":   "",
+        })
+    for local_idx, state in zip(selected_candidate_indices, selected_candidates):
+        selected_entries.append({
+            "program":     state.program_name,
+            "boundary_id": state.boundary_id,
+            "kept_reason": "selected_by_dedup",
+            "rationale":   rationale.get(str(local_idx), ""),
+        })
+
+    out = {
+        "total_input":    total_input,
+        "forced_kept":    len(forced_states),
+        "selected_count": len(forced_states) + len(selected_candidates),
+        "dedup_model":    MODEL_FAST,
+        "selected":       selected_entries,
+    }
+
+    out_path = output_dir / OUT_GLOBAL_SELECTED_BOUNDARIES
+    out_path.write_text(json.dumps(out, indent=2))
+    log.info(f"[global] Dedup output → {out_path}")
