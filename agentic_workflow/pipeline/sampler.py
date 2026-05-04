@@ -25,7 +25,7 @@ from claude_agent_sdk import (
     SystemMessage,
 )
 
-from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES
+from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES, JVM_RUNTIME_EXCLUDED_CALLEES
 from pipeline.state import PipelineState
 
 log = logging.getLogger("pipeline.sampler")
@@ -49,6 +49,45 @@ def _has_application_edge(state: PipelineState) -> bool:
         _is_application_class(b.get("caller", {}).get("declaringClass", ""))
         and _is_application_class(b.get("missedCallee", {}).get("declaringClass", ""))
     )
+
+
+# ── JVM-runtime pre-filter ────────────────────────────────────────────────────
+
+def filter_jvm_runtime_boundaries(
+    boundaries: list[dict],
+) -> tuple[list[dict], list[int]]:
+    """
+    Remove boundaries whose missedCallee is dispatched by the JVM at runtime
+    (GC finalization, class loading, security checks, etc.).
+
+    Returns (filtered_boundaries, original_indices) so callers can preserve
+    the original file indices in output directory names after filtering.
+    """
+    kept: list[dict] = []
+    kept_indices: list[int] = []
+    excluded = 0
+
+    for i, b in enumerate(boundaries):
+        missed  = b.get("missedCallee", {})
+        m_name  = missed.get("name", "")
+        m_class = missed.get("declaringClass", "")
+
+        should_exclude = any(
+            m_name == method and (cls is None or m_class == cls)
+            for cls, method in JVM_RUNTIME_EXCLUDED_CALLEES
+        )
+
+        if should_exclude:
+            excluded += 1
+            log.info(f"Pre-filter: excluded boundary {i} ({m_class}.{m_name})")
+        else:
+            kept.append(b)
+            kept_indices.append(i)
+
+    if excluded:
+        log.info(f"Pre-filter: removed {excluded}/{len(boundaries)} JVM-runtime boundaries.")
+
+    return kept, kept_indices
 
 
 # ── Compact summaries ─────────────────────────────────────────────────────────

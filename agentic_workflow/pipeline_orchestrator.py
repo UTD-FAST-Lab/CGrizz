@@ -58,7 +58,7 @@ from pathlib import Path
 
 from pipeline.state import PipelineState
 from pipeline.stages import run_pipeline
-from pipeline.sampler import run_boundary_sampler, run_global_dedup_sampler
+from pipeline.sampler import run_boundary_sampler, run_global_dedup_sampler, filter_jvm_runtime_boundaries
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -180,9 +180,11 @@ def run_single(args: argparse.Namespace) -> None:
 
 def run_parallel_edges(args: argparse.Namespace) -> None:
     """One analysis entry from config, all boundary entries concurrently."""
-    analysis   = _find_analysis(args)
-    boundaries = load_boundaries(analysis["boundaries_file"])
-    sem        = asyncio.Semaphore(args.concurrency)
+    analysis                       = _find_analysis(args)
+    boundaries, pre_filter_indices = filter_jvm_runtime_boundaries(
+        load_boundaries(analysis["boundaries_file"])
+    )
+    sem = asyncio.Semaphore(args.concurrency)
 
     analysis_output_dir = (
         Path(args.output_dir)
@@ -193,7 +195,7 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
 
     async def run_all():
         # Run sampler to get representative subset
-        selected_boundaries, selected_indices, _ = await run_boundary_sampler(
+        selected_boundaries, sampler_indices, _ = await run_boundary_sampler(
             boundaries=boundaries,
             program_name=analysis["program_name"],
             tool_name=analysis["sa_tool_name"],
@@ -201,7 +203,7 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
             output_dir=analysis_output_dir,
             max_boundaries=analysis.get("max_boundaries"),
         )
-        # Build states for selected boundaries
+        # Build states, mapping sampler indices back to original file indices
         states = [
             make_state(
                 program_name=analysis["program_name"],
@@ -211,10 +213,10 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
                 main_class=analysis.get("main_class"),
                 sa_tool=analysis["sa_tool"],
                 boundary=b,
-                boundary_index=orig_i,
+                boundary_index=pre_filter_indices[si],
                 base_output_dir=Path(args.output_dir),
             )
-            for b, orig_i in zip(selected_boundaries, selected_indices)
+            for b, si in zip(selected_boundaries, sampler_indices)
         ]
 
         log.info(
@@ -235,9 +237,9 @@ def run_parallel_all(args: argparse.Namespace) -> None:
     config     = _load_config(args.config)
     sem        = asyncio.Semaphore(args.concurrency)
 
-    # Pre-load all boundaries per analysis for the sampler
+    # Pre-load and pre-filter all boundaries per analysis for the sampler
     analysis_boundaries = [
-        (analysis, load_boundaries(analysis["boundaries_file"]))
+        (analysis, *filter_jvm_runtime_boundaries(load_boundaries(analysis["boundaries_file"])))
         for analysis in config["analyses"]
     ]
 
@@ -245,9 +247,9 @@ def run_parallel_all(args: argparse.Namespace) -> None:
         states: list[PipelineState] = []
         global_rationale: dict[int, str] = {}
 
-        for analysis, boundaries in analysis_boundaries:
+        for analysis, boundaries, pre_filter_indices in analysis_boundaries:
             # Run per-program sampler to get representative subset
-            selected_boundaries, selected_indices, rationale = await run_boundary_sampler(
+            selected_boundaries, sampler_indices, rationale = await run_boundary_sampler(
                 boundaries=boundaries,
                 program_name=analysis["program_name"],
                 tool_name=analysis["sa_tool_name"],
@@ -262,9 +264,11 @@ def run_parallel_all(args: argparse.Namespace) -> None:
             )
 
             # Build states, threading rationale for the global dedup pass
-            for b, orig_i in zip(selected_boundaries, selected_indices):
+            # Map sampler indices back to original file indices via pre_filter_indices
+            for b, sampler_i in zip(selected_boundaries, sampler_indices):
+                orig_i     = pre_filter_indices[sampler_i]
                 global_idx = len(states)
-                global_rationale[global_idx] = rationale.get(str(orig_i), "")
+                global_rationale[global_idx] = rationale.get(str(sampler_i), "")
                 states.append(make_state(
                     program_name=analysis["program_name"],
                     tool_name=analysis["sa_tool_name"],

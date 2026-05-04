@@ -31,3 +31,23 @@ OUT_ANNOTATED_TOOL_DIR  = "annotated_sa_tool"
 OUT_MODIFIED_ANALYSIS   = "modified_analysis.json"  # annotated SA tool output (SCG')
 OUT_EXECUTION_TRACE     = "log.txt"
 OUT_PIPELINE_RESULT     = "pipeline_result.json"
+
+# ── JVM-runtime callee exclusions (pre-sampler filter) ────────────────────────
+# Tuples of (jvm_class_or_None, method_name).
+# None means match any declaring class (used for <clinit>).
+# Classes in JVM internal format: "Ljava/lang/Object;"
+JVM_RUNTIME_EXCLUDED_CALLEES: list[tuple[str | None, str]] = [
+    (None,                               "<clinit>"),
+    ("Ljava/lang/Object;",               "finalize"),
+    ("Ljava/lang/ref/Finalizer;",        "register"),
+    ("Ljava/lang/ref/Reference;",        "enqueue"),
+    ("Ljava/lang/ref/ReferenceQueue;",   "enqueue"),
+    ("Lsun/misc/Cleaner;",               "clean"),            # Java 8 cleaner
+    ("Ljava/lang/ref/Cleaner;",          "register"),         # Java 9+
+    ("Ljava/lang/ref/Cleaner$Cleanable;","clean"),
+    ("Ljava/lang/ClassLoader;",          "defineClass"),
+    # ("Ljava/lang/ClassLoader;",          "loadClass"),
+    ("Ljava/lang/ClassLoader;",          "findClass"),
+    ("Ljava/lang/SecurityManager;",      "checkPackageAccess"),
+    ("Ljava/lang/SecurityManager;",      "checkMemberAccess"),
+]

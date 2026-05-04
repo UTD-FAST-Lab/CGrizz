@@ -68,8 +68,8 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             "--debug"
         ]
         
-        docker_remove(config["STATICCG_CONTAINER"])
-        docker_run(config["STATICCG_CONTAINER"], config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}")
+        docker_run(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
 

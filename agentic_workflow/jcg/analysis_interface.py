@@ -48,8 +48,8 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             "--debug"
         ]
         
-        docker_remove(config["STATICCG_CONTAINER"])
-        docker_run(config["STATICCG_CONTAINER"], config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}")
+        docker_run(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
 
@@ -78,8 +78,8 @@ def dynamic_callgraph(project: str, reproducing_test_case_path: str):
             "--debug"
         ]
         
-        docker_remove(config["DYNAMICCG_CONTAINER"])
-        docker_run(config["DYNAMICCG_CONTAINER"], config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["DYNAMICCG_CONTAINER"]}_{program}_{framework}_{algo}")
+        docker_run(f"{config["DYNAMICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
 def boundary_generation(framework: str, algo: str, project: str, reproducing_test_case_path: str):
@@ -126,9 +126,9 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
         "--nonStrict"
     ]
     
-    docker_remove(config["BOUNDARY_CONTAINER"])
+    docker_remove(f"{config["BOUNDARY_CONTAINER"]}_{program}_{framework}_{algo}")
     try:
-        docker_run(config["BOUNDARY_CONTAINER"], config["JCG_IMAGE"], mounts, cmd)
+        docker_run(f"{config["BOUNDARY_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
     except Exception as e:
         print(f"Error occurred while generating boundary call graph for {project}: {e}")
 
