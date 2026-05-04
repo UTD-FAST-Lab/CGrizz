@@ -1,0 +1,2448 @@
+{
+  "boundaries" : [ {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/fs/LinuxFileSystemProvider;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 58,
+      "notCovered" : 27
+    }
+  }, {
+    "caller" : {
+      "name" : "toString",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "[B", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "decode",
+      "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[B", "I", "I", "[C" ]
+    },
+    "line" : 56,
+    "pc" : 62,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "decode",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Decoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[B", "I", "I", "[C" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 2,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "uncaughtException",
+      "declaringClass" : "Ljava/lang/ThreadGroup;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Thread;", "Ljava/lang/Throwable;" ]
+    },
+    "missedCallee" : {
+      "name" : "uncaughtException",
+      "declaringClass" : "Ljava/lang/ThreadGroup;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Thread;", "Ljava/lang/Throwable;" ]
+    },
+    "line" : 1052,
+    "pc" : 13,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/UTF_16LE;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 3,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "getDefaultPort",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "getDefaultPort",
+      "declaringClass" : "Ljava/net/URLStreamHandler;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "line" : 833,
+    "pc" : 4,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/net/URLClassLoader$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "uncaughtException",
+      "declaringClass" : "Ljava/lang/ThreadGroup;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Thread;", "Ljava/lang/Throwable;" ]
+    },
+    "missedCallee" : {
+      "name" : "printStackTrace",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/PrintStream;" ]
+    },
+    "line" : 1061,
+    "pc" : 82,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "decoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "newDecoder",
+      "declaringClass" : "Lsun/nio/cs/UTF_8;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 144,
+    "pc" : 12,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "newDecoder",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 6,
+      "notCovered" : 4
+    }
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/URLClassPath$3;",
+      "returnType" : "Lsun/misc/URLClassPath$Loader;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 576,
+    "pc" : 60,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "isBuiltinStreamHandler",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/net/URLStreamHandler;" ]
+    },
+    "missedCallee" : {
+      "name" : "getName",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 1453,
+    "pc" : 7,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "freeEntry",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J", "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I" ]
+    },
+    "missedCallee" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "line" : 236,
+    "pc" : 195,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "run",
+      "declaringClass" : "Ljava/io/FilePermission$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "defineClass1",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[B", "I", "I", "Ljava/security/ProtectionDomain;", "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "loadClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getDeclaredMethods0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "[Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "checkPackageAccess",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getInflater",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "Ljava/util/zip/Inflater;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 473,
+    "pc" : 47,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getTotal",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "open",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "J", "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "V",
+      "parameterTypes" : [ "I" ]
+    },
+    "missedCallee" : {
+      "name" : "getPath",
+      "declaringClass" : "Lsun/nio/fs/UnixFileSystem;",
+      "returnType" : "Ljava/nio/file/Path;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[Ljava/lang/String;" ]
+    },
+    "line" : 228,
+    "pc" : 172,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 29,
+      "notCovered" : 10
+    }
+  }, {
+    "caller" : {
+      "name" : "open",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "J", "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/nio/charset/Charset;", "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "newDecoder",
+      "declaringClass" : "Lsun/nio/cs/UTF_8;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 131,
+    "pc" : 16,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "newDecoder",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 6,
+      "notCovered" : 4
+    }
+  }, {
+    "caller" : {
+      "name" : "getBooleanAttributes0",
+      "declaringClass" : "Ljava/io/UnixFileSystem;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/io/File;" ]
+    },
+    "missedCallee" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "startsWithLOC",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "hashCode",
+      "declaringClass" : "Ljava/util/jar/Attributes$Name;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/ASCIICaseInsensitiveComparator;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 512,
+    "pc" : 13,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "lowerCaseHashCode",
+      "declaringClass" : "Lsun/misc/ASCIICaseInsensitiveComparator;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "exit",
+      "declaringClass" : "Ljava/lang/Thread;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljdk/internal/misc/TerminatingThreadLocal;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 759,
+    "pc" : 7,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getPermissions",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ "Ljava/security/CodeSource;" ]
+    },
+    "missedCallee" : {
+      "name" : "getPermission",
+      "declaringClass" : "Lsun/net/www/protocol/file/FileURLConnection;",
+      "returnType" : "Ljava/security/Permission;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 671,
+    "pc" : 19,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 5,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "findBuiltinLib",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/net/URI;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 192,
+    "pc" : 5,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "create",
+      "declaringClass" : "Ljava/net/URI;",
+      "returnType" : "Ljava/net/URI;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader$1;",
+      "returnType" : "Ljava/lang/Void;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/JarIndex;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 888,
+    "pc" : 80,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "getJarIndex",
+      "declaringClass" : "Lsun/misc/JarIndex;",
+      "returnType" : "Lsun/misc/JarIndex;",
+      "parameterTypes" : [ "Ljava/util/jar/JarFile;", "Lsun/misc/MetaIndex;" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/File;", "I", "Ljava/nio/charset/Charset;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 229,
+    "pc" : 169,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "getZipFileOpenTime",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "Lsun/misc/PerfCounter;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/Class$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newPermissionCollection",
+      "declaringClass" : "Ljava/security/BasicPermission;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/security/BasicPermissionCollection;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 252,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "read",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J", "J", "J", "[B", "I", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getZipFileOpenTime",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "Lsun/misc/PerfCounter;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/PerfCounter$CoreCounters;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 182,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "putValue",
+      "declaringClass" : "Ljava/util/jar/Attributes;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/jar/Attributes$Name;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 169,
+    "pc" : 1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "encoder",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "newEncoder",
+      "declaringClass" : "Lsun/nio/cs/UTF_8;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 153,
+    "pc" : 12,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "newEncoder",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 4,
+      "notCovered" : 3
+    }
+  }, {
+    "caller" : {
+      "name" : "addClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "missedCallee" : {
+      "name" : "addElement",
+      "declaringClass" : "Ljava/util/Vector;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "line" : 260,
+    "pc" : 5,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "createLong",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "Ljava/nio/ByteBuffer;",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "I", "J" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J", "I" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 4,
+      "notCovered" : 3
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/nio/fs/UnixNativeDispatcher$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 3,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "defineClass1",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[B", "I", "I", "Ljava/security/ProtectionDomain;", "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "checkPackageAccess",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;", "Ljava/security/ProtectionDomain;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/PerfCounter;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "line" : 52,
+    "pc" : 7,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/Perf$GetPerfAction;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "uncaughtException",
+      "declaringClass" : "Ljava/lang/ThreadGroup;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Thread;", "Ljava/lang/Throwable;" ]
+    },
+    "missedCallee" : {
+      "name" : "print",
+      "declaringClass" : "Ljava/io/PrintStream;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 1059,
+    "pc" : 75,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "ensureClassInitialized",
+      "declaringClass" : "Lsun/misc/Unsafe;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/URLClassPath$3;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/File;", "I", "Ljava/nio/charset/Charset;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/ArrayDeque;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 489,
+    "pc" : 26,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "load",
+      "declaringClass" : "Ljava/lang/ClassLoader$NativeLibrary;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "openConnection",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Ljava/net/URLConnection;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "openConnection",
+      "declaringClass" : "Lsun/net/www/protocol/file/Handler;",
+      "returnType" : "Ljava/net/URLConnection;",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "line" : 1027,
+    "pc" : 5,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 17,
+      "notCovered" : 9
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryCrc",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getClassSignature",
+      "declaringClass" : "Ljava/io/ObjectStreamField;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/lang/Short;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 310,
+    "pc" : 123,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getJarFile",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader;",
+      "returnType" : "Ljava/util/jar/JarFile;",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/jar/JarFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 941,
+    "pc" : 36,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getLastModifiedTime",
+      "declaringClass" : "Ljava/io/UnixFileSystem;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/io/File;" ]
+    },
+    "missedCallee" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "asLongBuffer",
+      "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+      "returnType" : "Ljava/nio/LongBuffer;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/nio/DirectLongBufferU;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 834,
+    "pc" : 117,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "printStackTrace",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Throwable$PrintStreamOrWriter;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/IdentityHashMap;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 650,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "toExternalForm",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "toExternalForm",
+      "declaringClass" : "Ljava/net/URLStreamHandler;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "line" : 972,
+    "pc" : 5,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 11,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryFlag",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "reset",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "V",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getPermissions",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ "Ljava/security/CodeSource;" ]
+    },
+    "missedCallee" : {
+      "name" : "getName",
+      "declaringClass" : "Ljava/security/Permission;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 681,
+    "pc" : 45,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newConstructorAccessor",
+      "declaringClass" : "Lsun/reflect/ReflectionFactory;",
+      "returnType" : "Lsun/reflect/ConstructorAccessor;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;" ]
+    },
+    "missedCallee" : {
+      "name" : "getModifiers",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "line" : 184,
+    "pc" : 9,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "defineClass1",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "[B", "I", "I", "Ljava/security/ProtectionDomain;", "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "addClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Class;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "register",
+      "declaringClass" : "Ljava/lang/ref/Finalizer;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Object;" ]
+    },
+    "line" : 37,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ [ {
+      "name" : "main",
+      "declaringClass" : "Lcats/csr2/csr/Demo;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/ArrayIndexOutOfBoundsException;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/IndexOutOfBoundsException;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/RuntimeException;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Exception;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Throwable;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    }, {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    } ] ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 5,
+      "notCovered" : 4
+    }
+  }, {
+    "caller" : {
+      "name" : "getLoader",
+      "declaringClass" : "Lsun/misc/URLClassPath;",
+      "returnType" : "Lsun/misc/URLClassPath$Loader;",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "missedCallee" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "line" : 565,
+    "pc" : 13,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/URLClassPath$3;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/Perf$GetPerfAction;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryTime",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/io/FilePermission$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getDeclaredMethods0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "[Ljava/lang/reflect/Method;",
+      "parameterTypes" : [ "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "loadClass",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleStatics$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 7,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/misc/Perf$GetPerfAction;",
+      "returnType" : "Lsun/misc/Perf;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 97,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "getPerf",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "Lsun/misc/Perf;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getManifestNum",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getPermissions",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ "Ljava/security/CodeSource;" ]
+    },
+    "missedCallee" : {
+      "name" : "endsWith",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 682,
+    "pc" : 55,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "uncaughtException",
+      "declaringClass" : "Ljava/lang/ThreadGroup;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/Thread;", "Ljava/lang/Throwable;" ]
+    },
+    "missedCallee" : {
+      "name" : "getName",
+      "declaringClass" : "Ljava/lang/Thread;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 1060,
+    "pc" : 61,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "isBuiltinStreamHandler",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "startsWith",
+      "declaringClass" : "Ljava/lang/String;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 1458,
+    "pc" : 3,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "Ljava/nio/charset/CharsetDecoder;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "implReplaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetDecoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 303,
+    "pc" : 63,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "implReplaceWith",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Decoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryBytes",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "J", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/UTF_8;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 3,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "getPermissions",
+      "declaringClass" : "Ljava/security/SecureClassLoader;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ "Ljava/security/CodeSource;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/security/Permissions;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 192,
+    "pc" : 4,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/net/URL;", "Ljava/lang/String;", "Ljava/net/URLStreamHandler;" ]
+    },
+    "missedCallee" : {
+      "name" : "parseURL",
+      "declaringClass" : "Lsun/net/www/protocol/jar/Handler;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/net/URL;", "Ljava/lang/String;", "I", "I" ]
+    },
+    "line" : 640,
+    "pc" : 504,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 29,
+      "notCovered" : 9
+    }
+  }, {
+    "caller" : {
+      "name" : "createLong",
+      "declaringClass" : "Lsun/misc/Perf;",
+      "returnType" : "Ljava/nio/ByteBuffer;",
+      "parameterTypes" : [ "Ljava/lang/String;", "I", "I", "J" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/nio/DirectByteBuffer;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/ISO_8859_1;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 2,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "decode",
+      "declaringClass" : "Ljava/lang/StringCoding$StringDecoder;",
+      "returnType" : "[C",
+      "parameterTypes" : [ "[B", "I", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "decode",
+      "declaringClass" : "Lsun/nio/cs/UTF_8$Decoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[B", "I", "I", "[C" ]
+    },
+    "line" : 153,
+    "pc" : 48,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "decode",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Decoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[B", "I", "I", "[C" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 2,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance",
+      "declaringClass" : "Ljava/lang/reflect/Constructor;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "getModifiers",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "line" : 416,
+    "pc" : 43,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Lsun/security/action/GetPropertyAction;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getBytes",
+      "declaringClass" : "Lsun/misc/URLClassPath$JarLoader$2;",
+      "returnType" : "[B",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/util/zip/CRC32;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 1004,
+    "pc" : 5,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "isBuiltinStreamHandler",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "Ljava/net/URLStreamHandler;" ]
+    },
+    "missedCallee" : {
+      "name" : "getClass",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 1452,
+    "pc" : 1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetEncoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "missedCallee" : {
+      "name" : "isLegalReplacement",
+      "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "[B" ]
+    },
+    "line" : 299,
+    "pc" : 53,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "isLegalReplacement",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Encoder;",
+      "returnType" : "Z",
+      "parameterTypes" : [ "[B" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntry",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J", "[B", "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/io/File;", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/nio/charset/StandardCharsets;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 157,
+    "pc" : 3,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "main",
+      "declaringClass" : "Lcats/csr2/csr/Demo;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/lang/ArrayIndexOutOfBoundsException;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 13,
+    "pc" : 2,
+    "tracesLeadingToBoundary" : [ [ {
+      "name" : "main",
+      "declaringClass" : "Lcats/csr2/csr/Demo;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[Ljava/lang/String;" ]
+    } ] ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/UTF_16BE;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 3,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "getMetaInfEntryNames",
+      "declaringClass" : "Ljava/util/jar/JarFile;",
+      "returnType" : "[Ljava/lang/String;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "inflateBytes",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J", "[B", "I", "I" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "initIDs",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryMethod",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "I",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getBytes",
+      "declaringClass" : "Ljava/util/zip/ZipCoder;",
+      "returnType" : "[B",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "encode",
+      "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[C", "I", "I", "[B" ]
+    },
+    "line" : 86,
+    "pc" : 62,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "encode",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Encoder;",
+      "returnType" : "I",
+      "parameterTypes" : [ "[C", "I", "I", "[B" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 2,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "getPackage",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "Ljava/lang/Package;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/lang/Package;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 1618,
+    "pc" : 55,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "getSystemPackage",
+      "declaringClass" : "Ljava/lang/Package;",
+      "returnType" : "Ljava/lang/Package;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "forName0",
+      "declaringClass" : "Ljava/lang/Class;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;", "Z", "Ljava/lang/ClassLoader;", "Ljava/lang/Class;" ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/nio/file/spi/FileSystemProvider;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getParameterTypes",
+      "declaringClass" : "Ljava/lang/reflect/Method;",
+      "returnType" : "[Ljava/lang/Class;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "clone",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 264,
+    "pc" : 4,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "hashCode",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "I",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "hashCode",
+      "declaringClass" : "Ljava/net/URLStreamHandler;",
+      "returnType" : "I",
+      "parameterTypes" : [ "Ljava/net/URL;" ]
+    },
+    "line" : 928,
+    "pc" : 19,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 12,
+      "notCovered" : 4
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntryCSize",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/ClassLoader$3;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getParameterTypes",
+      "declaringClass" : "Ljava/lang/reflect/Constructor;",
+      "returnType" : "[Ljava/lang/Class;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "clone",
+      "declaringClass" : "Ljava/lang/Object;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : 216,
+    "pc" : 4,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "init",
+      "declaringClass" : "Ljava/util/zip/Inflater;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Z" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "getEntrySize",
+      "declaringClass" : "Ljava/util/zip/ZipFile;",
+      "returnType" : "J",
+      "parameterTypes" : [ "J" ]
+    },
+    "missedCallee" : {
+      "name" : "findNative",
+      "declaringClass" : "Ljava/lang/ClassLoader;",
+      "returnType" : "J",
+      "parameterTypes" : [ "Ljava/lang/ClassLoader;", "Ljava/lang/String;" ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedAction;" ]
+    },
+    "missedCallee" : {
+      "name" : "run",
+      "declaringClass" : "Ljava/lang/invoke/MethodHandleImpl$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 7,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "replaceWith",
+      "declaringClass" : "Ljava/nio/charset/CharsetEncoder;",
+      "returnType" : "Ljava/nio/charset/CharsetEncoder;",
+      "parameterTypes" : [ "[B" ]
+    },
+    "missedCallee" : {
+      "name" : "implReplaceWith",
+      "declaringClass" : "Lsun/nio/cs/UTF_8$Encoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    },
+    "line" : 303,
+    "pc" : 84,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "implReplaceWith",
+      "declaringClass" : "Lsun/nio/cs/US_ASCII$Encoder;",
+      "returnType" : "V",
+      "parameterTypes" : [ "[B" ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "newInstance0",
+      "declaringClass" : "Lsun/reflect/NativeConstructorAccessorImpl;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/lang/reflect/Constructor;", "[Ljava/lang/Object;" ]
+    },
+    "missedCallee" : {
+      "name" : "<init>",
+      "declaringClass" : "Lsun/nio/cs/UTF_16;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : -1,
+    "pc" : -1,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 3,
+      "notCovered" : 2
+    }
+  }, {
+    "caller" : {
+      "name" : "newPermissionCollection",
+      "declaringClass" : "Ljava/io/FilePermission;",
+      "returnType" : "Ljava/security/PermissionCollection;",
+      "parameterTypes" : [ ]
+    },
+    "missedCallee" : {
+      "name" : "<clinit>",
+      "declaringClass" : "Ljava/io/FilePermissionCollection;",
+      "returnType" : "V",
+      "parameterTypes" : [ ]
+    },
+    "line" : 712,
+    "pc" : 0,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  }, {
+    "caller" : {
+      "name" : "<init>",
+      "declaringClass" : "Ljava/net/URL;",
+      "returnType" : "V",
+      "parameterTypes" : [ "Ljava/lang/String;", "Ljava/lang/String;", "I", "Ljava/lang/String;", "Ljava/net/URLStreamHandler;" ]
+    },
+    "missedCallee" : {
+      "name" : "checkNestedProtocol",
+      "declaringClass" : "Lsun/net/www/protocol/jar/Handler;",
+      "returnType" : "Ljava/lang/String;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "line" : 436,
+    "pc" : 365,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ ],
+    "impact" : {
+      "totalReachable" : 2,
+      "notCovered" : 1
+    }
+  }, {
+    "caller" : {
+      "name" : "findClass",
+      "declaringClass" : "Ljava/net/URLClassLoader;",
+      "returnType" : "Ljava/lang/Class;",
+      "parameterTypes" : [ "Ljava/lang/String;" ]
+    },
+    "missedCallee" : {
+      "name" : "doPrivileged",
+      "declaringClass" : "Ljava/security/AccessController;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ "Ljava/security/PrivilegedExceptionAction;", "Ljava/security/AccessControlContext;" ]
+    },
+    "line" : 362,
+    "pc" : 13,
+    "tracesLeadingToBoundary" : [ ],
+    "staticCalleesAtSite" : [ {
+      "name" : "run",
+      "declaringClass" : "Ljava/net/URLClassLoader$1;",
+      "returnType" : "Ljava/lang/Object;",
+      "parameterTypes" : [ ]
+    } ],
+    "impact" : {
+      "totalReachable" : 1,
+      "notCovered" : 0
+    }
+  } ]
+}

@@ -5,6 +5,7 @@ Shared helpers used across stages.
 No pipeline logic lives here — only pure utilities.
 """
 
+import asyncio
 import json
 import logging
 import sys
@@ -20,7 +21,21 @@ from claude_agent_sdk import (
 )
 
 from pipeline.state import PipelineState
-from config import OUT_PIPELINE_RESULT
+from config import OUT_PIPELINE_RESULT, MAX_AGENT_RETRIES, AGENT_RETRY_BASE_DELAY, MAX_CONCURRENT_AGENTS
+
+# ── Agent concurrency limiter ─────────────────────────────────────────────────
+
+# Lazily initialised inside the event loop — caps concurrent SDK sessions
+# independently of the pipeline-level semaphore.
+_agent_sem: Optional[asyncio.Semaphore] = None
+
+
+def _get_agent_sem() -> asyncio.Semaphore:
+    global _agent_sem
+    if _agent_sem is None:
+        _agent_sem = asyncio.Semaphore(MAX_CONCURRENT_AGENTS)
+    return _agent_sem
+
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 
@@ -37,46 +52,58 @@ log = logging.getLogger("pipeline")
 async def run_agent(prompt: str, options: ClaudeAgentOptions, stage_name: str) -> str:
     """
     Run a single agent query and collect the full text response.
- 
+
+    Retries up to MAX_AGENT_RETRIES times on transient SDK initialization
+    timeouts (e.g. "Control request timeout: initialize") that occur under
+    high concurrency, using exponential backoff.
+
     The SDK yields three message types:
       - SystemMessage  : internal SDK housekeeping — no content, skip it
       - AssistantMessage: Claude's streamed response blocks — collect text blocks
       - ResultMessage  : final result with metadata — prefer result.result if
                          present, otherwise already captured from AssistantMessage
- 
-    Logs stage start/end and response length.
     """
     log.info(f"[{stage_name}] Starting...")
-    collected = []
-    final_result: Optional[str] = None
- 
-    async for message in query(prompt=prompt, options=options):
-        if isinstance(message, SystemMessage):
-            # SDK internal message — no content attribute, nothing to collect
-            continue
- 
-        elif isinstance(message, AssistantMessage):
-            for block in message.content:
-                if hasattr(block, "type") and block.type == "text":
-                    collected.append(block.text)
- 
-        elif isinstance(message, ResultMessage):
-            # ResultMessage carries the final text in .result (a string)
-            # and metadata like cost, stop_reason, session_id.
-            # Use it as the authoritative response if present.
-            if message.result:
-                final_result = message.result
-            log.debug(
-                f"[{stage_name}] Result metadata — "
-                f"stop_reason={message.stop_reason}, "
-                f"turns={message.num_turns}"
-            )
- 
-    # ResultMessage.result is the clean final answer when available;
-    # fall back to the concatenated AssistantMessage text blocks otherwise.
-    result = final_result or "\n".join(collected)
-    log.info(f"[{stage_name}] Done. Response: {len(result)} chars")
-    return result
+
+    for attempt in range(MAX_AGENT_RETRIES):
+        collected: list[str] = []
+        final_result: Optional[str] = None
+
+        try:
+            async with _get_agent_sem():
+                async for message in query(prompt=prompt, options=options):
+                    if isinstance(message, SystemMessage):
+                        continue
+                    elif isinstance(message, AssistantMessage):
+                        for block in message.content:
+                            if hasattr(block, "type") and block.type == "text":
+                                collected.append(block.text)
+                    elif isinstance(message, ResultMessage):
+                        if message.result:
+                            final_result = message.result
+                        log.debug(
+                            f"[{stage_name}] Result metadata — "
+                            f"stop_reason={message.stop_reason}, "
+                            f"turns={message.num_turns}"
+                        )
+
+            result = final_result or "\n".join(collected)
+            log.info(f"[{stage_name}] Done. Response: {len(result)} chars")
+            return result
+
+        except Exception as e:
+            is_timeout = "Control request timeout" in str(e) or "TimeoutError" in type(e).__name__
+            if is_timeout and attempt < MAX_AGENT_RETRIES - 1:
+                delay = AGENT_RETRY_BASE_DELAY * (2 ** attempt)
+                log.warning(
+                    f"[{stage_name}] Agent init timeout (attempt {attempt + 1}/{MAX_AGENT_RETRIES}), "
+                    f"retrying in {delay}s..."
+                )
+                await asyncio.sleep(delay)
+            else:
+                raise
+
+    return ""  # unreachable, satisfies type checker
 
 
 # ── JSON extraction ───────────────────────────────────────────────────────────

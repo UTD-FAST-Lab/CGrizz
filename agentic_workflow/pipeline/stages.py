@@ -16,8 +16,10 @@ No SCG/DCG file paths are used here. All call graph context comes from
 state.boundary — the structured boundary entry parsed from boundaries.json.
 """
 
+import asyncio
 import json
 import logging
+import shutil
 from pathlib import Path
 
 from pipeline.state import PipelineState
@@ -242,23 +244,31 @@ async def stage_annotate_and_check_trace(state: PipelineState) -> tuple[bool, st
     """
     options        = build_agent_options(state)
     annotated_out  = state.out(OUT_ANNOTATED_TOOL_DIR)
-    # trace_log_path = state.out(OUT_EXECUTION_TRACE)
     trace_log_path = str(Path(state.reproducing_test_case_path) / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE)
+
+    # Pre-copy SA tool to boundary-specific output dir before calling the agent.
+    # This avoids 5 concurrent agents all doing shutil.copytree from the same source,
+    # which causes heavy I/O contention. The copy is offloaded to a thread so it
+    # does not block the event loop.
+    annotated_out_path = Path(annotated_out)
+    if not annotated_out_path.exists():
+        log.info(f"{state.label()} Copying SA tool to {annotated_out} ...")
+        await asyncio.to_thread(
+            shutil.copytree, state.sa_tool_path, annotated_out
+        )
+        log.info(f"{state.label()} SA tool copy done.")
 
     # 6a: Annotate the SA tool
     annot_response = await run_agent(
         prompt=f"""\
 Use the root-cause-annotator agent to annotate the SA tool for this boundary.
+Invoke it via the Task tool.
 
 ## Unsoundness report
 
 {state.unsoundness_report}
 
 ## SA tool source
-
-{state.sa_tool_path}
-
-## Output directory
 
 {annotated_out}/
 
@@ -267,7 +277,7 @@ Return the JSON result from the agent directly.
 Return JSON only:
 
 {{
-  "annotated_tool_path": "<output_dir>/",
+  "annotated_tool_path": "<source_dir>/",
   "annotated_file":      "<relative/path/to/ModifiedFile.java>",
   "injected_at_line":    <line_number>,
   "skipped":             false,

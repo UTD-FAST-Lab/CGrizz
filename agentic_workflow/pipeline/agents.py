@@ -37,7 +37,7 @@ def build_agent_options(state: PipelineState) -> ClaudeAgentOptions:
 
     return ClaudeAgentOptions(
         model=MODEL_DEFAULT,
-        allowed_tools=["Read", "Write", "Bash", "Grep", "Glob", "Task"],
+        allowed_tools=["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"],
         setting_sources=["user", "project"],
         cwd=str(project_root),
 

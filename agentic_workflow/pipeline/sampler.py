@@ -47,7 +47,7 @@ def _has_application_edge(state: PipelineState) -> bool:
     b = state.boundary
     return (
         _is_application_class(b.get("caller", {}).get("declaringClass", ""))
-        or _is_application_class(b.get("missedCallee", {}).get("declaringClass", ""))
+        and _is_application_class(b.get("missedCallee", {}).get("declaringClass", ""))
     )
 
 

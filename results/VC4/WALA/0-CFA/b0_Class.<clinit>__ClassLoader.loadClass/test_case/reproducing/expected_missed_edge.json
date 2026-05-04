@@ -1,4 +1,0 @@
-{
-  "caller": "com.example.Main.<clinit>()",
-  "callee": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)"
-}

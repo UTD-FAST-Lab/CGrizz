@@ -1,0 +1,40 @@
+{
+    "analyses": [
+        {
+            "program_name": "CFNE1",
+            "target_program": "../programs/cats/CFNE1",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/cats/CFNE1/WALA/0-CFA/boundaries.json",
+            "main_class": "cats.cfne1.cfne.Demo"
+        },
+        {
+            "program_name": "CSR2",
+            "target_program": "../programs/cats/CSR2",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/cats/CSR2/WALA/0-CFA/boundaries.json",
+            "main_class": "cats.csr2.csr.Demo"
+        },
+        {
+            "program_name": "url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8",
+            "target_program": "../programs/njr1/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr1/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "mi.regex.Common"
+        },
+        {
+            "program_name": "url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8",
+            "target_program": "../programs/njr1/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr1/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.telsis.jocp.sampleApp.BasicOCPApp"
+        }
+    ]
+}

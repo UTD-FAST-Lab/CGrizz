@@ -7,7 +7,10 @@ for tuning behaviour — no logic lives here.
 
 # ── Loop control ───────────────────────────────────────────────────────────────
 
-MAX_LOOPS = 2   # Maximum retries before declaring failure
+MAX_LOOPS              = 2    # Maximum retries before declaring failure
+MAX_AGENT_RETRIES      = 3    # Retries on transient agent initialization timeout
+AGENT_RETRY_BASE_DELAY = 5    # Base delay in seconds (doubles each attempt)
+MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipeline concurrency)
 
 # ── Models ────────────────────────────────────────────────────────────────────
 

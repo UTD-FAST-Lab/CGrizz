@@ -11,8 +11,7 @@ You are given an unsoundness report and a static analysis tool source directory.
 
 You will receive:
 - **Unsoundness report JSON** (path) — specifically the `toolCodeEvidence` field with `relevantFiles` and `codeSnippet`
-- **SA tool source directory** — to copy and annotate
-- **Output directory** — where to write the annotated tool copy
+- **SA tool source directory** — to annotate
 
 ## Step 1: Identify the single injection point
 
@@ -45,9 +44,11 @@ Where:
 - `<caller_expr>` — the runtime expression for the method being analyzed, using variables available in scope (e.g. `caller.getMethod()`, `caller.toString()`)
 - `<site_expr>` — the call site reference, using variables in scope (e.g. `site`, `site.toString()`, `callSite`)
 
-If the exact caller/site variables are not in scope at the injection point, walk up the call stack to the nearest enclosing method that has them and inject there instead.
+If the exact caller/site variables are not in scope at the injection point, walk up the call stack to the nearest enclosing method that has them and inject there instead. If that is not possible, just add the log with the pattern_class. 
 
 You may add surrounding logic (e.g. an `if` or `else` branch, a null-check, a guard condition) to ensure the log fires only when the root cause is actually occurring — not on every invocation.
+
+Note that you can add the log statement in any language that the tool is written on. For example, Scala or Java. 
 
 **Example 1:**
 ```java
@@ -60,8 +61,3 @@ if (symbolTable.isStringConstant(use)) {
 }
 ```
 
-## Step 4: Copy and write
-
-1. Copy the entire SA tool source directory to the output directory.
-2. Apply the modification to the copied file only.
-3. Do not modify any other files.
