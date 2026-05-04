@@ -67,6 +67,7 @@ def run_analysis_interface(state: PipelineState) -> tuple[str, str, str]:
             '--project', 'reproducing',
             '--type', 'boundary',
             '--reproducing_test_case_path', str(Path(state.reproducing_test_case_path).resolve()),
+            '--boundary_id', str(state.boundary_id),
         ]
     )
     
@@ -105,6 +106,7 @@ def run_annotated_sa(state: PipelineState) -> str:
             '--project', 'reproducing',
             '--reproducing_test_case_path', str(Path(state.reproducing_test_case_path).resolve()),
             '--annotated_sa_tool_path', str(Path(state.annotated_sa_tool_path).resolve()),
+            '--boundary_id', str(state.boundary_id),
         ]
     )
     

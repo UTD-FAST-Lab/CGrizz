@@ -21,7 +21,7 @@ config = {
 }
 
 
-def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str):
+def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, boundary_id: str):
         """Generate static call graph"""
         build_jcg_image()
         
@@ -48,12 +48,12 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             "--debug"
         ]
         
-        docker_remove(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}")
-        docker_run(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}")
+        docker_run(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
 
-def dynamic_callgraph(project: str, reproducing_test_case_path: str):
+def dynamic_callgraph(project: str, reproducing_test_case_path: str, boundary_id: str):
         """Generate dynamic call graph for a specific experiment directory"""
         build_jcg_image()
         
@@ -78,11 +78,11 @@ def dynamic_callgraph(project: str, reproducing_test_case_path: str):
             "--debug"
         ]
         
-        docker_remove(f"{config["DYNAMICCG_CONTAINER"]}_{program}_{framework}_{algo}")
-        docker_run(f"{config["DYNAMICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["DYNAMICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}")
+        docker_run(f"{config["DYNAMICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
-def boundary_generation(framework: str, algo: str, project: str, reproducing_test_case_path: str):
+def boundary_generation(framework: str, algo: str, project: str, reproducing_test_case_path: str, boundary_id: str):
     """Generate boundary call graph for a specific experiment directory"""
     
     build_jcg_image()
@@ -107,6 +107,8 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
 
 
     os.makedirs(boundary_path, exist_ok=True)
+
+    mainClass = get_main_class(reproducing_test_case_path)
     
     mounts = [
         (str(dyncg_path), "/dynamiccg", True),
@@ -120,15 +122,16 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
         "runMain", "CompareCGs",
         "--input1", "/staticcg/cg.json",
         "--input2", "/dynamiccg/cg.json",
+        "--mainClass", mainClass,
         "--output", "/output",
         "--showPrecisionRecall", "all",
         "--showBoundaries",
         "--nonStrict"
     ]
     
-    docker_remove(f"{config["BOUNDARY_CONTAINER"]}_{program}_{framework}_{algo}")
+    docker_remove(f"{config["BOUNDARY_CONTAINER"]}_{boundary_id}_{framework}_{algo}")
     try:
-        docker_run(f"{config["BOUNDARY_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
+        docker_run(f"{config["BOUNDARY_CONTAINER"]}_{boundary_id}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
     except Exception as e:
         print(f"Error occurred while generating boundary call graph for {project}: {e}")
 
@@ -223,6 +226,12 @@ def docker_build(tag: str, dockerfile: Path, context: Path,
         cmd.extend(["-f", str(dockerfile), str(context)])
         run_command(cmd)
 
+def get_main_class(reproducing_test_case_path: str):
+
+    with open(Path(reproducing_test_case_path) / "jcg.conf", "r") as f:
+        data = json.load(f)
+    
+    return data['main']
 
 def main():
     parser = argparse.ArgumentParser(description="JCG Runner")
@@ -232,7 +241,8 @@ def main():
     parser.add_argument("--type", required=True, choices=["static", "dynamic", "boundary"], help="Type of call graph to generate")
 
     parser.add_argument("--reproducing_test_case_path", required=True, help="Path to the reproducing test case")
-    
+    parser.add_argument("--boundary_id", help="Id of the boundary edge")
+
     args = parser.parse_args()
 
     project_build(args.project, args.reproducing_test_case_path)
@@ -241,12 +251,12 @@ def main():
         if not args.framework or not args.algorithm:
             print("Error: --framework and --algorithm are required for static call graph generation")
             sys.exit(1)
-        static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path)
+        static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.boundary_id)
     elif args.type == "dynamic":
-        dynamic_callgraph(args.project, args.reproducing_test_case_path)
+        dynamic_callgraph(args.project, args.reproducing_test_case_path, args.boundary_id)
 
     elif args.type == "boundary":
-            boundary_generation(args.framework, args.algorithm, args.project, args.reproducing_test_case_path)
+            boundary_generation(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.boundary_id)
 
 if __name__ == "__main__":
     main()

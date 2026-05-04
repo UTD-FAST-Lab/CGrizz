@@ -23,7 +23,7 @@ config = {
 }
 
 
-def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, annotated_sa_tool_path: str):
+def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, annotated_sa_tool_path: str, boundary_id: str):
         """Generate static call graph"""
         build_jcg_image()
         
@@ -68,8 +68,8 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             "--debug"
         ]
         
-        docker_remove(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}")
-        docker_run(f"{config["STATICCG_CONTAINER"]}_{program}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}")
+        docker_run(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
 
 
 
@@ -172,11 +172,12 @@ def main():
 
     parser.add_argument("--reproducing_test_case_path", required=True, help="Path to the reproducing test case")
     parser.add_argument("--annotated_sa_tool_path", help="Path to the annotated static analysis tool")
-    
+    parser.add_argument("--boundary_id", help="Id of the boundary edge")
+
     args = parser.parse_args()
 
    
-    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.annotated_sa_tool_path)
+    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.annotated_sa_tool_path, args.boundary_id)
     
 
 if __name__ == "__main__":
