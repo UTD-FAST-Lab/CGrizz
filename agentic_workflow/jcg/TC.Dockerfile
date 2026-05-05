@@ -42,22 +42,15 @@ RUN sudo apt-get -y autoremove openjdk* && \
     sudo update-alternatives --install /usr/bin/javac javac /opt/jdk8u342-b07/bin/javac 1000 && \
     sudo update-alternatives --install /usr/bin/jar jar /opt/jdk8u342-b07/bin/jar 1000
 
+## Install Maven
+RUN sudo apt-get install -y maven
+
 ## install sbt
 RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list && \
     echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list && \
     sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
     sudo apt-get update && \
     sudo apt-get install sbt
-
-# ## install OPAL
-# ARG OPAL_BRANCH="develop"
-# ARG OPAL_COMMIT_ID="fa37a36181cdcb3135999e76ffe90e617a434f8e"
-# ARG OPAL_DIR="/home/$USER/OPAL"
-# RUN git clone https://github.com/stg-tud/opal.git ${OPAL_DIR} && \
-#     cd ${OPAL_DIR} && \
-#     git checkout ${OPAL_BRANCH} && \
-#     git reset --hard ${OPAL_COMMIT_ID} && \
-#     sbt publishLocal
 
 ## INSTALL SOUFFLE
 ARG SOUFFLE_CC="gcc"
@@ -95,13 +88,65 @@ RUN git clone https://github.com/plast-lab/doop.git $DOOP_DIR && \
     git reset --hard ${DOOP_COMMIT_ID} && \
     ./doop -h
 
+# --- Install WALA ---
+WORKDIR /WALA
+ARG WALA_BRANCH="master"
+ARG WALA_COMMIT_ID="467c74a8650aa39f14cfebc2dbfcc10a72146c80"
+ARG WALA_DIR="/home/$USER/WALA"
+RUN git clone https://github.com/stg-tud/opal.git ${WALA_DIR} && \
+    cd ${WALA_DIR} && \
+    git checkout ${WALA_BRANCH} && \
+    git reset --hard ${WALA_COMMIT_ID} && \
+    ./gradlew :com.ibm.wala.core:assemble && \
+    ./gradlew :com.ibm.wala.util:assemble && \
+    ./gradlew :com.ibm.wala.shrike:assemble && \
+    ./gradlew :com.ibm.wala.core:publishToMavenLocal || true && \
+    ./gradlew :com.ibm.wala.util:publishToMavenLocal || true && \
+    ./gradlew :com.ibm.wala.shrike:publishToMavenLocal || true
+
+# --- Install OPAL ---
+ARG OPAL_BRANCH="develop"
+ARG OPAL_COMMIT_ID="fa37a36181cdcb3135999e76ffe90e617a434f8e"
+ARG OPAL_DIR="/home/$USER/OPAL"
+RUN git clone https://github.com/stg-tud/opal.git ${OPAL_DIR} && \
+    cd ${OPAL_DIR} && \
+    git checkout ${OPAL_BRANCH} && \
+    git reset --hard ${OPAL_COMMIT_ID} && \
+    grep -r "ecj" --include="*.sbt" --include="*.scala" -l && \
+    find . -name "*.sbt" -o -name "*.scala" | xargs grep -l "eclipse.jdt\|ecj" | \
+    xargs sed -i \
+        -e 's|"org.eclipse.jdt" % "ecj" % "[^"]*"|"org.eclipse.jdt" % "ecj" % "3.29.0"|g' \
+        -e 's|https://repo.eclipse.org/content/repositories/eclipse-staging/|https://repo1.maven.org/maven2/|g' \
+        -e 's|https://dl.bintray.com/sksamuel/sbt-plugins/|https://repo1.maven.org/maven2/|g' && \
+    sbt publishLocal
+
+# --- Install SOOT ---
+WORKDIR /SOOT
+ARG SOOT_BRANCH="develop"
+ARG SOOT_COMMIT_ID="037bb026e7b16479925fbc546d0058714d33688f"
+ARG SOOT_DIR="/home/$USER/SOOT"
+RUN git clone https://github.com/soot-oss/soot.git ${SOOT_DIR} && \
+    cd ${SOOT_DIR} && \
+    git checkout ${SOOT_BRANCH} && \
+    git reset --hard ${SOOT_COMMIT_ID} && \
+    mvn clean compile assembly:single && \
+    mvn install:install-file \
+    -Dfile=target/sootclasses-trunk-jar-with-dependencies.jar \
+    -DgroupId=org.soot-oss \
+    -DartifactId=soot \
+    -Dversion=4.4.1 \
+    -Dpackaging=jar \
+    -DgeneratePom=true
+
 ## install JCG
 ARG JCG_BRANCH="feature/DynCG"
 ARG JCG_COMMIT_ID="a5dc5649fbfff38142db77996854d9e195edf14a"
 ARG JCG_DIR="/home/$USER/JCG"
+RUN echo "16"
 RUN git clone https://github.com/mohPYdev/JCG.git $JCG_DIR && \
     cd $JCG_DIR && \
-    git checkout instrumentation
+    git checkout instrumentation && \
+    sbt compile
     
 COPY jre.conf $JCG_DIR/jre.conf
 

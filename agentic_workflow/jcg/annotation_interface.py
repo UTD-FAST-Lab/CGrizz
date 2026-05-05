@@ -49,7 +49,7 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             mounts.append((annotated_sa_tool_path, "/OPAL", False))
             mounts.append((config["WALA_ORG_PATH"], "/WALA", False))
             mounts.append((config["SOOT_ORG_PATH"], "/SOOT", False))
-        elif framework == "SOOT":
+        elif framework.upper() == "SOOT":
             mounts.append((annotated_sa_tool_path, "/SOOT", False))
             mounts.append((config["WALA_ORG_PATH"], "/WALA", False))
             mounts.append((config["OPAL_ORG_PATH"], "/OPAL", False))
@@ -68,8 +68,8 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
             "--debug"
         ]
         
-        docker_remove(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}")
-        docker_run(f"{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}", config["JCG_IMAGE"], mounts, cmd)
+        docker_remove(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}')
+        docker_run(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd, env={"SA_FRAMEWORK": framework.upper()})
 
 
 
