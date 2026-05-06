@@ -58,7 +58,14 @@ from pathlib import Path
 
 from pipeline.state import PipelineState
 from pipeline.stages import run_pipeline
-from pipeline.sampler import run_boundary_sampler, run_global_dedup_sampler, filter_jvm_runtime_boundaries
+from pipeline.sampler import (
+    run_boundary_sampler,
+    run_global_dedup_sampler,
+    run_incremental_representative_filter,
+    load_representatives_registry,
+    save_representatives_registry,
+    filter_jvm_runtime_boundaries,
+)
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -244,11 +251,17 @@ def run_parallel_all(args: argparse.Namespace) -> None:
     ]
 
     async def run_all():
-        states: list[PipelineState] = []
-        global_rationale: dict[int, str] = {}
+        registry    = load_representatives_registry(_resolve_registry_path(args))
+        all_states: list[PipelineState] = []
 
         for analysis, boundaries, pre_filter_indices in analysis_boundaries:
-            # Run per-program sampler to get representative subset
+            program_key = (
+                f"{analysis['program_name']}/"
+                f"{analysis['sa_tool_name']}/"
+                f"{analysis['sa_algorithm']}"
+            )
+
+            # Per-program sampler (unchanged)
             selected_boundaries, sampler_indices, rationale = await run_boundary_sampler(
                 boundaries=boundaries,
                 program_name=analysis["program_name"],
@@ -263,13 +276,9 @@ def run_parallel_all(args: argparse.Namespace) -> None:
                 max_boundaries=analysis.get("max_boundaries"),
             )
 
-            # Build states, threading rationale for the global dedup pass
-            # Map sampler indices back to original file indices via pre_filter_indices
-            for b, sampler_i in zip(selected_boundaries, sampler_indices):
-                orig_i     = pre_filter_indices[sampler_i]
-                global_idx = len(states)
-                global_rationale[global_idx] = rationale.get(str(sampler_i), "")
-                states.append(make_state(
+            # Build states, mapping sampler indices back to original file indices
+            states = [
+                make_state(
                     program_name=analysis["program_name"],
                     tool_name=analysis["sa_tool_name"],
                     algorithm=analysis["sa_algorithm"],
@@ -277,29 +286,54 @@ def run_parallel_all(args: argparse.Namespace) -> None:
                     main_class=analysis.get("main_class"),
                     sa_tool=analysis["sa_tool"],
                     boundary=b,
-                    boundary_index=orig_i,
+                    boundary_index=pre_filter_indices[si],
                     base_output_dir=Path(args.output_dir),
-                ))
+                )
+                for b, si in zip(selected_boundaries, sampler_indices)
+            ]
 
-        # Cross-program deduplication (only when more than one program)
-        if len(config["analyses"]) > 1:
-            states = await run_global_dedup_sampler(
-                states=states,
-                per_program_rationale=global_rationale,
-                output_dir=Path(args.output_dir),
-            )
+            # Build local rationale dict: index-in-states → per-program rationale
+            local_rationale = {
+                i: rationale.get(str(si), "")
+                for i, (_, si) in enumerate(zip(selected_boundaries, sampler_indices))
+            }
+
+            # Incremental cross-program filter (sequential; registry updates are not concurrent)
+            if program_key not in registry["programs_processed"]:
+                states, registry = await run_incremental_representative_filter(
+                    new_states=states,
+                    registry=registry,
+                    per_program_rationale=local_rationale,
+                    output_dir=Path(args.output_dir),
+                )
+                registry["programs_processed"].append(program_key)
+            else:
+                log.info(f"[{program_key}] Already in registry — skipping incremental filter.")
+
+            all_states.extend(states)
+
+        # Persist registry once after all programs are processed
+        save_representatives_registry(_resolve_registry_path(args), registry)
 
         total_analyses = len(config["analyses"])
-        total_runs     = len(states)
+        total_runs     = len(all_states)
         log.info(
             f"Mode: parallel-all | "
             f"analyses: {total_analyses} | total runs: {total_runs} | "
             f"concurrency: {args.concurrency}"
         )
 
-        await asyncio.gather(*[run_with_limit(s, sem) for s in states])
+        # await asyncio.gather(*[run_with_limit(s, sem) for s in all_states])
 
     asyncio.run(run_all())
+
+
+# ── Registry path resolver ────────────────────────────────────────────────────
+
+def _resolve_registry_path(args: argparse.Namespace) -> Path:
+    if getattr(args, "representatives_file", None):
+        return Path(args.representatives_file)
+    return Path(args.output_dir) / "representatives_registry.json"
 
 
 # ── Config helpers ────────────────────────────────────────────────────────────
@@ -362,9 +396,19 @@ def parse_args() -> argparse.Namespace:
 
     # ── parallel-all ──────────────────────────────────────────────────────────
     pa = subparsers.add_parser("parallel-all", help="All analyses × all boundaries concurrently")
-    pa.add_argument("--config",      required=True, help="Path to pipeline_config.json")
-    pa.add_argument("--concurrency", type=int, default=5)
-    pa.add_argument("--output-dir",  default="./results")
+    pa.add_argument("--config",               required=True, help="Path to pipeline_config.json")
+    pa.add_argument("--concurrency",          type=int, default=5)
+    pa.add_argument("--output-dir",           default="./results")
+    pa.add_argument(
+        "--representatives-file",
+        default=None,
+        metavar="PATH",
+        help=(
+            "Path to an existing representatives_registry.json to load prior representatives from. "
+            "Defaults to {output_dir}/representatives_registry.json. "
+            "Use this to extend a previous run with new programs."
+        ),
+    )
 
     return parser.parse_args()
 

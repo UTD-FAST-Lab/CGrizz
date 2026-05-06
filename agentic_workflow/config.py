@@ -22,6 +22,7 @@ MODEL_POWERFUL = "claude-opus-4-5"            # root cause annotator (deep reaso
 
 OUT_SELECTED_BOUNDARIES        = "selected_boundaries.json"
 OUT_GLOBAL_SELECTED_BOUNDARIES = "global_selected_boundaries.json"
+OUT_REPRESENTATIVES_REGISTRY   = "representatives_registry.json"
 OUT_REPORT              = "unsoundness_report.json"
 OUT_TEST_CASE_DIR       = "test_case"
 OUT_STATICCG_DIR        = "staticcg"    # static call graph from analysis interface
