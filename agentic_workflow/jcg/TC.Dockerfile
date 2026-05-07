@@ -93,7 +93,7 @@ WORKDIR /WALA
 ARG WALA_BRANCH="master"
 ARG WALA_COMMIT_ID="467c74a8650aa39f14cfebc2dbfcc10a72146c80"
 ARG WALA_DIR="/home/$USER/WALA"
-RUN git clone https://github.com/stg-tud/opal.git ${WALA_DIR} && \
+RUN git clone https://github.com/wala/WALA.git ${WALA_DIR} && \
     cd ${WALA_DIR} && \
     git checkout ${WALA_BRANCH} && \
     git reset --hard ${WALA_COMMIT_ID} && \
