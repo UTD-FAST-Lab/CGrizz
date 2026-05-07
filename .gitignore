@@ -1,4 +1,4 @@
-results/
-results_testing/
-results_opal/
 results*
+programs*
+input_data*
+tools*
