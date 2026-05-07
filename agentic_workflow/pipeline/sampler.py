@@ -8,12 +8,17 @@ Reads the full boundaries list, sends compact summaries to a fast model,
 and returns the subset worth analyzing — filtered for uniqueness, impact,
 and trace diversity.
 
-Also provides run_global_dedup_sampler() for cross-program deduplication
-after all per-program sampling is done.
+Also provides run_incremental_representative_filter() for scalable
+cross-program deduplication: processes one program at a time against a
+persistent representatives_registry.json, so the LLM never sees more
+than (existing reps + one program's boundaries) at once.
+
+run_global_dedup_sampler() is deprecated; use the incremental filter instead.
 """
 
 import json
 import logging
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
@@ -25,7 +30,7 @@ from claude_agent_sdk import (
     SystemMessage,
 )
 
-from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES, JVM_RUNTIME_EXCLUDED_CALLEES
+from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES, OUT_REPRESENTATIVES_REGISTRY, JVM_RUNTIME_EXCLUDED_CALLEES
 from pipeline.state import PipelineState
 
 log = logging.getLogger("pipeline.sampler")
@@ -282,6 +287,10 @@ async def run_global_dedup_sampler(
     Returns the deduplicated list of PipelineState objects (structure preserved).
     Falls back to the full states list if the LLM fails or returns empty.
     """
+    log.warning(
+        "run_global_dedup_sampler is deprecated; "
+        "use run_incremental_representative_filter instead."
+    )
     n = len(states)
     log.info(f"[global] Cross-program dedup: {n} boundaries across programs.")
 
@@ -505,3 +514,390 @@ def _write_global_dedup_output(
     out_path = output_dir / OUT_GLOBAL_SELECTED_BOUNDARIES
     out_path.write_text(json.dumps(out, indent=2))
     log.info(f"[global] Dedup output → {out_path}")
+
+
+# ── Incremental cross-program registry ───────────────────────────────────────
+
+def load_representatives_registry(registry_path: Path) -> dict:
+    """
+    Load an existing representatives_registry.json, or return an empty
+    registry structure if the file does not exist or is corrupt (fail-open).
+    """
+    empty = {
+        "schema_version":         "1",
+        "created_at":             datetime.now().isoformat(),
+        "last_updated_at":        datetime.now().isoformat(),
+        "programs_processed":     [],
+        "total_representatives":  0,
+        "total_similar_recorded": 0,
+        "representatives":        [],
+    }
+    if not registry_path.exists():
+        log.info(f"Registry not found at {registry_path} — starting fresh.")
+        return empty
+    try:
+        data = json.loads(registry_path.read_text())
+        log.info(
+            f"Registry loaded from {registry_path}: "
+            f"{data.get('total_representatives', 0)} reps, "
+            f"{len(data.get('programs_processed', []))} programs processed."
+        )
+        return data
+    except json.JSONDecodeError:
+        log.warning(f"Registry at {registry_path} is corrupted — starting fresh.")
+        return empty
+
+
+def save_representatives_registry(registry_path: Path, registry: dict) -> None:
+    """
+    Persist the registry to disk, recomputing derived counts first.
+    """
+    registry["last_updated_at"]       = datetime.now().isoformat()
+    registry["total_representatives"] = len(registry["representatives"])
+    registry["total_similar_recorded"] = sum(
+        len(r.get("similar_edges", [])) for r in registry["representatives"]
+    )
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(json.dumps(registry, indent=2))
+    log.info(
+        f"Registry saved → {registry_path} "
+        f"({registry['total_representatives']} reps, "
+        f"{registry['total_similar_recorded']} similar recorded)"
+    )
+
+
+async def run_incremental_representative_filter(
+    new_states:            list[PipelineState],
+    registry:              dict,
+    per_program_rationale: dict[int, str],
+    output_dir:            Path,
+) -> tuple[list[PipelineState], dict]:
+    """
+    Incremental cross-program deduplication against an existing registry.
+
+    For each boundary in new_states (from a single new program):
+    - Application edges (both caller and missedCallee are app classes): always
+      added to the registry as new representatives and passed through to the pipeline.
+    - Library-only edges: compared via LLM against existing registry reps.
+      If similar to an existing rep: recorded in that rep's similar_edges list,
+      excluded from the pipeline.
+      If novel: added as a new representative, included in the pipeline.
+
+    Falls back to passing all candidates through as new representatives if the
+    LLM call fails or returns unparseable JSON (fail-open).
+
+    Args:
+        new_states:            States from ONE program (post per-program sampler).
+        registry:              Current registry dict. Mutated in-place; caller must
+                               call save_representatives_registry() afterwards.
+        per_program_rationale: Maps index-in-new_states → per-program sampler rationale.
+        output_dir:            Used only for logging context; no file is written here.
+
+    Returns:
+        (states_to_run, registry) — states_to_run is the subset that should enter
+        the pipeline; registry is the same object, updated in-place.
+    """
+    if not new_states:
+        return [], registry
+
+    program_label = (
+        f"{new_states[0].program_name}/"
+        f"{new_states[0].tool_name}/"
+        f"{new_states[0].algorithm}"
+    )
+    log.info(f"[{program_label}] Incremental filter: {len(new_states)} boundaries.")
+
+    # Partition: application edges forced-kept; library-only go to LLM
+    forced:     list[tuple[int, PipelineState]] = []
+    candidates: list[tuple[int, PipelineState]] = []
+
+    for local_idx, state in enumerate(new_states):
+        if _has_application_edge(state):
+            forced.append((local_idx, state))
+        else:
+            candidates.append((local_idx, state))
+
+    log.info(
+        f"[{program_label}] Application edges (forced): {len(forced)}, "
+        f"candidates for LLM dedup: {len(candidates)}"
+    )
+
+    # Snapshot reps from prior programs before we mutate the registry
+    prior_reps = list(registry["representatives"])
+
+    # Register forced states as new reps unconditionally
+    for local_idx, state in forced:
+        rep = _make_lean_rep_entry(
+            state,
+            per_program_rationale.get(local_idx, ""),
+            "application_edge",
+            len(registry["representatives"]),
+        )
+        registry["representatives"].append(rep)
+        log.info(f"[{program_label}] New rep (app-edge): {rep['rep_id']} = {state.boundary_id}")
+
+    states_to_run: list[PipelineState] = [state for _, state in forced]
+
+    # Early exit: nothing to compare, or no prior reps exist yet
+    if not candidates or not prior_reps:
+        for local_idx, state in candidates:
+            rep = _make_lean_rep_entry(
+                state,
+                per_program_rationale.get(local_idx, ""),
+                "novel_by_llm",
+                len(registry["representatives"]),
+            )
+            registry["representatives"].append(rep)
+            log.info(
+                f"[{program_label}] New rep (no prior reps to compare): "
+                f"{rep['rep_id']} = {state.boundary_id}"
+            )
+        states_to_run.extend(state for _, state in candidates)
+        return states_to_run, registry
+
+    # Build LLM prompt
+    # TODO: tune MAX_REPS_IN_PROMPT if registry grows large (e.g. cap at 50 most recent)
+    nc           = len(candidates)
+    reps_block   = "\n\n".join(_rep_compact_for_prompt(r) for r in prior_reps)
+    cands_block  = "\n\n".join(
+        f"[{i}]\n{_boundary_cross_compact(state, per_program_rationale.get(local_idx, ''))}"
+        for i, (local_idx, state) in enumerate(candidates)
+    )
+    ta_str = f"{new_states[0].tool_name} / {new_states[0].algorithm}"
+
+    prompt = f"""\
+You are a static analysis expert maintaining a registry of representative \
+call-graph boundary patterns found across multiple programs.
+
+EXISTING REPRESENTATIVES (read-only — do NOT re-add these):
+
+{reps_block}
+
+---
+
+NEW BOUNDARIES from program '{new_states[0].program_name}' ({ta_str}):
+
+{cands_block}
+
+---
+
+For each new boundary [0] through [{nc - 1}], decide:
+- SIMILAR to an existing rep: the same unsoundness root-cause mechanism \
+(same caller dispatch kind AND same missed callee relationship). \
+Output: {{"similar_to": "<rep_id>"}}
+- NOVEL: no existing rep covers this mechanism. \
+Output: {{"novel": true}}
+
+Do NOT use impact ratios or trace counts. Focus on: caller dispatch \
+mechanism (virtual, interface, reflection, lambda) and whether the same \
+SA tool fix would resolve both boundaries.
+
+Return JSON only:
+{{
+  "decisions": {{
+    "0": {{"similar_to": "rep_0001"}},
+    "1": {{"novel": true}}
+  }},
+  "rationale": {{
+    "0": "Same virtual dispatch on a Handler-like pair; rep_0001 covers this",
+    "1": "Executor→Runnable interface indirection; distinct from existing reps"
+  }}
+}}"""
+
+    options = ClaudeAgentOptions(
+        model=MODEL_FAST,
+        allowed_tools=[],
+        setting_sources=["user", "project"],
+        cwd=str(Path(__file__).parent.parent),
+    )
+
+    collected    = []
+    final_result: Optional[str] = None
+
+    async for message in query(prompt=prompt, options=options):
+        if isinstance(message, SystemMessage):
+            continue
+        elif isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, "type") and block.type == "text":
+                    collected.append(block.text)
+        elif isinstance(message, ResultMessage):
+            if message.result:
+                final_result = message.result
+            log.debug(
+                f"[{program_label}] Incremental filter — "
+                f"stop_reason={message.stop_reason}, turns={message.num_turns}"
+            )
+
+    raw = "\n".join(collected) or (final_result or "")
+    log.info(f"[{program_label}] Incremental filter response: {len(raw)} chars")
+
+    valid_rep_ids                   = {r["rep_id"] for r in prior_reps}
+    decisions, rationale_map        = _parse_incremental_filter_response(raw, nc, valid_rep_ids)
+
+    if not decisions:
+        # Fallback: pass all candidates through as new reps
+        log.warning(
+            f"[{program_label}] Incremental filter: parse failed — treating all candidates as novel."
+        )
+        for local_idx, state in candidates:
+            rep = _make_lean_rep_entry(
+                state,
+                per_program_rationale.get(local_idx, ""),
+                "novel_by_llm",
+                len(registry["representatives"]),
+            )
+            registry["representatives"].append(rep)
+        states_to_run.extend(state for _, state in candidates)
+        return states_to_run, registry
+
+    # Apply LLM decisions
+    n_similar = 0
+    n_novel   = 0
+    for i, (local_idx, state) in enumerate(candidates):
+        decision = decisions.get(i, {"novel": True})
+
+        if "similar_to" in decision:
+            rep_id = decision["similar_to"]
+            for rep in registry["representatives"]:
+                if rep["rep_id"] == rep_id:
+                    rep["similar_edges"].append({
+                        "program":              state.program_name,
+                        "tool":                 state.tool_name,
+                        "algorithm":            state.algorithm,
+                        "boundary_id":          state.boundary_id,
+                        "boundary_index":       state.boundary_index,
+                        "similarity_rationale": rationale_map.get(i, ""),
+                        "recorded_at":          datetime.now().isoformat(),
+                    })
+                    break
+            log.info(
+                f"[{program_label}] {state.boundary_id} → similar to {rep_id} (skipped from pipeline)"
+            )
+            n_similar += 1
+        else:
+            rep = _make_lean_rep_entry(
+                state,
+                per_program_rationale.get(local_idx, ""),
+                "novel_by_llm",
+                len(registry["representatives"]),
+            )
+            registry["representatives"].append(rep)
+            states_to_run.append(state)
+            log.info(f"[{program_label}] New rep (novel): {rep['rep_id']} = {state.boundary_id}")
+            n_novel += 1
+
+    log.info(
+        f"[{program_label}] Incremental filter done: "
+        f"{n_novel} novel (new reps), {n_similar} similar (skipped), "
+        f"{len(forced)} forced app-edges → {len(states_to_run)} pass to pipeline"
+    )
+    return states_to_run, registry
+
+
+# ── Incremental filter helpers ────────────────────────────────────────────────
+
+def _make_lean_rep_entry(
+    state:       PipelineState,
+    rationale:   str,
+    kept_reason: str,
+    rep_index:   int,
+) -> dict:
+    """Build a lean representative entry from a PipelineState."""
+    b      = state.boundary
+    caller = b.get("caller", {})
+    missed = b.get("missedCallee", {})
+    return {
+        "rep_id":                f"rep_{rep_index:04d}",
+        "added_at":              datetime.now().isoformat(),
+        "program":               state.program_name,
+        "tool":                  state.tool_name,
+        "algorithm":             state.algorithm,
+        "boundary_id":           state.boundary_id,
+        "boundary_index":        state.boundary_index,
+        "kept_reason":           kept_reason,
+        "per_program_rationale": rationale,
+        "caller_class":          caller.get("declaringClass", ""),
+        "caller_method":         caller.get("name", ""),
+        "missed_class":          missed.get("declaringClass", ""),
+        "missed_method":         missed.get("name", ""),
+        "similar_edges":         [],
+    }
+
+
+def _rep_compact_for_prompt(rep: dict) -> str:
+    """One-block text summary of a registry rep for the incremental filter prompt."""
+    return (
+        f"[{rep['rep_id']}]\n"
+        f"program={rep['program']} / {rep['tool']} / {rep['algorithm']}\n"
+        f"Caller  : {rep['caller_class']}.{rep['caller_method']}\n"
+        f"Missed  : {rep['missed_class']}.{rep['missed_method']}\n"
+        f"Rationale: {rep.get('per_program_rationale') or '(none)'}"
+    )
+
+
+def _parse_incremental_filter_response(
+    response:      str,
+    n:             int,
+    valid_rep_ids: set[str],
+) -> tuple[dict[int, dict], dict[int, str]]:
+    """
+    Parse the incremental filter LLM response.
+    Returns (decisions, rationale) where decisions[i] is one of:
+      {"similar_to": "rep_XXXX"} or {"novel": True}
+    Returns ({}, {}) on any parse error.
+    """
+    def _try_parse(text: str) -> dict | None:
+        try:
+            return json.loads(text.strip())
+        except json.JSONDecodeError:
+            pass
+        start = text.find("{")
+        end   = text.rfind("}") + 1
+        if start != -1 and end > start:
+            try:
+                return json.loads(text[start:end])
+            except json.JSONDecodeError:
+                pass
+        return None
+
+    data = _try_parse(response)
+    if not data or "decisions" not in data:
+        log.warning("Incremental filter: could not parse JSON from LLM response.")
+        return {}, {}
+
+    raw_decisions = data.get("decisions", {})
+    raw_rationale = data.get("rationale", {})
+
+    decisions: dict[int, dict] = {}
+    rationale: dict[int, str]  = {}
+
+    for key, decision in raw_decisions.items():
+        try:
+            idx = int(key)
+        except (ValueError, TypeError):
+            continue
+        if not (0 <= idx < n):
+            log.warning(f"Incremental filter: ignoring out-of-range index {key!r} (n={n})")
+            continue
+
+        if "similar_to" in decision:
+            rep_id = decision["similar_to"]
+            if rep_id not in valid_rep_ids:
+                log.warning(
+                    f"Incremental filter: unknown rep_id {rep_id!r} for [{key}], treating as novel."
+                )
+                decisions[idx] = {"novel": True}
+            else:
+                decisions[idx] = {"similar_to": rep_id}
+        elif decision.get("novel"):
+            decisions[idx] = {"novel": True}
+        else:
+            log.warning(
+                f"Incremental filter: unrecognized decision for [{key}], treating as novel."
+            )
+            decisions[idx] = {"novel": True}
+
+        rationale[idx] = raw_rationale.get(key, raw_rationale.get(str(idx), ""))
+
+    return decisions, rationale
