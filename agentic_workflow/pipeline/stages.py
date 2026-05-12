@@ -44,6 +44,18 @@ from config import (
 log = logging.getLogger("pipeline")
 
 
+# ── Per-edge file logging ──────────────────────────────────────────────────────
+
+class _EdgeLogFilter(logging.Filter):
+    """Passes only records whose message contains this edge's label."""
+    def __init__(self, label: str):
+        super().__init__()
+        self._label = label
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return self._label in record.getMessage()
+
+
 # ── Stage 3: Unsoundness reasoning report ─────────────────────────────────────
 
 async def stage_generate_report(state: PipelineState) -> bool:
@@ -54,9 +66,10 @@ async def stage_generate_report(state: PipelineState) -> bool:
     On retry iterations, accumulated feedback from failed reproduction and
     trace checks is injected into the task prompt.
     """
-    options     = build_agent_options(state)
-    report_path = state.out(OUT_REPORT)
-    feedback    = _build_feedback_section(state)
+    options       = build_agent_options(state)
+    report_path   = state.out(OUT_REPORT)
+    feedback      = _build_feedback_section(state)
+    retry_context = _build_retry_context(state)
 
     response = await run_agent(
         prompt=f"""\
@@ -79,39 +92,9 @@ Main class             : {state.main_class}
 
 {state.boundary_summary()}
 
-### Full boundary JSON
 
-{state.boundary_json()}
 {feedback}
-### Output
-
-Write a JSON file to {report_path} with this exact schema:
-{{
-  "edgeId":        "<short identifier, e.g. E1>",
-  "caller":        "<fully-qualified caller method signature>",
-  "callerLine":    <line number as integer>,
-  "target":        "<fully-qualified missed callee method signature>",
-  "pattern_class": "<e.g. reflection_indirect_instantiation | virtual_dispatch | native_call | ...>",
-  "evidence": [
-    "<path/to/file:line — observation>",
-    ...
-  ],
-  "toolLimitation": {{
-    "reason":     "<plain-English explanation of why the tool missed this edge>",
-    "rootCause":  "<design_decision | precision_tradeoff | missing_model | unsound_approximation>",
-    "toolCodeEvidence": {{
-      "relevantFiles": ["<tool-source-file:line>", ...],
-      "codeSnippet":   "<relevant code excerpt with inline comments>"
-    }}
-  }},
-  "potentialTestCase": {{
-    "description": "<what a minimal self-contained test case must do to trigger this edge>",
-    "TestCaseMissingEdge": {{
-      "caller": "<com.example.Caller.method()>",
-      "callee": "<com.example.Target.method()>"
-    }}
-  }}
-}}
+{retry_context}
 
 ## After fn-edge-analyzer completes
 
@@ -129,8 +112,11 @@ Return JSON only:
     log.info(f"{state.label()} Report generation result: {result}")
     if result and "report_path" in result:
         state.unsoundness_report = result["report_path"]
-        log.info(f"{state.label()} Report → {state.unsoundness_report}")
-        log.info(f"{state.label()} Hypothesis: {result.get('root_cause_hypothesis', 'N/A')}")
+        return True
+
+    if Path(report_path).exists():
+        state.unsoundness_report = report_path
+        log.warning(f"{state.label()} Could not parse agent response, but found report at {report_path}. Proceeding with it.")
         return True
 
     log.error(f"{state.label()} Report generation failed.")
@@ -147,8 +133,14 @@ async def stage_generate_test_case(state: PipelineState) -> bool:
     options = build_agent_options(state)
     out_dir = state.out(OUT_TEST_CASE_DIR)
 
-    state.reproducing_test_case_path = out_dir + "/reproducing"
+    state.reproducing_test_case_path     = out_dir + "/reproducing"
     state.non_reproducing_test_case_path = out_dir + "/non_reproducing"
+
+    if state.loop_count > 0:
+        for d in [state.reproducing_test_case_path, state.non_reproducing_test_case_path]:
+            if d and Path(d).exists():
+                shutil.rmtree(Path(d))
+                log.info(f"{state.label()} Deleted stale test case dir: {d}")
 
     response = await run_agent(
         prompt=f"""\
@@ -246,10 +238,6 @@ async def stage_annotate_and_check_trace(state: PipelineState) -> tuple[bool, st
     annotated_out  = state.out(OUT_ANNOTATED_TOOL_DIR)
     trace_log_path = str(Path(state.reproducing_test_case_path) / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE)
 
-    # Pre-copy SA tool to boundary-specific output dir before calling the agent.
-    # This avoids 5 concurrent agents all doing shutil.copytree from the same source,
-    # which causes heavy I/O contention. The copy is offloaded to a thread so it
-    # does not block the event loop.
     annotated_out_path = Path(annotated_out)
     if not annotated_out_path.exists():
         log.info(f"{state.label()} Copying SA tool to {annotated_out} ...")
@@ -304,13 +292,15 @@ If the log already exists for the same reason (`skipped: true`):
         return False, "Annotation step failed — could not parse result."
 
     state.annotated_sa_tool_path = annot_result["annotated_tool_path"]
+    state.annotated_file         = annot_result.get("annotated_file")
+    state.injected_at_line       = annot_result.get("injected_at_line")
 
     if annot_result.get("skipped"):
         log.info(f"{state.label()} Annotation skipped: {annot_result.get('skip_reason')}")
     else:
         log.info(
-            f"{state.label()} Annotated {annot_result.get('annotated_file')} "
-            f"at line {annot_result.get('injected_at_line')}"
+            f"{state.label()} Annotated {state.annotated_file} "
+            f"at line {state.injected_at_line}"
         )
 
     # Log format is standardised — always grep for the [UNSOUNDNESS] prefix
@@ -339,7 +329,7 @@ Test case       : {state.reproducing_test_case_path}
 
 1. Read the execution trace at: {trace_log_path}
 2. Search for entries matching: {expected_pattern}
-3. Cross-check with the unsoundness report and test case to see if the log entries align with the expected root cause and callsite. \
+3. Cross-check with the unsoundness report and test case (ONLY SOURCE CODE src/) to see if the log entries align with the expected root cause and callsite. \
 Remember that the log entries may happen for different edges or callsites that are not the one we expect (like internal libraries we are not interested in).
 4. Return your finding.
 
@@ -367,6 +357,21 @@ Return JSON only:
 # ── Main pipeline ─────────────────────────────────────────────────────────────
 
 async def run_pipeline(state: PipelineState) -> None:
+    state.output_dir.mkdir(parents=True, exist_ok=True)
+    log_path     = state.output_dir / "pipeline.log"
+    file_handler = logging.FileHandler(log_path)
+    file_handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    file_handler.addFilter(_EdgeLogFilter(state.label()))
+    logging.getLogger("pipeline").addHandler(file_handler)
+
+    try:
+        await _run_pipeline_inner(state)
+    finally:
+        logging.getLogger("pipeline").removeHandler(file_handler)
+        file_handler.close()
+
+
+async def _run_pipeline_inner(state: PipelineState) -> None:
     log.info(f"{state.label()} {'=' * 50}")
     log.info(f"{state.label()} PIPELINE START  {state.boundary_id}")
     log.info(f"{state.label()} {'=' * 50}")
@@ -449,6 +454,49 @@ def _build_feedback_section(state: PipelineState) -> str:
     return "\n".join(lines)
 
 
+def _build_retry_context(state: PipelineState) -> str:
+    """
+    Build the context block injected into the report prompt on retries.
+    Surfaces the previous report, the reproducing test case, and the annotated
+    SA tool file so the agent can read and revise its earlier analysis.
+    Returns an empty string on the first (non-retry) run.
+    """
+    if state.loop_count == 0:
+        return ""
+
+    lines = ["\n## Context from previous attempt\n"]
+
+    if state.unsoundness_report and Path(state.unsoundness_report).exists():
+        lines += [
+            "### Previous unsoundness report",
+            "",
+            f"Path: {state.unsoundness_report}",
+            "(Read this file to review your previous analysis before revising it based on the feedback above.)",
+        ]
+
+    if state.reproducing_test_case_path and Path(state.reproducing_test_case_path).exists():
+        lines += [
+            "",
+            "### Reproducing test case",
+            "",
+            f"Path: {state.reproducing_test_case_path}",
+            "(Read the Java source files here to understand how the test case was structured.)",
+        ]
+
+    if state.annotated_sa_tool_path and state.annotated_file:
+        line_hint = f" (line {state.injected_at_line})" if state.injected_at_line else ""
+        lines += [
+            "",
+            "### Previously annotated SA tool file",
+            "",
+            f"Annotated Tool Path: {state.annotated_sa_tool_path}, File: {state.annotated_file}{line_hint}",
+            "(Read this file to see the [UNSOUNDNESS] log that was injected. "
+            "Use it to validate and refine your root cause hypothesis.)",
+        ]
+
+    return "\n".join(lines)
+
+
 def _descriptor_to_classname(descriptor: str) -> str:
     """Convert a JVM class descriptor to a dotted class name.
     e.g. 'Lcom/example/App;' → 'com.example.App'
@@ -497,9 +545,9 @@ def _edge_in_boundary(
     try:
         data = json.loads(Path(boundary_path).read_text())
         entries = data.get("boundaries", [])
-    except (json.JSONDecodeError, AttributeError):
-        log.warning(f"Could not parse boundary file: {boundary_path}")
-        return False, f"Could not parse boundary file: {boundary_path}"
+    except Exception as e:
+        log.warning(f"Failed reading boundary file {boundary_path}: {e}")
+        return False, f"Could not read boundary file {boundary_path}: {e}"
 
     for entry in entries:
         if _entry_matches(entry, expected_caller, expected_callee):

@@ -45,6 +45,10 @@ class PipelineState:
     # ── Loop counter ───────────────────────────────────────────────────────────
     loop_count: int = 0
 
+    # ── Annotation info (populated after stage 6a) ────────────────────────────
+    annotated_file:   Optional[str] = None   # relative path within annotated_sa_tool_path
+    injected_at_line: Optional[int] = None   # line number of the injected [UNSOUNDNESS] log
+
     # ── Convenience helpers ────────────────────────────────────────────────────
 
     def out(self, filename: str) -> str:

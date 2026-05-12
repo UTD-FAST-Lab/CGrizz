@@ -58,6 +58,7 @@ from pathlib import Path
 
 from pipeline.state import PipelineState
 from pipeline.stages import run_pipeline
+from pipeline.utils import write_final_report
 from pipeline.sampler import (
     run_boundary_sampler,
     run_global_dedup_sampler,
@@ -150,7 +151,11 @@ async def run_with_limit(state: PipelineState, sem: asyncio.Semaphore) -> None:
     """Run one pipeline instance, respecting the concurrency semaphore."""
     async with sem:
         log.info(f"{state.label()} Slot acquired.")
-        await run_pipeline(state)
+        try:
+            await run_pipeline(state)
+        except Exception as e:
+            log.error(f"{state.label()} Unexpected pipeline error: {e}")
+            write_final_report(state, success=False, reason=f"Unexpected pipeline error: {e}")
 
 
 # ── Mode 1: single ────────────────────────────────────────────────────────────
@@ -232,7 +237,10 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
             f"boundaries: {len(states)} (sampled from {len(boundaries)}) | concurrency: {args.concurrency}"
         )
 
-        await asyncio.gather(*[run_with_limit(s, sem) for s in states])
+        results = await asyncio.gather(*[run_with_limit(s, sem) for s in states], return_exceptions=True)
+        for r in results:
+            if isinstance(r, Exception):
+                log.error(f"Unhandled gather exception: {r}")
 
     asyncio.run(run_all())
 
@@ -323,7 +331,10 @@ def run_parallel_all(args: argparse.Namespace) -> None:
             f"concurrency: {args.concurrency}"
         )
 
-        # await asyncio.gather(*[run_with_limit(s, sem) for s in all_states])
+        results = await asyncio.gather(*[run_with_limit(s, sem) for s in all_states], return_exceptions=True)
+        for r in results:
+            if isinstance(r, Exception):
+                log.error(f"Unhandled gather exception: {r}")
 
     asyncio.run(run_all())
 

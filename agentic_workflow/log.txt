@@ -1,0 +1,1779 @@
+nd any member to link for "org.opalj.br.fpcf.properties.AtMost".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/ExceptionAwareEscapeAnalysis.scala:14:1: Could not find any member to link for "org.opalj.br.fpcf.
+properties.EscapeViaAbnormalReturn".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/SimpleFieldAwareEscapeAnalysis.scala:16:1: Could not find any member to link for "org.opalj.br.fpc
+f.properties.NoEscape".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:328:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:318:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:308:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:190:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:178:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeViaAbnormalReturn".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:298:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:200:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:210:5: Could not find any member to link for "org.opalj.br.fpcf.prope
+rties.EscapeInCallee".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/AbstractEscapeAnalysis.scala:352:5: Could not find any member to link for "org.opalj.fpcf.InterimR
+esult".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/ReturnValueFreshnessAnalysis.scala:183:5: Could not find any member to link for "org.opalj.br.Defi
+nedMethod".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/escape/ReturnValueFreshnessAnalysis.scala:228:5: Could not find any member to link for "org.opalj.br.Defi
+nedMethod".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/CalleesAndCallers.scala:32:1: Could not find any member to link for "org.opalj.fpcf.PartialResult".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/DoPrivilegedCGAnalysis.scala:39:1: Could not find any member to link for "org.opalj.br.VirtualDeclared
+Method".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/TypeIterator.scala:514:1: Could not find any member to link for "TypeSetEntitySelector".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/StaticInitializerAnalysis.scala:58:5: Could not find any member to link for "LoadedClasses".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/LoadedClassesAnalysis.scala:46:5: Could not find any member to link for "NoCallers".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/CallGraphAnalysis.scala:476:5: Could not find any member to link for "org.opalj.br.analyses.cg.Initial
+EntryPointsKey".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/common/DefinitionSite.scala:10:1: Could not find any member to link for "org.opalj.br.fpcf.properties.EscapeProperty".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/common/DefinitionSiteLike.scala:10:1: Could not find any member to link for "org.opalj.br.fpcf.properties.EscapePropert
+y".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/common/DefinitionSites.scala:43:5: Could not find any member to link for "org.opalj.br.instructions.NEW".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/cg/CallGraph.scala:15:1: Could not find any member to link for "org.opalj.fpcf.PropertyStore".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/ASTNode.scala:44:5: Could not find any member to link for "org.opalj.value.ValueInformation.toCanonicalForm".
+[warn]     /** See [[org.opalj.value.ValueInformation.toCanonicalForm]] for detail. */
+[warn]     ^
+[warn] /OPAL/OPAL/tac/src/main/scala/org/opalj/tac/Stmt.scala:1151:5: Could not find any member to link for "org.opalj.ai.ImmediateVMExceptionsOriginOffset".
+[warn]     /**
+[warn]     ^
+[warn] 58 warnings found
+[info] Main Scala API documentation successful.
+[info] Main Scala API documentation to /OPAL/OPAL/ba/target/scala-2.13/api...
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/InstructionLikeElement.scala:52:1: Could not find any member to link for "org.opalj.br.instructions.LabeledInstruction".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerElement.scala:42:1: Could not find any member to link for "org.opalj.br.ExceptionHandler".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CLASS.scala:13:1: Could not find any member to link for "org.opalj.br.ClassFile".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CodeAttributeBuilder.scala:33:1: Could not find any member to link for "org.opalj.br.Code".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CodeElement.scala:8:1: Could not find any member to link for "org.opalj.br.Code".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerElement.scala:5:1: Could not find any member to link for "org.opalj.br.ExceptionHandler".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerConfiguration.scala:16:1: Could not find any member to link for "org.opalj.br.ExceptionHandlers".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/EXCEPTIONS.scala:9:1: Could not find any member to link for "org.opalj.br.ExceptionTable".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/FIELD.scala:7:1: Could not find any member to link for "org.opalj.br.Field".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/FIELDS.scala:7:1: Could not find any member to link for "org.opalj.br.Field".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/InstructionLikeElement.scala:42:1: Could not find any member to link for "org.opalj.br.instructions.LabeledInstruction".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/LINENUMBER.scala:5:1: Could not find any member to link for "org.opalj.br.LineNumberTable".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/LineNumberTableBuilder.scala:7:1: Could not find any member to link for "org.opalj.br.UnpackedLineNumberTable".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/METHOD.scala:11:1: Could not find any member to link for "org.opalj.br.MethodTemplate".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/METHODS.scala:11:1: Could not find any member to link for "org.opalj.br.MethodTemplate".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ProjectBasedClassLoader.scala:9:1: Could not find any member to link for "org.opalj.br.analyses.Project".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerElement.scala:21:1: Could not find any member to link for "org.opalj.br.ExceptionHandler".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerElement.scala:32:1: Could not find any member to link for "org.opalj.br.ExceptionHandler".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/package.scala:61:1: Could not find any member to link for "org.opalj.br".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/LabeledCode.scala:19:1: Could not find any member to link for "org.opalj.br.instructions.PCLabel".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/package.scala:764:5: Could not find any member to link for "org.opalj.br.Attribute".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/package.scala:182:5: Could not find any member to link for "org.opalj.br.ClassFile".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/METHODS.scala:19:5: Could not find any member to link for "org.opalj.br.MethodTemplate".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/METHOD.scala:25:5: Could not find any member to link for "org.opalj.br.MethodTemplate".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/LabeledCode.scala:51:5: Could not find any member to link for "org.opalj.br.instructions.PCLabel".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/LabeledCode.scala:188:5: Could not find any member to link for "org.opalj.br.Code".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/FIELD.scala:21:5: Could not find any member to link for "org.opalj.br.Method".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerElement.scala:73:5: Could not find any member to link for "org.opalj.br.ExceptionHandler".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/ExceptionHandlerConfiguration.scala:44:5: Could not find any member to link for "org.opalj.br.ExceptionHandlers".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CodeElement.scala:54:5: Could not find any member to link for "org.opalj.br.instructions.LabeledInstruction".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CodeElement.scala:44:5: Could not find any member to link for "org.opalj.br.instructions.LabeledInstruction".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CodeAttributeBuilder.scala:230:5: Could not find any member to link for "org.opalj.br.StackMapTable".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CODE.scala:442:5: Could not find any member to link for "org.opalj.br.instructions.Instruction".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CLASS.scala:30:5: Could not find any member to link for "org.opalj.br.ClassFile".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/CLASS.scala:123:5: Could not find any member to link for "org.opalj.da.ClassFile".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/ba/src/main/scala/org/opalj/ba/FIELDS.scala:15:5: Could not find any member to link for "org.opalj.br.FieldTemplate".
+[warn]     /**
+[warn]     ^
+[warn] 36 warnings found
+[info] Main Scala API documentation successful.
+[info] Main Scala API documentation to /OPAL/OPAL/de/target/scala-2.13/api...
+[warn] /OPAL/OPAL/de/src/main/scala/org/opalj/de/DependencyExtractor.scala:13:1: Could not find any member to link for "org.opalj.br.SourceElement".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/de/src/main/scala/org/opalj/de/DependencyExtractor.scala:804:5: Could not find any member to link for "org.opalj.br.instructions.INVOKEDYNAMIC".
+[warn]     /**
+[warn]     ^
+[warn] two warnings found
+[info] Main Scala API documentation successful.
+[info] :: delivering :: de.opal-project#bytecode-creator_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:10 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/bc/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published bytecode-creator_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-creator_2.13/5.0.1-SNAPSHOT/poms/bytecode-creator_2.13.pom
+[info]  published bytecode-creator_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-creator_2.13/5.0.1-SNAPSHOT/jars/bytecode-creator_2.13.jar
+[info]  published bytecode-creator_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-creator_2.13/5.0.1-SNAPSHOT/srcs/bytecode-creator_2.13-sources.jar
+[info]  published bytecode-creator_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-creator_2.13/5.0.1-SNAPSHOT/docs/bytecode-creator_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/bytecode-creator_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#ifds_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:10 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/ifds/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published ifds_2.13 to /home/JCG/.ivy2/local/de.opal-project/ifds_2.13/5.0.1-SNAPSHOT/poms/ifds_2.13.pom
+[info]  published ifds_2.13 to /home/JCG/.ivy2/local/de.opal-project/ifds_2.13/5.0.1-SNAPSHOT/jars/ifds_2.13.jar
+[info]  published ifds_2.13 to /home/JCG/.ivy2/local/de.opal-project/ifds_2.13/5.0.1-SNAPSHOT/srcs/ifds_2.13-sources.jar
+[info]  published ifds_2.13 to /home/JCG/.ivy2/local/de.opal-project/ifds_2.13/5.0.1-SNAPSHOT/docs/ifds_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/ifds_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#abstract-interpretation-framework_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:10 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/ai/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published abstract-interpretation-framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/abstract-interpretation-framework_2.13/5.0.1-SNAPSHOT/poms/abstract-inte
+rpretation-framework_2.13.pom
+[info]  published abstract-interpretation-framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/abstract-interpretation-framework_2.13/5.0.1-SNAPSHOT/jars/abstract-inte
+rpretation-framework_2.13.jar
+[info]  published abstract-interpretation-framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/abstract-interpretation-framework_2.13/5.0.1-SNAPSHOT/srcs/abstract-inte
+rpretation-framework_2.13-sources.jar
+[info]  published abstract-interpretation-framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/abstract-interpretation-framework_2.13/5.0.1-SNAPSHOT/docs/abstract-inte
+rpretation-framework_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/abstract-interpretation-framework_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] compiling 144 Scala sources to /OPAL/OPAL/tac/target/scala-2.13/classes ...
+[info] done compiling
+[info] compiling 22 Scala sources to /OPAL/OPAL/ba/target/scala-2.13/classes ...
+[info] done compiling
+[info] compiling 12 Scala sources to /OPAL/OPAL/de/target/scala-2.13/classes ...
+[info] done compiling
+[info] Main Scala API documentation to /OPAL/OPAL/av/target/scala-2.13/api...
+[warn] /OPAL/OPAL/av/src/main/scala/org/opalj/av/checking/Specification.scala:585:5: Could not find any member to link for "org.opalj.de.DependencyTypes".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/av/src/main/scala/org/opalj/av/checking/AnnotationPredicate.scala:111:5: Could not find any member to link for "org.opalj.br.ElementValuePair".
+[warn]     /**
+[warn]     ^
+[warn] two warnings found
+[info] Main Scala API documentation successful.
+[info] :: delivering :: de.opal-project#three-address-code_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:27 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/tac/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published three-address-code_2.13 to /home/JCG/.ivy2/local/de.opal-project/three-address-code_2.13/5.0.1-SNAPSHOT/poms/three-address-code_2.13.pom
+[info]  published three-address-code_2.13 to /home/JCG/.ivy2/local/de.opal-project/three-address-code_2.13/5.0.1-SNAPSHOT/jars/three-address-code_2.13.jar
+[info]  published three-address-code_2.13 to /home/JCG/.ivy2/local/de.opal-project/three-address-code_2.13/5.0.1-SNAPSHOT/srcs/three-address-code_2.13-sources.jar
+[info]  published three-address-code_2.13 to /home/JCG/.ivy2/local/de.opal-project/three-address-code_2.13/5.0.1-SNAPSHOT/docs/three-address-code_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/three-address-code_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#bytecode-assembler_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:27 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/ba/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published bytecode-assembler_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-assembler_2.13/5.0.1-SNAPSHOT/poms/bytecode-assembler_2.13.pom
+[info]  published bytecode-assembler_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-assembler_2.13/5.0.1-SNAPSHOT/jars/bytecode-assembler_2.13.jar
+[info]  published bytecode-assembler_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-assembler_2.13/5.0.1-SNAPSHOT/srcs/bytecode-assembler_2.13-sources.jar
+[info]  published bytecode-assembler_2.13 to /home/JCG/.ivy2/local/de.opal-project/bytecode-assembler_2.13/5.0.1-SNAPSHOT/docs/bytecode-assembler_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/bytecode-assembler_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#dependencies-extraction-library_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:27 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/de/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published dependencies-extraction-library_2.13 to /home/JCG/.ivy2/local/de.opal-project/dependencies-extraction-library_2.13/5.0.1-SNAPSHOT/poms/dependencies-extr
+action-library_2.13.pom
+[info]  published dependencies-extraction-library_2.13 to /home/JCG/.ivy2/local/de.opal-project/dependencies-extraction-library_2.13/5.0.1-SNAPSHOT/jars/dependencies-extr
+action-library_2.13.jar
+[info]  published dependencies-extraction-library_2.13 to /home/JCG/.ivy2/local/de.opal-project/dependencies-extraction-library_2.13/5.0.1-SNAPSHOT/srcs/dependencies-extr
+action-library_2.13-sources.jar
+[info]  published dependencies-extraction-library_2.13 to /home/JCG/.ivy2/local/de.opal-project/dependencies-extraction-library_2.13/5.0.1-SNAPSHOT/docs/dependencies-extr
+action-library_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/dependencies-extraction-library_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] compiling 29 Scala sources to /OPAL/OPAL/ll/target/scala-2.13/classes ...
+[info] done compiling
+[info] compiling 20 Scala sources to /OPAL/OPAL/av/target/scala-2.13/classes ...
+[info] done compiling
+[warn] multiple main classes detected: run 'show discoveredMainClasses' to see the list
+[info] Main Scala API documentation to /OPAL/OPAL/apk/target/scala-2.13/api...
+[warn] /OPAL/OPAL/apk/src/main/scala/org/opalj/apk/parser/ApkParser.scala:33:1: Could not find any member to link for "Project".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/apk/src/main/scala/org/opalj/apk/ApkComponentsKey.scala:9:1: Could not find any member to link for "org.opalj.br.analyses.Project".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/apk/src/main/scala/org/opalj/apk/ApkContextRegisteredReceiversKey.scala:9:1: Could not find any member to link for "org.opalj.br.analyses.Project".
+[warn] /**
+[warn] ^
+[warn] /OPAL/OPAL/apk/src/main/scala/org/opalj/apk/parser/ApkParser.scala:244:5: Could not find any member to link for "Project".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/OPAL/apk/src/main/scala/org/opalj/apk/ApkComponentsKey.scala:23:5: Could not find any member to link for "ApkParser".
+[warn]     /**
+[warn]     ^
+[warn] 5 warnings found
+[info] Main Scala API documentation successful.
+[info] :: delivering :: de.opal-project#architecture-validation_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:33 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/av/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published architecture-validation_2.13 to /home/JCG/.ivy2/local/de.opal-project/architecture-validation_2.13/5.0.1-SNAPSHOT/poms/architecture-validation_2.13.pom
+[info]  published architecture-validation_2.13 to /home/JCG/.ivy2/local/de.opal-project/architecture-validation_2.13/5.0.1-SNAPSHOT/jars/architecture-validation_2.13.jar
+[info]  published architecture-validation_2.13 to /home/JCG/.ivy2/local/de.opal-project/architecture-validation_2.13/5.0.1-SNAPSHOT/srcs/architecture-validation_2.13-sour
+ces.jar
+[info]  published architecture-validation_2.13 to /home/JCG/.ivy2/local/de.opal-project/architecture-validation_2.13/5.0.1-SNAPSHOT/docs/architecture-validation_2.13-java
+doc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/architecture-validation_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] compiling 8 Scala sources to /OPAL/OPAL/apk/target/scala-2.13/classes ...
+[info] done compiling
+[info] Main Scala API documentation to /OPAL/TOOLS/hermes/target/scala-2.13/api...
+[warn] /OPAL/TOOLS/hermes/src/main/scala/org/opalj/hermes/HermesCore.scala:28:1: Could not find any member to link for "Hermes".
+[warn] /**
+[warn] ^
+[warn] /OPAL/TOOLS/hermes/src/main/scala/org/opalj/hermes/queries/util/APIFeatureQuery.scala:59:5: Could not find any member to link for "org.opalj.fpcf.PropertyStore".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/TOOLS/hermes/src/main/scala/org/opalj/hermes/FeatureQuery.scala:39:5: Could not find any member to link for "org.opalj.fpcf.PropertyStore".
+[warn]     /**
+[warn]     ^
+[warn] /OPAL/TOOLS/hermes/src/main/scala/org/opalj/hermes/ProjectConfiguration.scala:37:5: Could not find any member to link for "org.opalj.br.analyses.Project.statistics
+".
+[warn]     /**
+[warn]     ^
+[warn] four warnings found
+[info] Main Scala API documentation successful.
+[info] Main Scala API documentation to /OPAL/DEVELOPING_OPAL/tools/target/scala-2.13/api...
+[warn] /OPAL/DEVELOPING_OPAL/tools/src/main/scala/org/opalj/support/info/FieldLocality.scala:20:1: Could not find any member to link for "org.opalj.br.fpcf.properties.Fie
+ldLocality".
+[warn] /**
+[warn] ^
+[warn] /OPAL/DEVELOPING_OPAL/tools/src/main/scala/org/opalj/support/info/ReturnValueFreshness.scala:22:1: Could not find any member to link for "org.opalj.br.fpcf.propert
+ies.ReturnValueFreshness".
+[warn] /**
+[warn] ^
+[warn] /OPAL/DEVELOPING_OPAL/tools/src/main/scala/org/opalj/support/tools/ClassHierarchyExtractor.scala:11:1: Could not find any member to link for "org.opalj.br.ClassHie
+rarchy".
+[warn] /**
+[warn] ^
+[warn] /OPAL/DEVELOPING_OPAL/tools/src/main/scala/org/opalj/support/tools/ProjectSerializer.scala:17:1: Could not find any member to link for "org.opalj.br.analyses.Proje
+ct".
+[warn] /**
+[warn] ^
+[warn] four warnings found
+[info] Main Scala API documentation successful.
+[info] :: delivering :: de.opal-project#apk_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:37 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/apk/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published apk_2.13 to /home/JCG/.ivy2/local/de.opal-project/apk_2.13/5.0.1-SNAPSHOT/poms/apk_2.13.pom
+[info]  published apk_2.13 to /home/JCG/.ivy2/local/de.opal-project/apk_2.13/5.0.1-SNAPSHOT/jars/apk_2.13.jar
+[info]  published apk_2.13 to /home/JCG/.ivy2/local/de.opal-project/apk_2.13/5.0.1-SNAPSHOT/srcs/apk_2.13-sources.jar
+[info]  published apk_2.13 to /home/JCG/.ivy2/local/de.opal-project/apk_2.13/5.0.1-SNAPSHOT/docs/apk_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/apk_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#framework_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:37 UTC 2026
+[info]  delivering ivy file to /OPAL/OPAL/framework/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/framework_2.13/5.0.1-SNAPSHOT/poms/framework_2.13.pom
+[info]  published framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/framework_2.13/5.0.1-SNAPSHOT/jars/framework_2.13.jar
+[info]  published framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/framework_2.13/5.0.1-SNAPSHOT/srcs/framework_2.13-sources.jar
+[info]  published framework_2.13 to /home/JCG/.ivy2/local/de.opal-project/framework_2.13/5.0.1-SNAPSHOT/docs/framework_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/framework_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] compiling 54 Scala sources to /OPAL/TOOLS/hermes/target/scala-2.13/classes ...
+[info] done compiling
+[info] compiling 28 Scala sources to /OPAL/DEVELOPING_OPAL/tools/target/scala-2.13/classes ...
+[info] done compiling
+[warn] multiple main classes detected: run 'show discoveredMainClasses' to see the list
+[info] :: delivering :: de.opal-project#hermes_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:42 UTC 2026
+[info]  delivering ivy file to /OPAL/TOOLS/hermes/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published hermes_2.13 to /home/JCG/.ivy2/local/de.opal-project/hermes_2.13/5.0.1-SNAPSHOT/poms/hermes_2.13.pom
+[info]  published hermes_2.13 to /home/JCG/.ivy2/local/de.opal-project/hermes_2.13/5.0.1-SNAPSHOT/jars/hermes_2.13.jar
+[info]  published hermes_2.13 to /home/JCG/.ivy2/local/de.opal-project/hermes_2.13/5.0.1-SNAPSHOT/srcs/hermes_2.13-sources.jar
+[info]  published hermes_2.13 to /home/JCG/.ivy2/local/de.opal-project/hermes_2.13/5.0.1-SNAPSHOT/docs/hermes_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/hermes_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: de.opal-project#tools_2.13;5.0.1-SNAPSHOT :: 5.0.1-SNAPSHOT :: integration :: Sun May 10 14:30:42 UTC 2026
+[info]  delivering ivy file to /OPAL/DEVELOPING_OPAL/tools/target/scala-2.13/ivy-5.0.1-SNAPSHOT.xml
+[info]  published tools_2.13 to /home/JCG/.ivy2/local/de.opal-project/tools_2.13/5.0.1-SNAPSHOT/poms/tools_2.13.pom
+[info]  published tools_2.13 to /home/JCG/.ivy2/local/de.opal-project/tools_2.13/5.0.1-SNAPSHOT/jars/tools_2.13.jar
+[info]  published tools_2.13 to /home/JCG/.ivy2/local/de.opal-project/tools_2.13/5.0.1-SNAPSHOT/srcs/tools_2.13-sources.jar
+[info]  published tools_2.13 to /home/JCG/.ivy2/local/de.opal-project/tools_2.13/5.0.1-SNAPSHOT/docs/tools_2.13-javadoc.jar
+[info]  published ivy to /home/JCG/.ivy2/local/de.opal-project/tools_2.13/5.0.1-SNAPSHOT/ivys/ivy.xml
+[success] Total time: 212 s (03:32), completed May 10, 2026, 2:30:42 PM
+Building JCG...
+[info] welcome to sbt 1.7.1 (Ubuntu Java 11.0.27)
+[info] loading settings for project jcg-build from plugins.sbt ...
+[info] loading project definition from /home/JCG/JCG/project
+[info] loading settings for project jcg_annotations from build.sbt ...
+[info] loading settings for project jcg_testcases from build.sbt ...
+[info] loading settings for project jcg_annotation_matcher from build.sbt ...
+[info] loading settings for project jcg_wala_testadapter from build.sbt ...
+[info] loading settings for project jcg_soot_testadapter from build.sbt ...
+[info] loading settings for project jcg_opal_testadapter from build.sbt ...
+[info] loading settings for project jcg_doop_testadapter from build.sbt ...
+[info] loading settings for project jcg_testadapter_commons from build.sbt ...
+[info] loading settings for project jcg_evaluation from build.sbt ...
+[info] loading settings for project jcg from build.sbt ...
+[info] resolving key references (10455 settings) ...
+[info] set current project to jcg (in build file:/home/JCG/JCG/)
+[success] Total time: 0 s, completed May 10, 2026, 2:30:49 PM
+[success] Total time: 4 s, completed May 10, 2026, 2:30:53 PM
+Running analysis...
+[info] welcome to sbt 1.7.1 (Temurin Java 1.8.0_342)
+[info] loading settings for project jcg-build from plugins.sbt ...
+[info] loading project definition from /home/JCG/JCG/project
+[info] compiling 1 Scala source to /home/JCG/JCG/project/target/scala-2.12/sbt-1.0/classes ...
+[info] Non-compiled module 'compiler-bridge_2.12' for Scala 2.12.16. Compiling...
+[info]   Compilation completed in 7.399s.
+[info] done compiling
+/home/JCG/JCG/build.sbt:82: warning: method in in trait ScopingSetting is deprecated (since 1.5.0): `in` is deprecated; migrate to slash syntax - https://www.scala-sbt.or
+g/1.x/docs/Migrating-from-sbt-013x.html#slash
+    aggregate in assembly := false,
+              ^
+[info] loading settings for project jcg_annotations from build.sbt ...
+[info] loading settings for project jcg_testcases from build.sbt ...
+[info] loading settings for project jcg_annotation_matcher from build.sbt ...
+[info] loading settings for project jcg_wala_testadapter from build.sbt ...
+[info] loading settings for project jcg_soot_testadapter from build.sbt ...
+[info] loading settings for project jcg_opal_testadapter from build.sbt ...
+[info] loading settings for project jcg_doop_testadapter from build.sbt ...
+[info] loading settings for project jcg_testadapter_commons from build.sbt ...
+[info] loading settings for project jcg_evaluation from build.sbt ...
+[info] loading settings for project jcg from build.sbt ...
+[info] resolving key references (10455 settings) ...
+[info] set current project to jcg (in build file:/home/JCG/JCG/)
+[info] set current project to JCG Evaluation (in build file:/home/JCG/JCG/)
+[info] compiling 3 Scala sources to /home/JCG/JCG/jcg_data_format/target/scala-2.13/classes ...
+[info] compiling 4 Java sources to /home/JCG/JCG/jcg_annotations/target/scala-2.13/classes ...
+[info] Non-compiled module 'compiler-bridge_2.13' for Scala 2.13.8. Compiling...
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp: In function 'void return_cg()':
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:87:17: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   87 |     char* msg = "Test";
+      |                 ^~~~~~
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:88:23: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   88 |     char* final_msg = "End of Callgraph";
+      |                       ^~~~~~~~~~~~~~~~~~
+[info] done compiling
+[info]   Compilation completed in 12.735s.
+[warn] 15 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[info] done compiling
+[info] compiling 1 Java source to /home/JCG/JCG/jcg_testadapter_commons/target/scala-2.13/classes ...
+[info] compiling 1 Scala source to /home/JCG/JCG/jcg_testcases/target/scala-2.13/classes ...
+[info] done compiling
+[info] compiling 1 Scala source and 1 Java source to /home/JCG/JCG/jcg_wala_testadapter/target/scala-2.13/classes ...
+[info] compiling 5 Scala sources to /home/JCG/JCG/jcg_annotation_matcher/target/scala-2.13/classes ...
+[info] compiling 1 Scala source to /home/JCG/JCG/jcg_dynamic_testadapter/target/scala-2.13/classes ...
+[info] compiling 1 Scala source to /home/JCG/JCG/jcg_soot_testadapter/target/scala-2.13/classes ...
+[warn] 5 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[info] done compiling
+[warn] 9 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[warn] 1 deprecation
+[warn] 9 deprecations (since 2.13.0)
+[warn] 10 deprecations in total; re-run with -deprecation for details
+[warn] three warnings found
+[info] done compiling
+[info] done compiling
+[warn] 6 deprecations (since 2.13.0)
+[warn] 1 deprecation (since 2.13.7)
+[warn] 7 deprecations in total; re-run with -deprecation for details
+[warn] three warnings found
+[info] done compiling
+[warn] 38 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[info] done compiling
+[info] compiling 1 Scala source to /home/JCG/JCG/jcg_opal_testadapter/target/scala-2.13/classes ...
+[info] compiling 1 Scala source to /home/JCG/JCG/jcg_doop_testadapter/target/scala-2.13/classes ...
+[warn] 30 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[info] done compiling
+[warn] 44 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] one warning found
+[info] done compiling
+[info] compiling 17 Scala sources to /home/JCG/JCG/jcg_evaluation/target/scala-2.13/classes ...
+[warn] 115 deprecations (since 2.13.0)
+[warn] 2 deprecations (since 2.13.3)
+[warn] 117 deprecations in total; re-run with -deprecation for details
+[warn] three warnings found
+[info] done compiling
+[info] running Evaluation --input /jcg-conf/ --output /staticcg --adapter OPAL --algorithm-prefix 0-CFA --project-prefix reproducing --debug
+running OPAL 0-CFA against reproducing
+[info][class file reader] information about class files synthesized at parsing time is removed
+[info][class file reader] the control-flow is simplified
+[info][class file reader] control flow simplifications are not logged
+[info][class file reader] invokedynamics are rewritten
+[info][class file reader] rewrites of LambdaMetaFactory based invokedynamics are not logged
+[info][class file reader] rewrites of StringConcatFactory based invokedynamics are not logged
+[info][class file reader] rewrites of StringConcatFactory based invokedynamics are not logged
+[info][class file reader] unknown invokedynamics are logged
+[info][class file reader] dynamic constants are rewritten
+[info][class file reader] rewrites of dynamic constants are not logged
+[info][class file reader] unknown dynamic constants are logged
+[info][class file reader] unresolved dynamic constants are logged
+[warn][OPAL] the property org.opalj.threads.CPUBoundTasks is unspecified
+[info][OPAL] using 64 thread(s) for CPU bound tasks (can be changed by setting the system property org.opalj.threads.CPUBoundTasks; the number should be equal to the numb
+er of physical – not hyperthreaded – cores)
+[warn][OPAL] the property org.opalj.threads.IOBoundTasks is unspecified
+[info][OPAL] using at most 128 thread(s) for IO bound tasks (can be changed by setting the system property org.opalj.threads.IOBoundTasks; the number should be betweeen 1
+ and 2 times the number of (hyperthreaded) cores)
+[info][OPAL Bytecode Representation] Production Build
+[info][OPAL Common] Production Build
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.example.App | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.example.App | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.RecordingFile$1 | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ChunkParser | site=pc:102
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.EventPrintWriter | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.instrument.JDKEvents | site=pc:83
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Summary | site=pc:201
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ConstantMap | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ChunkParser | site=pc:111
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Summary | site=pc:549
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport$SecureRecorderListener | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RequestEngine$RequestHook | site=pc:66
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.instrument.JDKEvents | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RequestEngine$RequestHook$1 | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.MetadataWriter | site=pc:35
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport$SecureRecorderListener | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:34
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RequestEngine | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.ShutdownHook | site=pc:42
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RequestEngine | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.instrument.JDKEvents | site=pc:122
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ChunkParser | site=pc:120
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.MetadataReader | site=pc:235
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:362
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ChunkParser | site=pc:165
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SettingsManager | site=pc:76
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Assemble | site=pc:181
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.ASMToolkit | site=pc:35
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.consumer.ChunkParser | site=pc:434
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecorder | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecorder | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.tool.Print | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:48
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventWriter | site=pc:59
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:17
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.dcmd.AbstractDCmd | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.RepositoryChunk | site=pc:17
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.MetadataHandler | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:36
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:43
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:235
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:247
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:55
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:43
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:44
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:269
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:57
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:81
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:281
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:86
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:293
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:307
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.EventInstrumentation | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecording | site=pc:75
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:314
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:328
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecording | site=pc:25
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.TypeLibrary | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:335
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecording | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:360
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:373
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:380
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.PlatformRecording | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:394
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:401
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:414
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:421
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.management.jfr.FlightRecorderMXBeanImpl | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.jfr.internal.SecuritySupport | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.CharSequence | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.CharSequence | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.reflect.AnnotatedElement | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.reflect.AnnotatedElement | site=pc:22
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.reflect.AnnotatedElement | site=pc:27
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Function | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Function | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Function | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.concurrent.ConcurrentMap | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.BitSet | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.CharBuffer | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.awt.GraphicsEnvironment | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.X11GraphicsDevice | site=pc:81
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.X11GraphicsDevice | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.UNIXToolkit | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BinaryOperator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BinaryOperator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.java2d.Disposer | site=pc:104
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntUnaryOperator | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfInt | site=pc:40
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfInt | site=pc:42
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfLong | site=pc:40
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BiFunction | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.awt.SystemColor | site=pc:643
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.net.SocketPermission | site=pc:60
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfLong | site=pc:42
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.net.SocketPermission | site=pc:91
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.AWTAutoShutdown | site=pc:29
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfDouble | site=pc:40
+[info][project configuration] ignored duplicate type declarations for: {java.lang.reflect.UndeclaredThrowableException, java.lang.reflect.AnnotatedElement, java.lang.refl
+ect.InvocationTargetException, java.lang.reflect.Type, java.lang.reflect.MalformedParameterizedTypeException, java.lang.reflect.GenericSignatureFormatError, java.io.Seria
+lizable, java.lang.reflect.GenericDeclaration}
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Spliterator$OfDouble | site=pc:42
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.awt.SequencedEvent | site=pc:29
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Arrays | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.MultiResolutionToolkitImage | site=pc:34
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Arrays | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Arrays | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Arrays | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.ImageWatched$WeakLink | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:125
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JComponent | site=pc:44
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:132
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:11634
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:11652
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:11793
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:11841
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.plaf.metal.MetalLookAndFeel | site=pc:11904
+[info][OPAL] org.opalj.br.cfg.CFG.Validate: validation off
+[info][OPAL] org.opalj.br.cfg.CFG.DF.Solver.Trace: false
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:205
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:39
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess$Platform | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:125
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.io.ObjectInputStream | site=pc:152
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:251
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.io.ObjectInputStream | site=pc:160
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:265
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:288
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess$Platform | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess$Platform | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:349
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:25
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:363
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Map$Entry | site=pc:446
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.UNIXProcess | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:356
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.concurrent.ThreadPoolExecutor | site=pc:23
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:439
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.datatransfer.SunClipboard | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:530
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:613
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Comparator | site=pc:696
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.util.SecurityProperties | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.io.ObjectStreamClass | site=pc:43
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.font.SunFontManager | site=pc:255
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.util.HostnameChecker | site=pc:132
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.X11.XToolkit | site=pc:116
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.swing.JLightweightFrame | site=pc:102
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.X11.XToolkit | site=pc:104
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.smartcardio.CardImpl | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.krb5.internal.rcache.MemoryCache | site=pc:35
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.x509.X509CertImpl | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.krb5.KrbServiceLocator | site=pc:50
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.krb5.KrbServiceLocator | site=pc:62
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.DGCImpl$2 | site=pc:52
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.tcp.TCPTransport$ConnectionHandler | site=pc:50
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.registry.RegistryImpl$2 | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.DGCImpl | site=pc:109
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.DGCImpl_Stub | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.DGCImpl_Stub | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.Transport | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.Target | site=pc:92
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.Target | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:22
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.transport.StreamRemoteCall | site=pc:46
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:53
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:69
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:85
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:101
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.nio.ch.ThreadPool | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.nio.ch.ThreadPool | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:117
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:133
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.nio.ch.ThreadPool | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:36
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.registry.RegistryImpl | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.registry.RegistryImpl | site=pc:109
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.swing.JTable | site=pc:52
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.rmi.registry.RegistryImpl | site=pc:26
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.ExtendedOptionsImpl | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.jmxremote.SingleEntryRegistry | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.jmxremote.SingleEntryRegistry | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$SystemCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$ProcessCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$SystemCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:258
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:278
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:375
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:395
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$SystemCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:441
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:461
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:543
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.HotSpotDiagnostic | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.LazyCompositeData | site=pc:35
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.font.CreatedFontTracker$TempFileDeletionHook | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.pkcs12.PKCS12KeyStore | site=pc:261
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$ProcessCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.java2d.opengl.OGLRenderQueue | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:563
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.management.OperatingSystemImpl$ProcessCpuTicks | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.java2d.marlin.OffHeapArray | site=pc:34
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.font.CreatedFontTracker$TempFileDeletionHook | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:172
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.misc.ObjectInputFilter$Config$Global | site=pc:182
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.pkcs12.PKCS12KeyStore | site=pc:608
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.pkcs12.PKCS12KeyStore | site=pc:859
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.ftp.impl.FtpClient | site=pc:180
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.ftp.impl.FtpClient | site=pc:196
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.ImageCache | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.ftp.impl.FtpClient | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.ftp.impl.FtpClient | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.font.FreetypeFontScaler | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.java2d.marlin.RendererStats | site=pc:1177
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.MultiResolutionCachedImage | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.MultiResolutionCachedImage | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.awt.image.MultiResolutionCachedImage | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=org.jcp.xml.dsig.internal.dom.Policy | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.applet.AppletPanel | site=pc:105
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.applet.AppletPanel | site=pc:127
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.net.www.protocol.http.HttpURLConnection | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.SubSystem | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.SubSystem | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.SubSystem | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.SubSystem | site=pc:44
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.SubSystem | site=pc:54
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:32
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:42
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:53
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:167
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=org.jcp.xml.dsig.internal.dom.DOMReference | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:177
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:188
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:38
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=jdk.internal.platform.cgroupv1.Metrics | site=pc:60
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.tools.keytool.Main | site=pc:228
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.security.sasl.Sasl | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.sql.rowset.spi.SyncFactory | site=pc:254
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.imageio.spi.SubRegistry | site=pc:80
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Tripwire | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$SliceSpliterator$OfInt | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$LongWrappingSpliterator | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$IntWrappingSpliterator | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$LongWrappingSpliterator | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$IntWrappingSpliterator | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$LongWrappingSpliterator | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$IntWrappingSpliterator | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$SliceSpliterator$OfDouble | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$SliceSpliterator$OfRef | site=pc:35
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$SliceSpliterator$OfRef | site=pc:102
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline$8$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$DoubleWrappingSpliterator | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$SliceSpliterator$OfLong | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SpinedBuffer | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$DoubleWrappingSpliterator | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SortedOps$RefSortingSink | site=pc:48
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$WrappingSpliterator | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$DoubleWrappingSpliterator | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline$9$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Node | site=pc:63
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline$10$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Node$OfDouble | site=pc:64
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SliceOps$4 | site=pc:97
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$DistinctSpliterator | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SliceOps | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SliceOps$2 | site=pc:97
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$WrappingSpliterator | site=pc:37
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline$5$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfInt | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfLong | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfInt | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfLong | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.StreamSpliterators$WrappingSpliterator | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Node$OfLong | site=pc:64
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfDouble | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.SliceOps$3 | site=pc:97
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.MatchOps | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ForEachOps$ForEachOrderedTask | site=pc:176
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfDouble | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.MatchOps | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline | site=pc:70
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline$6$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongConsumer | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.UnaryOperator | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.MatchOps | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline$7$1 | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Node$OfInt | site=pc:64
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.ReferencePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntConsumer | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DistinctOps$1 | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.MatchOps | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoubleUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoubleUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongPredicate | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoubleUnaryOperator | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.management.remote.rmi.RMIConnector | site=pc:13
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongUnaryOperator | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BiConsumer | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfRef | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Predicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BiPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DistinctOps$1 | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoubleConsumer | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.LongUnaryOperator | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Predicate | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BiPredicate | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DistinctOps$1 | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntPredicate | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Nodes$CollectorTask$OfRef | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Predicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Consumer | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.BiPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoublePredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DistinctOps$1 | site=pc:64
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.IntPredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoublePredicate | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.logging.FileHandler | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.AbstractPipeline | site=pc:103
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Predicate | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.DoublePredicate | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.function.Predicate | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.AbstractPipeline | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.FindOps | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.PrimitiveIterator$OfInt | site=pc:47
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.PrimitiveIterator$OfLong | site=pc:47
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.PrimitiveIterator$OfDouble | site=pc:47
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Tripwire | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.AbstractPipeline | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.management.remote.rmi.RMIConnectionImpl | site=pc:79
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CheckedList | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.concurrent.ConcurrentSkipListMap$EntrySpliterator | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.concurrent.ConcurrentSkipListMap$EntrySpliterator | site=pc:129
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CopiesList | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CopiesList | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$UnmodifiableMap$UnmodifiableEntrySet | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.format.DateTimeFormatterBuilder | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:31
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.TreeMap$EntrySpliterator | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.LongPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.format.DateTimeFormatterBuilder$ReducedPrinterParser | site=pc:53
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.IntPipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.TreeMap$EntrySpliterator | site=pc:129
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.MonthDay | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.ZonedDateTime | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.LocalTime | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.LocalDateTime | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.OffsetDateTime | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:18
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:24
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:32
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:40
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CheckedMap | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CheckedMap | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.OffsetTime | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:26
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.OffsetDateTime | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:12
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.Collections$CheckedMap | site=pc:13
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalQueries | site=pc:48
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.YearMonth | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.Instant | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.Year | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:17
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.format.DateTimeFormatter | site=pc:1030
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.format.DateTimeFormatter | site=pc:1038
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.HijrahChronology | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:22
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:181
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.ref.FinalizerHistogram | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.temporal.TemporalAdjusters | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:256
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:331
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:11
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.ref.FinalizerHistogram | site=pc:47
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.LocalDate | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.ref.FinalizerHistogram | site=pc:17
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.regex.Pattern | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:6
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:14
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.DoublePipeline | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.time.chrono.AbstractChronology | site=pc:28
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.lang.invoke.MethodHandleProxies | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:26
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:39
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:29
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:43
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:20
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.nio.file.Files | site=pc:53
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:21
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:84
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:50
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:64
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:115
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:9
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:25
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:33
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:74
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:5
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:3
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:4
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:15
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=java.util.stream.Collectors | site=pc:19
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.utils.IgnoreAllErrorHandler | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.signature.Manifest | site=pc:8
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.c14n.implementations.UtfHelpper | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.utils.XMLUtils | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.Init | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.utils.XMLUtils | site=pc:17
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.org.apache.xml.internal.security.signature.Reference | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.naming.internal.ObjectFactoriesFilter | site=pc:1
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.media.sound.JDK13Services | site=pc:80
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.media.sound.Platform | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.media.sound.Platform | site=pc:43
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.ldap.LdapDnsProviderService | site=pc:27
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.ldap.LdapDnsProviderService | site=pc:58
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.ldap.VersionHelper12 | site=pc:2
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.rmi.registry.RegistryContext | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.ldap.Connection | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.cosnaming.CNCtx | site=pc:10
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.media.sound.SoftSynthesizer | site=pc:202
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.media.sound.SoftSynthesizer | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.jndi.ldap.LdapCtx | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=javax.crypto.SealedObject | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.ssl.AlpnExtension | site=pc:110
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.pkcs11.P11KeyAgreement$AllowKDF | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.pkcs11.P11Key | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.crypto.provider.RangeUtil | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.crypto.provider.SealedObjectForKeyProtector | site=pc:16
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.crypto.provider.SealedObjectForKeyProtector$DeserializationChecker | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.crypto.provider.DHKeyAgreement$AllowKDF | site=pc:0
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=com.sun.crypto.provider.JceKeyStore | site=pc:640
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.ec.ECDSAOperations | site=pc:7
+[UNSOUNDNESS] invokedynamic_jvm_intrinsic | caller=sun.security.ec.ECDHKeyAgreement | site=pc:38
+[info][project configuration] the JDK is part of the analysis
+[warn][project configuration] com.example.App is defined by multiple class files:
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class and
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class
+[warn][project configuration]   keeping the first one.
+[warn][project configuration] com.example.App$<clinit>()V:0$Lambda is defined by multiple class files:
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class and
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class
+[warn][project configuration]   keeping the first one.
+[info][project setup] computing type hierarchy took 0.3966 s
+[info][project setup] computing defined methods took 0.8656 s
+[info][project setup] computing overriding information took 0.8885 s
+[info][project configuration] not using Java 11+ call semantics (required JVM version is 52)
+[info][project configuration] project validation revealed 0 significant issues
+[info][project setup] validating the project took 0.2990 s
+[info][project setup] creating the project took 1.7683 s
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.Debug: debugging support off
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.TraceFallbacks: fallbacks are not reported
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.TraceSuppressedNotifications: suppressed notifications are not reported
+[info][project] initialization of PropertyStore took 0.0126 s
+[info][project] initialization of DefinitionSites took 0.0005 s
+[info][project] initialization of DeclaredMethods took 1.2495 s
+[info][project] initialization of VirtualFormalParameters took 0.4595 s
+[info][project] initialization of SimpleContexts took 0.0019 s
+[info][project] initialization of ClosedPackages took 0.0009 s
+[info][project] initialization of ClassExtensibility took 0.0446 s
+[info][project] initialization of TypeExtensibility took 0.0372 s
+[info][project] initialization of IsOverridableMethod took 0.0016 s
+[warn][project configuration] java/lang/ClassLoader does not define a method  <init>; entry point ignored
+[warn][project configuration] java/lang/ClassLoader does not define a method  <init>(()V); entry point ignored
+[info][project] initialization of InitialEntryPoints took 0.0481 s
+[info][project] initialization of FPCFAnalysesManager took 0.0011 s
+[info][project] initialization of ContextProvider took 0.0000 s
+[info][project] initialization of TypeIterator took 0.0000 s
+[info][analysis configuration] the domain class org.opalj.ai.domain.l0.PrimitiveTACAIDomain will be used for performing abstract interpretations
+[info][project] initialization of AIDomainFactory took 0.1422 s
+[info][project] initialization of TamiFlex took 0.0007 s
+[info][project] initialization of ProjectIndex took 0.2030 s
+[warn][analysis configuration] no analyses scheduled for: opalj.TypeBasedPointsToSet; using fallback
+[info][analysis progress] setting up analysis phase 0: PhaseConfiguration(
+[info][analysis progress]       computedInThisPhase={opalj.LoadedClasses, opalj.TypeBasedPointsToSet, opalj.TACAI, opalj.CallersProperty, opalj.Callees, opalj.ForNameClas
+ses}
+[info][analysis progress]       computedInLaterPhase={}
+[info][analysis progress]       suppressInterimUpdates={}
+[info][analysis progress]       finalizationOrder=[  ]
+[info][analysis progress] )
+[info][OPAL Static Analyses Infrastructure] Production Build
+[warn][analysis configuration - reflection analysis] unknown soundness options Set(false) in org.opalj.fpcf.analyses.cg.reflection.ReflectionRelatedCallsAnalysis.highSoun
+dness
+[info][analysis configuration] reflection analysis uses high soundness mode (false)
+[info][OPAL Abstract Interpretation Framework] Production Build
+[info][analysis progress] analysis phase 0 took 6.4254 s
+[info][project] initialization of TypeBasedPointsToCallGraph took 9.6963 s
+analysis took 18.550006887 sec.
+[warn] In the last 10 seconds, 6.377 (64.8%) were spent in GC. [Heap: 7.71GB free of 9.15GB, max 355.56GB] Consider increasing the JVM heap using `-Xmx` or try a differen
+t collector, e.g. `-XX:+UseG1GC`, for better performance.
+[success] Total time: 51 s, completed May 10, 2026 2:32:02 PM
+2026-05-10 09:32:04,754 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Annotated output → ../results/url89849c8c5b
+_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/modified_analysis.json
+2026-05-10 09:32:04,754 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] TraceCheck] Starting...
+2026-05-10 09:32:04,755 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:32:04,759 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b288] GenerateReport] Done. Response: 0 chars
+2026-05-10 09:32:04,759 [WARNING] Could not parse JSON from agent response.
+2026-05-10 09:32:04,759 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b288] Report generation result: None
+2026-05-10 09:32:04,759 [ERROR] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b288] Report generation failed.
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b288] Result → ../results/url89849c8c5b_timmolter
+_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b288_ServiceLoader.parse__JarURLConnection$JarURLInputStream.close/pipeline_result.json
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Slot acquired.
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] ===========================================
+=======
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] PIPELINE START  b298_GraphicsEnvironment.ge
+tHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] ===========================================
+=======
+2026-05-10 09:32:04,760 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] ──────────────────────────────────────── In
+itial run
+2026-05-10 09:32:04,761 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] GenerateReport] Starting...
+2026-05-10 09:32:04,762 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:32:48,929 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] TraceCheck] Done. Response: 798 chars
+2026-05-10 09:32:48,929 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] Trace contains logs: False
+2026-05-10 09:32:48,929 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] Trace logs not found. Feedback recorded.
+2026-05-10 09:32:48,929 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] ──────────────────────────────────────── Lo
+op 1
+2026-05-10 09:32:48,929 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] GenerateReport] Starting...
+2026-05-10 09:32:48,930 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:32:57,565 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] TraceCheck] Done. Response: 1378 chars
+2026-05-10 09:32:57,565 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Trace contains logs: True
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Result → ../results/url89849c8c5b_timmolter
+_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/pipeline_result.json
+2026-05-10 09:32:57,566 [INFO]
+[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] ==================================================
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] SUCCESS  b255_Disposer.<clinit>__MethodHand
+leNatives.linkCallSite
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] ===========================================
+=======
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Loops used     : 0/1
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Report         : ../results/url89849c8c5b_t
+immolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/unsoundness_report.json
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Reproducing TC : ../results/url89849c8c5b_t
+immolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/test_case/reproducing
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Non-repro TC   : ../results/url89849c8c5b_t
+immolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/test_case/non_reproducing
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Annotated tool : /home/mohammad/projects/Ag
+enticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/anno
+tated_sa_tool/
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255] Modified output: ../results/url89849c8c5b_t
+immolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b255_Disposer.<clinit>__MethodHandleNatives.linkCallSite/modified_analysis.json
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Slot acquired.
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] ===========================================
+=======
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] PIPELINE START  b379_Disposer.<clinit>__Met
+hodHandleNatives.linkMethodHandleConstant
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] ===========================================
+=======
+2026-05-10 09:32:57,566 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] ──────────────────────────────────────── In
+itial run
+2026-05-10 09:32:57,566 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] GenerateReport] Starting...
+2026-05-10 09:32:57,567 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:36:01,627 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] GenerateReport] Done. Response: 582 chars
+2026-05-10 09:36:01,628 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Report generation result: {'report_path': '
+../results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.link
+MethodHandleConstant/unsoundness_report.json', 'root_cause_hypothesis': 'OPAL deliberately does not model JVM bootstrap method invocation chains for invokedynamic instruc
+tions, missing the internal call to MethodHandleNatives.linkMethodHandleConstant during lambda metafactory linkage.', 'sa_tool_area': 'InvokedynamicRewriting module (line
+s 870-1237) and CallGraphAnalysis'}
+2026-05-10 09:36:01,628 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Report → ../results/url89849c8c5b_timmolter
+_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/unsoundness_r
+eport.json
+2026-05-10 09:36:01,628 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Hypothesis: OPAL deliberately does not mode
+l JVM bootstrap method invocation chains for invokedynamic instructions, missing the internal call to MethodHandleNatives.linkMethodHandleConstant during lambda metafacto
+ry linkage.
+2026-05-10 09:36:01,628 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] TestCaseGeneration] Starting...
+2026-05-10 09:36:01,628 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:36:15,775 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] GenerateReport] Done. Response: 583 chars
+2026-05-10 09:36:15,775 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Report generation result: {'report_path': '
+../results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/u
+nsoundness_report.json', 'root_cause_hypothesis': "OPAL intentionally models invokedynamic at the application level (synthetic proxy classes) rather than modeling the JVM
+'s internal bootstrap linkage mechanism that calls MethodHandleNatives.linkMethodHandleConstant during constant pool resolution.", 'sa_tool_area': 'InvokedynamicRewriting
+.scala and CallGraphAnalysis.scala'}
+2026-05-10 09:36:15,775 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Report → ../results/url89849c8c5b_timmolter
+_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/unsoundness_report.json
+2026-05-10 09:36:15,775 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Hypothesis: OPAL intentionally models invok
+edynamic at the application level (synthetic proxy classes) rather than modeling the JVM's internal bootstrap linkage mechanism that calls MethodHandleNatives.linkMethodH
+andleConstant during constant pool resolution.
+2026-05-10 09:36:15,775 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] TestCaseGeneration] Starting...
+2026-05-10 09:36:15,776 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:36:26,781 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] GenerateReport] Done. Response: 628 chars
+2026-05-10 09:36:26,781 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] Report generation result: {'report_path': '
+../results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140_Chart.paintBackground__SunGraphics2D.setColor/unsoundness_report.
+json', 'root_cause_hypothesis': 'OPAL lacks a model for BufferedImage.createGraphics(), causing it to use the generic declared return type (Graphics2D) instead of the con
+crete runtime type (SunGraphics2D). This incomplete library modeling prevents the analysis from resolving calls on SunGraphics2D instances returned by this JDK factory me
+thod.', 'sa_tool_area': 'ConfiguredMethodsPointsToAnalysis.scala (lines 86-101)'}
+2026-05-10 09:36:26,781 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] Report → ../results/url89849c8c5b_timmolter
+_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140_Chart.paintBackground__SunGraphics2D.setColor/unsoundness_report.json
+2026-05-10 09:36:26,781 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] Hypothesis: OPAL lacks a model for Buffered
+Image.createGraphics(), causing it to use the generic declared return type (Graphics2D) instead of the concrete runtime type (SunGraphics2D). This incomplete library mode
+ling prevents the analysis from resolving calls on SunGraphics2D instances returned by this JDK factory method.
+2026-05-10 09:36:26,781 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b140] TestCaseGeneration] Starting...
+2026-05-10 09:36:26,782 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:38:22,678 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] TestCaseGeneration] Done. Response: 68 cha
+rs
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Test case generation result: {'reproducing'
+: 'true', 'non_reproducing': 'true'}
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Reproducing test case generated.
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Running analysis interface on test case...
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Test case : ../results/url89849c8c5b_timmol
+ter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/
+reproducing
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] SA tool   : ../tools/opal
+2026-05-10 09:38:22,679 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Algorithm : 0-CFA
+Running: mvn clean package -DskipTests
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------< com.example:invokedynamic-reproducing >----------------
+[INFO] Building invokedynamic-reproducing 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ invokedynamic-reproducing ---
+[INFO] Deleting /home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnviro
+nment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/target
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ invokedynamic-reproducing ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPA
+L/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/src/main/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ invokedynamic-reproducing ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b
+298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/target/classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ invokedynamic-reproducing ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPA
+L/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/src/test/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ invokedynamic-reproducing ---
+[INFO] No sources to compile
+[INFO]
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ invokedynamic-reproducing ---
+[INFO] Tests are skipped.
+[INFO]
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ invokedynamic-reproducing ---
+[INFO] Building jar: /home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsE
+nvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/target/invokedynamic-reproducing-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.023 s
+[INFO] Finished at: 2026-05-10T09:38:29-05:00
+[INFO] ------------------------------------------------------------------------
+Running: docker build --tag=jcg_image_test_case --build-arg UID=1014 --build-arg GID=1014 -f /home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/Dockerfile /home/m
+ohammad/projects/AgenticCGEval/agentic_workflow/jcg
+[+] Building 26.3s (25/25) FINISHED
+ => [internal] load .dockerignore                                                                                             3.1s
+ => => transferring context: 2B                                                                                               0.0s
+ => [internal] load build definition from Dockerfile                                                                          3.4s
+ => => transferring dockerfile: 4.77kB                                                                                        0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:20.04                                                               1.9s
+ => [ 1/20] FROM docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214       0.0s
+ => [internal] load build context                                                                                             1.2s
+ => => transferring context: 245B                                                                                             0.0s
+ => CACHED [ 2/20] RUN OLD_USER=$(awk -F: "$3 == 1014 {print $1}" /etc/passwd); if [ ! -z "$OLD_USER" ]; then echo "delete u  0.0s
+ => CACHED [ 3/20] RUN OLD_GROUP=$(awk -F: "$3 == 1014 {print $1}" /etc/group); if [ ! -z "$OLD_GROUP" ]; then echo "delete   0.0s
+ => CACHED [ 4/20] RUN delgroup users                                                                                         0.0s
+ => CACHED [ 5/20] RUN addgroup --gid 1014 users                                                                              0.0s
+ => CACHED [ 6/20] RUN adduser --force-badname --uid 1014 --gid 1014 --shell /bin/sh JCG                                      0.0s
+ => CACHED [ 7/20] RUN apt-get update &&     DEBIAN_FRONTEND=noninteractive     apt-get -y install sudo apt-transport-https   0.0s
+ => CACHED [ 8/20] RUN echo "JCG ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers                                                      0.0s
+ => CACHED [ 9/20] RUN adduser JCG sudo                                                                                       0.0s
+ => CACHED [10/20] RUN sudo apt-get -y autoremove openjdk* &&     sudo apt-get -y purge openjdk* &&     mkdir /home/JCG/jdk   0.0s
+ => CACHED [11/20] RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt  0.0s
+ => CACHED [12/20] RUN git clone https://github.com/stg-tud/opal.git /home/JCG/OPAL &&     cd /home/JCG/OPAL &&     git chec  0.0s
+ => CACHED [13/20] RUN git clone https://github.com/souffle-lang/souffle /home/JCG/souffle &&     cd /home/JCG/souffle &&     0.0s
+ => CACHED [14/20] RUN git clone https://github.com/plast-lab/doop.git /home/JCG/doop &&     cd /home/JCG/doop &&     git ch  0.0s
+ => CACHED [15/20] RUN echo "4"                                                                                               0.0s
+ => CACHED [16/20] RUN git clone https://github.com/mohPYdev/JCG.git /home/JCG/JCG &&     cd /home/JCG/JCG &&     git checko  0.0s
+ => CACHED [17/20] COPY jre.conf /home/JCG/JCG/jre.conf                                                                       0.0s
+ => CACHED [18/20] WORKDIR /home/JCG/JCG                                                                                      0.0s
+ => CACHED [19/20] COPY entrypoint.sh /entrypoint.sh                                                                          0.0s
+ => CACHED [20/20] RUN sudo chmod a+x /entrypoint.sh                                                                          0.0s
+ => exporting to image                                                                                                       12.0s
+ => => exporting layers                                                                                                       0.0s
+ => => writing image sha256:70372f98723fcd978482450dbee0a884d93c3719ef71f8736d326dc4bdac4204                                  3.8s
+ => => naming to docker.io/library/jcg_image_test_case                                                                        8.2s
+Running: docker build --tag=jcg_image_test_case --build-arg UID=1014 --build-arg GID=1014 -f /home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/Dockerfile /home/m
+ohammad/projects/AgenticCGEval/agentic_workflow/jcg
+[+] Building 4.2s (25/25) FINISHED
+ => [internal] load build definition from Dockerfile                                                                          0.3s
+ => => transferring dockerfile: 4.77kB                                                                                        0.0s
+ => [internal] load .dockerignore                                                                                             0.4s
+ => => transferring context: 2B                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:20.04                                                               0.6s
+ => [ 1/20] FROM docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214       0.0s
+ => [internal] load build context                                                                                             0.2s
+ => => transferring context: 63B                                                                                              0.0s
+ => CACHED [ 2/20] RUN OLD_USER=$(awk -F: "$3 == 1014 {print $1}" /etc/passwd); if [ ! -z "$OLD_USER" ]; then echo "delete u  0.0s
+ => CACHED [ 3/20] RUN OLD_GROUP=$(awk -F: "$3 == 1014 {print $1}" /etc/group); if [ ! -z "$OLD_GROUP" ]; then echo "delete   0.0s
+ => CACHED [ 4/20] RUN delgroup users                                                                                         0.0s
+ => CACHED [ 5/20] RUN addgroup --gid 1014 users                                                                              0.0s
+ => CACHED [ 6/20] RUN adduser --force-badname --uid 1014 --gid 1014 --shell /bin/sh JCG                                      0.0s
+ => CACHED [ 7/20] RUN apt-get update &&     DEBIAN_FRONTEND=noninteractive     apt-get -y install sudo apt-transport-https   0.0s
+ => CACHED [ 8/20] RUN echo "JCG ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers                                                      0.0s
+ => CACHED [ 9/20] RUN adduser JCG sudo                                                                                       0.0s
+ => CACHED [10/20] RUN sudo apt-get -y autoremove openjdk* &&     sudo apt-get -y purge openjdk* &&     mkdir /home/JCG/jdk   0.0s
+ => CACHED [11/20] RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt  0.0s
+ => CACHED [12/20] RUN git clone https://github.com/stg-tud/opal.git /home/JCG/OPAL &&     cd /home/JCG/OPAL &&     git chec  0.0s
+ => CACHED [13/20] RUN git clone https://github.com/souffle-lang/souffle /home/JCG/souffle &&     cd /home/JCG/souffle &&     0.0s
+ => CACHED [14/20] RUN git clone https://github.com/plast-lab/doop.git /home/JCG/doop &&     cd /home/JCG/doop &&     git ch  0.0s
+ => CACHED [15/20] RUN echo "4"                                                                                               0.0s
+ => CACHED [16/20] RUN git clone https://github.com/mohPYdev/JCG.git /home/JCG/JCG &&     cd /home/JCG/JCG &&     git checko  0.0s
+ => CACHED [17/20] COPY jre.conf /home/JCG/JCG/jre.conf                                                                       0.0s
+ => CACHED [18/20] WORKDIR /home/JCG/JCG                                                                                      0.0s
+ => CACHED [19/20] COPY entrypoint.sh /entrypoint.sh                                                                          0.0s
+ => CACHED [20/20] RUN sudo chmod a+x /entrypoint.sh                                                                          0.0s
+ => exporting to image                                                                                                        0.7s
+ => => exporting layers                                                                                                       0.0s
+ => => writing image sha256:70372f98723fcd978482450dbee0a884d93c3719ef71f8736d326dc4bdac4204                                  0.4s
+ => => naming to docker.io/library/jcg_image_test_case                                                                        0.3s
+Running: docker rm -f dyncg_container_b298
+Error response from daemon: No such container: dyncg_container_b298
+Running: docker run --name dyncg_container_b298 --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xc
+hart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/target,target=/repo
+,readonly --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/
+b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/jcg.conf,target=/jcg-conf/reproducing.conf,readonly --mou
+nt type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEn
+vironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/dyncg,target=/dyncg jcg_image_test_case 350m 400G runMain Evaluation --i
+nput /jcg-conf/ --output /dyncg --adapter Dynamic --algorithm-prefix Dynamic --project-prefix reproducing --debug
+tee: /log.txt: Permission denied
+[info] welcome to sbt 1.7.1 (Temurin Java 1.8.0_342)
+[info] loading settings for project jcg-build from plugins.sbt ...
+[info] loading project definition from /home/JCG/JCG/project
+[info] loading settings for project jcg_annotations from build.sbt ...
+[info] loading settings for project jcg_testcases from build.sbt ...
+[info] loading settings for project jcg_annotation_matcher from build.sbt ...
+[info] loading settings for project jcg_wala_testadapter from build.sbt ...
+[info] loading settings for project jcg_soot_testadapter from build.sbt ...
+[info] loading settings for project jcg_opal_testadapter from build.sbt ...
+[info] loading settings for project jcg_doop_testadapter from build.sbt ...
+[info] loading settings for project jcg_testadapter_commons from build.sbt ...
+[info] loading settings for project jcg_evaluation from build.sbt ...
+[info] loading settings for project jcg from build.sbt ...
+[info] resolving key references (10458 settings) ...
+[info] set current project to jcg (in build file:/home/JCG/JCG/)
+[info] set current project to JCG Evaluation (in build file:/home/JCG/JCG/)
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp: In function 'void return_cg()':
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:87:17: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   87 |     char* msg = "Test";
+      |                 ^~~~~~
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:88:23: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   88 |     char* final_msg = "End of Callgraph";
+      |                       ^~~~~~~~~~~~~~~~~~
+[info] running Evaluation --input /jcg-conf/ --output /dyncg --adapter Dynamic --algorithm-prefix Dynamic --project-prefix reproducing --debug
+running Dynamic Dynamic against reproducing
+Invokedynamic lambda execution
+[info][OPAL Bytecode Representation] Production Build
+2006
+4811
+analysis took 6.463835259 sec.
+[warn] In the last 27 seconds, 16.924 (62.8%) were spent in GC. [Heap: 3.48GB free of 3.63GB, max 355.56GB] Consider increasing the JVM heap using `-Xmx` or try a differe
+nt collector, e.g. `-XX:+UseG1GC`, for better performance.
+[success] Total time: 58 s, completed May 10, 2026 2:41:23 PM
+Error occurred while generating dynamic call graph for reproducing: Command '['docker', 'run', '--name', 'dyncg_container_b298', '--mount', 'type=bind,source=/home/mohamm
+ad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__M
+ethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/target,target=/repo,readonly', '--mount', 'type=bind,source=/home/mohammad/projects/AgenticCGEval/result
+s/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHan
+dleConstant/test_case/reproducing/jcg.conf,target=/jcg-conf/reproducing.conf,readonly', '--mount', 'type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url8984
+9c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConsta
+nt/test_case/reproducing/dyncg,target=/dyncg', 'jcg_image_test_case', '350m', '400G', 'runMain', 'Evaluation', '--input', '/jcg-conf/', '--output', '/dyncg', '--adapter',
+ 'Dynamic', '--algorithm-prefix', 'Dynamic', '--project-prefix', 'reproducing', '--debug']' returned non-zero exit status 1.
+Running: docker build --tag=jcg_image_test_case --build-arg UID=1014 --build-arg GID=1014 -f /home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/Dockerfile /home/m
+ohammad/projects/AgenticCGEval/agentic_workflow/jcg
+[+] Building 8.3s (25/25) FINISHED
+ => [internal] load build definition from Dockerfile                                                                          0.4s
+ => => transferring dockerfile: 4.77kB                                                                                        0.0s
+ => [internal] load .dockerignore                                                                                             0.5s
+ => => transferring context: 2B                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:20.04                                                               0.9s
+ => [ 1/20] FROM docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214       0.0s
+ => [internal] load build context                                                                                             0.2s
+ => => transferring context: 63B                                                                                              0.0s
+ => CACHED [ 2/20] RUN OLD_USER=$(awk -F: "$3 == 1014 {print $1}" /etc/passwd); if [ ! -z "$OLD_USER" ]; then echo "delete u  0.0s
+ => CACHED [ 3/20] RUN OLD_GROUP=$(awk -F: "$3 == 1014 {print $1}" /etc/group); if [ ! -z "$OLD_GROUP" ]; then echo "delete   0.0s
+ => CACHED [ 4/20] RUN delgroup users                                                                                         0.0s
+ => CACHED [ 5/20] RUN addgroup --gid 1014 users                                                                              0.0s
+ => CACHED [ 6/20] RUN adduser --force-badname --uid 1014 --gid 1014 --shell /bin/sh JCG                                      0.0s
+ => CACHED [ 7/20] RUN apt-get update &&     DEBIAN_FRONTEND=noninteractive     apt-get -y install sudo apt-transport-https   0.0s
+ => CACHED [ 8/20] RUN echo "JCG ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers                                                      0.0s
+ => CACHED [ 9/20] RUN adduser JCG sudo                                                                                       0.0s
+ => CACHED [10/20] RUN sudo apt-get -y autoremove openjdk* &&     sudo apt-get -y purge openjdk* &&     mkdir /home/JCG/jdk   0.0s
+ => CACHED [11/20] RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt  0.0s
+ => CACHED [12/20] RUN git clone https://github.com/stg-tud/opal.git /home/JCG/OPAL &&     cd /home/JCG/OPAL &&     git chec  0.0s
+ => CACHED [13/20] RUN git clone https://github.com/souffle-lang/souffle /home/JCG/souffle &&     cd /home/JCG/souffle &&     0.0s
+ => CACHED [14/20] RUN git clone https://github.com/plast-lab/doop.git /home/JCG/doop &&     cd /home/JCG/doop &&     git ch  0.0s
+ => CACHED [15/20] RUN echo "4"                                                                                               0.0s
+ => CACHED [16/20] RUN git clone https://github.com/mohPYdev/JCG.git /home/JCG/JCG &&     cd /home/JCG/JCG &&     git checko  0.0s
+ => CACHED [17/20] COPY jre.conf /home/JCG/JCG/jre.conf                                                                       0.0s
+ => CACHED [18/20] WORKDIR /home/JCG/JCG                                                                                      0.0s
+ => CACHED [19/20] COPY entrypoint.sh /entrypoint.sh                                                                          0.0s
+ => CACHED [20/20] RUN sudo chmod a+x /entrypoint.sh                                                                          0.0s
+ => exporting to image                                                                                                        0.8s
+ => => exporting layers                                                                                                       0.0s
+ => => writing image sha256:70372f98723fcd978482450dbee0a884d93c3719ef71f8736d326dc4bdac4204                                  0.6s
+ => => naming to docker.io/library/jcg_image_test_case                                                                        0.3s
+Running: docker rm -f staticcg_container_b298_OPAL_0-CFA
+Error response from daemon: No such container: staticcg_container_b298_OPAL_0-CFA
+Running: docker run --name staticcg_container_b298_OPAL_0-CFA --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ
+8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/targe
+t,target=/repo,readonly --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1
+J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/jcg.conf,target=/jcg-conf/reproducing.conf,
+readonly --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b
+298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/staticcg,target=/staticcg --mount type=bind,source=/home/m
+ohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProper
+ty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/staticcg/log.txt,target=/log.txt jcg_image_test_case 350m 400G runMain Evaluation --input /jcg-conf
+/ --output /staticcg --adapter OPAL --algorithm-prefix 0-CFA --project-prefix reproducing --debug
+[info] welcome to sbt 1.7.1 (Temurin Java 1.8.0_342)
+[info] loading settings for project jcg-build from plugins.sbt ...
+[info] loading project definition from /home/JCG/JCG/project
+[info] loading settings for project jcg_annotations from build.sbt ...
+[info] loading settings for project jcg_testcases from build.sbt ...
+[info] loading settings for project jcg_annotation_matcher from build.sbt ...
+[info] loading settings for project jcg_wala_testadapter from build.sbt ...
+[info] loading settings for project jcg_soot_testadapter from build.sbt ...
+[info] loading settings for project jcg_opal_testadapter from build.sbt ...
+[info] loading settings for project jcg_doop_testadapter from build.sbt ...
+[info] loading settings for project jcg_testadapter_commons from build.sbt ...
+[info] loading settings for project jcg_evaluation from build.sbt ...
+[info] loading settings for project jcg from build.sbt ...
+[info] resolving key references (10458 settings) ...
+[info] set current project to jcg (in build file:/home/JCG/JCG/)
+[info] set current project to JCG Evaluation (in build file:/home/JCG/JCG/)
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp: In function 'void return_cg()':
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:87:17: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   87 |     char* msg = "Test";
+      |                 ^~~~~~
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:88:23: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   88 |     char* final_msg = "End of Callgraph";
+      |                       ^~~~~~~~~~~~~~~~~~
+[info] running Evaluation --input /jcg-conf/ --output /staticcg --adapter OPAL --algorithm-prefix 0-CFA --project-prefix reproducing --debug
+running OPAL 0-CFA against reproducing
+[info][class file reader] information about class files synthesized at parsing time is removed
+[info][class file reader] the control-flow is simplified
+[info][class file reader] control flow simplifications are not logged
+[info][class file reader] invokedynamics are rewritten
+[info][class file reader] rewrites of LambdaMetaFactory based invokedynamics are not logged
+[info][class file reader] rewrites of StringConcatFactory based invokedynamics are not logged
+[info][class file reader] rewrites of StringConcatFactory based invokedynamics are not logged
+[info][class file reader] unknown invokedynamics are logged
+[info][class file reader] dynamic constants are rewritten
+[info][class file reader] rewrites of dynamic constants are not logged
+[info][class file reader] unknown dynamic constants are logged
+[info][class file reader] unresolved dynamic constants are logged
+[warn][OPAL] the property org.opalj.threads.CPUBoundTasks is unspecified
+[info][OPAL] using 64 thread(s) for CPU bound tasks (can be changed by setting the system property org.opalj.threads.CPUBoundTasks; the number should be equal to the numb
+er of physical – not hyperthreaded – cores)
+[warn][OPAL] the property org.opalj.threads.IOBoundTasks is unspecified
+[info][OPAL] using at most 128 thread(s) for IO bound tasks (can be changed by setting the system property org.opalj.threads.IOBoundTasks; the number should be betweeen 1
+ and 2 times the number of (hyperthreaded) cores)
+[info][OPAL Bytecode Representation] Production Build
+[info][OPAL Common] Production Build
+[info][project configuration] ignored duplicate type declarations for: {java.lang.reflect.UndeclaredThrowableException, java.lang.reflect.AnnotatedElement, java.lang.refl
+ect.InvocationTargetException, java.lang.reflect.Type, java.lang.reflect.MalformedParameterizedTypeException, java.lang.reflect.GenericSignatureFormatError, java.io.Seria
+lizable, java.lang.reflect.GenericDeclaration}
+[info][OPAL] org.opalj.br.cfg.CFG.Validate: validation off
+[info][OPAL] org.opalj.br.cfg.CFG.DF.Solver.Trace: false
+[info][project configuration] the JDK is part of the analysis
+[warn][project configuration] com.example.App is defined by multiple class files:
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class and
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class
+[warn][project configuration]   keeping the first one.
+[warn][project configuration] com.example.App$main(]Ljava$lang$String:)V:0$Lambda is defined by multiple class files:
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class and
+[warn][project configuration]   jar:file:/repo/invokedynamic-reproducing-1.0-SNAPSHOT.jar!/com/example/App.class
+[warn][project configuration]   keeping the first one.
+[info][project setup] computing type hierarchy took 4.3152 s
+[info][project setup] computing defined methods took 15.6091 s
+[info][project setup] computing overriding information took 15.0166 s
+[info][project configuration] not using Java 11+ call semantics (required JVM version is 52)
+[info][project configuration] project validation revealed 0 significant issues
+[info][project setup] validating the project took 3.1930 s
+[info][project setup] creating the project took 23.6978 s
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.Debug: debugging support off
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.TraceFallbacks: fallbacks are not reported
+[info][OPAL - new PropertyStores] org.opalj.fpcf.PropertyStore.TraceSuppressedNotifications: suppressed notifications are not reported
+[info][project] initialization of PropertyStore took 0.0772 s
+[info][project] initialization of DefinitionSites took 0.0007 s
+[info][project] initialization of DeclaredMethods took 7.7668 s
+[info][project] initialization of VirtualFormalParameters took 1.5991 s
+[info][project] initialization of SimpleContexts took 0.0055 s
+[info][project] initialization of ClosedPackages took 0.0012 s
+[info][project] initialization of ClassExtensibility took 0.1107 s
+[info][project] initialization of TypeExtensibility took 0.1994 s
+[info][project] initialization of IsOverridableMethod took 0.0017 s
+[warn][project configuration] java/lang/ClassLoader does not define a method  <init>; entry point ignored
+[warn][project configuration] java/lang/ClassLoader does not define a method  <init>(()V); entry point ignored
+[info][project] initialization of InitialEntryPoints took 0.1534 s
+[info][project] initialization of FPCFAnalysesManager took 0.0010 s
+[info][project] initialization of ContextProvider took 0.0000 s
+[info][project] initialization of TypeIterator took 0.0000 s
+[info][analysis configuration] the domain class org.opalj.ai.domain.l0.PrimitiveTACAIDomain will be used for performing abstract interpretations
+[info][project] initialization of AIDomainFactory took 0.5075 s
+[info][project] initialization of TamiFlex took 0.0009 s
+[info][project] initialization of ProjectIndex took 1.1160 s
+[warn][analysis configuration] no analyses scheduled for: opalj.TypeBasedPointsToSet; using fallback
+[info][analysis progress] setting up analysis phase 0: PhaseConfiguration(
+[info][analysis progress]       computedInThisPhase={opalj.LoadedClasses, opalj.TypeBasedPointsToSet, opalj.TACAI, opalj.CallersProperty, opalj.Callees, opalj.ForNameClas
+ses}
+[info][analysis progress]       computedInLaterPhase={}
+[info][analysis progress]       suppressInterimUpdates={}
+[info][analysis progress]       finalizationOrder=[  ]
+[info][analysis progress] )
+[info][OPAL Static Analyses Infrastructure] Production Build
+[warn][analysis configuration - reflection analysis] unknown soundness options Set(false) in org.opalj.fpcf.analyses.cg.reflection.ReflectionRelatedCallsAnalysis.highSoun
+dness
+[info][analysis configuration] reflection analysis uses high soundness mode (false)
+[info][OPAL Abstract Interpretation Framework] Production Build
+[info][analysis progress] analysis phase 0 took 25.1721 s
+[info][project] initialization of TypeBasedPointsToCallGraph took 25.4697 s
+analysis took 109.891581269 sec.
+[success] Total time: 147 s (02:27), completed May 10, 2026 2:45:30 PM
+Running: docker rm -f boundary_container_b298_OPAL_0-CFA
+Error response from daemon: No such container: boundary_container_b298_OPAL_0-CFA
+Running: docker run --name boundary_container_b298_OPAL_0-CFA --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ
+8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/dyncg
+/reproducing/Dynamic/Dynamic,target=/dynamiccg,readonly --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_
+knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/staticcg/re
+producing/OPAL/0-CFA,target=/staticcg,readonly --mount type=bind,source=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xch
+art_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/boundary/OPAL/0-CFA,
+target=/output jcg_image_test_case 350m 400G runMain CompareCGs --input1 /staticcg/cg.json --input2 /dynamiccg/cg.json --mainClass com.example.App --output /output --show
+PrecisionRecall all --showBoundaries --nonStrict
+tee: /log.txt: Permission denied
+[info] welcome to sbt 1.7.1 (Temurin Java 1.8.0_342)
+[info] loading settings for project jcg-build from plugins.sbt ...
+[info] loading project definition from /home/JCG/JCG/project
+[info] loading settings for project jcg_annotations from build.sbt ...
+[info] loading settings for project jcg_testcases from build.sbt ...
+[info] loading settings for project jcg_annotation_matcher from build.sbt ...
+[info] loading settings for project jcg_wala_testadapter from build.sbt ...
+[info] loading settings for project jcg_soot_testadapter from build.sbt ...
+[info] loading settings for project jcg_opal_testadapter from build.sbt ...
+[info] loading settings for project jcg_doop_testadapter from build.sbt ...
+[info] loading settings for project jcg_testadapter_commons from build.sbt ...
+[info] loading settings for project jcg_evaluation from build.sbt ...
+[info] loading settings for project jcg from build.sbt ...
+[info] resolving key references (10458 settings) ...
+[info] set current project to jcg (in build file:/home/JCG/JCG/)
+[info] set current project to JCG Evaluation (in build file:/home/JCG/JCG/)
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp: In function 'void return_cg()':
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:87:17: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   87 |     char* msg = "Test";
+      |                 ^~~~~~
+jcg_dynamic_testadapter/src/main/resources/DynamicCG.cpp:88:23: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+   88 |     char* final_msg = "End of Callgraph";
+      |                       ^~~~~~~~~~~~~~~~~~
+[info] running CompareCGs --input1 /staticcg/cg.json --input2 /dynamiccg/cg.json --mainClass com.example.App --output /output --showPrecisionRecall all --showBoundaries -
+-nonStrict
+Method precision: 1124/2006 = 56.03%
+Method recall: 1124/8616 = 13.05%
+Method F1-score: 21.16
+Edge precision: 0/4811 = 0.00%
+Edge recall: 0/46388 = 0.00%
+Edge F1-score: 0.00
+[success] Total time: 6 s, completed May 10, 2026 2:46:34 PM
+Error occurred while generating boundary call graph for reproducing: Command '['docker', 'run', '--name', 'boundary_container_b298_OPAL_0-CFA', '--mount', 'type=bind,sour
+ce=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHead
+lessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/dyncg/reproducing/Dynamic/Dynamic,target=/dynamiccg,readonly', '--mount', 'type=bind,sour
+ce=/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHead
+lessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/staticcg/reproducing/OPAL/0-CFA,target=/staticcg,readonly', '--mount', 'type=bind,source=
+/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadles
+sProperty__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/boundary/OPAL/0-CFA,target=/output', 'jcg_image_test_case', '350m', '400G', 'runMain', 'Comp
+areCGs', '--input1', '/staticcg/cg.json', '--input2', '/dynamiccg/cg.json', '--mainClass', 'com.example.App', '--output', '/output', '--showPrecisionRecall', 'all', '--sh
+owBoundaries', '--nonStrict']' returned non-zero exit status 1.
+2026-05-10 09:46:36,067 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Static CG  → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case
+/reproducing/staticcg/reproducing/OPAL/0-CFA/cg.json
+2026-05-10 09:46:36,068 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Dynamic CG → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case
+/reproducing/dyncg/reproducing/Dynamic/Dynamic/cg.json
+2026-05-10 09:46:36,068 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Boundary   → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/test_case
+/reproducing/boundary/OPAL/0-CFA/boundaries.json
+2026-05-10 09:46:36,068 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Expected missing edge: com.example.App.main
+(Ljava/lang/String;)V → java.lang.invoke.MethodHandleNatives.linkMethodHandleConstant(Ljava/lang/Class;ILjava/lang/Class;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/i
+nvoke/MethodHandle;
+2026-05-10 09:46:36,079 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Reproduced: True
+2026-05-10 09:46:36,079 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Reproduced. Proceeding to annotation...
+2026-05-10 09:46:36,079 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298] Copying SA tool to ../results/url89849c8c5b
+_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b298_GraphicsEnvironment.getHeadlessProperty__MethodHandleNatives.linkMethodHandleConstant/ann
+otated_sa_tool ...
+2026-05-10 09:46:36,080 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] TestCaseGeneration] Done. Response: 68 cha
+rs
+2026-05-10 09:46:36,080 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Test case generation result: {'reproducing'
+: 'true', 'non_reproducing': 'true'}
+2026-05-10 09:46:36,080 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Reproducing test case generated.
+2026-05-10 09:46:36,081 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Running analysis interface on test case...
+2026-05-10 09:46:36,081 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Test case : ../results/url89849c8c5b_timmol
+ter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing
+2026-05-10 09:46:36,081 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] SA tool   : ../tools/opal
+2026-05-10 09:46:36,081 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Algorithm : 0-CFA
+Running: mvn clean package -DskipTests
+Traceback (most recent call last):
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/analysis_interface.py", line 268, in <module>
+    main()
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/analysis_interface.py", line 248, in main
+    project_build(args.project, args.reproducing_test_case_path)
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/analysis_interface.py", line 142, in project_build
+    run_command(build_cmd, cwd=Path(reproducing_test_case_path))
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/jcg/analysis_interface.py", line 153, in run_command
+    return subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 503, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/home/mohammad/projects/AgenticCGEval/results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_s
+tandalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing')
+2026-05-10 09:46:36,156 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Static CG  → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/staticcg/
+reproducing/OPAL/0-CFA/cg.json
+2026-05-10 09:46:36,156 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Dynamic CG → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/dyncg/rep
+roducing/Dynamic/Dynamic/cg.json
+2026-05-10 09:46:36,156 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Boundary   → ../results/url89849c8c5b_timmo
+lter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/boundary/
+OPAL/0-CFA/boundaries.json
+2026-05-10 09:46:36,156 [ERROR] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Could not read expected edge from test cas
+e report: [Errno 2] No such file or directory: '../results/url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379_Disposer.<clinit>
+__MethodHandleNatives.linkMethodHandleConstant/test_case/reproducing/expected_missed_edge.json'
+2026-05-10 09:46:36,156 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] Not reproduced. Feedback recorded.
+2026-05-10 09:46:36,156 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] ──────────────────────────────────────── Lo
+op 1
+2026-05-10 09:46:36,157 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b379] GenerateReport] Starting...
+2026-05-10 09:46:36,159 [ERROR] Fatal error in message reader: Command failed with exit code 1 (exit code: 1)
+Error output: Check stderr output for details
+2026-05-10 09:46:36,160 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] Slot acquired.
+2026-05-10 09:46:36,160 [INFO] Using bundled Claude Code CLI: /home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_bundled/claude
+2026-05-10 09:46:36,160 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] ===========================================
+=======
+2026-05-10 09:46:36,160 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] PIPELINE START  b380_StreamDecoder.implClos
+e__JarURLConnection$JarURLInputStream.close
+2026-05-10 09:46:36,160 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] ===========================================
+=======
+2026-05-10 09:46:36,160 [INFO] [url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] ──────────────────────────────────────── In
+itial run
+2026-05-10 09:46:36,162 [INFO] [[url89849c8c5b_timmolter_XChart_tgz-pJ8-org_knowm_xchart_standalone_Example1J8/OPAL/0-CFA/b380] GenerateReport] Starting...
+Traceback (most recent call last):
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline_orchestrator.py", line 441, in <module>
+    main()
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline_orchestrator.py", line 437, in main
+    run_parallel_all(args)
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline_orchestrator.py", line 328, in run_parallel_all
+    asyncio.run(run_all())
+  File "/usr/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline_orchestrator.py", line 326, in run_all
+    await asyncio.gather(*[run_with_limit(s, sem) for s in all_states])
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline_orchestrator.py", line 153, in run_with_limit
+    await run_pipeline(state)
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline/stages.py", line 353, in run_pipeline
+    if not await stage_generate_test_case(state):
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline/stages.py", line 124, in stage_generate_test_case
+    response = await run_agent(
+  File "/home/mohammad/projects/AgenticCGEval/agentic_workflow/pipeline/utils.py", line 74, in run_agent
+    async for message in query(prompt=prompt, options=options):
+  File "/home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/query.py", line 123, in query
+    async for message in client.process_query(
+  File "/home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_internal/client.py", line 74, in process_query
+    async for msg in inner:
+  File "/home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_internal/client.py", line 223, in _process_query_inner
+    async for data in query.receive_messages():
+  File "/home/mohammad/.local/lib/python3.10/site-packages/claude_agent_sdk/_internal/query.py", line 852, in receive_messages
+    raise Exception(message.get("error", "Unknown error"))
+Exception: Command failed with exit code 1 (exit code: 1)
+Error output: Check stderr output for details
+mohammad@themis:~/projects/AgenticCGEval/agentic_workflow$ tmux capture-pane -S -1000000 -p > log.txt
+

@@ -176,8 +176,10 @@ def main():
 
     args = parser.parse_args()
 
+    boundary_id = args.boundary_id
+    boundary_id = boundary_id.split("_")[0]
    
-    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.annotated_sa_tool_path, args.boundary_id)
+    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.annotated_sa_tool_path, boundary_id)
     
 
 if __name__ == "__main__":

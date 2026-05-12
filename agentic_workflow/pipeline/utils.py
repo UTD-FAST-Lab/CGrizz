@@ -92,12 +92,18 @@ async def run_agent(prompt: str, options: ClaudeAgentOptions, stage_name: str) -
             return result
 
         except Exception as e:
-            is_timeout = "Control request timeout" in str(e) or "TimeoutError" in type(e).__name__
-            if is_timeout and attempt < MAX_AGENT_RETRIES - 1:
+            err_str = str(e)
+            is_retriable = (
+                "Control request timeout" in err_str
+                or "TimeoutError" in type(e).__name__
+                or "Command failed" in err_str
+                or "exit code" in err_str
+            )
+            if is_retriable and attempt < MAX_AGENT_RETRIES - 1:
                 delay = AGENT_RETRY_BASE_DELAY * (2 ** attempt)
                 log.warning(
-                    f"[{stage_name}] Agent init timeout (attempt {attempt + 1}/{MAX_AGENT_RETRIES}), "
-                    f"retrying in {delay}s..."
+                    f"[{stage_name}] Retriable agent error (attempt {attempt + 1}/{MAX_AGENT_RETRIES}), "
+                    f"retrying in {delay}s: {err_str}"
                 )
                 await asyncio.sleep(delay)
             else:

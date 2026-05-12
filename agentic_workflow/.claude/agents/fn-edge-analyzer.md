@@ -41,7 +41,8 @@ Read the target program source code or relevant jar files:
    - **Array element dispatch** — element type not precisely tracked
    - **Complex aliasing** — pointer analysis cannot track the alias
    - **Other** — any pattern that doesn't fit the above (describe it)
-4. If the missed edge contains library code (e.g., JDK code or third-party libraries), prioritize finding it in the jar files directory if present over the source code direcotory of the target program.
+4. If the missed edge contains library code (e.g., third-party libraries), prioritize finding it in the jar files if present over the source code directory of the target program.
+5. To investigate JDK methods, you can use the current java version of the system `openjdk version "1.8.0_342"` at `/opt/jdk8u342-b07`.
 
 **Step 3: Find the tool's failure point (Y — Tool Limitation)**
 Read the SA tool source code:
@@ -71,9 +72,8 @@ Choose one:
 
 ## Output
 
-Write a JSON object (not wrapped in an `edges` array) to the `report_path` provided in the task prompt. The schema is provided in the task prompt — use it exactly as specified.
+Write a JSON object to the `report_path` provided in the task prompt with the following EXACT format.
 
-Example structure:
 ```json
 {
   "edgeId": "E1",
