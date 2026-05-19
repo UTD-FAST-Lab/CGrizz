@@ -30,6 +30,10 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     private static final String TRACKER = "edu/utd/fastlab/frfvd/FrfvdTracker";
 
+    // Sentinel for "unknown / not a final-field GETSTATIC result".
+    // Java 8's ArrayDeque forbids null elements, so we use -1 instead of null.
+    private static final int UNKNOWN = -1;
+
     private final int access;
     private final String fqMethod;
     private final String methodDesc;
@@ -44,7 +48,9 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     private final List<BufEntry> buf = new ArrayList<BufEntry>();
 
     // Simplified operand-stack simulation.
-    // Slot: null = unknown value; Integer N = produced by GETSTATIC at instrIdx N.
+    // Slot value: UNKNOWN (-1) = unknown value;
+    //             N >= 0       = produced by GETSTATIC at instrIdx N.
+    // NOTE: ArrayDeque in Java 8 does not allow null — always use UNKNOWN, never null.
     private final Deque<Integer> sim = new ArrayDeque<Integer>();
 
     // RC sites:  instrIdx of GETSTATIC  →  field metadata
@@ -189,7 +195,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             int argSlots = argSlotCount(Type.getArgumentTypes(desc));
             List<Integer> snapshot = new ArrayList<Integer>(sim);
             int rcSlot = snapshot.size() - 1 - argSlots;
-            if (rcSlot >= 0 && snapshot.get(rcSlot) != null) {
+            if (rcSlot >= 0 && snapshot.get(rcSlot) != UNKNOWN) {
                 symAt.put(idx, snapshot.get(rcSlot));
             }
         }
@@ -209,8 +215,8 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
             lvs.visitLdcInsn(cst);
         }});
-        if (cst instanceof Long || cst instanceof Double) { simPush(null); simPush(null); }
-        else simPush(null);
+        if (cst instanceof Long || cst instanceof Double) { simPush(UNKNOWN); simPush(UNKNOWN); }
+        else simPush(UNKNOWN);
         instrIdx++;
     }
 
@@ -219,7 +225,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
             lvs.visitIntInsn(opcode, operand);
         }});
-        simPush(null);
+        simPush(UNKNOWN);
         instrIdx++;
     }
 
@@ -257,7 +263,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             lvs.visitMultiANewArrayInsn(desc, dims);
         }});
         for (int i = 0; i < dims; i++) simPop();
-        simPush(null);
+        simPush(UNKNOWN);
         instrIdx++;
     }
 
@@ -359,8 +365,8 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     // Simplified operand-stack simulation
     // ===========================================================================
 
-    private void simPush(Integer marker) { sim.addLast(marker); }
-    private Integer simPop() { return sim.isEmpty() ? null : sim.removeLast(); }
+    private void simPush(int marker) { sim.addLast(marker); }
+    private int simPop() { return sim.isEmpty() ? UNKNOWN : sim.removeLast(); }
 
     private void simInsn(int op) {
         switch (op) {
@@ -370,21 +376,21 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             case Opcodes.ICONST_2:  case Opcodes.ICONST_3: case Opcodes.ICONST_4:
             case Opcodes.ICONST_5:
             case Opcodes.FCONST_0: case Opcodes.FCONST_1: case Opcodes.FCONST_2:
-                simPush(null); break;
+                simPush(UNKNOWN); break;
 
             // --- push two null slots (wide) ---
             case Opcodes.LCONST_0: case Opcodes.LCONST_1:
             case Opcodes.DCONST_0: case Opcodes.DCONST_1:
-                simPush(null); simPush(null); break;
+                simPush(UNKNOWN); simPush(UNKNOWN); break;
 
             // --- array load narrow: pop index + ref, push value ---
             case Opcodes.IALOAD: case Opcodes.FALOAD: case Opcodes.AALOAD:
             case Opcodes.BALOAD: case Opcodes.CALOAD: case Opcodes.SALOAD:
-                simPop(); simPop(); simPush(null); break;
+                simPop(); simPop(); simPush(UNKNOWN); break;
 
             // --- array load wide ---
             case Opcodes.LALOAD: case Opcodes.DALOAD:
-                simPop(); simPop(); simPush(null); simPush(null); break;
+                simPop(); simPop(); simPush(UNKNOWN); simPush(UNKNOWN); break;
 
             // --- array store narrow: pop value + index + ref ---
             case Opcodes.IASTORE: case Opcodes.FASTORE: case Opcodes.AASTORE:
@@ -399,7 +405,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             case Opcodes.POP2: simPop(); simPop(); break;
 
             case Opcodes.DUP:
-                simPush(sim.isEmpty() ? null : sim.peekLast()); break;
+                simPush(sim.isEmpty() ? UNKNOWN : sim.peekLast()); break;
 
             case Opcodes.DUP_X1: {
                 Integer a = simPop(), b = simPop();
@@ -418,36 +424,36 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             case Opcodes.FREM: case Opcodes.LCMP:
             case Opcodes.FCMPL: case Opcodes.FCMPG:
             case Opcodes.DCMPL: case Opcodes.DCMPG:
-                simPop(); simPop(); simPush(null); break;
+                simPop(); simPop(); simPush(UNKNOWN); break;
 
             // --- binary wide: 4 → 2 ---
             case Opcodes.LADD: case Opcodes.LSUB: case Opcodes.LMUL: case Opcodes.LDIV:
             case Opcodes.LREM: case Opcodes.LAND: case Opcodes.LOR:  case Opcodes.LXOR:
             case Opcodes.DADD: case Opcodes.DSUB: case Opcodes.DMUL: case Opcodes.DDIV:
             case Opcodes.DREM:
-                simPop(); simPop(); simPop(); simPop(); simPush(null); simPush(null); break;
+                simPop(); simPop(); simPop(); simPop(); simPush(UNKNOWN); simPush(UNKNOWN); break;
 
             // --- unary narrow ---
             case Opcodes.INEG: case Opcodes.FNEG:
-                simPop(); simPush(null); break;
+                simPop(); simPush(UNKNOWN); break;
 
             // --- unary wide ---
             case Opcodes.LNEG: case Opcodes.DNEG:
-                simPop(); simPop(); simPush(null); simPush(null); break;
+                simPop(); simPop(); simPush(UNKNOWN); simPush(UNKNOWN); break;
 
             // --- widening conversions: 1 → 2 ---
             case Opcodes.I2L: case Opcodes.I2D: case Opcodes.F2L: case Opcodes.F2D:
-                simPop(); simPush(null); simPush(null); break;
+                simPop(); simPush(UNKNOWN); simPush(UNKNOWN); break;
 
             // --- narrowing conversions: 2 → 1 ---
             case Opcodes.L2I: case Opcodes.L2F: case Opcodes.D2I: case Opcodes.D2F:
-                simPop(); simPop(); simPush(null); break;
+                simPop(); simPop(); simPush(UNKNOWN); break;
 
             // --- same-width conversions: 1 → 1 ---
             case Opcodes.I2B: case Opcodes.I2C: case Opcodes.I2S:
             case Opcodes.I2F: case Opcodes.F2I:
             case Opcodes.L2D: case Opcodes.D2L:
-                simPop(); simPush(null); break;
+                simPop(); simPush(UNKNOWN); break;
 
             // --- returns ---
             case Opcodes.IRETURN: case Opcodes.FRETURN: case Opcodes.ARETURN:
@@ -457,7 +463,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             case Opcodes.RETURN: break;
 
             case Opcodes.ATHROW:       simPop(); break;
-            case Opcodes.ARRAYLENGTH:  simPop(); simPush(null); break;
+            case Opcodes.ARRAYLENGTH:  simPop(); simPush(UNKNOWN); break;
             case Opcodes.MONITORENTER: case Opcodes.MONITOREXIT: simPop(); break;
 
             default: break;
@@ -467,9 +473,9 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     private void simVar(int op) {
         switch (op) {
             case Opcodes.ILOAD: case Opcodes.FLOAD: case Opcodes.ALOAD:
-                simPush(null); break;
+                simPush(UNKNOWN); break;
             case Opcodes.LLOAD: case Opcodes.DLOAD:
-                simPush(null); simPush(null); break;
+                simPush(UNKNOWN); simPush(UNKNOWN); break;
             case Opcodes.ISTORE: case Opcodes.FSTORE: case Opcodes.ASTORE:
                 simPop(); break;
             case Opcodes.LSTORE: case Opcodes.DSTORE:
@@ -480,9 +486,9 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     private void simType(int op) {
         switch (op) {
-            case Opcodes.NEW:        simPush(null); break;
-            case Opcodes.ANEWARRAY:  simPop(); simPush(null); break;
-            case Opcodes.INSTANCEOF: simPop(); simPush(null); break;
+            case Opcodes.NEW:        simPush(UNKNOWN); break;
+            case Opcodes.ANEWARRAY:  simPop(); simPush(UNKNOWN); break;
+            case Opcodes.INSTANCEOF: simPop(); simPush(UNKNOWN); break;
             case Opcodes.CHECKCAST:  break;   // stack unchanged
             default: break;
         }
@@ -492,11 +498,11 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         boolean wide = "J".equals(desc) || "D".equals(desc);
         switch (op) {
             case Opcodes.GETSTATIC:
-                simPush(null); if (wide) simPush(null); break;
+                simPush(UNKNOWN); if (wide) simPush(UNKNOWN); break;
             case Opcodes.PUTSTATIC:
                 simPop(); if (wide) simPop(); break;
             case Opcodes.GETFIELD:
-                simPop(); simPush(null); if (wide) simPush(null); break;
+                simPop(); simPush(UNKNOWN); if (wide) simPush(UNKNOWN); break;
             case Opcodes.PUTFIELD:
                 simPop(); if (wide) simPop(); simPop(); break;
             default: break;
@@ -511,8 +517,8 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         if (op != Opcodes.INVOKESTATIC) simPop();  // receiver
         Type ret = Type.getReturnType(desc);
         if (ret.getSort() != Type.VOID) {
-            simPush(null);
-            if (ret.getSort() == Type.LONG || ret.getSort() == Type.DOUBLE) simPush(null);
+            simPush(UNKNOWN);
+            if (ret.getSort() == Type.LONG || ret.getSort() == Type.DOUBLE) simPush(UNKNOWN);
         }
     }
 
@@ -546,13 +552,16 @@ final class FrfvdMethodVisitor extends MethodVisitor {
                 @Override
                 public FieldVisitor visitField(int acc, String n, String d,
                                                String sig, Object val) {
-                    if (n.equals(name) && d.equals(desc)) flags[0] = acc;
+                    if (n != null && n.equals(name) && d != null && d.equals(desc))
+                        flags[0] = acc;
                     return null;
                 }
             }, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
             return (flags[0] & (Opcodes.ACC_STATIC | Opcodes.ACC_FINAL))
                     == (Opcodes.ACC_STATIC | Opcodes.ACC_FINAL);
-        } catch (IOException e) {
+        } catch (Exception e) {
+            // Catch all (not just IOException): a malformed class file or unexpected
+            // runtime error here must not escape and poison the transform() call.
             return false;
         } finally {
             if (is != null) { try { is.close(); } catch (IOException ignored) {} }
