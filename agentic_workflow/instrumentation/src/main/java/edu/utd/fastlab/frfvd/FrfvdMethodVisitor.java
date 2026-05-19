@@ -12,20 +12,19 @@ import java.util.*;
  *
  * Strategy — collect-then-replay:
  *
- *   Pass 1 (visit* methods): buffer every bytecode instruction as a lambda that
- *   closes over its instruction index; simultaneously run a simplified operand-stack
- *   simulation to identify matched (GETSTATIC_idx, INVOKEVIRTUAL_idx) pairs.
+ *   Pass 1 (visit* methods): buffer every bytecode instruction as a BufEntry
+ *   lambda that closes over its instruction index; simultaneously run a simplified
+ *   operand-stack simulation to identify matched (GETSTATIC_idx, INVOKEVIRTUAL_idx)
+ *   pairs.
  *
- *   Pass 2 (visitEnd): replay the buffer to the real delegate. Because each lambda
- *   captured its own idx at collection time, it can look up rcAt/symAt and inject
- *   tracker calls inline — no second analysis pass needed.
+ *   Pass 2 (visitEnd): replay the buffer to the real delegate. Each lambda already
+ *   captured its instrIdx at collection time, so it knows whether to inject tracker
+ *   calls inline — no second analysis pass needed.
  *
  *   Injection points:
- *     • Post-GETSTATIC (RC site):
- *         DUP fieldValue → Tracker.onFinalFieldLoad(value, method, pc, ...)
- *     • Pre-INVOKEVIRTUAL (Sym site):
- *         spill args to fresh locals → DUP receiver →
- *         Tracker.onVirtualDispatch(recv, method, pc, ...) → restore args
+ *     RC site  (post-GETSTATIC):      DUP value  → Tracker.onFinalFieldLoad(...)
+ *     Sym site (pre-INVOKEVIRTUAL):   spill args → DUP receiver →
+ *                                     Tracker.onVirtualDispatch(...) → restore args
  */
 final class FrfvdMethodVisitor extends MethodVisitor {
 
@@ -37,26 +36,25 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     private final ClassLoader loader;
     private final MethodVisitor realDelegate;
 
-    // Buffer — each entry is a lambda(LocalVariablesSorter) that emits one or more
-    // bytecode instructions.  The lambda closes over the instruction index so it can
-    // decide whether to inject tracker calls at replay time.
-    @FunctionalInterface
-    interface BufEntry { void emit(LocalVariablesSorter lvs); }
-    private final List<BufEntry> buf = new ArrayList<>();
+    /** Buffer entry — a lambda that emits one or more instructions to the delegate. */
+    interface BufEntry {
+        void emit(LocalVariablesSorter lvs);
+    }
+
+    private final List<BufEntry> buf = new ArrayList<BufEntry>();
 
     // Simplified operand-stack simulation.
-    // Slot value: null = unknown value; Integer N = "value produced by GETSTATIC at instrIdx N"
-    private final Deque<Integer> sim = new ArrayDeque<>();
+    // Slot: null = unknown value; Integer N = produced by GETSTATIC at instrIdx N.
+    private final Deque<Integer> sim = new ArrayDeque<Integer>();
 
-    // RC sites:   instrIdx of GETSTATIC  →  field metadata
-    private final Map<Integer, FieldRef> rcAt = new HashMap<>();
-    // Sym sites:  instrIdx of INVOKEVIRTUAL  →  instrIdx of the matching GETSTATIC
-    private final Map<Integer, Integer> symAt = new HashMap<>();
+    // RC sites:  instrIdx of GETSTATIC  →  field metadata
+    private final Map<Integer, FieldRef> rcAt = new HashMap<Integer, FieldRef>();
+    // Sym sites: instrIdx of INVOKEVIRTUAL  →  instrIdx of the matching GETSTATIC
+    private final Map<Integer, Integer> symAt = new HashMap<Integer, Integer>();
 
-    // Counts only real bytecode instructions (not labels / frames / line numbers)
+    // Counts only real bytecode instructions (not labels/frames/lineNumbers)
     private int instrIdx = 0;
 
-    // Captured from visitMaxs; used when replaying
     private int savedMaxStack, savedMaxLocals;
 
     // ===========================================================================
@@ -65,7 +63,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     FrfvdMethodVisitor(MethodVisitor delegate, int access,
                        String owner, String name, String desc, ClassLoader loader) {
-        super(Opcodes.ASM9, null);   // null → no automatic forwarding during collection
+        super(Opcodes.ASM9, null);  // null → no automatic forwarding during collection
         this.realDelegate = delegate;
         this.access = access;
         this.fqMethod = "L" + owner + ";." + name + ":" + desc;
@@ -74,7 +72,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     }
 
     // ===========================================================================
-    // Non-bytecode metadata — forward immediately (no buffering needed)
+    // Non-bytecode metadata — forward immediately
     // ===========================================================================
 
     @Override public void visitCode() { realDelegate.visitCode(); }
@@ -101,161 +99,198 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     }
 
     // ===========================================================================
-    // Non-instruction bytecode metadata — buffer (no instrIdx increment)
+    // Non-instruction bytecode metadata — buffer but don't increment instrIdx
     // ===========================================================================
 
     @Override
-    public void visitLabel(Label label) {
-        buf.add(lvs -> lvs.visitLabel(label));
+    public void visitLabel(final Label label) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitLabel(label);
+        }});
         sim.clear();   // conservative: any label may be a branch target
     }
 
     @Override
-    public void visitFrame(int type, int nl, Object[] local, int ns, Object[] stack) {
-        Object[] lClone = local == null ? null : local.clone();
-        Object[] sClone = stack == null ? null : stack.clone();
-        buf.add(lvs -> lvs.visitFrame(type, nl, lClone, ns, sClone));
+    public void visitFrame(final int type, final int nl,
+                           final Object[] local, final int ns, final Object[] stack) {
+        final Object[] lClone = local == null ? null : local.clone();
+        final Object[] sClone = stack == null ? null : stack.clone();
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitFrame(type, nl, lClone, ns, sClone);
+        }});
         sim.clear();
     }
 
     @Override
-    public void visitLineNumber(int line, Label start) {
-        buf.add(lvs -> lvs.visitLineNumber(line, start));
+    public void visitLineNumber(final int line, final Label start) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitLineNumber(line, start);
+        }});
     }
 
     // ===========================================================================
-    // Bytecode instructions — buffer (capturing idx) + simulate stack
+    // Bytecode instructions — buffer + simulate stack + increment instrIdx
     // ===========================================================================
 
     @Override
-    public void visitInsn(int opcode) {
-        buf.add(lvs -> lvs.visitInsn(opcode));
+    public void visitInsn(final int opcode) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitInsn(opcode);
+        }});
         simInsn(opcode);
         instrIdx++;
     }
 
     @Override
-    public void visitVarInsn(int opcode, int var) {
-        buf.add(lvs -> lvs.visitVarInsn(opcode, var));
+    public void visitVarInsn(final int opcode, final int var) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitVarInsn(opcode, var);
+        }});
         simVar(opcode);
         instrIdx++;
     }
 
     @Override
-    public void visitTypeInsn(int opcode, String type) {
-        buf.add(lvs -> lvs.visitTypeInsn(opcode, type));
+    public void visitTypeInsn(final int opcode, final String type) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitTypeInsn(opcode, type);
+        }});
         simType(opcode);
         instrIdx++;
     }
 
     @Override
-    public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-        int idx = instrIdx++;
+    public void visitFieldInsn(final int opcode,
+                                final String owner, final String name, final String desc) {
+        final int idx = instrIdx++;
         if (opcode == Opcodes.GETSTATIC && isFinalRefField(owner, name, desc)) {
             rcAt.put(idx, new FieldRef(owner, name, desc));
-            simPush(idx);   // slot is marked with this GETSTATIC's index
-            buf.add(lvs -> {
+            simPush(idx);
+            buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
                 lvs.visitFieldInsn(opcode, owner, name, desc);
-                // POST-injection: DUP + onFinalFieldLoad(...)
                 injectPostLoad(lvs, rcAt.get(idx), idx);
-            });
+            }});
         } else {
             simField(opcode, desc);
-            buf.add(lvs -> lvs.visitFieldInsn(opcode, owner, name, desc));
+            buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+                lvs.visitFieldInsn(opcode, owner, name, desc);
+            }});
         }
     }
 
     @Override
-    public void visitMethodInsn(int opcode, String owner, String name,
-                                 String desc, boolean isInterface) {
-        int idx = instrIdx++;
+    public void visitMethodInsn(final int opcode,
+                                 final String owner, final String name,
+                                 final String desc, final boolean isInterface) {
+        final int idx = instrIdx++;
 
-        // Pattern detection (before stack update so receiver is still visible)
+        // Pattern detection BEFORE stack update so receiver is still on top
         if (opcode == Opcodes.INVOKEVIRTUAL || opcode == Opcodes.INVOKEINTERFACE) {
             int argSlots = argSlotCount(Type.getArgumentTypes(desc));
-            List<Integer> snapshot = new ArrayList<>(sim);
+            List<Integer> snapshot = new ArrayList<Integer>(sim);
             int rcSlot = snapshot.size() - 1 - argSlots;
             if (rcSlot >= 0 && snapshot.get(rcSlot) != null) {
                 symAt.put(idx, snapshot.get(rcSlot));
             }
         }
-
         simMethod(opcode, desc);
 
-        buf.add(lvs -> {
-            // PRE-injection: spill args → DUP receiver → onVirtualDispatch(...)
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
             if ((opcode == Opcodes.INVOKEVIRTUAL || opcode == Opcodes.INVOKEINTERFACE)
                     && symAt.containsKey(idx)) {
                 injectPreDispatch(lvs, name, desc, idx);
             }
             lvs.visitMethodInsn(opcode, owner, name, desc, isInterface);
-        });
+        }});
     }
 
     @Override
-    public void visitLdcInsn(Object cst) {
-        buf.add(lvs -> lvs.visitLdcInsn(cst));
+    public void visitLdcInsn(final Object cst) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitLdcInsn(cst);
+        }});
         if (cst instanceof Long || cst instanceof Double) { simPush(null); simPush(null); }
         else simPush(null);
         instrIdx++;
     }
 
     @Override
-    public void visitIntInsn(int opcode, int operand) {
-        buf.add(lvs -> lvs.visitIntInsn(opcode, operand));
+    public void visitIntInsn(final int opcode, final int operand) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitIntInsn(opcode, operand);
+        }});
         simPush(null);
         instrIdx++;
     }
 
     @Override
-    public void visitIincInsn(int var, int incr) {
-        buf.add(lvs -> lvs.visitIincInsn(var, incr));
+    public void visitIincInsn(final int var, final int incr) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitIincInsn(var, incr);
+        }});
         instrIdx++;
     }
 
     @Override
-    public void visitJumpInsn(int opcode, Label label) {
-        buf.add(lvs -> lvs.visitJumpInsn(opcode, label));
+    public void visitJumpInsn(final int opcode, final Label label) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitJumpInsn(opcode, label);
+        }});
         switch (opcode) {
-            case Opcodes.IFEQ, Opcodes.IFNE, Opcodes.IFLT, Opcodes.IFGE, Opcodes.IFGT,
-                 Opcodes.IFLE, Opcodes.IFNULL, Opcodes.IFNONNULL -> simPop();
-            case Opcodes.IF_ICMPEQ, Opcodes.IF_ICMPNE, Opcodes.IF_ICMPLT,
-                 Opcodes.IF_ICMPGE, Opcodes.IF_ICMPGT, Opcodes.IF_ICMPLE,
-                 Opcodes.IF_ACMPEQ, Opcodes.IF_ACMPNE -> { simPop(); simPop(); }
-            default -> {}
+            case Opcodes.IFEQ: case Opcodes.IFNE: case Opcodes.IFLT:
+            case Opcodes.IFGE: case Opcodes.IFGT: case Opcodes.IFLE:
+            case Opcodes.IFNULL: case Opcodes.IFNONNULL:
+                simPop(); break;
+            case Opcodes.IF_ICMPEQ: case Opcodes.IF_ICMPNE: case Opcodes.IF_ICMPLT:
+            case Opcodes.IF_ICMPGE: case Opcodes.IF_ICMPGT: case Opcodes.IF_ICMPLE:
+            case Opcodes.IF_ACMPEQ: case Opcodes.IF_ACMPNE:
+                simPop(); simPop(); break;
+            default: break;
         }
-        sim.clear();   // conservative: assume any branch may reach a merge point
+        sim.clear();
         instrIdx++;
     }
 
     @Override
-    public void visitMultiANewArrayInsn(String desc, int dims) {
-        buf.add(lvs -> lvs.visitMultiANewArrayInsn(desc, dims));
+    public void visitMultiANewArrayInsn(final String desc, final int dims) {
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitMultiANewArrayInsn(desc, dims);
+        }});
         for (int i = 0; i < dims; i++) simPop();
         simPush(null);
         instrIdx++;
     }
 
     @Override
-    public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
-        Label[] lClone = labels.clone();
-        buf.add(lvs -> lvs.visitTableSwitchInsn(min, max, dflt, lClone));
+    public void visitTableSwitchInsn(final int min, final int max,
+                                      final Label dflt, final Label... labels) {
+        final Label[] lClone = labels.clone();
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitTableSwitchInsn(min, max, dflt, lClone);
+        }});
         simPop(); sim.clear();
         instrIdx++;
     }
 
     @Override
-    public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
-        int[] kClone = keys.clone(); Label[] lClone = labels.clone();
-        buf.add(lvs -> lvs.visitLookupSwitchInsn(dflt, kClone, lClone));
+    public void visitLookupSwitchInsn(final Label dflt,
+                                       final int[] keys, final Label[] labels) {
+        final int[] kClone = keys.clone();
+        final Label[] lClone = labels.clone();
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitLookupSwitchInsn(dflt, kClone, lClone);
+        }});
         simPop(); sim.clear();
         instrIdx++;
     }
 
     @Override
-    public void visitInvokeDynamicInsn(String name, String desc, Handle bsm, Object... args) {
-        Object[] aClone = args.clone();
-        buf.add(lvs -> lvs.visitInvokeDynamicInsn(name, desc, bsm, aClone));
+    public void visitInvokeDynamicInsn(final String name, final String desc,
+                                        final Handle bsm, final Object... bsmArgs) {
+        final Object[] aClone = bsmArgs.clone();
+        buf.add(new BufEntry() { public void emit(LocalVariablesSorter lvs) {
+            lvs.visitInvokeDynamicInsn(name, desc, bsm, aClone);
+        }});
         simMethod(Opcodes.INVOKESTATIC, desc);
         instrIdx++;
     }
@@ -272,10 +307,8 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitEnd() {
-        // LVS wraps the real delegate; newLocal() allocates fresh locals for arg spilling
         LocalVariablesSorter lvs = new LocalVariablesSorter(access, methodDesc, realDelegate);
         for (BufEntry entry : buf) entry.emit(lvs);
-        // COMPUTE_FRAMES recomputes these, but visitMaxs must still be called
         lvs.visitMaxs(savedMaxStack + 20, savedMaxLocals + 20);
         lvs.visitEnd();
     }
@@ -286,7 +319,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     private void injectPostLoad(LocalVariablesSorter lvs, FieldRef fi, int rcIdx) {
         // Stack: ..., fieldValue
-        lvs.visitInsn(Opcodes.DUP);               // ..., fieldValue, fieldValue
+        lvs.visitInsn(Opcodes.DUP);
         lvs.visitLdcInsn(fqMethod);
         lvs.visitLdcInsn(rcIdx);
         lvs.visitLdcInsn(fi.owner);
@@ -295,13 +328,12 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         lvs.visitMethodInsn(Opcodes.INVOKESTATIC, TRACKER, "onFinalFieldLoad",
                 "(Ljava/lang/Object;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
                 false);
-        // Stack: ..., fieldValue  (dup was consumed by tracker)
+        // Stack: ..., fieldValue  (dup consumed by tracker)
     }
 
     private void injectPreDispatch(LocalVariablesSorter lvs, String calleeName,
                                    String calleeDesc, int symIdx) {
         // Stack: ..., receiver, arg1, ..., argN
-        // Spill args so we can DUP the receiver that's now buried under them
         Type[] argTypes = Type.getArgumentTypes(calleeDesc);
         int[] argLocals = new int[argTypes.length];
         for (int i = argTypes.length - 1; i >= 0; i--) {
@@ -309,7 +341,7 @@ final class FrfvdMethodVisitor extends MethodVisitor {
             lvs.visitVarInsn(argTypes[i].getOpcode(Opcodes.ISTORE), argLocals[i]);
         }
         // Stack: ..., receiver
-        lvs.visitInsn(Opcodes.DUP);               // ..., receiver, receiver
+        lvs.visitInsn(Opcodes.DUP);
         lvs.visitLdcInsn(fqMethod);
         lvs.visitLdcInsn(symIdx);
         lvs.visitLdcInsn(calleeName);
@@ -317,15 +349,14 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         lvs.visitMethodInsn(Opcodes.INVOKESTATIC, TRACKER, "onVirtualDispatch",
                 "(Ljava/lang/Object;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V",
                 false);
-        // Restore args
         for (int i = 0; i < argTypes.length; i++) {
             lvs.visitVarInsn(argTypes[i].getOpcode(Opcodes.ILOAD), argLocals[i]);
         }
-        // Stack: ..., receiver, arg1, ..., argN  — ready for the real INVOKEVIRTUAL
+        // Stack: ..., receiver, arg1, ..., argN  — ready for INVOKEVIRTUAL
     }
 
     // ===========================================================================
-    // Sim stack helpers
+    // Simplified operand-stack simulation
     // ===========================================================================
 
     private void simPush(Integer marker) { sim.addLast(marker); }
@@ -333,87 +364,142 @@ final class FrfvdMethodVisitor extends MethodVisitor {
 
     private void simInsn(int op) {
         switch (op) {
-            case Opcodes.NOP -> {}
-            case Opcodes.ACONST_NULL, Opcodes.ICONST_M1, Opcodes.ICONST_0,
-                 Opcodes.ICONST_1, Opcodes.ICONST_2, Opcodes.ICONST_3,
-                 Opcodes.ICONST_4, Opcodes.ICONST_5,
-                 Opcodes.FCONST_0, Opcodes.FCONST_1, Opcodes.FCONST_2 -> simPush(null);
-            case Opcodes.LCONST_0, Opcodes.LCONST_1,
-                 Opcodes.DCONST_0, Opcodes.DCONST_1 -> { simPush(null); simPush(null); }
-            case Opcodes.IALOAD, Opcodes.FALOAD, Opcodes.AALOAD,
-                 Opcodes.BALOAD, Opcodes.CALOAD, Opcodes.SALOAD ->
-                { simPop(); simPop(); simPush(null); }
-            case Opcodes.LALOAD, Opcodes.DALOAD ->
-                { simPop(); simPop(); simPush(null); simPush(null); }
-            case Opcodes.IASTORE, Opcodes.FASTORE, Opcodes.AASTORE,
-                 Opcodes.BASTORE, Opcodes.CASTORE, Opcodes.SASTORE ->
-                { simPop(); simPop(); simPop(); }
-            case Opcodes.LASTORE, Opcodes.DASTORE ->
-                { simPop(); simPop(); simPop(); simPop(); }
-            case Opcodes.POP  -> simPop();
-            case Opcodes.POP2 -> { simPop(); simPop(); }
-            case Opcodes.DUP  -> simPush(sim.isEmpty() ? null : sim.peekLast());
-            case Opcodes.DUP_X1 -> {
+            // --- push one null slot ---
+            case Opcodes.ACONST_NULL:
+            case Opcodes.ICONST_M1: case Opcodes.ICONST_0: case Opcodes.ICONST_1:
+            case Opcodes.ICONST_2:  case Opcodes.ICONST_3: case Opcodes.ICONST_4:
+            case Opcodes.ICONST_5:
+            case Opcodes.FCONST_0: case Opcodes.FCONST_1: case Opcodes.FCONST_2:
+                simPush(null); break;
+
+            // --- push two null slots (wide) ---
+            case Opcodes.LCONST_0: case Opcodes.LCONST_1:
+            case Opcodes.DCONST_0: case Opcodes.DCONST_1:
+                simPush(null); simPush(null); break;
+
+            // --- array load narrow: pop index + ref, push value ---
+            case Opcodes.IALOAD: case Opcodes.FALOAD: case Opcodes.AALOAD:
+            case Opcodes.BALOAD: case Opcodes.CALOAD: case Opcodes.SALOAD:
+                simPop(); simPop(); simPush(null); break;
+
+            // --- array load wide ---
+            case Opcodes.LALOAD: case Opcodes.DALOAD:
+                simPop(); simPop(); simPush(null); simPush(null); break;
+
+            // --- array store narrow: pop value + index + ref ---
+            case Opcodes.IASTORE: case Opcodes.FASTORE: case Opcodes.AASTORE:
+            case Opcodes.BASTORE: case Opcodes.CASTORE: case Opcodes.SASTORE:
+                simPop(); simPop(); simPop(); break;
+
+            // --- array store wide ---
+            case Opcodes.LASTORE: case Opcodes.DASTORE:
+                simPop(); simPop(); simPop(); simPop(); break;
+
+            case Opcodes.POP:  simPop(); break;
+            case Opcodes.POP2: simPop(); simPop(); break;
+
+            case Opcodes.DUP:
+                simPush(sim.isEmpty() ? null : sim.peekLast()); break;
+
+            case Opcodes.DUP_X1: {
                 Integer a = simPop(), b = simPop();
-                simPush(a); simPush(b); simPush(a);
+                simPush(a); simPush(b); simPush(a); break;
             }
-            case Opcodes.SWAP -> {
-                Integer a = simPop(), b = simPop(); simPush(a); simPush(b);
+            case Opcodes.SWAP: {
+                Integer a = simPop(), b = simPop();
+                simPush(a); simPush(b); break;
             }
-            case Opcodes.IADD, Opcodes.ISUB, Opcodes.IMUL, Opcodes.IDIV, Opcodes.IREM,
-                 Opcodes.IAND, Opcodes.IOR,  Opcodes.IXOR, Opcodes.ISHL, Opcodes.ISHR,
-                 Opcodes.IUSHR, Opcodes.FADD, Opcodes.FSUB, Opcodes.FMUL, Opcodes.FDIV,
-                 Opcodes.FREM,  Opcodes.LCMP, Opcodes.FCMPL, Opcodes.FCMPG,
-                 Opcodes.DCMPL, Opcodes.DCMPG ->
-                { simPop(); simPop(); simPush(null); }
-            case Opcodes.LADD, Opcodes.LSUB, Opcodes.LMUL, Opcodes.LDIV, Opcodes.LREM,
-                 Opcodes.LAND, Opcodes.LOR,  Opcodes.LXOR,
-                 Opcodes.DADD, Opcodes.DSUB, Opcodes.DMUL, Opcodes.DDIV, Opcodes.DREM ->
-                { simPop(); simPop(); simPop(); simPop(); simPush(null); simPush(null); }
-            case Opcodes.INEG, Opcodes.FNEG -> { simPop(); simPush(null); }
-            case Opcodes.LNEG, Opcodes.DNEG -> { simPop(); simPop(); simPush(null); simPush(null); }
-            case Opcodes.I2L, Opcodes.I2D, Opcodes.F2L, Opcodes.F2D ->
-                { simPop(); simPush(null); simPush(null); }
-            case Opcodes.L2I, Opcodes.L2F, Opcodes.D2I, Opcodes.D2F ->
-                { simPop(); simPop(); simPush(null); }
-            case Opcodes.I2B, Opcodes.I2C, Opcodes.I2S, Opcodes.I2F, Opcodes.F2I,
-                 Opcodes.L2D, Opcodes.D2L ->
-                { simPop(); simPush(null); }
-            case Opcodes.IRETURN, Opcodes.FRETURN, Opcodes.ARETURN -> simPop();
-            case Opcodes.LRETURN, Opcodes.DRETURN -> { simPop(); simPop(); }
-            case Opcodes.RETURN  -> {}
-            case Opcodes.ATHROW  -> simPop();
-            case Opcodes.ARRAYLENGTH -> { simPop(); simPush(null); }
-            case Opcodes.MONITORENTER, Opcodes.MONITOREXIT -> simPop();
-            default -> {}
+
+            // --- binary narrow: 2 → 1 ---
+            case Opcodes.IADD: case Opcodes.ISUB: case Opcodes.IMUL: case Opcodes.IDIV:
+            case Opcodes.IREM: case Opcodes.IAND: case Opcodes.IOR:  case Opcodes.IXOR:
+            case Opcodes.ISHL: case Opcodes.ISHR: case Opcodes.IUSHR:
+            case Opcodes.FADD: case Opcodes.FSUB: case Opcodes.FMUL: case Opcodes.FDIV:
+            case Opcodes.FREM: case Opcodes.LCMP:
+            case Opcodes.FCMPL: case Opcodes.FCMPG:
+            case Opcodes.DCMPL: case Opcodes.DCMPG:
+                simPop(); simPop(); simPush(null); break;
+
+            // --- binary wide: 4 → 2 ---
+            case Opcodes.LADD: case Opcodes.LSUB: case Opcodes.LMUL: case Opcodes.LDIV:
+            case Opcodes.LREM: case Opcodes.LAND: case Opcodes.LOR:  case Opcodes.LXOR:
+            case Opcodes.DADD: case Opcodes.DSUB: case Opcodes.DMUL: case Opcodes.DDIV:
+            case Opcodes.DREM:
+                simPop(); simPop(); simPop(); simPop(); simPush(null); simPush(null); break;
+
+            // --- unary narrow ---
+            case Opcodes.INEG: case Opcodes.FNEG:
+                simPop(); simPush(null); break;
+
+            // --- unary wide ---
+            case Opcodes.LNEG: case Opcodes.DNEG:
+                simPop(); simPop(); simPush(null); simPush(null); break;
+
+            // --- widening conversions: 1 → 2 ---
+            case Opcodes.I2L: case Opcodes.I2D: case Opcodes.F2L: case Opcodes.F2D:
+                simPop(); simPush(null); simPush(null); break;
+
+            // --- narrowing conversions: 2 → 1 ---
+            case Opcodes.L2I: case Opcodes.L2F: case Opcodes.D2I: case Opcodes.D2F:
+                simPop(); simPop(); simPush(null); break;
+
+            // --- same-width conversions: 1 → 1 ---
+            case Opcodes.I2B: case Opcodes.I2C: case Opcodes.I2S:
+            case Opcodes.I2F: case Opcodes.F2I:
+            case Opcodes.L2D: case Opcodes.D2L:
+                simPop(); simPush(null); break;
+
+            // --- returns ---
+            case Opcodes.IRETURN: case Opcodes.FRETURN: case Opcodes.ARETURN:
+                simPop(); break;
+            case Opcodes.LRETURN: case Opcodes.DRETURN:
+                simPop(); simPop(); break;
+            case Opcodes.RETURN: break;
+
+            case Opcodes.ATHROW:       simPop(); break;
+            case Opcodes.ARRAYLENGTH:  simPop(); simPush(null); break;
+            case Opcodes.MONITORENTER: case Opcodes.MONITOREXIT: simPop(); break;
+
+            default: break;
         }
     }
 
     private void simVar(int op) {
         switch (op) {
-            case Opcodes.ILOAD, Opcodes.FLOAD, Opcodes.ALOAD  -> simPush(null);
-            case Opcodes.LLOAD, Opcodes.DLOAD -> { simPush(null); simPush(null); }
-            case Opcodes.ISTORE, Opcodes.FSTORE, Opcodes.ASTORE -> simPop();
-            case Opcodes.LSTORE, Opcodes.DSTORE -> { simPop(); simPop(); }
+            case Opcodes.ILOAD: case Opcodes.FLOAD: case Opcodes.ALOAD:
+                simPush(null); break;
+            case Opcodes.LLOAD: case Opcodes.DLOAD:
+                simPush(null); simPush(null); break;
+            case Opcodes.ISTORE: case Opcodes.FSTORE: case Opcodes.ASTORE:
+                simPop(); break;
+            case Opcodes.LSTORE: case Opcodes.DSTORE:
+                simPop(); simPop(); break;
+            default: break;
         }
     }
 
     private void simType(int op) {
         switch (op) {
-            case Opcodes.NEW       -> simPush(null);
-            case Opcodes.ANEWARRAY -> { simPop(); simPush(null); }
-            case Opcodes.CHECKCAST -> {}
-            case Opcodes.INSTANCEOF -> { simPop(); simPush(null); }
+            case Opcodes.NEW:        simPush(null); break;
+            case Opcodes.ANEWARRAY:  simPop(); simPush(null); break;
+            case Opcodes.INSTANCEOF: simPop(); simPush(null); break;
+            case Opcodes.CHECKCAST:  break;   // stack unchanged
+            default: break;
         }
     }
 
     private void simField(int op, String desc) {
-        boolean wide = desc.equals("J") || desc.equals("D");
+        boolean wide = "J".equals(desc) || "D".equals(desc);
         switch (op) {
-            case Opcodes.GETSTATIC -> { simPush(null); if (wide) simPush(null); }
-            case Opcodes.PUTSTATIC -> { simPop();      if (wide) simPop(); }
-            case Opcodes.GETFIELD  -> { simPop(); simPush(null); if (wide) simPush(null); }
-            case Opcodes.PUTFIELD  -> { simPop(); if (wide) simPop(); simPop(); }
+            case Opcodes.GETSTATIC:
+                simPush(null); if (wide) simPush(null); break;
+            case Opcodes.PUTSTATIC:
+                simPop(); if (wide) simPop(); break;
+            case Opcodes.GETFIELD:
+                simPop(); simPush(null); if (wide) simPush(null); break;
+            case Opcodes.PUTFIELD:
+                simPop(); if (wide) simPop(); simPop(); break;
+            default: break;
         }
     }
 
@@ -449,16 +535,17 @@ final class FrfvdMethodVisitor extends MethodVisitor {
     private boolean checkStaticFinal(String owner, String name, String desc) {
         InputStream is = null;
         try {
-            ClassLoader bcl = ClassLoader.getPlatformClassLoader();
-            is = bcl.getResourceAsStream(owner + ".class");
+            // Java 8: getSystemResourceAsStream searches bootstrap classpath (rt.jar)
+            is = ClassLoader.getSystemResourceAsStream(owner + ".class");
             if (is == null && loader != null)
                 is = loader.getResourceAsStream(owner + ".class");
-            if (is == null) return true;   // unresolvable library → assume final
+            if (is == null) return true;   // unresolvable library class → assume final
             ClassReader cr = new ClassReader(is);
-            int[] flags = {0};
+            final int[] flags = {0};
             cr.accept(new ClassVisitor(Opcodes.ASM9) {
-                @Override public FieldVisitor visitField(int acc, String n, String d,
-                                                         String sig, Object val) {
+                @Override
+                public FieldVisitor visitField(int acc, String n, String d,
+                                               String sig, Object val) {
                     if (n.equals(name) && d.equals(desc)) flags[0] = acc;
                     return null;
                 }
@@ -468,15 +555,26 @@ final class FrfvdMethodVisitor extends MethodVisitor {
         } catch (IOException e) {
             return false;
         } finally {
-            if (is != null) try { is.close(); } catch (IOException ignored) {}
+            if (is != null) { try { is.close(); } catch (IOException ignored) {} }
         }
     }
 
     private static int argSlotCount(Type[] args) {
         int n = 0;
-        for (Type t : args) n += (t.getSort() == Type.LONG || t.getSort() == Type.DOUBLE) ? 2 : 1;
+        for (Type t : args) {
+            n += (t.getSort() == Type.LONG || t.getSort() == Type.DOUBLE) ? 2 : 1;
+        }
         return n;
     }
 
-    record FieldRef(String owner, String name, String desc) {}
+    // ===========================================================================
+    // Data carrier (replaces Java 16 record)
+    // ===========================================================================
+
+    static final class FieldRef {
+        final String owner, name, desc;
+        FieldRef(String owner, String name, String desc) {
+            this.owner = owner; this.name = name; this.desc = desc;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package edu.utd.fastlab.frfvd;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -16,18 +17,15 @@ public final class FrfvdTracker {
 
     private FrfvdTracker() {}
 
-    // --- ThreadLocal state: most recent final-field load on this thread ---
+    private static final ThreadLocal<String> TL_RC_KEY = new ThreadLocal<String>();
+    private static final ThreadLocal<Object> TL_RC_OBJ = new ThreadLocal<Object>();
 
-    private static final ThreadLocal<String> TL_RC_KEY = new ThreadLocal<>();
-    private static final ThreadLocal<Object> TL_RC_OBJ = new ThreadLocal<>();
-
-    // RC key -> aggregated entry (written at class-load time + runtime)
     public static final ConcurrentHashMap<String, RootCauseEntry> RESULTS =
-            new ConcurrentHashMap<>();
+            new ConcurrentHashMap<String, RootCauseEntry>();
 
     /**
      * Called immediately after GETSTATIC at an RC site.
-     * {@code value} is the object that was loaded (DUP'd copy).
+     * {@code value} is a DUP'd copy of the object that was loaded.
      */
     public static void onFinalFieldLoad(
             Object value,
@@ -35,15 +33,18 @@ public final class FrfvdTracker {
             String fieldOwner, String fieldName, String fieldDesc) {
 
         String key = "RC:" + method + "@" + pc;
-        RESULTS.computeIfAbsent(key, k ->
-                new RootCauseEntry(method, pc, fieldOwner + "." + fieldName + ":" + fieldDesc));
+        if (!RESULTS.containsKey(key)) {
+            RESULTS.putIfAbsent(key,
+                    new RootCauseEntry(method, pc,
+                            fieldOwner + "." + fieldName + ":" + fieldDesc));
+        }
         TL_RC_KEY.set(key);
         TL_RC_OBJ.set(value);
     }
 
     /**
      * Called just before a matched INVOKEVIRTUAL.
-     * {@code receiver} is a DUP'd reference to the object that will receive the call.
+     * {@code receiver} is a DUP'd reference to the dispatch receiver.
      * Uses object identity to confirm it is the same value loaded at the RC site.
      */
     public static void onVirtualDispatch(
@@ -55,7 +56,7 @@ public final class FrfvdTracker {
         if (rcKey == null) return;
 
         Object expected = TL_RC_OBJ.get();
-        if (expected != receiver) return;   // identity check — different object, skip
+        if (expected != receiver) return;
 
         String actualCallee = receiver.getClass().getName().replace('.', '/')
                 + "." + calleeName + ":" + calleeDesc;
@@ -65,7 +66,6 @@ public final class FrfvdTracker {
             rc.symptoms.add(new Symptom(callerMethod, pc, actualCallee));
         }
 
-        // Clear so subsequent dispatches in the same frame don't re-fire
         TL_RC_OBJ.remove();
         TL_RC_KEY.remove();
     }
@@ -73,32 +73,33 @@ public final class FrfvdTracker {
     // --- Shutdown output ---
 
     public static void dumpJson(String outputPath) {
-        try {
-            StringBuilder sb = new StringBuilder("{\n");
-            boolean firstRc = true;
-            for (Map.Entry<String, RootCauseEntry> e : RESULTS.entrySet()) {
-                if (!firstRc) sb.append(",\n");
-                firstRc = false;
-                RootCauseEntry rc = e.getValue();
-                sb.append("  ").append(jsonStr(e.getKey())).append(": {\n");
-                sb.append("    \"method\": ").append(jsonStr(rc.method)).append(",\n");
-                sb.append("    \"pc\": ").append(rc.pc).append(",\n");
-                sb.append("    \"field\": ").append(jsonStr(rc.field)).append(",\n");
-                sb.append("    \"symptoms\": [");
-                boolean firstSym = true;
-                for (Symptom s : rc.symptoms) {
-                    if (!firstSym) sb.append(", ");
-                    firstSym = false;
-                    sb.append("\n      {");
-                    sb.append("\"caller\": ").append(jsonStr(s.caller)).append(", ");
-                    sb.append("\"callee\": ").append(jsonStr(s.callee)).append(", ");
-                    sb.append("\"pc\": ").append(s.pc).append("}");
-                }
-                if (!rc.symptoms.isEmpty()) sb.append("\n    ");
-                sb.append("]\n  }");
+        StringBuilder sb = new StringBuilder("{\n");
+        boolean firstRc = true;
+        for (Map.Entry<String, RootCauseEntry> e : RESULTS.entrySet()) {
+            if (!firstRc) sb.append(",\n");
+            firstRc = false;
+            RootCauseEntry rc = e.getValue();
+            sb.append("  ").append(jsonStr(e.getKey())).append(": {\n");
+            sb.append("    \"method\": ").append(jsonStr(rc.method)).append(",\n");
+            sb.append("    \"pc\": ").append(rc.pc).append(",\n");
+            sb.append("    \"field\": ").append(jsonStr(rc.field)).append(",\n");
+            sb.append("    \"symptoms\": [");
+            boolean firstSym = true;
+            for (Symptom s : rc.symptoms) {
+                if (!firstSym) sb.append(", ");
+                firstSym = false;
+                sb.append("\n      {");
+                sb.append("\"caller\": ").append(jsonStr(s.caller)).append(", ");
+                sb.append("\"callee\": ").append(jsonStr(s.callee)).append(", ");
+                sb.append("\"pc\": ").append(s.pc).append("}");
             }
-            sb.append("\n}\n");
-            Files.writeString(Paths.get(outputPath), sb.toString());
+            if (!rc.symptoms.isEmpty()) sb.append("\n    ");
+            sb.append("]\n  }");
+        }
+        sb.append("\n}\n");
+        try {
+            Files.write(Paths.get(outputPath),
+                    sb.toString().getBytes(StandardCharsets.UTF_8));
             System.err.println("[FRFVD] results written to " + outputPath);
         } catch (IOException ex) {
             System.err.println("[FRFVD] failed to write results: " + ex.getMessage());
@@ -115,7 +116,7 @@ public final class FrfvdTracker {
         public final String method;
         public final int pc;
         public final String field;
-        public final List<Symptom> symptoms = new CopyOnWriteArrayList<>();
+        public final List<Symptom> symptoms = new CopyOnWriteArrayList<Symptom>();
 
         RootCauseEntry(String method, int pc, String field) {
             this.method = method;
