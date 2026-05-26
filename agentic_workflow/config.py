@@ -24,6 +24,7 @@ OUT_SELECTED_BOUNDARIES        = "selected_boundaries.json"
 OUT_GLOBAL_SELECTED_BOUNDARIES = "global_selected_boundaries.json"
 OUT_REPRESENTATIVES_REGISTRY   = "representatives_registry.json"
 OUT_REPORT              = "unsoundness_report.json"
+OUT_ORACLE              = "oracle.json"
 OUT_TEST_CASE_DIR       = "test_case"
 OUT_STATICCG_DIR        = "staticcg"    # static call graph from analysis interface
 OUT_DYNCG_DIR           = "dyncg"       # dynamic call graph from analysis interface
@@ -32,6 +33,8 @@ OUT_ANNOTATED_TOOL_DIR  = "annotated_sa_tool"
 OUT_MODIFIED_ANALYSIS   = "modified_analysis.json"  # annotated SA tool output (SCG')
 OUT_EXECUTION_TRACE     = "log.txt"
 OUT_PIPELINE_RESULT     = "pipeline_result.json"
+OUT_TARGET_ORACLE       = "oracle_target.json"
+OUT_PRUNING_REPORT      = "pruning_report.json"
 
 # ── JVM-runtime callee exclusions (pre-sampler filter) ────────────────────────
 # Tuples of (jvm_class_or_None, method_name).
@@ -47,8 +50,9 @@ JVM_RUNTIME_EXCLUDED_CALLEES: list[tuple[str | None, str]] = [
     ("Ljava/lang/ref/Cleaner;",          "register"),         # Java 9+
     ("Ljava/lang/ref/Cleaner$Cleanable;","clean"),
     ("Ljava/lang/ClassLoader;",          "defineClass"),
-    # ("Ljava/lang/ClassLoader;",          "loadClass"),
+    ("Ljava/lang/ClassLoader;",          "loadClass"),
     ("Ljava/lang/ClassLoader;",          "findClass"),
+    ("Ljava/lang/ClassLoader;",      "checkPackageAccess"),
     ("Ljava/lang/SecurityManager;",      "checkPackageAccess"),
     ("Ljava/lang/SecurityManager;",      "checkMemberAccess"),
 ]

@@ -32,6 +32,8 @@ class PipelineState:
     unsoundness_report:             Optional[str] = None
     reproducing_test_case_path:     Optional[str] = None
     non_reproducing_test_case_path: Optional[str] = None
+    oracle_path:                    Optional[str] = None   # oracle.json inside reproducing test case dir
+    program_jar_path:               Optional[str] = None   # JAR file or dir for real program classpath (set by orchestrator)
     staticcg_path:                  Optional[str] = None   # static CG from analysis interface
     dyncg_path:                     Optional[str] = None   # dynamic CG from analysis interface
     boundary_path:                  Optional[str] = None   # missed edges dir from interface
@@ -48,6 +50,7 @@ class PipelineState:
     # ── Annotation info (populated after stage 6a) ────────────────────────────
     annotated_file:   Optional[str] = None   # relative path within annotated_sa_tool_path
     injected_at_line: Optional[int] = None   # line number of the injected [UNSOUNDNESS] log
+    instrumentation:  Optional[str] = None   # instrumentation dir inside reproducing test case
 
     # ── Convenience helpers ────────────────────────────────────────────────────
 

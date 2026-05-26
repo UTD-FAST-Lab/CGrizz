@@ -35,6 +35,7 @@ from pipeline.utils import (
 from config import (
     MAX_LOOPS,
     OUT_REPORT,
+    OUT_ORACLE,
     OUT_TEST_CASE_DIR,
     OUT_ANNOTATED_TOOL_DIR,
     OUT_EXECUTION_TRACE,
@@ -188,7 +189,62 @@ Return JSON only:
     return False
 
 
-# ── Stage 5: Reproduction check ───────────────────────────────────────────────
+# ── Stage 5: Oracle generation ────────────────────────────────────────────────
+
+async def stage_generate_oracle(state: PipelineState) -> bool:
+    """
+    Invokes the instrumentation agent to generate an oracle for the reproducing
+    test case. The agent writes oracle.json into the reproducing test case directory.
+    """
+    options     = build_agent_options(state)
+    oracle_path = str(Path(state.reproducing_test_case_path) / OUT_ORACLE)
+    instrumentation_path = str(Path(state.reproducing_test_case_path) / 'instrumentation')
+
+    if state.loop_count > 0:
+        if instrumentation_path and Path(instrumentation_path).exists():
+            shutil.rmtree(Path(instrumentation_path))
+            log.info(f"{state.label()} Deleted stale instrumentation dir: {instrumentation_path}")
+
+
+    response = await run_agent(
+        prompt=f"""\
+Use the instrumentation agent to generate an oracle for this boundary.
+Invoke it via the Task tool.
+
+## Inputs
+
+Unsoundness report          : {state.unsoundness_report}
+ASM instrumentation template: /home/mohammad/projects/AgenticCGEvaluation/instrumentation_template/instrumentation
+Reproducing test case       : {state.reproducing_test_case_path}/
+Oracle output path          : {oracle_path}
+
+Return JSON only:
+{{
+  "oracle_path": "{oracle_path}",
+  "success": true | false
+}}""",
+        options=options,
+        stage_name=f"{state.label()} OracleGeneration",
+    )
+
+    if Path(oracle_path).exists():
+        state.oracle_path = oracle_path
+        state.instrumentation = instrumentation_path
+        log.info(f"{state.label()} Oracle generated at {oracle_path}")
+        return True
+
+    result = parse_json_from_response(response)
+    if result and result.get("success"):
+        state.oracle_path = result.get("oracle_path", oracle_path)
+        state.instrumentation = instrumentation_path
+        log.info(f"{state.label()} Oracle generated at {state.oracle_path}")
+        return True
+
+    log.error(f"{state.label()} Oracle generation failed — {OUT_ORACLE} not found.")
+    return False
+
+
+# ── Stage 6: Reproduction check ───────────────────────────────────────────────
 
 async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     """
@@ -204,49 +260,72 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     state.staticcg_path, state.dyncg_path, state.boundary_path = \
         run_analysis_interface(state)
 
-    # Read expected edge from the test case directory
+    # Read oracle from the test case directory
+    # Oracle format: {"RC:method@pc": {"method": ..., "pc": ..., "symptoms": [...]}, ...}
     try:
-        base_path   = Path(state.reproducing_test_case_path)
-        report      = json.loads((base_path / "expected_missed_edge.json").read_text())
-        exp_caller  = report["caller"]
-        exp_callee  = report["callee"]
+        oracle = json.loads(Path(state.oracle_path).read_text())
     except Exception as e:
-        msg = f"Could not read expected edge from test case report: {e}"
+        msg = f"Could not read oracle: {e}"
         log.error(f"{state.label()} {msg}")
         return False, msg
 
-    log.info(f"{state.label()} Expected missing edge: {exp_caller} → {exp_callee}")
+    # RC entries are top-level values (keys are "RC:..." strings)
+    rc_entries = list(oracle.values())
+    if not rc_entries:
+        msg = "Oracle does not contain any root causes."
+        log.error(f"{state.label()} {msg}")
+        return False, msg
 
-    # Search boundary files for the expected edge
-    reproduced, feedback = _edge_in_boundary(state.boundary_path, exp_caller, exp_callee)
-    log.info(f"{state.label()} Reproduced: {reproduced}")
-    return reproduced, feedback
+    # check for symptoms of root causes in the oracle
+    all_symptoms = []
+    for rc in rc_entries:
+        symptoms = rc.get("symptoms", [])
+        all_symptoms.extend(symptoms)
+    if not all_symptoms:
+        msg = "Oracle root causes do not contain any symptoms."
+        log.error(f"{state.label()} {msg}")
+        return False, msg
+    
+    # Search boundary files for the symptoms
+    for symptom in all_symptoms:
+        expected_caller = symptom.get("caller", "")
+        expected_callee = symptom.get("callee", "")
+        if expected_caller and expected_callee:
+            if not _is_reachable(expected_caller, state.staticcg_path):
+                continue
+            log.info(f"{state.label()} Checking for edge in boundary: {expected_caller} → {expected_callee}")
+            reproduced, feedback = _edge_in_boundary(state.boundary_path, expected_caller, expected_callee)
+            if not reproduced:
+                log.error(f"{state.label()} Edge not found for symptom: {feedback}")
+                return False, feedback
+        else:
+            msg = "Symptom in oracle missing caller or callee information."
+            log.error(f"{state.label()} {msg}")
+            return False, msg
+    
+    log.info(f"{state.label()} Reproduction check passed — edge found in boundary.")
+    return True, "Reproduction check passed — edge found in boundary."
 
 
-# ── Stage 6: Root cause annotation + trace check ──────────────────────────────
+# ── Stage 7: Root cause annotation ────────────────────────────────────────────
 
-async def stage_annotate_and_check_trace(state: PipelineState) -> tuple[bool, str]:
+async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
     """
-    6a. Root-cause-annotator agent adds targeted logging to the SA tool.
-    6b. Run the annotated tool on the test case → modified analysis output.
-    6c. Check whether the execution trace contains the expected log entries.
+    Root-cause-annotator agent adds targeted logging to the SA tool,
+    then runs the annotated tool on the test case to produce the execution trace.
 
     Returns:
-        (trace_contains_logs: bool, feedback: str)
+        (success: bool, feedback: str)  — feedback is non-empty only on failure
     """
-    options        = build_agent_options(state)
-    annotated_out  = state.out(OUT_ANNOTATED_TOOL_DIR)
-    trace_log_path = str(Path(state.reproducing_test_case_path) / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE)
+    options       = build_agent_options(state)
+    annotated_out = state.out(OUT_ANNOTATED_TOOL_DIR)
 
     annotated_out_path = Path(annotated_out)
     if not annotated_out_path.exists():
         log.info(f"{state.label()} Copying SA tool to {annotated_out} ...")
-        await asyncio.to_thread(
-            shutil.copytree, state.sa_tool_path, annotated_out
-        )
+        await asyncio.to_thread(shutil.copytree, state.sa_tool_path, annotated_out)
         log.info(f"{state.label()} SA tool copy done.")
 
-    # 6a: Annotate the SA tool
     annot_response = await run_agent(
         prompt=f"""\
 Use the root-cause-annotator agent to annotate the SA tool for this boundary.
@@ -303,56 +382,60 @@ If the log already exists for the same reason (`skipped: true`):
             f"at line {state.injected_at_line}"
         )
 
-    # Log format is standardised — always grep for the [UNSOUNDNESS] prefix
+    # Run annotated tool → produces the execution trace consumed by stage_check_trace
+    state.modified_analysis_path = run_annotated_sa(state)
+    return True, ""
+
+
+# ── Stage 8: Trace check ───────────────────────────────────────────────────────
+
+async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
+    """
+    Checks whether the execution trace produced by the annotated SA tool
+    contains the expected [UNSOUNDNESS] log entries confirming the root cause.
+
+    Returns:
+        (trace_contains_logs: bool, feedback: str)
+    """
+    options        = build_agent_options(state)
+    trace_log_path = str(Path(state.reproducing_test_case_path) / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE)
+    oracle_path    = state.oracle_path
     expected_pattern = "[UNSOUNDNESS]"
 
-    # 6b: Run annotated tool → modified analysis output
-    state.modified_analysis_path = run_annotated_sa(state)
+    # read the execution trace log
+    try:
+        trace_log = Path(trace_log_path).read_text()
+        unsoundness_lines = [line for line in trace_log.splitlines() if expected_pattern in line]
+        log.info(f"{state.label()} Found {len(unsoundness_lines)} lines with pattern [UNSOUNDNESS] in execution trace.")
+    except Exception as e:
+        msg = f"Could not read execution trace log: {e}"
+        log.error(f"{state.label()} {msg}")
+        return False, msg
 
-    # 6c: Check execution trace
-    trace_response = await run_agent(
-        prompt=f"""\
-Check whether the execution trace from the annotated SA tool confirms
-the root cause of the unsoundness.
+    # check for existance of pattern in the trace log
+    if len(unsoundness_lines) == 0:
+        log.error(f"{state.label()} Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace.")
+        return False, "Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace."
 
-## Expected evidence
+    # read the root causes from the oracle
+    # Oracle format: {"RC:method@pc": {"method": ..., "pc": ..., "symptoms": [...]}, ...}
+    rc_methods = set()
+    try:
+        oracle = json.loads(Path(oracle_path).read_text())
+        for rc in oracle.values():
+            rc_methods.add(rc.get("method"))
+    except Exception as e:
+        msg = f"Could not read oracle for root cause methods: {e}"
+        log.error(f"{state.label()} {msg}")
 
-The trace should contain entries matching: {expected_pattern}
+    # check that all reachable root cause methods apear in the unsoundness lines
+    for method in rc_methods:
+        if _is_reachable(method, state.staticcg_path) and method not in trace_log:
+            log.error(f"{state.label()} Trace check failed — expected root cause method '{method}' not found in execution trace.")
+            return False, f"Trace check failed — expected root cause method '{method}' not found in execution trace."
 
-## Files to examine
-
-Execution trace : {trace_log_path}
-Unsoundness report: {state.unsoundness_report}
-Test case       : {state.reproducing_test_case_path}
-
-## Your task
-
-1. Read the execution trace at: {trace_log_path}
-2. Search for entries matching: {expected_pattern}
-3. Cross-check with the unsoundness report and test case (ONLY SOURCE CODE src/) to see if the log entries align with the expected root cause and callsite. \
-Remember that the log entries may happen for different edges or callsites that are not the one we expect (like internal libraries we are not interested in).
-4. Return your finding.
-
-Return JSON only:
-{{
-  "trace_contains_logs": true | false,
-  "feedback": "<what is present or missing; quote relevant trace lines if found>"
-}}""",
-        options=options,
-        stage_name=f"{state.label()} TraceCheck",
-    )
-
-    trace_result = parse_json_from_response(trace_response)
-    if trace_result:
-        has_logs = bool(trace_result.get("trace_contains_logs", False))
-        # has_logs = bool(trace_result.get("trace_contains_logs", "false").lower() == "true")
-        feedback = trace_result.get("feedback", "No feedback provided.")
-        log.info(f"{state.label()} Trace contains logs: {has_logs}")
-        return has_logs, feedback
-
-    log.warning(f"{state.label()} Could not parse trace check — assuming logs not found.")
-    return False, "Could not parse trace check result."
-
+    log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
+    return True, "Trace check passed — expected logs found in execution trace."
 
 # ── Main pipeline ─────────────────────────────────────────────────────────────
 
@@ -376,8 +459,7 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
     log.info(f"{state.label()} PIPELINE START  {state.boundary_id}")
     log.info(f"{state.label()} {'=' * 50}")
 
-    # Stages 3–6: main retry loop (no boundary selection stage —
-    # each PipelineState already holds exactly one boundary entry)
+    # Stages 3–8: main retry loop (each PipelineState holds exactly one boundary entry)
     while state.loop_count <= MAX_LOOPS:
         label = f"Loop {state.loop_count}" if state.loop_count > 0 else "Initial run"
         log.info(f"{state.label()} {'─' * 40} {label}")
@@ -392,7 +474,12 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
             write_final_report(state, success=False, reason="Test case generation failed.")
             return
 
-        # Stage 5: Check reproduction (check 1)
+        # Stage 5: Generate oracle
+        if not await stage_generate_oracle(state):
+            write_final_report(state, success=False, reason="Oracle generation failed.")
+            return
+
+        # Stage 6: Check reproduction
         reproduced, repr_feedback = await stage_check_reproduction(state)
         if not reproduced:
             state.reproduce_feedback.append(repr_feedback)
@@ -404,8 +491,14 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
         log.info(f"{state.label()} Reproduced. Proceeding to annotation...")
 
-        # Stage 6: Annotate + check trace (check 2)
-        trace_ok, trace_feedback = await stage_annotate_and_check_trace(state)
+        # Stage 7: Root cause annotation + run annotated SA tool
+        annot_ok, annot_feedback = await stage_root_cause_annotation(state)
+        if not annot_ok:
+            write_final_report(state, success=False, reason=f"Annotation step failed: {annot_feedback}")
+            return
+
+        # Stage 8: Check execution trace
+        trace_ok, trace_feedback = await stage_check_trace(state)
         if trace_ok:
             write_final_report(
                 state,
@@ -482,6 +575,17 @@ def _build_retry_context(state: PipelineState) -> str:
             f"Path: {state.reproducing_test_case_path}",
             "(Read the Java source files here to understand how the test case was structured.)",
         ]
+
+    if state.oracle_path and Path(state.oracle_path).exists() and state.instrumentation and Path(state.instrumentation).exists():
+        lines += [
+            "",
+            "### Oracle for reproducing test case",
+            "",
+            f"Path: {state.oracle_path}",
+            f"Path: {state.instrumentation}",
+            "(Read this file to review the expected root causes and symptoms that the agent identified for the test case using the ASM instrumentation)",
+        ]
+
 
     if state.annotated_sa_tool_path and state.annotated_file:
         line_hint = f" (line {state.injected_at_line})" if state.injected_at_line else ""
@@ -566,3 +670,22 @@ def _edge_in_boundary(
         f"Expected: {expected_caller} → {expected_callee}. "
         f"Searched {Path(boundary_path).name}."
     )
+
+
+def _is_reachable(expected_caller: str, staticcg_path: str) -> bool:
+    """Check whether a caller method appears in the static call graph."""
+    try:
+        data = json.loads(Path(staticcg_path).read_text())
+        reachable_methods = data.get("reachableMethods", [])
+    except Exception as e:
+        log.warning(f"Failed reading static CG file {staticcg_path}: {e}")
+        return False
+
+    for method in reachable_methods:
+        caller = method.get("method", {})
+        caller_class  = _descriptor_to_classname(caller.get("declaringClass", ""))
+        caller_method = caller.get("name", "")
+        if caller_class in expected_caller and caller_method in expected_caller:
+            return True
+
+    return False

@@ -14,10 +14,10 @@ Three execution modes
                  Uses flat CLI flags.
 
   parallel-edges One analysis entry from config, all its boundary
-                 entries run concurrently.
+                 entries run sequentially with oracle deduplication.
 
-  parallel-all   All analysis entries × all their boundary entries
-                 run concurrently.
+  parallel-all   All analysis entries × all their boundary entries,
+                 processed sequentially with oracle deduplication.
 
 Usage examples
 ──────────────
@@ -33,19 +33,17 @@ Usage examples
       --boundary-index 0 \\
       --output-dir     ./results
 
-  # parallel-edges — all boundaries for one analysis entry
+  # parallel-edges — all boundaries for one analysis entry (sequential + dedup)
   python pipeline_orchestrator.py parallel-edges \\
       --config       ./pipeline_config.json \\
       --program-name program_A \\
       --tool-name    WALA \\
       --algorithm    0-CFA \\
-      --concurrency  5 \\
       --output-dir   ./results
 
-  # parallel-all — everything in the config, concurrently
+  # parallel-all — everything in the config (sequential + dedup)
   python pipeline_orchestrator.py parallel-all \\
       --config      ./pipeline_config.json \\
-      --concurrency 5 \\
       --output-dir  ./results
 """
 
@@ -53,20 +51,20 @@ import asyncio
 import argparse
 import json
 import logging
+import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from pipeline.state import PipelineState
 from pipeline.stages import run_pipeline
 from pipeline.utils import write_final_report
 from pipeline.sampler import (
-    run_boundary_sampler,
-    run_global_dedup_sampler,
-    run_incremental_representative_filter,
-    load_representatives_registry,
-    save_representatives_registry,
     filter_jvm_runtime_boundaries,
+    filter_jdk_caller_boundaries,
 )
+from config import OUT_PIPELINE_RESULT, OUT_TARGET_ORACLE, OUT_PRUNING_REPORT
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -83,7 +81,6 @@ def _boundary_id(boundary: dict, index: int) -> str:
     missed = boundary.get("missedCallee", {})
 
     def short(cls: str) -> str:
-        # Take the last segment of a class descriptor like Lcom/example/Handler
         return cls.rstrip(";").split("/")[-1].lstrip("L") if cls else "?"
 
     caller_label = f"{short(caller.get('declaringClass', ''))}.{caller.get('name', '?')}"
@@ -104,6 +101,7 @@ def make_state(
     boundary:        dict,
     boundary_index:  int,
     base_output_dir: Path,
+    program_jar_path: Optional[str] = None,
 ) -> PipelineState:
     """
     Build a PipelineState with an isolated output directory.
@@ -113,7 +111,7 @@ def make_state(
     output_dir = base_output_dir / program_name / tool_name / algorithm / b_id
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    return PipelineState(
+    state = PipelineState(
         program_name=program_name,
         tool_name=tool_name,
         algorithm=algorithm,
@@ -125,6 +123,8 @@ def make_state(
         boundary=boundary,
         output_dir=output_dir,
     )
+    state.program_jar_path = program_jar_path
+    return state
 
 
 # ── Boundaries loader ─────────────────────────────────────────────────────────
@@ -145,23 +145,302 @@ def load_boundaries(path: str) -> list[dict]:
     return entries
 
 
-# ── Semaphore-limited runner ──────────────────────────────────────────────────
+# ── Oracle deduplication helpers ──────────────────────────────────────────────
 
-async def run_with_limit(state: PipelineState, sem: asyncio.Semaphore) -> None:
-    """Run one pipeline instance, respecting the concurrency semaphore."""
-    async with sem:
-        log.info(f"{state.label()} Slot acquired.")
+def _is_successful(state: PipelineState) -> bool:
+    """Read pipeline_result.json and return the success flag."""
+    result_path = state.output_dir / OUT_PIPELINE_RESULT
+    try:
+        return json.loads(result_path.read_text()).get("success", False)
+    except Exception:
+        return False
+
+
+def _find_agent_jar(state: PipelineState) -> Optional[Path]:
+    """
+    Find the built instrumentation agent JAR inside the reproducing test case.
+    Looks under <reproducing_test_case_path>/instrumentation/target/*.jar,
+    excluding original-*.jar.
+    """
+    if not state.reproducing_test_case_path:
+        return None
+    target_dir = Path(state.reproducing_test_case_path) / "instrumentation" / "target"
+    jars = [
+        j for j in target_dir.glob("*.jar")
+        if not j.name.startswith("original-")
+    ]
+    return jars[0] if jars else None
+
+
+def _build_classpath(program_jar_path: str) -> Optional[str]:
+    """
+    Build a colon-separated classpath string from program_jar_path.
+    - If it's a file: return it directly.
+    - If it's a directory: glob all *.jar files inside.
+    Returns None if nothing is found.
+    """
+    p = Path(program_jar_path)
+    if not p.exists():
+        return None
+    if p.is_file():
+        return str(p)
+    jars = list(p.glob("*.jar"))
+    return ":".join(str(j) for j in jars) if jars else None
+
+
+async def _run_oracle_on_program(
+    agent_jar:        Path,
+    program_jar_path: str,
+    main_class:       str,
+    output_path:      Path,
+) -> bool:
+    """
+    Run the instrumentation agent JAR against a real program to produce an oracle.
+    Returns True if output_path was created, False on any failure (fail-open).
+    """
+    try:
+        classpath = _build_classpath(program_jar_path)
+        if not classpath:
+            log.warning(f"No JARs found at {program_jar_path} — skipping oracle run")
+            return False
+
+        cmd = [
+            "java",
+            f"-javaagent:{agent_jar}={output_path}",
+            "-cp", classpath,
+            main_class,
+        ]
+        log.info(f"Running oracle: {' '.join(str(c) for c in cmd)}")
+        await asyncio.to_thread(
+            subprocess.run, cmd, capture_output=True, timeout=1800, check=False
+        )
+        return output_path.exists()
+    except Exception as e:
+        log.warning(f"Oracle run failed for {program_jar_path}: {e}")
+        return False
+
+
+def _extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
+    """
+    Parse an oracle JSON file and return a set of
+    (caller_class, caller_method, callee_class, callee_method) 4-tuples.
+    All values in slash-separated internal format (no L prefix, no semicolon).
+    Returns empty set on any parse error.
+    """
+    try:
+        data = json.loads(oracle_path.read_text())
+        symptoms: set[tuple[str, str, str, str]] = set()
+
+        for rc_entry in data.values():
+            for sym in rc_entry.get("symptoms", []):
+                caller_raw = sym.get("caller", "")
+                callee_raw = sym.get("callee", "")
+
+                # Caller format: "Lcom/example/App;.main:([Ljava/lang/String;)V"
+                # Split at ";." to separate class from method+descriptor
+                if ";." in caller_raw:
+                    cls_part, rest = caller_raw.split(";.", 1)
+                    caller_class  = cls_part.lstrip("L")
+                    caller_method = rest.split(":")[0]
+                else:
+                    continue
+
+                # Callee format: "com/example/Sub.method:(Ljava/lang/String;)V"
+                # Split at first "." to separate class from method+descriptor
+                dot_idx = callee_raw.find(".")
+                if dot_idx == -1:
+                    continue
+                callee_class  = callee_raw[:dot_idx]
+                callee_method = callee_raw[dot_idx + 1:].split(":")[0]
+
+                symptoms.add((caller_class, caller_method, callee_class, callee_method))
+
+        return symptoms
+    except Exception as e:
+        log.warning(f"Failed to extract symptoms from {oracle_path}: {e}")
+        return set()
+
+
+def _prune_queue(
+    states:   list[PipelineState],
+    symptoms: set[tuple[str, str, str, str]],
+) -> tuple[list[PipelineState], list[PipelineState]]:
+    """
+    Partition states into (kept, pruned) based on symptom matching.
+    A state is pruned if its boundary's (caller_class, caller_method,
+    callee_class, callee_method) appears in symptoms.
+    """
+    kept:   list[PipelineState] = []
+    pruned: list[PipelineState] = []
+
+    for state in states:
+        b = state.boundary
+        caller_class  = b.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";")
+        caller_method = b.get("caller", {}).get("name", "")
+        callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";")
+        callee_method = b.get("missedCallee", {}).get("name", "")
+
+        if (caller_class, caller_method, callee_class, callee_method) in symptoms:
+            pruned.append(state)
+        else:
+            kept.append(state)
+
+    return kept, pruned
+
+
+def _write_pruning_report(
+    state:       PipelineState,
+    pruned:      list[PipelineState],
+    oracle_runs: list[dict],
+) -> None:
+    """Write pruning_report.json to the successful boundary's output directory."""
+    try:
+        report = {
+            "timestamp": datetime.now().isoformat(),
+            "triggered_by": {
+                "boundary_id":   state.boundary_id,
+                "program_name":  state.program_name,
+                "tool_name":     state.tool_name,
+                "algorithm":     state.algorithm,
+            },
+            "oracle_runs":   oracle_runs,
+            "pruned_count":  len(pruned),
+            "pruned_boundaries": [
+                {
+                    "boundary_id":    s.boundary_id,
+                    "boundary_index": s.boundary_index,
+                    "program_name":   s.program_name,
+                    "caller_class":   s.boundary.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+                    "caller_method":  s.boundary.get("caller", {}).get("name", ""),
+                    "callee_class":   s.boundary.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+                    "callee_method":  s.boundary.get("missedCallee", {}).get("name", ""),
+                }
+                for s in pruned
+            ],
+        }
+        out_path = state.output_dir / OUT_PRUNING_REPORT
+        out_path.write_text(json.dumps(report, indent=2))
+        log.info(f"{state.label()} Pruning report → {out_path}")
+    except Exception as e:
+        log.warning(f"{state.label()} Failed to write pruning report: {e}")
+
+
+async def _run_dedup(
+    successful_state: PipelineState,
+    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
+) -> None:
+    """
+    After a successful pipeline run, run the oracle agent against every program
+    that still has remaining boundaries in the queue and prune matching entries.
+    Fail-open: failures in any step are logged and skipped.
+    """
+    agent_jar = _find_agent_jar(successful_state)
+    if not agent_jar:
+        log.warning(f"{successful_state.label()} Agent JAR not found — skipping dedup")
+        return
+
+    all_pruned:  list[PipelineState] = []
+    oracle_runs: list[dict]          = []
+
+    for program_key, (analysis, remaining) in program_queues.items():
+        if not remaining:
+            continue
+
+        jar_path   = analysis.get("program_jar_path")
+        main_class = analysis.get("main_class")
+
+        if not jar_path or not main_class:
+            log.warning(
+                f"{successful_state.label()} Missing program_jar_path or main_class "
+                f"for {analysis.get('program_name', program_key)} — skipping oracle"
+            )
+            oracle_runs.append({
+                "program_name": analysis.get("program_name", program_key),
+                "oracle_path":  None,
+                "status":       "skipped_no_config",
+            })
+            continue
+
+        oracle_out = (
+            successful_state.output_dir
+            / "oracles" / f"oracle_{analysis['program_name']}.json"
+        )
+        oracle_out.parent.mkdir(parents=True, exist_ok=True)
+
+        ok = await _run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
+        oracle_runs.append({
+            "program_name": analysis["program_name"],
+            "oracle_path":  str(oracle_out),
+            "status":       "ok" if ok else "failed",
+        })
+
+        if ok:
+            symptoms = _extract_symptoms(oracle_out)
+            if symptoms:
+                kept, pruned = _prune_queue(remaining, symptoms)
+                program_queues[program_key] = (analysis, kept)
+                all_pruned.extend(pruned)
+                if pruned:
+                    log.info(
+                        f"{successful_state.label()} Pruned {len(pruned)} boundaries "
+                        f"from {analysis['program_name']}: "
+                        f"{[s.boundary_id for s in pruned]}"
+                    )
+
+    if all_pruned:
+        _write_pruning_report(successful_state, all_pruned, oracle_runs)
+
+
+# ── Sequential pipeline runner ────────────────────────────────────────────────
+
+async def _run_sequential(
+    program_queues: dict[str, tuple[dict, list[PipelineState]]],
+) -> None:
+    """
+    Process all states across all program queues sequentially.
+    After each successful run, execute the oracle deduplication step against
+    all programs that still have remaining boundaries.
+    """
+    # Build a flat ordered list of (program_key, state).
+    # States are visited in FIFO order across all programs.
+    flat = [
+        (pk, s)
+        for pk, (_, states) in program_queues.items()
+        for s in states
+    ]
+
+    processed: set[str] = set()
+
+    for program_key, state in flat:
+        if state.boundary_id in processed:
+            continue  # already handled or pruned after flat list was built
+
+        # Check whether this state is still in the program's remaining queue
+        _, remaining = program_queues[program_key]
+        if state not in remaining:
+            continue  # was pruned by a previous dedup step
+
+        remaining.remove(state)
+        processed.add(state.boundary_id)
+
+        total_remaining = sum(len(q) for _, q in program_queues.values())
+        log.info(f"{state.label()} Processing ({total_remaining} remaining in queue)")
+
         try:
             await run_pipeline(state)
         except Exception as e:
             log.error(f"{state.label()} Unexpected pipeline error: {e}")
             write_final_report(state, success=False, reason=f"Unexpected pipeline error: {e}")
+            continue
+
+        if _is_successful(state):
+            await _run_dedup(state, program_queues)
 
 
 # ── Mode 1: single ────────────────────────────────────────────────────────────
 
 def run_single(args: argparse.Namespace) -> None:
-    """One analysis entry, one boundary entry by index."""
+    """One analysis entry, one boundary entry by index. No dedup."""
     boundaries = load_boundaries(args.boundaries)
 
     if args.boundary_index >= len(boundaries):
@@ -191,31 +470,61 @@ def run_single(args: argparse.Namespace) -> None:
 # ── Mode 2: parallel-edges ────────────────────────────────────────────────────
 
 def run_parallel_edges(args: argparse.Namespace) -> None:
-    """One analysis entry from config, all boundary entries concurrently."""
-    analysis                       = _find_analysis(args)
-    boundaries, pre_filter_indices = filter_jvm_runtime_boundaries(
-        load_boundaries(analysis["boundaries_file"])
-    )
-    sem = asyncio.Semaphore(args.concurrency)
+    """One analysis entry from config, all boundaries processed sequentially with dedup."""
+    analysis       = _find_analysis(args)
+    all_boundaries = load_boundaries(analysis["boundaries_file"])
 
-    analysis_output_dir = (
-        Path(args.output_dir)
-        / analysis["program_name"]
-        / analysis["sa_tool_name"]
-        / analysis["sa_algorithm"]
-    )
+    jvm_filtered, jvm_indices   = filter_jvm_runtime_boundaries(all_boundaries)
+    boundaries,   local_indices = filter_jdk_caller_boundaries(jvm_filtered)
+    original_indices            = [jvm_indices[i] for i in local_indices]
 
-    async def run_all():
-        # Run sampler to get representative subset
-        selected_boundaries, sampler_indices, _ = await run_boundary_sampler(
-            boundaries=boundaries,
+    states = [
+        make_state(
             program_name=analysis["program_name"],
             tool_name=analysis["sa_tool_name"],
             algorithm=analysis["sa_algorithm"],
-            output_dir=analysis_output_dir,
-            max_boundaries=analysis.get("max_boundaries"),
+            target_program=analysis["target_program"],
+            main_class=analysis.get("main_class"),
+            sa_tool=analysis["sa_tool"],
+            boundary=b,
+            boundary_index=idx,
+            base_output_dir=Path(args.output_dir),
+            program_jar_path=analysis.get("program_jar_path"),
         )
-        # Build states, mapping sampler indices back to original file indices
+        for b, idx in zip(boundaries, original_indices)
+    ]
+
+    program_key = (
+        f"{analysis['program_name']}/"
+        f"{analysis['sa_tool_name']}/"
+        f"{analysis['sa_algorithm']}"
+    )
+    program_queues = {program_key: (analysis, list(states))}
+
+    log.info(
+        f"Mode: parallel-edges (sequential+dedup) | "
+        f"{program_key} | "
+        f"boundaries: {len(states)} (after filtering from {len(all_boundaries)})"
+    )
+
+    asyncio.run(_run_sequential(program_queues))
+
+
+# ── Mode 3: parallel-all ──────────────────────────────────────────────────────
+
+def run_parallel_all(args: argparse.Namespace) -> None:
+    """All analysis entries × all boundary entries, processed sequentially with dedup."""
+    config = _load_config(args.config)
+
+    program_queues: dict[str, tuple[dict, list[PipelineState]]] = {}
+
+    for analysis in config["analyses"]:
+        all_boundaries = load_boundaries(analysis["boundaries_file"])
+
+        jvm_filtered, jvm_indices   = filter_jvm_runtime_boundaries(all_boundaries)
+        boundaries,   local_indices = filter_jdk_caller_boundaries(jvm_filtered)
+        original_indices            = [jvm_indices[i] for i in local_indices]
+
         states = [
             make_state(
                 program_name=analysis["program_name"],
@@ -225,126 +534,28 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
                 main_class=analysis.get("main_class"),
                 sa_tool=analysis["sa_tool"],
                 boundary=b,
-                boundary_index=pre_filter_indices[si],
+                boundary_index=idx,
                 base_output_dir=Path(args.output_dir),
+                program_jar_path=analysis.get("program_jar_path"),
             )
-            for b, si in zip(selected_boundaries, sampler_indices)
+            for b, idx in zip(boundaries, original_indices)
         ]
 
-        log.info(
-            f"Mode: parallel-edges | "
-            f"{analysis['program_name']}/{analysis['sa_tool_name']}/{analysis['sa_algorithm']} | "
-            f"boundaries: {len(states)} (sampled from {len(boundaries)}) | concurrency: {args.concurrency}"
+        program_key = (
+            f"{analysis['program_name']}/"
+            f"{analysis['sa_tool_name']}/"
+            f"{analysis['sa_algorithm']}"
         )
+        program_queues[program_key] = (analysis, states)
 
-        results = await asyncio.gather(*[run_with_limit(s, sem) for s in states], return_exceptions=True)
-        for r in results:
-            if isinstance(r, Exception):
-                log.error(f"Unhandled gather exception: {r}")
+    total = sum(len(q) for _, q in program_queues.values())
+    log.info(
+        f"Mode: parallel-all (sequential+dedup) | "
+        f"analyses: {len(config['analyses'])} | "
+        f"total boundaries: {total}"
+    )
 
-    asyncio.run(run_all())
-
-
-# ── Mode 3: parallel-all ──────────────────────────────────────────────────────
-
-def run_parallel_all(args: argparse.Namespace) -> None:
-    """All analysis entries × all boundary entries, concurrently."""
-    config     = _load_config(args.config)
-    sem        = asyncio.Semaphore(args.concurrency)
-
-    # Pre-load and pre-filter all boundaries per analysis for the sampler
-    analysis_boundaries = [
-        (analysis, *filter_jvm_runtime_boundaries(load_boundaries(analysis["boundaries_file"])))
-        for analysis in config["analyses"]
-    ]
-
-    async def run_all():
-        registry    = load_representatives_registry(_resolve_registry_path(args))
-        all_states: list[PipelineState] = []
-
-        for analysis, boundaries, pre_filter_indices in analysis_boundaries:
-            program_key = (
-                f"{analysis['program_name']}/"
-                f"{analysis['sa_tool_name']}/"
-                f"{analysis['sa_algorithm']}"
-            )
-
-            # Per-program sampler (unchanged)
-            selected_boundaries, sampler_indices, rationale = await run_boundary_sampler(
-                boundaries=boundaries,
-                program_name=analysis["program_name"],
-                tool_name=analysis["sa_tool_name"],
-                algorithm=analysis["sa_algorithm"],
-                output_dir=(
-                    Path(args.output_dir)
-                    / analysis["program_name"]
-                    / analysis["sa_tool_name"]
-                    / analysis["sa_algorithm"]
-                ),
-                max_boundaries=analysis.get("max_boundaries"),
-            )
-
-            # Build states, mapping sampler indices back to original file indices
-            states = [
-                make_state(
-                    program_name=analysis["program_name"],
-                    tool_name=analysis["sa_tool_name"],
-                    algorithm=analysis["sa_algorithm"],
-                    target_program=analysis["target_program"],
-                    main_class=analysis.get("main_class"),
-                    sa_tool=analysis["sa_tool"],
-                    boundary=b,
-                    boundary_index=pre_filter_indices[si],
-                    base_output_dir=Path(args.output_dir),
-                )
-                for b, si in zip(selected_boundaries, sampler_indices)
-            ]
-
-            # Build local rationale dict: index-in-states → per-program rationale
-            local_rationale = {
-                i: rationale.get(str(si), "")
-                for i, (_, si) in enumerate(zip(selected_boundaries, sampler_indices))
-            }
-
-            # Incremental cross-program filter (sequential; registry updates are not concurrent)
-            if program_key not in registry["programs_processed"]:
-                states, registry = await run_incremental_representative_filter(
-                    new_states=states,
-                    registry=registry,
-                    per_program_rationale=local_rationale,
-                    output_dir=Path(args.output_dir),
-                )
-                registry["programs_processed"].append(program_key)
-            else:
-                log.info(f"[{program_key}] Already in registry — skipping incremental filter.")
-
-            all_states.extend(states)
-
-        # Persist registry once after all programs are processed
-        save_representatives_registry(_resolve_registry_path(args), registry)
-
-        total_analyses = len(config["analyses"])
-        total_runs     = len(all_states)
-        log.info(
-            f"Mode: parallel-all | "
-            f"analyses: {total_analyses} | total runs: {total_runs} | "
-            f"concurrency: {args.concurrency}"
-        )
-
-        results = await asyncio.gather(*[run_with_limit(s, sem) for s in all_states], return_exceptions=True)
-        for r in results:
-            if isinstance(r, Exception):
-                log.error(f"Unhandled gather exception: {r}")
-
-    asyncio.run(run_all())
-
-
-# ── Registry path resolver ────────────────────────────────────────────────────
-
-def _resolve_registry_path(args: argparse.Namespace) -> Path:
-    if getattr(args, "representatives_file", None):
-        return Path(args.representatives_file)
-    return Path(args.output_dir) / "representatives_registry.json"
+    asyncio.run(_run_sequential(program_queues))
 
 
 # ── Config helpers ────────────────────────────────────────────────────────────
@@ -363,9 +574,9 @@ def _find_analysis(args: argparse.Namespace) -> dict:
     config = _load_config(args.config)
     for a in config["analyses"]:
         if (
-            a["program_name"]  == args.program_name
-            and a["sa_tool_name"]  == args.tool_name
-            and a["sa_algorithm"]  == args.algorithm
+            a["program_name"]   == args.program_name
+            and a["sa_tool_name"]   == args.tool_name
+            and a["sa_algorithm"]   == args.algorithm
         ):
             return a
     log.error(
@@ -397,29 +608,23 @@ def parse_args() -> argparse.Namespace:
     s.add_argument("--output-dir",     default="./results")
 
     # ── parallel-edges ────────────────────────────────────────────────────────
-    pe = subparsers.add_parser("parallel-edges", help="One analysis entry, all boundaries concurrently")
+    pe = subparsers.add_parser(
+        "parallel-edges",
+        help="One analysis entry, all boundaries sequential with oracle dedup",
+    )
     pe.add_argument("--config",       required=True, help="Path to pipeline_config.json")
     pe.add_argument("--program-name", required=True)
     pe.add_argument("--tool-name",    required=True, help="e.g. WALA")
     pe.add_argument("--algorithm",    required=True, help="e.g. 0-CFA")
-    pe.add_argument("--concurrency",  type=int, default=5)
     pe.add_argument("--output-dir",   default="./results")
 
     # ── parallel-all ──────────────────────────────────────────────────────────
-    pa = subparsers.add_parser("parallel-all", help="All analyses × all boundaries concurrently")
-    pa.add_argument("--config",               required=True, help="Path to pipeline_config.json")
-    pa.add_argument("--concurrency",          type=int, default=5)
-    pa.add_argument("--output-dir",           default="./results")
-    pa.add_argument(
-        "--representatives-file",
-        default=None,
-        metavar="PATH",
-        help=(
-            "Path to an existing representatives_registry.json to load prior representatives from. "
-            "Defaults to {output_dir}/representatives_registry.json. "
-            "Use this to extend a previous run with new programs."
-        ),
+    pa = subparsers.add_parser(
+        "parallel-all",
+        help="All analyses × all boundaries, sequential with oracle dedup",
     )
+    pa.add_argument("--config",     required=True, help="Path to pipeline_config.json")
+    pa.add_argument("--output-dir", default="./results")
 
     return parser.parse_args()
 

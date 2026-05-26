@@ -20,9 +20,10 @@ You will receive:
 
 **How:**
 1. Read `potentialTestCase` section of the report — it specifies exactly what the test must exercise.
-2. Create the simplest Maven project that reproduces the root cause.
+2. Create the simplest Maven project that reproduces the root cause. This is not necessary replicating the caller and missed edge in the unsoundness report, but a minimal more general test case. 
 3. The edge `caller → target` must NOT be visible to the SA tool (the unsoundness is reproducible).
 4. Write to `<output_dir>/reproducing/`
+5. The Caller of the missed edge and the root cause should be in the application code itself not in a library method. 
 
 **Example:** If root cause is reflection (LogFactory.getLog → SimpleLog.isDebugEnabled):
 - Create a static field of interface type (Log)
@@ -52,7 +53,6 @@ You will receive:
 <output_dir>/
 ├── reproducing/
 │   ├── pom.xml
-│   ├── expected_missed_edge.json
 │   ├── jcg.conf
 │   ├── src/main/java/com/example/...
 │   └── README.md
@@ -95,24 +95,6 @@ Example with concrete values:
   "cp": [ {
     "path": "/repo/app-1.0-SNAPSHOT.jar"
   } ]
-}
-```
-
-**expected_missed_edge.json requirements:**
-Create a JSON file next to `pom.xml` with this exact structure:
-
-```json
-{
-  "caller": "<package>.<class>.<method>(params)",
-  "callee": "<package>.<class>.<method>(params)"
-}
-```
-
-Example with concrete values:
-```json
-{
-  "caller": "com.example.TestClass.<clinit>()",
-  "callee": "java.lang.ClassLoader.loadClass(Ljava/lang/String;)"
 }
 ```
 

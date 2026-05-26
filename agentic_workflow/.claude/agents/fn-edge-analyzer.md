@@ -69,6 +69,9 @@ Choose one:
 - `toolLimitation.toolCodeEvidence.codeSnippet`: short code excerpt (1-5 lines) showing the limitation
 - `potentialTestCase`: describe a minimal test case that reproduces the identified unsoundness issue based on the `toolLimitation.reason` and `pattern_class`. This description may NOT replicate the boundary edge itself but the root cause in general.
 
+**Step 6: Test case minimization**
+- `description`: Describe the simplest test case with the identified root cause limitation that can reproduce the missing edge issue in static analysis tool. This description should not replicate the actual caller and missingCallee but replicate a simple example of the root cause and a simple missed edge in a general manner. 
+
 
 ## Output
 
@@ -96,7 +99,7 @@ Write a JSON object to the `report_path` provided in the task prompt with the fo
     }
   },
   "potentialTestCase": {
-    "description": "Create App.runParser() that calls a static Log interface field initialized via a factory. The factory uses ClassLoader.loadClass(phi_var) where phi_var is a phi-join of System.getProperty() and a fallback constant. Then call log.isDebugEnabled(). The tool will miss the edge to the concrete Log impl.",
+    "description": "Create a App class with runParser method that calls isDebugEnabled method",
     "TestCaseMissingEdge": {
       "caller": "com.example.App.runParser()",
       "callee": "com.example.ConcreteLog.isDebugEnabled()"

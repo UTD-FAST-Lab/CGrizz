@@ -56,6 +56,39 @@ def _has_application_edge(state: PipelineState) -> bool:
     )
 
 
+# ── JDK-caller pre-filter ────────────────────────────────────────────────────
+
+def filter_jdk_caller_boundaries(
+    boundaries: list[dict],
+) -> tuple[list[dict], list[int]]:
+    """
+    Remove boundaries where the caller is a JDK/library class.
+
+    This drops both jdk→jdk and jdk→application edges, keeping only
+    boundaries where the caller belongs to application code.
+
+    Returns (filtered_boundaries, original_indices) so callers can preserve
+    the original file indices in output directory names after filtering.
+    """
+    kept: list[dict] = []
+    kept_indices: list[int] = []
+    excluded = 0
+
+    for i, b in enumerate(boundaries):
+        caller_class = b.get("caller", {}).get("declaringClass", "")
+        if any(caller_class.startswith(p) for p in _LIBRARY_PREFIXES):
+            excluded += 1
+            log.info(f"Pre-filter: excluded JDK-caller boundary {i} ({caller_class})")
+        else:
+            kept.append(b)
+            kept_indices.append(i)
+
+    if excluded:
+        log.info(f"Pre-filter: removed {excluded}/{len(boundaries)} JDK-caller boundaries.")
+
+    return kept, kept_indices
+
+
 # ── JVM-runtime pre-filter ────────────────────────────────────────────────────
 
 def filter_jvm_runtime_boundaries(

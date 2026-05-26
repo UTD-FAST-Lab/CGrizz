@@ -41,9 +41,17 @@ System.out.println("[UNSOUNDNESS] " + "<pattern_class>" + " | caller=" + <caller
 
 Where:
 - `<pattern_class>` — string literal from the report's `pattern_class` field (e.g. `"reflection_indirect_instantiation"`)
-- `<caller_expr>` — the runtime expression for the method being analyzed, using variables available in scope (e.g. `caller.getMethod()`, `caller.toString()`)
+- `<caller_expr>` — the runtime expression for the method being analyzed, using variables available in scope (e.g. `caller.getMethod()`, `caller.toString()`). 
 - `<site_expr>` — the call site reference, using variables in scope (e.g. `site`, `site.toString()`, `callSite`)
 
+**Caller Format**
+caller expr should present the method description of the caller in this strict format: `package.classname.methodname(parameters)`
+example:
+`java.nio.charset.CharsetEncoder.replaceWith([B)`
+
+You should understand the format of the variable that contains the caller information at the injection site and reformat it to this exact format. 
+
+**Notes**
 If the exact caller/site variables are not in scope at the injection point, walk up the call stack to the nearest enclosing method that has them and inject there instead. If that is not possible, just add the log with the pattern_class. 
 
 You may add surrounding logic (e.g. an `if` or `else` branch, a null-check, a guard condition) to ensure the log fires only when the root cause is actually occurring — not on every invocation.
