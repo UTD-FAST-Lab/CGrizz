@@ -236,24 +236,22 @@ def _extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
                 caller_raw = sym.get("caller", "")
                 callee_raw = sym.get("callee", "")
 
-                # Caller format: "Lcom/example/App;.main:([Ljava/lang/String;)V"
-                # Split at ";." to separate class from method+descriptor
-                if ";." in caller_raw:
-                    cls_part, rest = caller_raw.split(";.", 1)
-                    caller_class  = cls_part.lstrip("L")
-                    caller_method = rest.split(":")[0]
+                # Caller format: "com.example.App.main([Ljava/lang/String;)V"
+                #class : com.example.App
+                #method: main
+                caller_class = caller_raw.split("(")[0].rsplit(".", 1)[0] if "." in caller_raw else None
+                caller_method = caller_raw.split("(")[0].rsplit(".", 1)[1] if "." in caller_raw else None
+                
+
+                # Callee format: "java.io.PrintStream.println(Ljava/lang/String;)V"
+                callee_class = callee_raw.split("(")[0].rsplit(".", 1)[0] if "." in callee_raw else None
+                callee_method = callee_raw.split("(")[0].rsplit(".", 1)[1] if "." in callee_raw else None
+
+                if caller_class and caller_method and callee_class and callee_method:
+                    symptoms.add((caller_class, caller_method, callee_class, callee_method))
                 else:
+                    log.warning(f"Malformed symptom entry in {oracle_path}: {sym}")
                     continue
-
-                # Callee format: "com/example/Sub.method:(Ljava/lang/String;)V"
-                # Split at first "." to separate class from method+descriptor
-                dot_idx = callee_raw.find(".")
-                if dot_idx == -1:
-                    continue
-                callee_class  = callee_raw[:dot_idx]
-                callee_method = callee_raw[dot_idx + 1:].split(":")[0]
-
-                symptoms.add((caller_class, caller_method, callee_class, callee_method))
 
         return symptoms
     except Exception as e:
@@ -279,6 +277,10 @@ def _prune_queue(
         caller_method = b.get("caller", {}).get("name", "")
         callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";")
         callee_method = b.get("missedCallee", {}).get("name", "")
+
+        # replase / with . in classnames to match symptom format
+        caller_class = caller_class.replace("/", ".")
+        callee_class = callee_class.replace("/", ".")
 
         if (caller_class, caller_method, callee_class, callee_method) in symptoms:
             pruned.append(state)

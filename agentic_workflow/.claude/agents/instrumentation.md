@@ -143,4 +143,4 @@ Check that `oracle.json` was written and is valid JSON. If `dumpJson` was not ca
 }
 ```
 
-Keys are `"RC:<method_descriptor>@<pc>"`. Method descriptors should follow the strict format: `package.classname.methodname(parameters)`
+Keys are `"RC:<method_descriptor>@<pc>"`. Method descriptors should follow the strict format: `package.classname.methodname(parameters)`. This format is later going to be parsed with a script, so make sure to keep the format exactly as this. 
