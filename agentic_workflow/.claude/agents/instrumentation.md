@@ -44,6 +44,8 @@ One RC can have multiple Syms; a Sym belongs to exactly one RC.
 
 **Important — symptom edge validation:** When recording a symptom, resolve the actual declaring class of the dispatched method by walking the receiver's runtime class hierarchy upward until you find the class that actually declares the method. Do NOT use `receiver.getClass()` directly as the callee class — inherited methods must be attributed to their declaring superclass (or interface). This mirrors how call graphs represent edges.
 
+**Important — root cause location:** the location of the root cause is an instruction's location. This is how static analysis tools parse and reason about different language features. So the root cause should be an instruction inside a method body that encloses the instruction. The symptom might happen somewhere else during the execution but the root cuase should be the location of the instruction in the enclosing method. You should be able to determine the way you should find root causes from the `toolLimitation` section in the unsoundness report. 
+
 ## Step 3: Customize the template
 
 Copy the template directory to `<test_case_path>/instrumentation/`. Rename the package from `edu.utd.fastlab.dcnr` → `edu.utd.fastlab.<short_pattern_id>` (e.g. `vdisp`, `refl`, `proxy`) and rename all four classes accordingly (Agent, ClassVisitor, MethodVisitor, Tracker).
@@ -143,4 +145,17 @@ Check that `oracle.json` was written and is valid JSON. If `dumpJson` was not ca
 }
 ```
 
-Keys are `"RC:<method_descriptor>@<pc>"`. Method descriptors should follow the strict format: `package.classname.methodname(parameters)`. This format is later going to be parsed with a script, so make sure to keep the format exactly as this. 
+Keys are `"RC:<method_descriptor>@<pc>"`. Method descriptors should follow the strict format: `package.classname.methodname(parameters)`. This format is later going to be parsed with a script, so make sure to keep the format exactly as this.
+I use the following the commands to get the classname and method name of `rc.method`, `symptom.caller` and `symptom.callee`: 
+
+```python
+ex_classname = expected_method.split("(")[0].rsplit(".", 1)[0] if "." in expected_method else None
+ex_methodname = expected_method.split("(")[0].rsplit(".", 1)[1] if "." in expected_method else None
+```
+
+For example, the expected output for the given oracle.json file for the root cause method is:
+
+```
+ex_classname = com.example.Test
+ex_methodname = test
+```

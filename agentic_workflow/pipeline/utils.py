@@ -8,9 +8,11 @@ No pipeline logic lives here — only pure utilities.
 import asyncio
 import json
 import logging
+import subprocess
 import sys
 from datetime import datetime
-from typing import Optional
+from pathlib import Path
+from typing import Optional, TYPE_CHECKING
 
 from claude_agent_sdk import (
     ClaudeAgentOptions,
@@ -21,7 +23,13 @@ from claude_agent_sdk import (
 )
 
 from pipeline.state import PipelineState
-from config import OUT_PIPELINE_RESULT, MAX_AGENT_RETRIES, AGENT_RETRY_BASE_DELAY, MAX_CONCURRENT_AGENTS
+from config import (
+    OUT_PIPELINE_RESULT,
+    OUT_PRUNING_REPORT,
+    MAX_AGENT_RETRIES,
+    AGENT_RETRY_BASE_DELAY,
+    MAX_CONCURRENT_AGENTS,
+)
 
 # ── Agent concurrency limiter ─────────────────────────────────────────────────
 
@@ -202,3 +210,156 @@ def print_failure_summary(state: PipelineState) -> None:
         log.warning(f"{state.label()} Reproduce [{i+1}]: {fb}")
     for i, fb in enumerate(state.trace_feedback):
         log.warning(f"{state.label()} Trace     [{i+1}]: {fb}")
+
+
+# ── Oracle helpers ────────────────────────────────────────────────────────────
+
+def find_agent_jar(state: PipelineState) -> Optional[Path]:
+    """Find the built instrumentation agent JAR inside the reproducing test case."""
+    if not state.reproducing_test_case_path:
+        return None
+    target_dir = Path(state.reproducing_test_case_path) / "instrumentation" / "target"
+    jars = [j for j in target_dir.glob("*.jar") if not j.name.startswith("original-")]
+    return jars[0] if jars else None
+
+
+def build_classpath(program_jar_path: str) -> Optional[str]:
+    """
+    Build a colon-separated classpath string from program_jar_path.
+    If it's a file return it directly; if a directory glob all *.jar files inside.
+    Returns None if nothing is found.
+    """
+    p = Path(program_jar_path)
+    if not p.exists():
+        return None
+    if p.is_file():
+        return str(p)
+    jars = list(p.glob("*.jar"))
+    return ":".join(str(j) for j in jars) if jars else None
+
+
+async def run_oracle_on_program(
+    agent_jar: Path,
+    program_jar_path: str,
+    main_class: str,
+    output_path: Path,
+) -> bool:
+    """
+    Run the instrumentation agent JAR against a real program to produce an oracle.
+    Returns True if output_path was created, False on any failure (fail-open).
+    """
+    try:
+        classpath = build_classpath(program_jar_path)
+        if not classpath:
+            log.warning(f"No JARs found at {program_jar_path} — skipping oracle run")
+            return False
+
+        cmd = [
+            "java",
+            f"-javaagent:{agent_jar}={output_path}",
+            "-cp", classpath,
+            main_class,
+        ]
+        log.info(f"Running oracle: {' '.join(str(c) for c in cmd)}")
+        await asyncio.to_thread(
+            subprocess.run, cmd, capture_output=True, timeout=1800, check=False
+        )
+        return output_path.exists()
+    except Exception as e:
+        log.warning(f"Oracle run failed for {program_jar_path}: {e}")
+        return False
+
+
+def extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
+    """
+    Parse an oracle JSON file and return a set of
+    (caller_class, caller_method, callee_class, callee_method) 4-tuples
+    in dotted class-name format.
+    Returns empty set on any parse error.
+    """
+    try:
+        data = json.loads(oracle_path.read_text())
+        symptoms: set[tuple[str, str, str, str]] = set()
+
+        for rc_entry in data.values():
+            for sym in rc_entry.get("symptoms", []):
+                caller_raw = sym.get("caller", "")
+                callee_raw = sym.get("callee", "")
+
+                caller_class  = caller_raw.split("(")[0].rsplit(".", 1)[0] if "." in caller_raw else None
+                caller_method = caller_raw.split("(")[0].rsplit(".", 1)[1] if "." in caller_raw else None
+                callee_class  = callee_raw.split("(")[0].rsplit(".", 1)[0] if "." in callee_raw else None
+                callee_method = callee_raw.split("(")[0].rsplit(".", 1)[1] if "." in callee_raw else None
+
+                if caller_class and caller_method and callee_class and callee_method:
+                    symptoms.add((caller_class, caller_method, callee_class, callee_method))
+                else:
+                    log.warning(f"Malformed symptom entry in {oracle_path}: {sym}")
+
+        return symptoms
+    except Exception as e:
+        log.warning(f"Failed to extract symptoms from {oracle_path}: {e}")
+        return set()
+
+
+def prune_queue(
+    states: list[PipelineState],
+    symptoms: set[tuple[str, str, str, str]],
+) -> tuple[list[PipelineState], list[PipelineState]]:
+    """
+    Partition states into (kept, pruned) based on symptom matching.
+    A state is pruned if its boundary's caller→callee edge appears in symptoms.
+    """
+    kept:   list[PipelineState] = []
+    pruned: list[PipelineState] = []
+
+    for state in states:
+        b = state.boundary
+        caller_class  = b.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+        caller_method = b.get("caller", {}).get("name", "")
+        callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+        callee_method = b.get("missedCallee", {}).get("name", "")
+
+        if (caller_class, caller_method, callee_class, callee_method) in symptoms:
+            pruned.append(state)
+        else:
+            kept.append(state)
+
+    return kept, pruned
+
+
+def write_pruning_report(
+    state:       PipelineState,
+    pruned:      list[PipelineState],
+    oracle_runs: list[dict],
+) -> None:
+    """Write pruning_report.json to the successful boundary's output directory."""
+    try:
+        report = {
+            "timestamp": datetime.now().isoformat(),
+            "triggered_by": {
+                "boundary_id":  state.boundary_id,
+                "program_name": state.program_name,
+                "tool_name":    state.tool_name,
+                "algorithm":    state.algorithm,
+            },
+            "oracle_runs":  oracle_runs,
+            "pruned_count": len(pruned),
+            "pruned_boundaries": [
+                {
+                    "boundary_id":    s.boundary_id,
+                    "boundary_index": s.boundary_index,
+                    "program_name":   s.program_name,
+                    "caller_class":   s.boundary.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+                    "caller_method":  s.boundary.get("caller", {}).get("name", ""),
+                    "callee_class":   s.boundary.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+                    "callee_method":  s.boundary.get("missedCallee", {}).get("name", ""),
+                }
+                for s in pruned
+            ],
+        }
+        out_path = state.output_dir / OUT_PRUNING_REPORT
+        out_path.write_text(json.dumps(report, indent=2))
+        log.info(f"{state.label()} Pruning report → {out_path}")
+    except Exception as e:
+        log.warning(f"{state.label()} Failed to write pruning report: {e}")

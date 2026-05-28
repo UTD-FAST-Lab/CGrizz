@@ -31,15 +31,19 @@ from pipeline.utils import (
     write_final_report,
     print_success_summary,
     print_failure_summary,
+    find_agent_jar,
+    run_oracle_on_program,
+    extract_symptoms,
 )
 from config import (
     MAX_LOOPS,
     OUT_REPORT,
     OUT_ORACLE,
+    OUT_TARGET_ORACLE,
     OUT_TEST_CASE_DIR,
     OUT_ANNOTATED_TOOL_DIR,
     OUT_EXECUTION_TRACE,
-    OUT_STATICCG_DIR
+    OUT_STATICCG_DIR,
 )
 
 log = logging.getLogger("pipeline")
@@ -244,6 +248,67 @@ Return JSON only:
     return False
 
 
+# ── Stage 5b: Oracle check on real program ────────────────────────────────────
+
+async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str]:
+    """
+    Run the built instrumentation agent JAR against the actual target program and
+    verify that the boundary's caller→callee edge appears in the oracle's symptoms.
+
+    This confirms the root cause pattern captured by the instrumentation actually
+    manifests in the real program, not just in the test case.
+
+    Fail-open: if program_jar_path is absent or the oracle run fails for infra
+    reasons, returns (True, "") so the pipeline continues.
+
+    Returns:
+        (found: bool, feedback: str)  — feedback is non-empty only on failure
+    """
+    if not state.program_jar_path:
+        log.info(f"{state.label()} No program_jar_path — skipping oracle check on real program")
+        return True, ""
+
+    agent_jar = find_agent_jar(state)
+    if not agent_jar:
+        log.warning(f"{state.label()} Agent JAR not found — skipping oracle check on real program")
+        return True, ""
+
+    oracle_out = state.output_dir / OUT_TARGET_ORACLE
+    ok = await run_oracle_on_program(agent_jar, state.program_jar_path, state.main_class, oracle_out)
+
+    if not ok:
+        log.warning(f"{state.label()} Oracle run against real program failed — skipping boundary check (fail-open)")
+        return True, ""
+
+    state.target_oracle_path = str(oracle_out)
+    symptoms = extract_symptoms(oracle_out)
+
+    if not symptoms:
+        log.info(f"{state.label()} Oracle on real program produced no symptoms — skipping boundary check")
+        return True, ""
+
+    b = state.boundary
+    caller_class  = b.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+    caller_method = b.get("caller", {}).get("name", "")
+    callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+    callee_method = b.get("missedCallee", {}).get("name", "")
+
+    if (caller_class, caller_method, callee_class, callee_method) in symptoms:
+        log.info(f"{state.label()} Oracle check on real program passed — boundary edge found in symptoms.")
+        return True, ""
+
+    msg = (
+        f"The instrumentation was run against the real target program but the boundary edge "
+        f"({caller_class}.{caller_method} → {callee_class}.{callee_method}) "
+        f"did not appear in the oracle symptoms. "
+        f"The root cause pattern does not correctly capture the actual unsoundness. "
+        f"Please refine the root cause hypothesis so that "
+        f"this specific call site becomes visible as a symptom."
+    )
+    log.error(f"{state.label()} {msg}")
+    return False, msg
+
+
 # ── Stage 6: Reproduction check ───────────────────────────────────────────────
 
 async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
@@ -321,10 +386,15 @@ async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
     annotated_out = state.out(OUT_ANNOTATED_TOOL_DIR)
 
     annotated_out_path = Path(annotated_out)
+
+    if annotated_out_path.exists():
+        shutil.rmtree(annotated_out_path)
+        log.info(f"{state.label()} Deleted stale instrumentation dir: {annotated_out_path}")
+
     if not annotated_out_path.exists():
         log.info(f"{state.label()} Copying SA tool to {annotated_out} ...")
         await asyncio.to_thread(shutil.copytree, state.sa_tool_path, annotated_out)
-        log.info(f"{state.label()} SA tool copy done.")
+        log.info(f"{state.label()} SA tool copy done.")        
 
     annot_response = await run_agent(
         prompt=f"""\
@@ -430,7 +500,10 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
 
     # check that all reachable root cause methods apear in the unsoundness lines
     for method in rc_methods:
-        if _is_reachable(method, state.staticcg_path) and method not in trace_log:
+        if not _is_reachable(method, state.staticcg_path):
+            log.warning(f"The method is not reachable for root cause: {method}")
+            continue
+        if not _rc_in_trace(method, unsoundness_lines):
             log.error(f"{state.label()} Trace check failed — expected root cause method '{method}' not found in execution trace.")
             return False, f"Trace check failed — expected root cause method '{method}' not found in execution trace."
 
@@ -478,6 +551,16 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
         if not await stage_generate_oracle(state):
             write_final_report(state, success=False, reason="Oracle generation failed.")
             return
+
+        # Stage 5b: Check oracle on real program
+        oracle_prog_ok, oracle_prog_feedback = await stage_check_oracle_on_program(state)
+        if not oracle_prog_ok:
+            state.reproduce_feedback.append(oracle_prog_feedback)
+            log.info(f"{state.label()} Oracle check on real program failed. Feedback recorded.")
+            if state.loop_count >= MAX_LOOPS:
+                break
+            state.loop_count += 1
+            continue  # → back to stage 3 with feedback
 
         # Stage 6: Check reproduction
         reproduced, repr_feedback = await stage_check_reproduction(state)
@@ -586,6 +669,17 @@ def _build_retry_context(state: PipelineState) -> str:
             "(Read this file to review the expected root causes and symptoms that the agent identified for the test case using the ASM instrumentation)",
         ]
 
+    if state.target_oracle_path and Path(state.target_oracle_path).exists():
+        lines += [
+            "",
+            "### Oracle produced by running instrumentation against the real target program",
+            "",
+            f"Path: {state.target_oracle_path}",
+            "(This oracle was produced by running the instrumentation JAR against the actual target program. "
+            "The boundary edge was NOT found in its symptoms — use it to understand what the instrumentation "
+            "does observe at runtime and refine the root cause pattern accordingly.)",
+        ]
+
 
     if state.annotated_sa_tool_path and state.annotated_file:
         line_hint = f" (line {state.injected_at_line})" if state.injected_at_line else ""
@@ -671,6 +765,19 @@ def _edge_in_boundary(
         f"Searched {Path(boundary_path).name}."
     )
 
+def _rc_in_trace(expected_method: str, trace_log_lines: list[str]) -> bool:
+    
+    ex_classname = expected_method.split("(")[0].rsplit(".", 1)[0] if "." in expected_method else None
+    ex_methodname = expected_method.split("(")[0].rsplit(".", 1)[1] if "." in expected_method else None
+
+    if expected_method and expected_method: 
+        for line in trace_log_lines:
+            if ex_classname in line and ex_methodname in line:
+                return True
+        return False
+    else:
+        log.warning("expected root cause method is not in expected format")
+        return False
 
 def _is_reachable(expected_caller: str, staticcg_path: str) -> bool:
     """Check whether a caller method appears in the static call graph."""
@@ -688,4 +795,5 @@ def _is_reachable(expected_caller: str, staticcg_path: str) -> bool:
         if caller_class in expected_caller and caller_method in expected_caller:
             return True
 
+    log.warning(f"{expected_caller} is not reachable in the static call graph or the format is not correct")
     return False

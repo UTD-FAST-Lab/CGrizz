@@ -3,3 +3,7 @@ programs*
 input_data*
 tools*
 ignored_stuff
+
+
+__pycache__/
+*.pyc

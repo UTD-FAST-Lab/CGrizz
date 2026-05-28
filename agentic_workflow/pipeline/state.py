@@ -33,6 +33,7 @@ class PipelineState:
     reproducing_test_case_path:     Optional[str] = None
     non_reproducing_test_case_path: Optional[str] = None
     oracle_path:                    Optional[str] = None   # oracle.json inside reproducing test case dir
+    target_oracle_path:             Optional[str] = None   # oracle.json produced by running instrumentation against real program
     program_jar_path:               Optional[str] = None   # JAR file or dir for real program classpath (set by orchestrator)
     staticcg_path:                  Optional[str] = None   # static CG from analysis interface
     dyncg_path:                     Optional[str] = None   # dynamic CG from analysis interface
