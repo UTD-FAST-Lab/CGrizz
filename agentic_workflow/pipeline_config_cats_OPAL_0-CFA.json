@@ -1,0 +1,24 @@
+{
+    "analyses": [
+        {
+            "program_name": "Unsafe3",
+            "target_program": "../programs/cats/Unsafe3",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/cats/Unsafe3/OPAL/0-CFA/boundaries.json",
+            "main_class": "cats.unsafe3.unsafe.Demo",
+            "program_jar_path": "../programs/cats/Unsafe3/Unsafe3.jar"
+        },
+        {
+            "program_name": "Unsafe4",
+            "target_program": "../programs/cats/Unsafe4",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/cats/Unsafe4/OPAL/0-CFA/boundaries.json",
+            "main_class": "cats.unsafe4.unsafe.Demo",
+            "program_jar_path": "../programs/cats/Unsafe4/Unsafe4.jar"
+        }
+    ]
+}

@@ -55,4 +55,5 @@ JVM_RUNTIME_EXCLUDED_CALLEES: list[tuple[str | None, str]] = [
     ("Ljava/lang/ClassLoader;",      "checkPackageAccess"),
     ("Ljava/lang/SecurityManager;",      "checkPackageAccess"),
     ("Ljava/lang/SecurityManager;",      "checkMemberAccess"),
+    ("Ljava/lang/invoke/MethodHandleNatives;", None) 
 ]

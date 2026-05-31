@@ -160,6 +160,10 @@ Use the test-case-generator agent to generate test cases for this boundary.
 Reproducing test case     : {state.reproducing_test_case_path}/
 Non-reproducing test case: {state.non_reproducing_test_case_path}/
 
+IMPORTANT: The agent must write ALL files exclusively inside the two output directories
+listed above. It must NOT create, modify, or write any file outside those directories
+(not in the current working directory, not in any parent directory, nowhere else).
+
 Return the JSON result from the agent directly.
 ## Return
 
@@ -640,7 +644,14 @@ def _build_retry_context(state: PipelineState) -> str:
     if state.loop_count == 0:
         return ""
 
-    lines = ["\n## Context from previous attempt\n"]
+    lines = [
+        "\n## Context from previous attempt\n",
+        "IMPORTANT — FORMAT PRESERVATION: This is a retry. You MUST read the previous",
+        "report file listed below, apply the feedback, and write the revised analysis",
+        "back to the SAME output path using the EXACT SAME JSON schema as the original.",
+        "Do not add, remove, or rename any top-level keys. Do not change the format.",
+        "Only update field VALUES based on the feedback above.\n",
+    ]
 
     if state.unsoundness_report and Path(state.unsoundness_report).exists():
         lines += [

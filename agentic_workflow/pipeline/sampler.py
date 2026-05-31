@@ -17,6 +17,7 @@ run_global_dedup_sampler() is deprecated; use the incremental filter instead.
 """
 
 import json
+import re
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -111,10 +112,12 @@ def filter_jvm_runtime_boundaries(
         m_class = missed.get("declaringClass", "")
 
         should_exclude = any(
-            m_name == method and (cls is None or m_class == cls)
+            (cls is None or m_class == cls) and (method is None or m_name == method)
             for cls, method in JVM_RUNTIME_EXCLUDED_CALLEES
         )
-
+        if not should_exclude:
+            should_exclude = bool(re.search(r'/\d+;?$', m_class))
+            
         if should_exclude:
             excluded += 1
             log.info(f"Pre-filter: excluded boundary {i} ({m_class}.{m_name})")

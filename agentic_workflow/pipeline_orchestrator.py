@@ -271,6 +271,12 @@ async def _run_sequential(
 
         if _is_successful(state):
             await _run_dedup(state, program_queues)
+        elif state.has_trace_feedback() and find_agent_jar(state) is not None:
+            log.info(
+                f"{state.label()} Pipeline failed at trace check but instrumentation "
+                f"JAR is available — running oracle dedup"
+            )
+            await _run_dedup(state, program_queues)
 
 
 # ── Mode 1: single ────────────────────────────────────────────────────────────
@@ -297,6 +303,7 @@ def run_single(args: argparse.Namespace) -> None:
         boundary=boundary,
         boundary_index=args.boundary_index,
         base_output_dir=Path(args.output_dir),
+        program_jar_path=args.program_jar_path
     )
 
     log.info(f"Mode: single | {state.label()}")
@@ -442,6 +449,7 @@ def parse_args() -> argparse.Namespace:
     s.add_argument("--boundaries",     required=True, help="Path to boundaries.json")
     s.add_argument("--boundary-index", type=int, default=0, help="Index into boundaries list (default: 0)")
     s.add_argument("--output-dir",     default="./results")
+    s.add_argument("--program_jar_path", required=True, help="path to the jar file")
 
     # ── parallel-edges ────────────────────────────────────────────────────────
     pe = subparsers.add_parser(

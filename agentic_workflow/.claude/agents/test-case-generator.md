@@ -7,6 +7,10 @@ description: Generates minimal Maven test cases — one reproducing the unsoundn
 
 You are given a static analysis unsoundness boundary and a structured report explaining why a tool missed an edge. Generate two minimal Maven test cases.
 
+## CRITICAL: File system constraint
+
+You MUST only create, modify, or write files inside the two output directories given to you in the task prompt (`<reproducing_dir>` and `<non_reproducing_dir>`). Never write or modify any file outside those directories, including the current working directory or any path above them.
+
 ## Input
 
 You will receive:

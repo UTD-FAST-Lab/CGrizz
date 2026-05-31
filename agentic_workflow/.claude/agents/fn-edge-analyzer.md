@@ -45,14 +45,19 @@ Read the target program source code or relevant jar files:
 5. To investigate JDK methods, you can use the current java version of the system `openjdk version "1.8.0_342"` at `/opt/jdk8u342-b07`.
 
 **Step 3: Find the tool's failure point (Y — Tool Limitation)**
+
+> **CRITICAL PRINCIPLE — caller context only:**
+> The failure point is always in SA tool code that processes the **caller's** analysis — the code that runs while the SA tool is analyzing the method that *makes* the missed call. It is **never** in code that analyzes the callee itself.
+>
+> For a missed edge `caller → callee`, find the code path that executes when the SA tool processes the call instruction inside `caller`'s body.
+
 Read the SA tool source code:
-1. search based on the pattern identified in Step 2 to locate relevant files/methods
+1. Search based on the pattern identified in Step 2 to locate relevant files/methods.
 2. Trace the tool's algorithm for the identified pattern:
    - How does it handle reflection? (e.g., only if strings are constants)
    - How does it resolve virtual calls? (e.g., CHA vs class hierarchy analysis precision)
-   - How does it model external libraries? (e.g., stubs, ignored, incomplete models)
-   - etc
-3. Find the precise decision point where the tool gives up (returns null, returns empty, skips the callee)
+   - How does it model external/native libraries? (e.g., stubs, ignored, incomplete models)
+3. Find the precise decision point where the tool gives up — the guard or branch that fires **while analyzing the caller** and results in the callee being omitted.
 4. Explain: What assumption or limitation caused the miss?
 
 **Step 4: Classify the root cause**
@@ -65,9 +70,8 @@ Choose one:
 **Step 5: Document evidence**
 - `evidence`: list of target program files/lines that establish the calling mechanism
 - `toolLimitation.reason`: concise explanation of why the tool misses it
-- `toolLimitation.toolCodeEvidence.relevantFiles`: specific tool source files/line numbers
-- `toolLimitation.toolCodeEvidence.codeSnippet`: short code excerpt (1-5 lines) showing the limitation
-- `potentialTestCase`: describe a minimal test case that reproduces the identified unsoundness issue based on the `toolLimitation.reason` and `pattern_class`. This description may NOT replicate the boundary edge itself but the root cause in general.
+- `toolLimitation.toolCodeEvidence.relevantFiles`: specific tool source files and line numbers that run while the SA tool is **analyzing the caller method** — the code that processes the call instruction and decides to omit the callee. This must be code in the caller's analysis context, not in any analysis of the callee.
+- `toolLimitation.toolCodeEvidence.codeSnippet`: short code excerpt (1-5 lines) showing the limiting decision
 
 **Step 6: Test case minimization**
 - `description`: Describe the simplest test case with the identified root cause limitation that can reproduce the missing edge issue in static analysis tool. This description should not replicate the actual caller and missingCallee but replicate a simple example of the root cause and a simple missed edge in a general manner. 
