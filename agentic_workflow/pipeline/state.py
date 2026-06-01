@@ -40,13 +40,15 @@ class PipelineState:
     boundary_path:                  Optional[str] = None   # missed edges dir from interface
     annotated_sa_tool_path:         Optional[str] = None
     modified_analysis_path:         Optional[str] = None   # annotated SA tool output (SCG')
+    execution_trace_path:           Optional[str] = None   # execution trace log from annotated SA tool
 
     # ── Feedback accumulated across retries ────────────────────────────────────
     reproduce_feedback: list[str] = field(default_factory=list)
     trace_feedback:     list[str] = field(default_factory=list)
 
-    # ── Loop counter ───────────────────────────────────────────────────────────
-    loop_count: int = 0
+    # ── Loop counters ──────────────────────────────────────────────────────────
+    loop_count:    int = 0   # outer loop: increments only on reproduce/oracle failures
+    annot_attempt: int = 0   # inner loop: increments on annotation/trace failures
 
     # ── Annotation info (populated after stage 6a) ────────────────────────────
     annotated_file:   Optional[str] = None   # relative path within annotated_sa_tool_path

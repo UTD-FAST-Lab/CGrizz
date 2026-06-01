@@ -269,12 +269,10 @@ async def _run_sequential(
             write_final_report(state, success=False, reason=f"Unexpected pipeline error: {e}")
             continue
 
-        if _is_successful(state):
-            await _run_dedup(state, program_queues)
-        elif state.has_trace_feedback() and find_agent_jar(state) is not None:
+        if _is_successful(state) or find_agent_jar(state) is not None:
             log.info(
-                f"{state.label()} Pipeline failed at trace check but instrumentation "
-                f"JAR is available — running oracle dedup"
+                f"{state.label()} {'Success' if _is_successful(state) else 'Oracle JAR available'}"
+                f" — running oracle dedup"
             )
             await _run_dedup(state, program_queues)
 

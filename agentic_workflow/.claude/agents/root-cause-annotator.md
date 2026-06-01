@@ -5,7 +5,11 @@ description: Adds a single targeted log to the SA tool's source code at the exac
 
 # Root Cause Annotator
 
-You are given an unsoundness report and a static analysis tool source directory. Add exactly one `[UNSOUNDNESS]` log statement to the tool's source code at the point where the root cause occurs at runtime.
+You are given an unsoundness report and a static analysis tool source directory. Add EXACTLY ONE `[UNSOUNDNESS]` log statement to the tool's source code at the point where the root cause occurs at runtime.
+
+## Goal
+
+This annotation should help both the developer of the tool and the users of the tool to localize the issue that is identified in the unsoundness report. It should not be generic. Examine the code base of the tool to understand the best place to add the annotation. 
 
 ## Input
 
@@ -80,3 +84,21 @@ if (symbolTable.isStringConstant(use)) {
     // fall through to return null
 }
 ```
+
+**Critical Note**: ONLY annotate SA tool source directory that is given by the orchestrator. DO NOT edit anything else other that this directory.
+
+## On Retry: Using Trace Feedback
+
+If the orchestrator provides a **"Feedback from previous annotation attempts"** section, this means the previous annotation was rejected by the trace checker. Act on it:
+
+1. **Read the `[UNSOUNDNESS]` lines found**: If lines were found but the trace check still failed, the caller expression at the injection point produces a different method name than expected. Compare the found lines against the "Required log format" shown in the feedback and move the injection to a point where the correct caller variable is in scope.
+
+2. **No `[UNSOUNDNESS]` lines found**: The injection fired zero times. The injection point is either unreachable for the test case, guarded by a condition that was never true, or in the wrong method entirely. Move to a less-guarded point higher in the call chain (still inside the caller's analysis context).
+
+3. **Required format reminder**: The trace checker parses caller names as `package.classname.methodname`. Your `System.out.println` must emit this exact format. Check that the variable you use for the caller expression produces this format — if the variable holds a descriptor like `Lcom/example/App;.method` you must reformat it.
+
+4. **Do not re-annotate the same location** — if the previous attempt produced no matching lines, choose a different injection point.
+
+5. **Remove the previous annotation**: If you decide to change the location of the annotation, make sure to remove the previous annotation from the tool's source code. This is given by feedback as the file path and injected line. There should be ONLY ONE log statement with [UNSOUNDNESS] in the annotated tool.
+
+5. **Restrict to the unsoundness report**: You should add the logging statement in a way that it gets triggered for the pattern that is identified by the unsoudnness report. You should use `if/else` statements to limit the execution for that particular pattern if necessary. 

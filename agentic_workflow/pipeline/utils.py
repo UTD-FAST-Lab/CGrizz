@@ -106,6 +106,7 @@ async def run_agent(prompt: str, options: ClaudeAgentOptions, stage_name: str) -
                 or "TimeoutError" in type(e).__name__
                 or "Command failed" in err_str
                 or "exit code" in err_str
+                or "error result" in err_str   # SDK wraps CLI non-zero exit as "error result: <subtype>"
             )
             if is_retriable and attempt < MAX_AGENT_RETRIES - 1:
                 delay = AGENT_RETRY_BASE_DELAY * (2 ** attempt)

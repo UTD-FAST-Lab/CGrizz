@@ -7,13 +7,22 @@ shift 2
 if [ "$SA_FRAMEWORK" = "WALA" ]; then
   echo "Building WALA..."
   cd /WALA || exit 1
-  ./gradlew :com.ibm.wala.core:assemble
-  ./gradlew :com.ibm.wala.util:assemble
-  ./gradlew :com.ibm.wala.shrike:assemble
+  ./gradlew :com.ibm.wala.core:publishLocalPublicationToMavenLocal -x javadoc -x testFixturesJavadoc
+  ./gradlew :com.ibm.wala.util:publishLocalPublicationToMavenLocal -x javadoc -x testFixturesJavadoc
+  ./gradlew :com.ibm.wala.shrike:publishLocalPublicationToMavenLocal -x javadoc -x testFixturesJavadoc
 
-  ./gradlew :com.ibm.wala.core:publishToMavenLocal || true
-  ./gradlew :com.ibm.wala.util:publishToMavenLocal || true
-  ./gradlew :com.ibm.wala.shrike:publishToMavenLocal || true
+  echo "=== What version did WALA publish? ==="
+  ls ~/.m2/repository/com/ibm/wala/com.ibm.wala.core/ 2>/dev/null || echo "Nothing in Maven local"
+
+  echo "=== Is 1.5.7 specifically present? ==="
+  ls ~/.m2/repository/com/ibm/wala/com.ibm.wala.core/1.5.7/ 2>/dev/null || echo "1.5.7 NOT FOUND"
+
+  echo "=== Coursier cache for WALA ==="
+  find ~/.cache/coursier -path "*wala*" -name "*.jar" 2>/dev/null | head -5 || echo "No Coursier cache"
+
+  echo "=== Clearing caches ==="
+  rm -rf ~/.ivy2/cache/com.ibm.wala
+  rm -rf ~/.cache/coursier/v1/https/repo1.maven.org/maven2/com/ibm/wala
 fi
 
 if [ "$SA_FRAMEWORK" = "OPAL" ]; then
@@ -39,6 +48,9 @@ if [ "$SA_FRAMEWORK" = "SOOT" ]; then
   -Dversion=4.4.1 \
   -Dpackaging=jar \
   -DgeneratePom=true
+
+  rm -rf ~/.ivy2/cache/org.soot-oss
+  rm -rf ~/.cache/coursier/v1/https/repo1.maven.org/maven2/org/soot-oss
 fi
 
 echo "Building JCG..."

@@ -37,6 +37,7 @@ from pipeline.utils import (
 )
 from config import (
     MAX_LOOPS,
+    ANNOTATION_MAX_RETRIES,
     OUT_REPORT,
     OUT_ORACLE,
     OUT_TARGET_ORACLE,
@@ -282,14 +283,14 @@ async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str
 
     if not ok:
         log.warning(f"{state.label()} Oracle run against real program failed — skipping boundary check (fail-open)")
-        return True, ""
+        return False, "Oracle run against real program failed"
 
     state.target_oracle_path = str(oracle_out)
     symptoms = extract_symptoms(oracle_out)
 
     if not symptoms:
         log.info(f"{state.label()} Oracle on real program produced no symptoms — skipping boundary check")
-        return True, ""
+        return False, "Oracle on real program produced no symptoms"
 
     b = state.boundary
     caller_class  = b.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
@@ -391,14 +392,16 @@ async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
 
     annotated_out_path = Path(annotated_out)
 
-    if annotated_out_path.exists():
-        shutil.rmtree(annotated_out_path)
-        log.info(f"{state.label()} Deleted stale instrumentation dir: {annotated_out_path}")
+    # if annotated_out_path.exists():
+    #     shutil.rmtree(annotated_out_path)
+    #     log.info(f"{state.label()} Deleted stale instrumentation dir: {annotated_out_path}")
 
     if not annotated_out_path.exists():
         log.info(f"{state.label()} Copying SA tool to {annotated_out} ...")
         await asyncio.to_thread(shutil.copytree, state.sa_tool_path, annotated_out)
         log.info(f"{state.label()} SA tool copy done.")        
+
+    annot_feedback = _build_annotation_feedback(state)
 
     annot_response = await run_agent(
         prompt=f"""\
@@ -412,6 +415,7 @@ Invoke it via the Task tool.
 ## SA tool source
 
 {annotated_out}/
+{annot_feedback}
 
 Return the JSON result from the agent directly.
 
@@ -479,6 +483,7 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     # read the execution trace log
     try:
         trace_log = Path(trace_log_path).read_text()
+        state.execution_trace_path = trace_log_path  # store for annotation feedback on retry
         unsoundness_lines = [line for line in trace_log.splitlines() if expected_pattern in line]
         log.info(f"{state.label()} Found {len(unsoundness_lines)} lines with pattern [UNSOUNDNESS] in execution trace.")
     except Exception as e:
@@ -513,6 +518,127 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
 
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
+
+
+# ── Stage 9: Refine unsoundness report ───────────────────────────────────────
+
+async def stage_refine_report(state: PipelineState) -> bool:
+    """
+    After trace confirmation, update the unsoundness report to replace the initial
+    hypothesis with the confirmed code location found in the execution trace.
+    Non-critical: failures are logged but do not halt the pipeline.
+    """
+
+    if not (state.unsoundness_report and Path(state.unsoundness_report).exists()):
+        log.info(f"{state.label()} No report file — skipping report refinement.")
+        return True
+
+    options = build_agent_options(state)
+    line_hint = f" at line {state.injected_at_line}" if state.injected_at_line else ""
+    annot_hint = (
+        f"\nAnnotated file : {state.annotated_sa_tool_path}/{state.annotated_file}{line_hint}"
+        if state.annotated_file else ""
+    )
+
+    await run_agent(
+        prompt=f"""\
+The annotation and trace check have confirmed the root cause. Update the unsoundness
+report to reflect the confirmed findings.
+
+## Current unsoundness report
+Path: {state.unsoundness_report}
+(Read this file first.)
+
+## Confirmed tool limitation location
+{annot_hint}
+
+## Task
+1. Read the current report JSON.
+2. Update these fields only (preserve ALL other fields verbatim):
+   - `toolCodeEvidence.relevantFiles`: confirm or correct file and line number
+   - `toolLimitation`: mention the confirmed code site
+4. Overwrite the report at the same path: {state.unsoundness_report}
+
+DO NOT change the format or add any field. 
+
+Return JSON only:
+{{
+  "report_path": "{state.unsoundness_report}",
+  "refined": true
+}}""",
+        options=options,
+        stage_name=f"{state.label()} RefineReport",
+    )
+
+    log.info(f"{state.label()} Report refinement complete.")
+    return True
+
+
+# ── Stage 10: Generalize instrumentation oracle ───────────────────────────────
+
+async def stage_generalize_instrumentation(state: PipelineState) -> bool:
+    """
+    After trace confirmation, try to extend the ASM oracle to cover the full family
+    of methods that exhibit the same root cause, making deduplication more effective.
+    Non-critical: failures are logged but do not halt the pipeline.
+    """
+    if not (state.execution_trace_path and Path(state.execution_trace_path).exists()):
+        log.info(f"{state.label()} No execution trace — skipping instrumentation generalization.")
+        return True
+    if not (state.instrumentation and Path(state.instrumentation).exists()):
+        log.info(f"{state.label()} No instrumentation dir — skipping generalization.")
+        return True
+
+    options = build_agent_options(state)
+
+    await run_agent(
+        prompt=f"""\
+The trace has confirmed the root cause pattern. Try to generalize the oracle
+so it captures more methods exhibiting the same root cause in other programs.
+
+## Execution trace
+Path: {state.execution_trace_path}
+(Read to find [UNSOUNDNESS] lines — they show which methods fired the pattern.)
+
+## Oracle JSON
+Path: {state.oracle_path}
+(Read to see which root causes and symptoms are currently captured.)
+
+## Instrumentation source
+Path: {state.instrumentation}/
+(Read the source to understand the current instrumentation.)
+
+## Unsoundness report
+Path: {state.unsoundness_report}
+(Read for the pattern_class and root cause description.)
+
+## Task
+Examine the [UNSOUNDNESS] lines and the oracle. Identify if there are OTHER methods
+in the same class or pattern family that follow the same root cause pattern but are
+not yet captured (e.g. multiple Unsafe.* methods, multiple reflection APIs, etc.).
+
+If you find additional methods to instrument:
+1. Edit the instrumentation source under {state.instrumentation}/ to instrument them.
+2. Rebuild: `mvn -q package -f {state.instrumentation}/pom.xml`
+3. Re-run the oracle against the test case to regenerate oracle.json:
+   `java -javaagent:<rebuilt_jar> -cp <test_classpath> <main_class>`
+4. Overwrite {state.oracle_path} with the extended oracle.
+
+If the oracle already covers everything relevant, or generalization is not applicable,
+do nothing and return generalized=false.
+
+Return JSON only:
+{{
+  "generalized": true | false,
+  "added_methods": ["<class.method>"]
+}}""",
+        options=options,
+        stage_name=f"{state.label()} GeneralizeInstrumentation",
+    )
+
+    log.info(f"{state.label()} Instrumentation generalization complete.")
+    return True
+
 
 # ── Main pipeline ─────────────────────────────────────────────────────────────
 
@@ -578,36 +704,60 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
         log.info(f"{state.label()} Reproduced. Proceeding to annotation...")
 
-        # Stage 7: Root cause annotation + run annotated SA tool
-        annot_ok, annot_feedback = await stage_root_cause_annotation(state)
-        if not annot_ok:
-            write_final_report(state, success=False, reason=f"Annotation step failed: {annot_feedback}")
-            return
-
-        # Stage 8: Check execution trace
-        trace_ok, trace_feedback = await stage_check_trace(state)
-        if trace_ok:
-            write_final_report(
-                state,
-                success=True,
-                reason="Root cause identified and confirmed via execution trace.",
+        # Stages 7–8: inner annotation retry loop
+        # Retries only the annotation + trace steps; stages 3–6 are NOT re-run here.
+        state.annot_attempt = 0
+        while state.annot_attempt <= ANNOTATION_MAX_RETRIES:
+            annot_label = (
+                f"Annotation attempt {state.annot_attempt + 1}/{ANNOTATION_MAX_RETRIES + 1}"
             )
-            print_success_summary(state)
-            return
+            log.info(f"{state.label()} {'·' * 30} {annot_label}")
 
-        state.trace_feedback.append(trace_feedback)
-        log.info(f"{state.label()} Trace logs not found. Feedback recorded.")
+            # Stage 7: Root cause annotation + run annotated SA tool
+            annot_ok, annot_fb = await stage_root_cause_annotation(state)
+            if not annot_ok:
+                state.trace_feedback.append(annot_fb)
+                log.info(f"{state.label()} Annotation failed. Feedback recorded.")
+                if state.annot_attempt >= ANNOTATION_MAX_RETRIES:
+                    break
+                state.annot_attempt += 1
+                continue   # retry annotation only — stages 3–6 untouched
+
+            # Stage 8: Check execution trace
+            trace_ok, trace_fb = await stage_check_trace(state)
+            if trace_ok:
+                # Stage 9: Refine report with confirmed trace evidence
+                await stage_refine_report(state)
+                # Stage 10: Generalize instrumentation oracle
+                # await stage_generalize_instrumentation(state)
+                write_final_report(
+                    state,
+                    success=True,
+                    reason="Root cause identified and confirmed via execution trace.",
+                )
+                print_success_summary(state)
+                return
+
+            state.trace_feedback.append(trace_fb)
+            log.info(f"{state.label()} Trace check failed. Feedback recorded.")
+            if state.annot_attempt >= ANNOTATION_MAX_RETRIES:
+                break
+            state.annot_attempt += 1
+            # Loop back to stage 7 with updated trace_feedback — stages 3–6 untouched
+
+        # Annotation retries exhausted — propagate to outer loop or fail
         if state.loop_count >= MAX_LOOPS:
             break
         state.loop_count += 1
-        # → back to stage 3 with trace_feedback injected
+        # → back to stage 3 with all feedback injected (rare: only if outer loop allows it)
 
     # Max loops reached
     write_final_report(
         state,
         success=False,
         reason=(
-            f"Exceeded maximum loop count ({MAX_LOOPS}). "
+            f"Exceeded maximum attempts (outer loops: {state.loop_count}, "
+            f"annotation attempts: {state.annot_attempt}). "
             f"Reproduce feedbacks: {state.reproduce_feedback}. "
             f"Trace feedbacks: {state.trace_feedback}."
         ),
@@ -702,6 +852,56 @@ def _build_retry_context(state: PipelineState) -> str:
             "(Read this file to see the [UNSOUNDNESS] log that was injected. "
             "Use it to validate and refine your root cause hypothesis.)",
         ]
+
+    return "\n".join(lines)
+
+
+def _build_annotation_feedback(state: PipelineState) -> str:
+    """
+    Build the feedback block injected into the annotation stage prompt on retries.
+    Includes: prior trace failure messages, actual [UNSOUNDNESS] lines from the last
+    trace, oracle root cause methods, and the exact log format the checker expects.
+    """
+    if not state.has_trace_feedback():
+        return ""
+
+    lines = ["\n## Feedback from previous annotation attempts\n"]
+    lines += [f"- Attempt {i+1}: {fb}" for i, fb in enumerate(state.trace_feedback)]
+
+    if state.execution_trace_path and Path(state.execution_trace_path).exists():
+        try:
+            trace_text = Path(state.execution_trace_path).read_text()
+            unsoundness_lines = [l for l in trace_text.splitlines() if "[UNSOUNDNESS]" in l]
+            if unsoundness_lines:
+                lines.append("\n### [UNSOUNDNESS] lines found in previous execution trace:")
+                lines += [f"  {l}" for l in unsoundness_lines]
+            else:
+                lines.append("\n### Previous execution trace: no [UNSOUNDNESS] lines found at all.")
+        except Exception:
+            pass
+
+    if state.oracle_path and Path(state.oracle_path).exists():
+        try:
+            oracle = json.loads(Path(state.oracle_path).read_text())
+            lines.append("\n### Oracle enclosing root cause methods (these MUST appear in the trace):")
+            for rc_key, rc_val in oracle.items():
+                method = rc_val.get("method", "?")
+                lines.append(f"{method}")
+
+            lines.append(f"This oracle is for the test case at path (ONLY see the /src directory of the test case if needed): {state.reproducing_test_case_path}")
+        except Exception:
+            pass
+
+    if state.annotated_file and state.injected_at_line:
+        lines.append("\n### Previous annotation was injected at this location:")
+        lines.append(f"File Path: {state.annotated_file}")
+        lines.append(f"Injected at line: {state.injected_at_line}")
+
+    lines += [
+        "\n### Required log format (the trace checker parses this):",
+        f"  [UNSOUNDNESS] <pattern_class> | caller=<caller_method_fullname> | site=<site>",
+        "\nRevise the injection point so the log fires with the correct caller format.",
+    ]
 
     return "\n".join(lines)
 

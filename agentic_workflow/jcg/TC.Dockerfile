@@ -152,6 +152,7 @@ COPY jre.conf $JCG_DIR/jre.conf
 
 WORKDIR $JCG_DIR
 
+Run echo "5"
 COPY TC_entrypoint.sh /entrypoint.sh
 RUN sudo chmod a+x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
