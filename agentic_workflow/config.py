@@ -15,9 +15,9 @@ MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipe
 
 # ── Models ────────────────────────────────────────────────────────────────────
 
-MODEL_DEFAULT  = "claude-sonnet-4-5"          # orchestrator + most stages
+MODEL_DEFAULT  = "claude-sonnet-4-6"          # orchestrator + most stages
 MODEL_FAST     = "claude-haiku-4-5-20251001"  # boundary selector (simple filtering)
-MODEL_POWERFUL = "claude-opus-4-5"            # root cause annotator (deep reasoning)
+MODEL_POWERFUL = "claude-opus-4-8"            # root cause annotator (deep reasoning)
 
 # ── Output filenames ───────────────────────────────────────────────────────────
 

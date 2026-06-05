@@ -8,8 +8,10 @@ No pipeline logic lives here — only pure utilities.
 import asyncio
 import json
 import logging
+import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, TYPE_CHECKING
@@ -224,13 +226,22 @@ def find_agent_jar(state: PipelineState) -> Optional[Path]:
     return jars[0] if jars else None
 
 
+def find_agent_jar_from_dir(boundary_dir: Path) -> Optional[Path]:
+    """Find the built instrumentation agent JAR given a previous boundary output directory."""
+    target_dir = boundary_dir / "test_case" / "reproducing" / "instrumentation" / "target"
+    if not target_dir.exists():
+        return None
+    jars = [j for j in target_dir.glob("*.jar") if not j.name.startswith("original-")]
+    return jars[0] if jars else None
+
+
 def build_classpath(program_jar_path: str) -> Optional[str]:
     """
     Build a colon-separated classpath string from program_jar_path.
     If it's a file return it directly; if a directory glob all *.jar files inside.
     Returns None if nothing is found.
     """
-    p = Path(program_jar_path)
+    p = Path(program_jar_path).resolve()
     if not p.exists():
         return None
     if p.is_file():
@@ -244,16 +255,20 @@ async def run_oracle_on_program(
     program_jar_path: str,
     main_class: str,
     output_path: Path,
-) -> bool:
+) -> tuple[bool, str]:
     """
     Run the instrumentation agent JAR against a real program to produce an oracle.
-    Returns True if output_path was created, False on any failure (fail-open).
+    Returns (created, run_output) where created is True if output_path was written
+    and run_output is the combined stdout+stderr (truncated to 5000 chars).
+    The full output is also written to oracle_run.log next to output_path.
     """
     try:
+        agent_jar = agent_jar.resolve()
+        output_path = output_path.resolve()
         classpath = build_classpath(program_jar_path)
         if not classpath:
             log.warning(f"No JARs found at {program_jar_path} — skipping oracle run")
-            return False
+            return False, "No JARs found at the program_jar_path."
 
         cmd = [
             "java",
@@ -262,13 +277,30 @@ async def run_oracle_on_program(
             main_class,
         ]
         log.info(f"Running oracle: {' '.join(str(c) for c in cmd)}")
-        await asyncio.to_thread(
-            subprocess.run, cmd, capture_output=True, timeout=1800, check=False
-        )
-        return output_path.exists()
+        tmp_dir = tempfile.mkdtemp(prefix="oracle_run_")
+        try:
+            result = await asyncio.to_thread(
+                subprocess.run, cmd, capture_output=True, stdin=subprocess.DEVNULL,
+                timeout=300, check=False, cwd=tmp_dir,
+            )
+        finally:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+
+        stdout = result.stdout.decode("utf-8", errors="replace") if result.stdout else ""
+        stderr = result.stderr.decode("utf-8", errors="replace") if result.stderr else ""
+        combined = (stdout + stderr).strip()
+
+        log_path = output_path.parent / "oracle_run.log"
+        try:
+            log_path.write_text(combined)
+        except Exception:
+            pass
+
+        run_output = combined[-5000:] if len(combined) > 5000 else combined
+        return output_path.exists(), run_output
     except Exception as e:
         log.warning(f"Oracle run failed for {program_jar_path}: {e}")
-        return False
+        return False, str(e)
 
 
 def extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
@@ -364,3 +396,39 @@ def write_pruning_report(
         log.info(f"{state.label()} Pruning report → {out_path}")
     except Exception as e:
         log.warning(f"{state.label()} Failed to write pruning report: {e}")
+
+
+def update_pruning_report_prededup(
+    boundary_dir:    Path,
+    identity:        dict,
+    new_oracle_runs: list[dict],
+    new_pruned:      list[dict],
+) -> None:
+    """
+    Extend (or create) pruning_report.json in a previous boundary's output directory
+    with results from a pre-run deduplication pass.
+    Existing oracle_runs and pruned_boundaries are preserved; new entries are appended.
+    New oracle_run entries carry "phase": "prededup" to distinguish them.
+    """
+    out_path = boundary_dir / OUT_PRUNING_REPORT
+    try:
+        if out_path.exists():
+            report = json.loads(out_path.read_text())
+            report.setdefault("oracle_runs", [])
+            report.setdefault("pruned_boundaries", [])
+            report["prededup_timestamp"] = datetime.now().isoformat()
+        else:
+            report = {
+                "timestamp": datetime.now().isoformat(),
+                "triggered_by": identity,
+                "oracle_runs": [],
+                "pruned_boundaries": [],
+                "pruned_count": 0,
+            }
+        report["oracle_runs"].extend(new_oracle_runs)
+        report["pruned_boundaries"].extend(new_pruned)
+        report["pruned_count"] = len(report["pruned_boundaries"])
+        out_path.write_text(json.dumps(report, indent=2))
+        log.info(f"Pre-dedup pruning report updated → {out_path}")
+    except Exception as e:
+        log.warning(f"Failed to update pruning report at {out_path}: {e}")

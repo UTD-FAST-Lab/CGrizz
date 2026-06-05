@@ -34,6 +34,7 @@ class PipelineState:
     non_reproducing_test_case_path: Optional[str] = None
     oracle_path:                    Optional[str] = None   # oracle.json inside reproducing test case dir
     target_oracle_path:             Optional[str] = None   # oracle.json produced by running instrumentation against real program
+    oracle_run_output:              Optional[str] = None   # combined stdout+stderr from last oracle run on real program
     program_jar_path:               Optional[str] = None   # JAR file or dir for real program classpath (set by orchestrator)
     staticcg_path:                  Optional[str] = None   # static CG from analysis interface
     dyncg_path:                     Optional[str] = None   # dynamic CG from analysis interface
@@ -43,12 +44,17 @@ class PipelineState:
     execution_trace_path:           Optional[str] = None   # execution trace log from annotated SA tool
 
     # ── Feedback accumulated across retries ────────────────────────────────────
-    reproduce_feedback: list[str] = field(default_factory=list)
-    trace_feedback:     list[str] = field(default_factory=list)
+    reproduce_feedback:   list[str] = field(default_factory=list)
+    trace_feedback:       list[str] = field(default_factory=list)
+    oracle_feedback:      list[str] = field(default_factory=list)  # feedback for instrumentation agent during oracle refinement
 
     # ── Loop counters ──────────────────────────────────────────────────────────
-    loop_count:    int = 0   # outer loop: increments only on reproduce/oracle failures
-    annot_attempt: int = 0   # inner loop: increments on annotation/trace failures
+    loop_count:          int = 0     # outer loop: increments only on reproduce/oracle failures
+    annot_attempt:       int = 0     # inner loop: increments on annotation/trace failures
+    oracle_refine_count: int = 0     # oracle-only refinement attempts within current outer iteration
+
+    # ── Retry mode flags ──────────────────────────────────────────────────────
+    report_oracle_failure: bool = False  # True when outer retry was triggered by oracle check failure
 
     # ── Annotation info (populated after stage 6a) ────────────────────────────
     annotated_file:   Optional[str] = None   # relative path within annotated_sa_tool_path
@@ -124,3 +130,6 @@ class PipelineState:
 
     def has_trace_feedback(self) -> bool:
         return len(self.trace_feedback) > 0
+
+    def has_oracle_feedback(self) -> bool:
+        return len(self.oracle_feedback) > 0

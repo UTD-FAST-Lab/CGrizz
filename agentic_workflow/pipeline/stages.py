@@ -200,20 +200,34 @@ Return JSON only:
 
 # ── Stage 5: Oracle generation ────────────────────────────────────────────────
 
-async def stage_generate_oracle(state: PipelineState) -> bool:
+async def stage_generate_oracle(state: PipelineState, refine: bool = False) -> bool:
     """
     Invokes the instrumentation agent to generate an oracle for the reproducing
     test case. The agent writes oracle.json into the reproducing test case directory.
+
+    refine=True  → called from the oracle refinement sub-loop: keep existing
+                   instrumentation, inject oracle feedback into the prompt.
+    refine=False → called fresh (after report generator or on first run): delete
+                   stale instrumentation when loop_count > 0.
     """
     options     = build_agent_options(state)
     oracle_path = str(Path(state.reproducing_test_case_path) / OUT_ORACLE)
     instrumentation_path = str(Path(state.reproducing_test_case_path) / 'instrumentation')
 
-    if state.loop_count > 0:
+    if not refine and state.loop_count > 0:
         if instrumentation_path and Path(instrumentation_path).exists():
             shutil.rmtree(Path(instrumentation_path))
             log.info(f"{state.label()} Deleted stale instrumentation dir: {instrumentation_path}")
 
+    oracle_fb = "\n".join(state.oracle_feedback) if refine and state.has_oracle_feedback() else ""
+
+    run_output_section = ""
+    if refine and state.oracle_run_output:
+        run_output_section = (
+            f"\n## Execution output from last real-program run (stdout+stderr)\n"
+            f"{state.oracle_run_output}\n"
+            f"Use this output to diagnose why the instrumentation failed or produced no oracle output.\n"
+        )
 
     response = await run_agent(
         prompt=f"""\
@@ -226,7 +240,7 @@ Unsoundness report          : {state.unsoundness_report}
 ASM instrumentation template: /home/mohammad/projects/AgenticCGEvaluation/instrumentation_template/instrumentation
 Reproducing test case       : {state.reproducing_test_case_path}/
 Oracle output path          : {oracle_path}
-
+{oracle_fb}{run_output_section}
 Return JSON only:
 {{
   "oracle_path": "{oracle_path}",
@@ -279,7 +293,8 @@ async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str
         return True, ""
 
     oracle_out = state.output_dir / OUT_TARGET_ORACLE
-    ok = await run_oracle_on_program(agent_jar, state.program_jar_path, state.main_class, oracle_out)
+    ok, run_output = await run_oracle_on_program(agent_jar, state.program_jar_path, state.main_class, oracle_out)
+    state.oracle_run_output = run_output
 
     if not ok:
         log.warning(f"{state.label()} Oracle run against real program failed — skipping boundary check (fail-open)")
@@ -664,6 +679,8 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
     # Stages 3–8: main retry loop (each PipelineState holds exactly one boundary entry)
     while state.loop_count <= MAX_LOOPS:
+        state.report_oracle_failure = False
+        state.oracle_refine_count = 0
         label = f"Loop {state.loop_count}" if state.loop_count > 0 else "Initial run"
         log.info(f"{state.label()} {'─' * 40} {label}")
 
@@ -685,12 +702,34 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
         # Stage 5b: Check oracle on real program
         oracle_prog_ok, oracle_prog_feedback = await stage_check_oracle_on_program(state)
         if not oracle_prog_ok:
-            state.reproduce_feedback.append(oracle_prog_feedback)
-            log.info(f"{state.label()} Oracle check on real program failed. Feedback recorded.")
-            if state.loop_count >= MAX_LOOPS:
-                break
-            state.loop_count += 1
-            continue  # → back to stage 3 with feedback
+            # Oracle refinement sub-loop: try refining instrumentation up to 2 times
+            # before escalating to the report generator.
+            for _ in range(2):
+                instr_fb = _build_oracle_feedback_section(state, oracle_prog_feedback)
+                state.oracle_feedback.append(instr_fb)
+                state.oracle_refine_count += 1
+                log.info(f"{state.label()} Oracle refinement attempt {state.oracle_refine_count}/2")
+                if not await stage_generate_oracle(state, refine=True):
+                    break  # oracle generation itself failed; escalate
+                oracle_prog_ok, oracle_prog_feedback = await stage_check_oracle_on_program(state)
+                if oracle_prog_ok:
+                    break  # refinement succeeded; fall through to Stage 6
+
+            if not oracle_prog_ok:
+                # All refinement attempts exhausted — escalate to report generator with vague feedback.
+                state.reproduce_feedback.append(
+                    "The root cause hypothesis is not correct. "
+                    "Please refine your root cause analysis and reconsider what static analysis "
+                    "behaviour leads to this boundary being missed."
+                )
+                state.oracle_feedback.clear()
+                state.oracle_refine_count = 0
+                state.report_oracle_failure = True
+                log.info(f"{state.label()} Oracle refinement exhausted. Escalating to report generator.")
+                if state.loop_count >= MAX_LOOPS:
+                    break
+                state.loop_count += 1
+                continue  # → back to Stage 3 with vague feedback
 
         # Stage 6: Check reproduction
         reproduced, repr_feedback = await stage_check_reproduction(state)
@@ -767,6 +806,91 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
 # ── Private helpers ───────────────────────────────────────────────────────────
 
+def _build_oracle_feedback_section(state: PipelineState, oracle_prog_feedback: str) -> str:
+    """
+    Build a per-attempt feedback entry for the instrumentation agent during oracle
+    refinement retries. Tells the agent whether symptoms were produced and whether
+    the oracle format is correct, without leaking report-generator context.
+
+    The returned string is appended to state.oracle_feedback; all accumulated entries
+    are later joined and injected into the stage_generate_oracle prompt.
+    """
+    if not oracle_prog_feedback:
+        return ""
+
+    attempt = state.oracle_refine_count
+    lines = [f"\n## Oracle check feedback (attempt {attempt})\n"]
+
+    no_symptoms = (
+        "produced no symptoms" in oracle_prog_feedback
+        or "Oracle run against real program failed" in oracle_prog_feedback
+    )
+    edge_missing = "did not appear in the oracle symptoms" in oracle_prog_feedback
+
+    if no_symptoms:
+        lines += [
+            "The instrumentation produced no symptoms when run against the real target program.",
+            "The boundary edge in the unsoundness report should have been captured as symptom. Check that the pattern "
+            "class matches the intended call sites.",
+        ]
+        if state.oracle_run_output:
+            lines += [
+                "\nExecution output from the real-program run (stdout+stderr):",
+                state.oracle_run_output,
+                "\nUse this output to diagnose why the instrumentation failed or produced no oracle output.",
+            ]
+    elif edge_missing:
+        # Symptoms were produced but the boundary edge was not among them.
+        oracle_path = state.output_dir / OUT_TARGET_ORACLE
+        oracle_format_ok = False
+        if oracle_path and Path(oracle_path).exists():
+            try:
+                oracle_data = json.loads(Path(oracle_path).read_text())
+                # check if the methods in the symptoms are in the expected "package.classname.method" format
+                for rc in oracle_data.values():
+                    symptoms = rc.get("symptoms", [])
+                    for symptom in symptoms:
+                        caller = symptom.get("caller", "")
+                        callee = symptom.get("callee", "")
+                        caller_ok = isinstance(caller, str) and len(caller.split(".")) >= 3
+                        callee_ok = isinstance(callee, str) and len(callee.split(".")) >= 3
+                        if caller_ok and callee_ok:
+                            oracle_format_ok = True
+                            break
+                    if oracle_format_ok:
+                        break
+                
+            except Exception:
+                oracle_format_ok = False
+
+        b = state.boundary
+        caller_class  = b.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+        caller_method = b.get("caller", {}).get("name", "")
+        callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
+        callee_method = b.get("missedCallee", {}).get("name", "")
+
+        if oracle_format_ok:
+            lines += [
+                "The oracle.json format is correct and symptoms were produced, but the "
+                f"boundary edge ({caller_class}.{caller_method} → {callee_class}.{callee_method}) "
+                "did not appear among them.",
+                "The instrumentation does not capture the intended boundary edge. "
+                "Refine the ASM visitor so it correctly intercepts this specific call site.",
+            ]
+        else:
+            lines += [
+                "The oracle.json format may be incorrect. Verify it matches the expected schema:",
+                "package.classname.method for both symptoms and root causes."
+            ]
+    else:
+        lines += [
+            f"Oracle check failure: {oracle_prog_feedback}",
+            "Please refine the instrumentation to correctly capture the boundary edge.",
+        ]
+
+    return "\n".join(lines)
+
+
 def _build_feedback_section(state: PipelineState) -> str:
     """Build the feedback block injected into the report prompt on retries."""
     if not state.has_reproduce_feedback() and not state.has_trace_feedback():
@@ -820,26 +944,27 @@ def _build_retry_context(state: PipelineState) -> str:
             "(Read the Java source files here to understand how the test case was structured.)",
         ]
 
-    if state.oracle_path and Path(state.oracle_path).exists() and state.instrumentation and Path(state.instrumentation).exists():
-        lines += [
-            "",
-            "### Oracle for reproducing test case",
-            "",
-            f"Path: {state.oracle_path}",
-            f"Path: {state.instrumentation}",
-            "(Read this file to review the expected root causes and symptoms that the agent identified for the test case using the ASM instrumentation)",
-        ]
+    # if not state.report_oracle_failure:
+    #     if state.oracle_path and Path(state.oracle_path).exists() and state.instrumentation and Path(state.instrumentation).exists():
+    #         lines += [
+    #             "",
+    #             "### Oracle for reproducing test case",
+    #             "",
+    #             f"Path: {state.oracle_path}",
+    #             f"Path: {state.instrumentation}",
+    #             "(Read this file to review the expected root causes and symptoms that the agent identified for the test case using the ASM instrumentation)",
+    #         ]
 
-    if state.target_oracle_path and Path(state.target_oracle_path).exists():
-        lines += [
-            "",
-            "### Oracle produced by running instrumentation against the real target program",
-            "",
-            f"Path: {state.target_oracle_path}",
-            "(This oracle was produced by running the instrumentation JAR against the actual target program. "
-            "The boundary edge was NOT found in its symptoms — use it to understand what the instrumentation "
-            "does observe at runtime and refine the root cause pattern accordingly.)",
-        ]
+    #     if state.target_oracle_path and Path(state.target_oracle_path).exists():
+    #         lines += [
+    #             "",
+    #             "### Oracle produced by running instrumentation against the real target program",
+    #             "",
+    #             f"Path: {state.target_oracle_path}",
+    #             "(This oracle was produced by running the instrumentation JAR against the actual target program. "
+    #             "The boundary edge was NOT found in its symptoms — use it to understand what the instrumentation "
+    #             "does observe at runtime and refine the root cause pattern accordingly.)",
+    #         ]
 
 
     if state.annotated_sa_tool_path and state.annotated_file:
@@ -873,8 +998,8 @@ def _build_annotation_feedback(state: PipelineState) -> str:
             trace_text = Path(state.execution_trace_path).read_text()
             unsoundness_lines = [l for l in trace_text.splitlines() if "[UNSOUNDNESS]" in l]
             if unsoundness_lines:
-                lines.append("\n### [UNSOUNDNESS] lines found in previous execution trace:")
-                lines += [f"  {l}" for l in unsoundness_lines]
+                lines.append("\n### [UNSOUNDNESS] lines found in previous execution trace (limited to 30):")
+                lines += [f"  {l}" for l in unsoundness_lines[:min(30, len(unsoundness_lines))]]  # show up to 30 lines
             else:
                 lines.append("\n### Previous execution trace: no [UNSOUNDNESS] lines found at all.")
         except Exception:

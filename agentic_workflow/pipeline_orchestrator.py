@@ -60,16 +60,18 @@ from pipeline.stages import run_pipeline
 from pipeline.utils import (
     write_final_report,
     find_agent_jar,
+    find_agent_jar_from_dir,
     run_oracle_on_program,
     extract_symptoms,
     prune_queue,
     write_pruning_report,
+    update_pruning_report_prededup,
 )
 from pipeline.sampler import (
     filter_jvm_runtime_boundaries,
     filter_jdk_caller_boundaries,
 )
-from config import OUT_PIPELINE_RESULT
+from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -145,7 +147,7 @@ def load_boundaries(path: str) -> list[dict]:
     entries = data.get("boundaries", [])
     if not entries:
         log.error(f"No boundary entries found in: {path}")
-        sys.exit(1)
+        # sys.exit(1)
     log.info(f"Loaded {len(entries)} boundary entries from: {path}")
     return entries
 
@@ -225,6 +227,196 @@ async def _run_dedup(
 
     if all_pruned:
         write_pruning_report(successful_state, all_pruned, oracle_runs)
+
+
+# ── Pre-run deduplication ─────────────────────────────────────────────────────
+
+def _state_to_pruned_dict(s: PipelineState) -> dict:
+    return {
+        "boundary_id":    s.boundary_id,
+        "boundary_index": s.boundary_index,
+        "program_name":   s.program_name,
+        "caller_class":   s.boundary.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+        "caller_method":  s.boundary.get("caller", {}).get("name", ""),
+        "callee_class":   s.boundary.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
+        "callee_method":  s.boundary.get("missedCallee", {}).get("name", ""),
+    }
+
+
+async def _run_prededup(
+    prev_results_dir: Path,
+    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
+) -> None:
+    """
+    Before the main sequential loop, run every instrumentation JAR found in
+    prev_results_dir against each program in program_queues and prune matching
+    boundaries.  Oracle outputs go to <prev_boundary_dir>/oracles_prededup/.
+    Pruning results are appended to the previous boundary's pruning_report.json.
+    Fail-open: any missing JAR, config, or oracle failure is logged and skipped.
+    """
+    total_before = sum(len(q) for _, q in program_queues.values())
+
+    for prev_boundary_dir in sorted(prev_results_dir.glob("*/*/*/*")):
+        if not prev_boundary_dir.is_dir():
+            continue
+
+        agent_jar = find_agent_jar_from_dir(prev_boundary_dir)
+        if not agent_jar:
+            continue
+
+        # Read identity from pipeline_result.json; fall back to path structure.
+        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
+        identity: dict = {}
+        if result_path.exists():
+            try:
+                identity = json.loads(result_path.read_text()).get("identity", {})
+            except Exception:
+                pass
+        if not identity.get("program_name"):
+            parts = prev_boundary_dir.parts
+            identity = {
+                "program_name":   parts[-4],
+                "tool_name":      parts[-3],
+                "algorithm":      parts[-2],
+                "boundary_id":    parts[-1],
+                "boundary_index": 0,
+            }
+
+        log.info(
+            f"Pre-dedup: running instrumentation from "
+            f"{identity.get('boundary_id', prev_boundary_dir.name)}"
+        )
+
+        oracle_runs:  list[dict] = []
+        pruned_dicts: list[dict] = []
+
+        for program_key, (analysis, remaining) in program_queues.items():
+            if not remaining:
+                continue
+
+            jar_path   = analysis.get("program_jar_path")
+            main_class = analysis.get("main_class")
+
+            if not jar_path or not main_class:
+                log.warning(
+                    f"Pre-dedup: missing program_jar_path or main_class for "
+                    f"{analysis.get('program_name', program_key)} — skipping"
+                )
+                oracle_runs.append({
+                    "program_name": analysis.get("program_name", program_key),
+                    "oracle_path":  None,
+                    "status":       "skipped_no_config",
+                    "phase":        "prededup",
+                })
+                continue
+
+            oracle_out = (
+                prev_boundary_dir
+                / "oracles_prededup"
+                / f"oracle_{analysis['program_name']}.json"
+            )
+            oracle_out.parent.mkdir(parents=True, exist_ok=True)
+
+            ok = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
+            oracle_runs.append({
+                "program_name": analysis["program_name"],
+                "oracle_path":  str(oracle_out),
+                "status":       "ok" if ok else "failed",
+                "phase":        "prededup",
+            })
+
+            if ok:
+                symptoms = extract_symptoms(oracle_out)
+                if symptoms:
+                    kept, pruned = prune_queue(remaining, symptoms)
+                    program_queues[program_key] = (analysis, kept)
+                    pruned_dicts.extend(_state_to_pruned_dict(s) for s in pruned)
+                    if pruned:
+                        log.info(
+                            f"Pre-dedup: pruned {len(pruned)} boundaries from "
+                            f"{analysis['program_name']}: "
+                            f"{[s.boundary_id for s in pruned]}"
+                        )
+
+        update_pruning_report_prededup(prev_boundary_dir, identity, oracle_runs, pruned_dicts)
+
+    total_after = sum(len(q) for _, q in program_queues.values())
+    log.info(
+        f"Pre-dedup complete: {total_before} → {total_after} boundaries remaining "
+        f"({total_before - total_after} pruned)"
+    )
+
+
+# ── Report-based pre-dedup (no instrumentation) ───────────────────────────────
+
+def _run_report_prededup(
+    prev_results_dir: Path,
+    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
+) -> None:
+    """Prune the queue using pruned_boundaries from existing pruning_report.json files.
+    No instrumentation is run; this is a read-only, fast alternative to _run_prededup."""
+    total_before = sum(len(q) for _, q in program_queues.values())
+
+    # Build index: program_name → program_key for O(1) lookup
+    program_name_to_key: dict[str, str] = {
+        analysis["program_name"]: pk
+        for pk, (analysis, _) in program_queues.items()
+    }
+
+    for prev_boundary_dir in sorted(prev_results_dir.glob("*/*/*/*")):
+        if not prev_boundary_dir.is_dir():
+            continue
+
+        report_path = prev_boundary_dir / OUT_PRUNING_REPORT
+        if not report_path.exists():
+            log.debug(f"Report-prededup: no pruning_report.json in {prev_boundary_dir} — skipping")
+            continue
+
+        try:
+            report_data = json.loads(report_path.read_text())
+        except Exception as e:
+            log.warning(f"Report-prededup: failed to read {report_path}: {e} — skipping")
+            continue
+
+        pruned_boundaries = report_data.get("pruned_boundaries", [])
+        if not pruned_boundaries:
+            continue
+
+        # Group symptoms by program_name
+        symptoms_by_program: dict[str, set] = {}
+        for entry in pruned_boundaries:
+            prog = entry.get("program_name")
+            cc = entry.get("caller_class",  "").replace("/", ".")
+            cm = entry.get("caller_method", "")
+            ec = entry.get("callee_class",  "").replace("/", ".")
+            em = entry.get("callee_method", "")
+            if prog and cc and cm and ec and em:
+                symptoms_by_program.setdefault(prog, set()).add((cc, cm, ec, em))
+
+        for prog_name, symptoms in symptoms_by_program.items():
+            program_key = program_name_to_key.get(prog_name)
+            if program_key is None:
+                log.debug(f"Report-prededup: '{prog_name}' not in current queues — skipping")
+                continue
+
+            analysis, remaining = program_queues[program_key]
+            if not remaining:
+                continue
+
+            kept, pruned = prune_queue(remaining, symptoms)
+            program_queues[program_key] = (analysis, kept)
+
+            if pruned:
+                log.info(
+                    f"Report-prededup: pruned {len(pruned)} from '{prog_name}' "
+                    f"via {prev_boundary_dir.name}: {[s.boundary_id for s in pruned]}"
+                )
+
+    total_after = sum(len(q) for _, q in program_queues.values())
+    log.info(
+        f"Report-prededup complete: {total_before} → {total_after} boundaries remaining "
+        f"({total_before - total_after} pruned)"
+    )
 
 
 # ── Sequential pipeline runner ────────────────────────────────────────────────
@@ -348,6 +540,11 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
         f"boundaries: {len(states)} (after filtering from {len(all_boundaries)})"
     )
 
+    if args.prev_results:
+        if args.report_prededup:
+            _run_report_prededup(Path(args.prev_results), program_queues)
+        else:
+            asyncio.run(_run_prededup(Path(args.prev_results), program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 
@@ -396,6 +593,11 @@ def run_parallel_all(args: argparse.Namespace) -> None:
         f"total boundaries: {total}"
     )
 
+    if args.prev_results:
+        if args.report_prededup:
+            _run_report_prededup(Path(args.prev_results), program_queues)
+        else:
+            asyncio.run(_run_prededup(Path(args.prev_results), program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 
@@ -459,6 +661,20 @@ def parse_args() -> argparse.Namespace:
     pe.add_argument("--tool-name",    required=True, help="e.g. WALA")
     pe.add_argument("--algorithm",    required=True, help="e.g. 0-CFA")
     pe.add_argument("--output-dir",   default="./results")
+    pe.add_argument(
+        "--prev-results",
+        default=None,
+        metavar="PATH",
+        help="Path to a previous results directory. All instrumentation JARs found "
+             "there will be run against the new queue to pre-prune equivalent boundaries.",
+    )
+    pe.add_argument(
+        "--report-prededup",
+        action="store_true",
+        default=False,
+        help="When set with --prev-results, skip oracle re-execution and prune the "
+             "queue directly from pruning_report.json files in the prev-results directory.",
+    )
 
     # ── parallel-all ──────────────────────────────────────────────────────────
     pa = subparsers.add_parser(
@@ -467,6 +683,20 @@ def parse_args() -> argparse.Namespace:
     )
     pa.add_argument("--config",     required=True, help="Path to pipeline_config.json")
     pa.add_argument("--output-dir", default="./results")
+    pa.add_argument(
+        "--prev-results",
+        default=None,
+        metavar="PATH",
+        help="Path to a previous results directory. All instrumentation JARs found "
+             "there will be run against the new queue to pre-prune equivalent boundaries.",
+    )
+    pa.add_argument(
+        "--report-prededup",
+        action="store_true",
+        default=False,
+        help="When set with --prev-results, skip oracle re-execution and prune the "
+             "queue directly from pruning_report.json files in the prev-results directory.",
+    )
 
     return parser.parse_args()
 
