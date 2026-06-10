@@ -8,32 +8,37 @@ import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 
 /**
- * Java agent entry point for the DynamicClassNameReflection (DCNR) pattern.
+ * Java agent entry point for native method instantiation pattern tracking.
  *
  * Usage:
  *   java -javaagent:dcnr-agent.jar[=output.json] -cp ... MainClass
  *
- * Default output: dcnr_results.json in the working directory.
+ * Default output: oracle.json in the working directory.
  */
 public final class DcnrAgent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         final String outputPath = (agentArgs != null && !agentArgs.isEmpty())
-                ? agentArgs : "dcnr_results.json";
+                ? agentArgs : "oracle.json";
 
         inst.addTransformer(new ClassFileTransformer() {
             @Override
             public byte[] transform(ClassLoader loader, String className,
                                     Class<?> cls, ProtectionDomain pd, byte[] bytes) {
                 if (className == null) return null;
-                // Skip JDK internals and this agent to prevent infinite recursion
+                // Skip JDK, agent classes, and logging libraries to avoid initialization issues
                 if (className.startsWith("java/")
                         || className.startsWith("javax/")
                         || className.startsWith("sun/")
                         || className.startsWith("jdk/")
                         || className.startsWith("com/sun/")
                         || className.startsWith("edu/utd/fastlab/dcnr/")
-                        || className.startsWith("org/objectweb/asm/")) {
+                        || className.startsWith("edu/utd/fastlab/shade/")
+                        || className.startsWith("org/apache/log4j/")
+                        || className.startsWith("org/slf4j/")
+                        || className.startsWith("ch/qos/logback/")
+                        || className.contains("$$Lambda$")
+                        || className.contains("$Proxy")) {
                     return null;
                 }
                 try {
@@ -64,7 +69,7 @@ public final class DcnrAgent {
                         }
                     };
 
-                    cr.accept(new DcnrClassVisitor(cw), ClassReader.EXPAND_FRAMES);
+                    cr.accept(new DcnrClassVisitor(cw), ClassReader.SKIP_FRAMES);
                     return cw.toByteArray();
                 } catch (Exception e) {
                     System.err.println("[DCNR] skipping " + className + ": " + e);

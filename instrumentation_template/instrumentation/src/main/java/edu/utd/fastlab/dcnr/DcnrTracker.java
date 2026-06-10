@@ -1,6 +1,7 @@
 package edu.utd.fastlab.dcnr;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,64 +11,63 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Runtime registry for the DynamicClassNameReflection (DCNR) pattern.
+ * Runtime registry for native method instantiation pattern.
  *
- * Root Cause (RC): Class.forName(s) where s is not a compile-time constant —
- *   e.g., computed via string concatenation or Map.get().
+ * Root Cause (RC):
+ *   Native method call site (e.g., FileChannel.map()) that returns an object whose concrete type
+ *   differs from the declared return type (e.g., DirectByteBuffer instead of MappedByteBuffer).
  *
- * Symptom (Sym): INVOKEVIRTUAL / INVOKEINTERFACE whose receiver's runtime class
- *   is (or is an inner class of) a class loaded at an RC site.
+ * Symptom (Sym):
+ *   Virtual/interface calls on the object returned from the native method.
  */
 public final class DcnrTracker {
 
     private DcnrTracker() {}
 
-    /**
-     * Maps internal class name (e.g. "sun/nio/cs/UTF_8") → RC key for every
-     * class loaded via a dynamic Class.forName call.
-     */
-    private static final ConcurrentHashMap<String, String> DYNAMIC_CLASS_TO_RC =
-            new ConcurrentHashMap<String, String>();
-
     public static final ConcurrentHashMap<String, RootCauseEntry> RESULTS =
             new ConcurrentHashMap<String, RootCauseEntry>();
 
+    // Maps object identity hash codes to their RC keys
+    private static final ConcurrentHashMap<Integer, String> OBJECT_TO_RC =
+            new ConcurrentHashMap<Integer, String>();
+
     // -------------------------------------------------------------------------
-    // Called immediately after a dynamic Class.forName() returns.
-    // loadedClass: the Class object returned by forName (may be null on exception path,
-    //              but we only inject before the return so it should be non-null).
+    // Called after native method returns to register the returned object.
     // -------------------------------------------------------------------------
-    public static void onDynamicClassLoad(
-            Class<?> loadedClass,
+    public static void onNativeMethodReturn(
+            Object returnedObject,
             String callerMethod, int pc) {
 
-        if (loadedClass == null) return;
+        if (returnedObject == null) return;
 
-        String key = "RC:" + callerMethod + "@" + pc;
-        String internalName = loadedClass.getName().replace('.', '/');
+        // RC key: the native method call site
+        String rcKey = "RC:" + callerMethod + "@" + pc;
 
-        RESULTS.putIfAbsent(key, new RootCauseEntry(callerMethod, pc, internalName));
-        DYNAMIC_CLASS_TO_RC.put(internalName, key);
+        // Ensure the RC entry exists
+        RESULTS.putIfAbsent(rcKey, new RootCauseEntry(callerMethod, pc));
+
+        // Register the returned object's identity with this RC
+        OBJECT_TO_RC.put(System.identityHashCode(returnedObject), rcKey);
     }
 
     // -------------------------------------------------------------------------
-    // Called just before INVOKEVIRTUAL / INVOKEINTERFACE.
-    // Checks whether the receiver's runtime class was (directly or as an inner
-    // class) loaded via a dynamic Class.forName — if so, records the symptom.
+    // Called before virtual/interface calls to check if receiver came from ThreadLocal.get().
     // -------------------------------------------------------------------------
-    public static void onVirtualDispatch(
+    public static void onVirtualCall(
             Object receiver,
             String callerMethod, int pc,
-            String calleeName, String calleeDesc) {
+            String methodName, String methodDesc) {
 
         if (receiver == null) return;
 
-        String rcKey = findRcKey(receiver.getClass());
+        // Check if this object was returned from a ThreadLocal.get() we tracked
+        String rcKey = OBJECT_TO_RC.get(System.identityHashCode(receiver));
         if (rcKey == null) return;
 
-        String actualCallee = receiver.getClass().getName().replace('.', '/')
-                + "." + calleeName + ":" + calleeDesc;
+        // Resolve the actual declaring class of the method by walking the hierarchy
+        String actualCallee = resolveDeclaringClass(receiver.getClass(), methodName, methodDesc);
 
+        // Record the symptom: the actual dispatched method
         RootCauseEntry rc = RESULTS.get(rcKey);
         if (rc != null) {
             rc.symptoms.add(new Symptom(callerMethod, pc, actualCallee));
@@ -75,33 +75,102 @@ public final class DcnrTracker {
     }
 
     /**
-     * Walk the receiver's class hierarchy (supertypes + declaring classes) to
-     * find a match with any class loaded at a dynamic forName site.
-     *
-     * This covers the common case where the SA-missed class (e.g. UTF_8) is the
-     * *declaring* class of the actual runtime receiver (e.g. UTF_8$Encoder).
+     * Walk the receiver's class hierarchy to find the class that actually declares the method.
+     * This mirrors how call graphs represent edges — inherited methods are attributed to their
+     * declaring class, not the receiver's class.
      */
-    private static String findRcKey(Class<?> cls) {
-        for (Class<?> c = cls; c != null; c = c.getSuperclass()) {
-            String name = c.getName().replace('.', '/');
-            String key = DYNAMIC_CLASS_TO_RC.get(name);
-            if (key != null) return key;
+    private static String resolveDeclaringClass(Class<?> receiverClass, String methodName, String methodDesc) {
+        // Convert method descriptor to parameter types
+        Class<?>[] paramTypes = parseDescriptor(methodDesc);
 
-            // Check declaring class — handles inner-class receivers like UTF_8$Encoder
-            Class<?> declaring = c.getDeclaringClass();
-            if (declaring != null) {
-                String dname = declaring.getName().replace('.', '/');
-                key = DYNAMIC_CLASS_TO_RC.get(dname);
-                if (key != null) return key;
+        // Walk up the hierarchy to find the declaring class
+        for (Class<?> c = receiverClass; c != null; c = c.getSuperclass()) {
+            try {
+                Method m = c.getDeclaredMethod(methodName, paramTypes);
+                // Found the declaring class
+                return c.getName() + "." + methodName + methodDesc;
+            } catch (NoSuchMethodException e) {
+                // Not declared in this class, continue up
             }
         }
-        // Also check directly implemented interfaces of the receiver
+
+        // Check interfaces
+        Class<?> declaringInterface = findInInterfaces(receiverClass, methodName, paramTypes);
+        if (declaringInterface != null) {
+            return declaringInterface.getName() + "." + methodName + methodDesc;
+        }
+
+        // Fallback: use receiver's class (shouldn't happen for valid method calls)
+        return receiverClass.getName() + "." + methodName + methodDesc;
+    }
+
+    private static Class<?> findInInterfaces(Class<?> cls, String methodName, Class<?>[] paramTypes) {
         for (Class<?> iface : cls.getInterfaces()) {
-            String name = iface.getName().replace('.', '/');
-            String key = DYNAMIC_CLASS_TO_RC.get(name);
-            if (key != null) return key;
+            try {
+                iface.getDeclaredMethod(methodName, paramTypes);
+                return iface;
+            } catch (NoSuchMethodException e) {
+                // Try super-interfaces
+                Class<?> found = findInInterfaces(iface, methodName, paramTypes);
+                if (found != null) return found;
+            }
         }
         return null;
+    }
+
+    /**
+     * Parse method descriptor to extract parameter types.
+     * Simplified parser for common types.
+     */
+    private static Class<?>[] parseDescriptor(String descriptor) {
+        // Extract parameter part: (params)return -> params
+        int endIdx = descriptor.indexOf(')');
+        if (endIdx < 1) return new Class<?>[0];
+
+        String params = descriptor.substring(1, endIdx);
+        if (params.isEmpty()) return new Class<?>[0];
+
+        java.util.ArrayList<Class<?>> types = new java.util.ArrayList<Class<?>>();
+        int i = 0;
+        while (i < params.length()) {
+            char c = params.charAt(i);
+            switch (c) {
+                case 'I': types.add(int.class); i++; break;
+                case 'J': types.add(long.class); i++; break;
+                case 'F': types.add(float.class); i++; break;
+                case 'D': types.add(double.class); i++; break;
+                case 'Z': types.add(boolean.class); i++; break;
+                case 'B': types.add(byte.class); i++; break;
+                case 'C': types.add(char.class); i++; break;
+                case 'S': types.add(short.class); i++; break;
+                case 'L':
+                    int semi = params.indexOf(';', i);
+                    String className = params.substring(i + 1, semi).replace('/', '.');
+                    try {
+                        types.add(Class.forName(className));
+                    } catch (ClassNotFoundException e) {
+                        types.add(Object.class);
+                    }
+                    i = semi + 1;
+                    break;
+                case '[':
+                    // Array: skip for now, treat as Object
+                    types.add(Object.class);
+                    i++;
+                    while (i < params.length() && params.charAt(i) == '[') i++;
+                    if (i < params.length()) {
+                        if (params.charAt(i) == 'L') {
+                            i = params.indexOf(';', i) + 1;
+                        } else {
+                            i++;
+                        }
+                    }
+                    break;
+                default:
+                    i++;
+            }
+        }
+        return types.toArray(new Class<?>[0]);
     }
 
     // -------------------------------------------------------------------------
@@ -117,7 +186,6 @@ public final class DcnrTracker {
             sb.append("  ").append(jsonStr(e.getKey())).append(": {\n");
             sb.append("    \"method\": ").append(jsonStr(rc.method)).append(",\n");
             sb.append("    \"pc\": ").append(rc.pc).append(",\n");
-            sb.append("    \"loadedClass\": ").append(jsonStr(rc.loadedClass)).append(",\n");
             sb.append("    \"symptoms\": [");
             boolean firstSym = true;
             for (Symptom s : rc.symptoms) {
@@ -135,9 +203,9 @@ public final class DcnrTracker {
         try {
             Files.write(Paths.get(outputPath),
                     sb.toString().getBytes(StandardCharsets.UTF_8));
-            System.err.println("[DCNR] results written to " + outputPath);
+            System.err.println("[NativeMethod] results written to " + outputPath);
         } catch (IOException ex) {
-            System.err.println("[DCNR] failed to write results: " + ex.getMessage());
+            System.err.println("[NativeMethod] failed to write results: " + ex.getMessage());
         }
     }
 
@@ -152,13 +220,11 @@ public final class DcnrTracker {
     public static final class RootCauseEntry {
         public final String method;
         public final int    pc;
-        public final String loadedClass;
         public final List<Symptom> symptoms = new CopyOnWriteArrayList<Symptom>();
 
-        RootCauseEntry(String method, int pc, String loadedClass) {
-            this.method      = method;
-            this.pc          = pc;
-            this.loadedClass = loadedClass;
+        RootCauseEntry(String method, int pc) {
+            this.method = method;
+            this.pc     = pc;
         }
     }
 

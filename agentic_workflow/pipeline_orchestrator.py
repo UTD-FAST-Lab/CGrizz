@@ -317,7 +317,7 @@ async def _run_prededup(
             )
             oracle_out.parent.mkdir(parents=True, exist_ok=True)
 
-            ok = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
+            ok, _, _, _ = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
             oracle_runs.append({
                 "program_name": analysis["program_name"],
                 "oracle_path":  str(oracle_out),

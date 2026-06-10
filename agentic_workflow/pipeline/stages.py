@@ -49,6 +49,8 @@ from config import (
 
 log = logging.getLogger("pipeline")
 
+_ORACLE_RUN_EXECUTION_ERROR = "ORACLE_RUN_EXECUTION_ERROR"
+
 
 # ── Per-edge file logging ──────────────────────────────────────────────────────
 
@@ -221,13 +223,14 @@ async def stage_generate_oracle(state: PipelineState, refine: bool = False) -> b
 
     oracle_fb = "\n".join(state.oracle_feedback) if refine and state.has_oracle_feedback() else ""
 
-    run_output_section = ""
-    if refine and state.oracle_run_output:
-        run_output_section = (
-            f"\n## Execution output from last real-program run (stdout+stderr)\n"
-            f"{state.oracle_run_output}\n"
-            f"Use this output to diagnose why the instrumentation failed or produced no oracle output.\n"
-        )
+    # run_output_section = ""
+    # if refine and state.oracle_run_output:
+    #     run_output_section = (
+    #         f"\n## Execution output from last real-program run (stdout+stderr)\n"
+    #         f"{state.oracle_run_output}\n"
+    #         f"Use this output to diagnose why the instrumentation failed or produced no oracle output.\n"
+    #         f"**NEVER RUN the instrumentation against the real program**. You can only modify the instrumentation source and re-run the oracle on the Reproducing test case to see how the oracle output changes.\n",
+    #     )
 
     response = await run_agent(
         prompt=f"""\
@@ -237,10 +240,10 @@ Invoke it via the Task tool.
 ## Inputs
 
 Unsoundness report          : {state.unsoundness_report}
-ASM instrumentation template: /home/mohammad/projects/AgenticCGEvaluation/instrumentation_template/instrumentation
+ASM instrumentation template: /home/mohammad/projects/AgenticCGEval/instrumentation_template/instrumentation
 Reproducing test case       : {state.reproducing_test_case_path}/
 Oracle output path          : {oracle_path}
-{oracle_fb}{run_output_section}
+{oracle_fb}
 Return JSON only:
 {{
   "oracle_path": "{oracle_path}",
@@ -258,7 +261,7 @@ Return JSON only:
 
     result = parse_json_from_response(response)
     if result and result.get("success"):
-        state.oracle_path = result.get("oracle_path", oracle_path)
+        state.oracle_path = oracle_path
         state.instrumentation = instrumentation_path
         log.info(f"{state.label()} Oracle generated at {state.oracle_path}")
         return True
@@ -285,26 +288,26 @@ async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str
     """
     if not state.program_jar_path:
         log.info(f"{state.label()} No program_jar_path — skipping oracle check on real program")
-        return True, ""
+        return False, "No program_jar_path"
 
     agent_jar = find_agent_jar(state)
     if not agent_jar:
         log.warning(f"{state.label()} Agent JAR not found — skipping oracle check on real program")
-        return True, ""
+        return False, "Agent JAR not found"
 
     oracle_out = state.output_dir / OUT_TARGET_ORACLE
-    ok, run_output = await run_oracle_on_program(agent_jar, state.program_jar_path, state.main_class, oracle_out)
+    ok, crashed, run_output, log_path = await run_oracle_on_program(agent_jar, state.program_jar_path, state.main_class, oracle_out)
     state.oracle_run_output = run_output
-
-    if not ok:
-        log.warning(f"{state.label()} Oracle run against real program failed — skipping boundary check (fail-open)")
-        return False, "Oracle run against real program failed"
+    state.oracle_run_log_path = str(log_path) if log_path else None
 
     state.target_oracle_path = str(oracle_out)
     symptoms = extract_symptoms(oracle_out)
 
     if not symptoms:
-        log.info(f"{state.label()} Oracle on real program produced no symptoms — skipping boundary check")
+        if crashed:
+            log.warning(f"{state.label()} Oracle run crashed on real program (non-zero exit code)")
+            return False, _ORACLE_RUN_EXECUTION_ERROR
+        log.info(f"{state.label()} Oracle on real program produced no symptoms")
         return False, "Oracle on real program produced no symptoms"
 
     b = state.boundary
@@ -344,6 +347,10 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     """
     state.staticcg_path, state.dyncg_path, state.boundary_path = \
         run_analysis_interface(state)
+
+    ok = await _generate_oracle_testcase(state)  # generates oracle.json in the reproducing test case dir
+    if not ok:
+        return False, "Failed to generate oracle test case."
 
     # Read oracle from the test case directory
     # Oracle format: {"RC:method@pc": {"method": ..., "pc": ..., "symptoms": [...]}, ...}
@@ -517,7 +524,9 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     try:
         oracle = json.loads(Path(oracle_path).read_text())
         for rc in oracle.values():
-            rc_methods.add(rc.get("method"))
+            # if the root cause has symptoms
+            if len(rc.get("symptoms")) > 0:
+                rc_methods.add(rc.get("method"))
     except Exception as e:
         msg = f"Could not read oracle for root cause methods: {e}"
         log.error(f"{state.label()} {msg}")
@@ -806,6 +815,48 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
 # ── Private helpers ───────────────────────────────────────────────────────────
 
+async def _generate_oracle_testcase(state: PipelineState) -> bool:
+    """ generate the oracle.json file in the reproducing test case directory"""
+
+    agent_jar = find_agent_jar(state)
+    if not agent_jar:
+        log.warning(f"{state.label()} Agent JAR not found — cannot generate oracle.json in test case dir.")
+        return False
+
+    # read the jcg.conf file (a json file read) from reproducing test case dir to get the main class
+    jcg_conf_path = Path(state.reproducing_test_case_path) / "jcg.conf"
+    if not jcg_conf_path.exists():
+        log.warning(f"{state.label()} jcg.conf not found in reproducing test case dir — cannot generate oracle.json.")
+        return False
+    try:
+        jcg_conf = json.loads(jcg_conf_path.read_text())
+        mainclass = jcg_conf.get("main")
+    except Exception as e:
+        log.warning(f"{state.label()} Could not read jcg.conf: {e} — cannot generate oracle.json.")
+        return False
+    
+    # get the jar file path from the target of the reproducing test case (anything with .jar extension in the target directory)
+    target_jar = None
+    target_dir = Path(state.reproducing_test_case_path) / "target"
+    if target_dir.exists():
+        for file in target_dir.iterdir():
+            if file.is_file() and file.suffix == ".jar":
+                target_jar = file
+                break
+
+    if not target_jar:
+        log.warning(f"{state.label()} Target JAR not found — cannot generate oracle.json.")
+        return False
+
+    ok, _, run_output, _ = await run_oracle_on_program(agent_jar, str(target_jar), mainclass, Path(state.oracle_path))
+    if not ok:
+        log.warning(f"{state.label()} Oracle run against test case failed — oracle.json may not be generated.")
+        return False
+    else:
+        log.info(f"{state.label()} Oracle.json generated in reproducing test case directory.")
+        return True
+    
+
 def _build_oracle_feedback_section(state: PipelineState, oracle_prog_feedback: str) -> str:
     """
     Build a per-attempt feedback entry for the instrumentation agent during oracle
@@ -821,24 +872,51 @@ def _build_oracle_feedback_section(state: PipelineState, oracle_prog_feedback: s
     attempt = state.oracle_refine_count
     lines = [f"\n## Oracle check feedback (attempt {attempt})\n"]
 
-    no_symptoms = (
-        "produced no symptoms" in oracle_prog_feedback
-        or "Oracle run against real program failed" in oracle_prog_feedback
-    )
+    lines += [
+        "## Important notes for oracle refinement\n",
+        "1. You should only modify the existing instrumentaiton implementation and you should NOT create a new one\n",
+        "2. You should never change the name of the output file when running the instrumentation against the reproducing test case\n",
+        "3. You should never run the instrumentation against the real program directly. You can only modify the instrumentation source and re-run the oracle on the Reproducing test case to see how the oracle output changes.\n\n"
+    ]
+
+    execution_error = oracle_prog_feedback == _ORACLE_RUN_EXECUTION_ERROR
+    no_symptoms = "produced no symptoms" in oracle_prog_feedback
     edge_missing = "did not appear in the oracle symptoms" in oracle_prog_feedback
 
-    if no_symptoms:
+    if execution_error:
         lines += [
-            "The instrumentation produced no symptoms when run against the real target program.",
-            "The boundary edge in the unsoundness report should have been captured as symptom. Check that the pattern "
-            "class matches the intended call sites.",
+            "The instrumentation JAR **crashed or threw an exception** when run against the real target program.",
+            "This is a code-level bug in the instrumentation, not a logic issue with the ASM visitor pattern.\n",
+            "Common causes to look for in the execution log:",
+            "  - ClassNotFoundException: a class referenced in the instrumentation is not on the real program's classpath (check package names and imports)",
+            "  - NoSuchMethodError: method signature mismatch between the instrumentation and the runtime class (check descriptor strings in visitMethodInsn calls)",
+            "  - VerifyError / ClassFormatError: the generated bytecode is invalid — check that you are not corrupting the operand stack and that visitMaxs/visitEnd are called correctly",
+            "  - NullPointerException or other runtime crash inside a visitor method",
         ]
-        if state.oracle_run_output:
+        if state.oracle_run_log_path and Path(state.oracle_run_log_path).exists():
             lines += [
-                "\nExecution output from the real-program run (stdout+stderr):",
-                state.oracle_run_output,
-                "\nUse this output to diagnose why the instrumentation failed or produced no oracle output.",
+                f"\nThe full JVM execution log (stdout+stderr) is at:\n  {state.oracle_run_log_path}",
+                "Read this file to find the exact exception and stack trace.",
             ]
+        else:
+            lines += ["\n(Execution log not available — check the pipeline log for details.)"]
+    elif no_symptoms:
+        lines += [
+            "The instrumentation ran against the real program without crashing but produced **no symptoms**.",
+            "The ASM visitor executed without errors yet did not intercept the intended call sites.\n",
+            "This is a logic issue, not a crash. Common causes:",
+            "  - The visitor's owner/name/descriptor filter does not match the actual method signature in the real program's bytecode (verify with javap -p -verbose)",
+            "  - The instrumented class is not loaded at runtime (wrong package, not on classpath, or loaded by a different classloader)",
+            "  - The call site uses INVOKEINTERFACE or invokedynamic but the visitor only handles INVOKEVIRTUAL (or vice versa)",
+            "  - The root cause class is never instantiated in the real program's execution path",
+        ]
+        if state.oracle_run_log_path and Path(state.oracle_run_log_path).exists():
+            lines += [
+                f"\nThe full execution log (may contain agent startup diagnostics) is at:\n  {state.oracle_run_log_path}",
+                "Read it to confirm the Java agent loaded correctly and the JVM started normally.",
+            ]
+        else:
+            lines += ["\n(Execution log not available — check the pipeline log for details.)"]
     elif edge_missing:
         # Symptoms were produced but the boundary edge was not among them.
         oracle_path = state.output_dir / OUT_TARGET_ORACLE

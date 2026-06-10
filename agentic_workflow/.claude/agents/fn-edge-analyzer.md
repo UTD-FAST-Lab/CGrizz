@@ -26,7 +26,7 @@ The task prompt provides:
 - Target method is only in dynamic CG (tool missed it)
 - SA tool found some other method at the call site instead (`staticCalleesAtSite`)
 - Execution traces show how the edge is reached at runtime. This might be empty if no method has called the caller. 
-- Both the Static and Dynamic call graphs were run with the same environment and same entrypoint without no exclusion or discrepencies.
+- Both the Static and Dynamic call graphs were run with the same environment and same entrypoint without no exclusion or discrepencies. We disregarded all of the exclusion files for both the static and dynamic call graphs. 
 
 **Step 2: Identify the calling pattern (X — Target Behavior)**
 Read the target program source code or relevant jar files:

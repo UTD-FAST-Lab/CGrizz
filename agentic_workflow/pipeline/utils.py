@@ -255,11 +255,14 @@ async def run_oracle_on_program(
     program_jar_path: str,
     main_class: str,
     output_path: Path,
-) -> tuple[bool, str]:
+) -> tuple[bool, bool, str, "Path | None"]:
     """
     Run the instrumentation agent JAR against a real program to produce an oracle.
-    Returns (created, run_output) where created is True if output_path was written
-    and run_output is the combined stdout+stderr (truncated to 5000 chars).
+    Returns (exists, crashed, run_output, log_path) where:
+      - exists:     True if output_path was written
+      - crashed:    True if the JVM exited with a non-zero return code (instrumentation error)
+      - run_output: combined stdout+stderr truncated to 5000 chars
+      - log_path:   Path to oracle_run.log (None if write failed)
     The full output is also written to oracle_run.log next to output_path.
     """
     try:
@@ -268,7 +271,7 @@ async def run_oracle_on_program(
         classpath = build_classpath(program_jar_path)
         if not classpath:
             log.warning(f"No JARs found at {program_jar_path} — skipping oracle run")
-            return False, "No JARs found at the program_jar_path."
+            return False, True, "No JARs found at the program_jar_path.", None
 
         cmd = [
             "java",
@@ -281,7 +284,7 @@ async def run_oracle_on_program(
         try:
             result = await asyncio.to_thread(
                 subprocess.run, cmd, capture_output=True, stdin=subprocess.DEVNULL,
-                timeout=300, check=False, cwd=tmp_dir,
+                timeout=500, check=False, cwd=tmp_dir,
             )
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
@@ -291,16 +294,19 @@ async def run_oracle_on_program(
         combined = (stdout + stderr).strip()
 
         log_path = output_path.parent / "oracle_run.log"
+        wrote_log = False
         try:
             log_path.write_text(combined)
+            wrote_log = True
         except Exception:
             pass
 
+        crashed = result.returncode != 0
         run_output = combined[-5000:] if len(combined) > 5000 else combined
-        return output_path.exists(), run_output
+        return output_path.exists(), crashed, run_output, (log_path if wrote_log else None)
     except Exception as e:
         log.warning(f"Oracle run failed for {program_jar_path}: {e}")
-        return False, str(e)
+        return False, True, str(e), None
 
 
 def extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
