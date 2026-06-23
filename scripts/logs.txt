@@ -1,0 +1,73 @@
+---
+Stage 3 — GenerateReport
+- [ERROR] Report generation failed.
+- [WARN] Could not parse agent response, but found report at <path>. Proceeding with it.
+
+Stage 4 — TestCaseGeneration
+- [ERROR] Test case generation failed.
+- [WARN] Non-reproducing test case generation failed or skipped.
+
+Stage 5 — OracleGeneration
+- [ERROR] Oracle generation failed — oracle.json not found.
+
+Stage 5b — OracleCheck (on real program)
+- [WARN] Agent JAR not found — skipping oracle check on real program
+- [WARN] Oracle run crashed on real program (non-zero exit code)
+- [ERROR] The instrumentation was run against the real target program but the boundary edge (...) did not appear in the oracle symptoms.
+
+Stage 6 — ReproductionCheck
+- [ERROR] Could not read oracle: <e>
+- [ERROR] Oracle does not contain any root causes.
+- [ERROR] Oracle root causes do not contain any symptoms.
+- [ERROR] Edge not found for symptom: <feedback>
+- [ERROR] Symptom in oracle missing caller or callee information.
+
+Stage 7 — RootCauseAnnotation
+- [ERROR] Annotation failed.
+
+Stage 8 — TraceCheck
+- [ERROR] Could not read execution trace log: <e>
+- [ERROR] Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace.
+- [ERROR] Trace check failed — expected root cause method '<method>'.
+- [WARN] The method is not reachable for root cause: <method>
+- [ERROR] Could not read oracle for root cause methods: <e>
+
+Oracle refinement sub-loop (between Stage 5b and Stage 6)
+- (no direct log.warning/error; failures bubble up as oracle_prog_feedback and loop escalation)
+
+Helper — _generate_oracle_testcase
+- [WARN] Agent JAR not found — cannot generate oracle.json in test case dir.
+- [WARN] jcg.conf not found in reproducing test case dir — cannot generate oracle.json.
+- [WARN] Could not read jcg.conf: <e> — cannot generate oracle.json.
+- [WARN] Target JAR not found — cannot generate oracle.json.
+- [WARN] Oracle run against test case failed — oracle.json may not b
+
+Helper — _is_reachable / _edge_in_boundary
+- [WARN] Failed reading static CG file <path>: <e>
+- [WARN] <method> is not reachable in the static call graph or the f
+- [WARN] Failed reading boundary file <path>: <e> (logged without state label)
+
+
+
+
+agent: 
+- [ERROR] Report generation failed.
+- [ERROR] Test case generation failed.
+- [ERROR] Oracle generation failed — oracle.json not found.
+- [ERROR] Annotation failed.
+oracle: 
+- [WARN] Agent JAR not found — skipping oracle check on real program
+- [WARN] Oracle run crashed on real program (non-zero exit code)
+- [ERROR] The instrumentation was run against the real target program but the boundary edge
+boundary:
+- [ERROR] Could not read oracle
+- [ERROR] Oracle does not contain any root causes
+- [ERROR] Oracle root causes do not contain any symptoms
+- [ERROR] Edge not found for symptom
+- [ERROR] Symptom in oracle missing caller or callee information.
+trace:
+- [ERROR] Could not read execution trace log
+- [ERROR] Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace.
+- [ERROR] Trace check failed — expected root cause method
+- [WARN] The method is not reachable for root cause
+- [ERROR] Could not read oracle for root cause methods

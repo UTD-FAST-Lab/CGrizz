@@ -7,3 +7,4 @@ ignored_stuff
 
 __pycache__/
 *.pyc
+venv/

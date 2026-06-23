@@ -71,7 +71,7 @@ from pipeline.sampler import (
     filter_jvm_runtime_boundaries,
     filter_jdk_caller_boundaries,
 )
-from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT
+from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT, OUT_TARGET_ORACLE
 
 log = logging.getLogger("pipeline.orchestrator")
 
@@ -180,9 +180,48 @@ async def _run_dedup(
     all_pruned:  list[PipelineState] = []
     oracle_runs: list[dict]          = []
 
+    successful_key = (
+        f"{successful_state.program_name}/"
+        f"{successful_state.tool_name}/"
+        f"{successful_state.algorithm}"
+    )
+
     for program_key, (analysis, remaining) in program_queues.items():
         if not remaining:
             continue
+
+        # For the successful state's own program, the oracle was already run
+        # against the real program during the pipeline — reuse oracle_target.json
+        # instead of re-running instrumentation.
+        if program_key == successful_key:
+            oracle_target = (
+                Path(successful_state.target_oracle_path)
+                if successful_state.target_oracle_path
+                else successful_state.output_dir / OUT_TARGET_ORACLE
+            )
+            if oracle_target.exists():
+                log.info(
+                    f"{successful_state.label()} Reusing existing oracle_target.json "
+                    f"for {analysis.get('program_name', program_key)} — skipping oracle run"
+                )
+                oracle_runs.append({
+                    "program_name": analysis.get("program_name", program_key),
+                    "oracle_path":  str(oracle_target),
+                    "status":       "reused_target_oracle",
+                })
+                symptoms = extract_symptoms(oracle_target)
+                if symptoms:
+                    kept, pruned = prune_queue(remaining, symptoms)
+                    program_queues[program_key] = (analysis, kept)
+                    all_pruned.extend(pruned)
+                    if pruned:
+                        log.info(
+                            f"{successful_state.label()} Pruned {len(pruned)} boundaries "
+                            f"from {analysis['program_name']}: "
+                            f"{[s.boundary_id for s in pruned]}"
+                        )
+            continue
+            # No oracle_target.json on disk — fall through to running the oracle.
 
         jar_path   = analysis.get("program_jar_path")
         main_class = analysis.get("main_class")

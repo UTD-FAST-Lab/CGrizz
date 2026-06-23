@@ -16,7 +16,7 @@ from pathlib import Path
 from claude_agent_sdk import ClaudeAgentOptions
 # from claude_agent_sdk import AgentDefinition  # uncomment if overriding .md agents
 
-from config import MODEL_DEFAULT
+from config import MODEL_DEFAULT, MODEL_POWERFUL
 from pipeline.state import PipelineState
 
 
@@ -36,7 +36,7 @@ def build_agent_options(state: PipelineState) -> ClaudeAgentOptions:
     project_root = Path(__file__).parent.parent
 
     return ClaudeAgentOptions(
-        model=MODEL_DEFAULT,
+        model=MODEL_POWERFUL,
         allowed_tools=["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Task"],
         setting_sources=["user", "project"],
         cwd=str(project_root),

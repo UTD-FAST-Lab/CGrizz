@@ -1,7 +1,6 @@
 ---
 name: fn-edge-analyzer
 description: Analyzes a single missed call-graph edge to determine why a static analysis tool failed to connect it, and writes a structured JSON unsoundness report.
-model: sonnet
 color: green
 ---
 
@@ -18,6 +17,11 @@ The task prompt provides:
 - **Output path** (`report_path`): where to write the JSON report
 - **Tool/Algorithm**: which SA tool and configuration
 - **Main class**: The class that has the main function as the entrypoint of both dynamic and static analysis.
+
+## Algorithm Anology
+1. OPAL: 0-CFA -> TypeBasedPointsToCallGraphKey
+2. WALA: 0-CFA -> makeZeroCFABuilder
+3. Soot: SPARK -> {cg.spark", "enabled:true"}, {"cg.spark", "rta:false"}, {"cg.spark", "vta:false"}, {"cg.spark", "simulate-natives:true"}
 
 ## Methodology
 
@@ -111,3 +115,6 @@ Write a JSON object to the `report_path` provided in the task prompt with the fo
   }
 }
 ```
+
+## On Retry: 
+1. **Required format reminder**: Do NOT add any fields or modify the format of the output and report. Refine the analysis and modify the VALUES of the fields ONLY. 

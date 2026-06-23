@@ -240,7 +240,6 @@ Invoke it via the Task tool.
 ## Inputs
 
 Unsoundness report          : {state.unsoundness_report}
-ASM instrumentation template: /home/mohammad/projects/AgenticCGEval/instrumentation_template/instrumentation
 Reproducing test case       : {state.reproducing_test_case_path}/
 Oracle output path          : {oracle_path}
 {oracle_fb}
