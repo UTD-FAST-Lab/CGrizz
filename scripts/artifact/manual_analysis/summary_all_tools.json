@@ -1,0 +1,66 @@
+{
+  "wala": {
+    "tool": "wala",
+    "total_reasoned": 38,
+    "distinct_root_causes": 7,
+    "duplicates_by_group": 31,
+    "distinct_mechanisms": 34,
+    "duplicates_by_mechanism": 4,
+    "general_execution_log_count": 20,
+    "general_execution_log_threshold": "[UNSOUNDNESS] entries > 30",
+    "group_counts": {
+      "R6_unsafe_field_access": 12,
+      "R2_reflective_field_or_method_access": 8,
+      "R5_implicit_jvm_exception_or_error": 7,
+      "R1_reflective_instantiation": 5,
+      "R3_dynamic_proxy": 4,
+      "R4_methodhandle_invokedynamic": 1,
+      "R7_unmodeled_native_call": 1
+    },
+    "missing_from_inventory": []
+  },
+  "opal": {
+    "tool": "opal",
+    "total_reasoned": 44,
+    "distinct_root_causes": 9,
+    "duplicates_by_group": 35,
+    "distinct_mechanisms": 39,
+    "duplicates_by_mechanism": 5,
+    "general_execution_log_count": 29,
+    "general_execution_log_threshold": "[UNSOUNDNESS] entries > 30",
+    "group_counts": {
+      "R1_reflective_instantiation": 10,
+      "R8_unmodeled_jdk_collection_or_factory": 7,
+      "R5_implicit_jvm_exception_or_error": 6,
+      "R7_unmodeled_native_call": 4,
+      "R9_other": 4,
+      "R6_unsafe_field_access": 4,
+      "R3_dynamic_proxy": 4,
+      "R2_reflective_field_or_method_access": 4,
+      "R4_methodhandle_invokedynamic": 1
+    },
+    "missing_from_inventory": []
+  },
+  "soot": {
+    "tool": "soot",
+    "total_reasoned": 69,
+    "distinct_root_causes": 9,
+    "duplicates_by_group": 60,
+    "distinct_mechanisms": 54,
+    "duplicates_by_mechanism": 15,
+    "general_execution_log_count": 19,
+    "general_execution_log_threshold": "[UNSOUNDNESS] entries > 30",
+    "group_counts": {
+      "R2_reflective_field_or_method_access": 19,
+      "R1_reflective_instantiation": 16,
+      "R6_unsafe_field_access": 9,
+      "R5_implicit_jvm_exception_or_error": 7,
+      "R9_other": 6,
+      "R3_dynamic_proxy": 4,
+      "R8_unmodeled_jdk_collection_or_factory": 4,
+      "R7_unmodeled_native_call": 3,
+      "R4_methodhandle_invokedynamic": 1
+    },
+    "missing_from_inventory": []
+  }
+}

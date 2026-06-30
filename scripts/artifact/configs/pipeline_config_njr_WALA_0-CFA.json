@@ -1,0 +1,1424 @@
+{
+    "analyses": [
+        {
+            "program_name": "url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8",
+            "target_program": "../programs/njr/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "mi.regex.Common",
+            "program_jar_path": "../programs/njr/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8/url0067cdd33d_goldolphin_Mi_tgz-pJ8-mi_regex_CommonJ8.jar"
+        },
+        {
+            "program_name": "url027b37a4db_ctriposs_bigmap_tgz-pJ8-com_ctriposs_bigmap_LimitTestJ8",
+            "target_program": "../programs/njr/url027b37a4db_ctriposs_bigmap_tgz-pJ8-com_ctriposs_bigmap_LimitTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url027b37a4db_ctriposs_bigmap_tgz-pJ8-com_ctriposs_bigmap_LimitTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.ctriposs.bigmap.LimitTest",
+            "program_jar_path": "../programs/njr/url027b37a4db_ctriposs_bigmap_tgz-pJ8-com_ctriposs_bigmap_LimitTestJ8/url027b37a4db_ctriposs_bigmap_tgz-pJ8-com_ctriposs_bigmap_LimitTestJ8.jar"
+        },
+        {
+            "program_name": "url0307c0e995_js_labs_js_collider_tgz-pJ8-org_jsl_tests_shmem_throughput_MainJ8",
+            "target_program": "../programs/njr/url0307c0e995_js_labs_js_collider_tgz-pJ8-org_jsl_tests_shmem_throughput_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0307c0e995_js_labs_js_collider_tgz-pJ8-org_jsl_tests_shmem_throughput_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.jsl.tests.shmem_throughput.Main",
+            "program_jar_path": "../programs/njr/url0307c0e995_js_labs_js_collider_tgz-pJ8-org_jsl_tests_shmem_throughput_MainJ8/url0307c0e995_js_labs_js_collider_tgz-pJ8-org_jsl_tests_shmem_throughput_MainJ8.jar"
+        },
+        {
+            "program_name": "url04f7fcf4e1_peteratt_HDFS_Replication_Simulator_tgz-pJ8-hdfs_replicationsimulator_MainJ8",
+            "target_program": "../programs/njr/url04f7fcf4e1_peteratt_HDFS_Replication_Simulator_tgz-pJ8-hdfs_replicationsimulator_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url04f7fcf4e1_peteratt_HDFS_Replication_Simulator_tgz-pJ8-hdfs_replicationsimulator_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "hdfs.replicationsimulator.Main",
+            "program_jar_path": "../programs/njr/url04f7fcf4e1_peteratt_HDFS_Replication_Simulator_tgz-pJ8-hdfs_replicationsimulator_MainJ8/url04f7fcf4e1_peteratt_HDFS_Replication_Simulator_tgz-pJ8-hdfs_replicationsimulator_MainJ8.jar"
+        },
+        {
+            "program_name": "url088e9d87be_jpush_jpush_java_library_tgz-pJ8-cn_jpush_example_JPushClientExampleJ8",
+            "target_program": "../programs/njr/url088e9d87be_jpush_jpush_java_library_tgz-pJ8-cn_jpush_example_JPushClientExampleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url088e9d87be_jpush_jpush_java_library_tgz-pJ8-cn_jpush_example_JPushClientExampleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "cn.jpush.example.JPushClientExample",
+            "program_jar_path": "../programs/njr/url088e9d87be_jpush_jpush_java_library_tgz-pJ8-cn_jpush_example_JPushClientExampleJ8/url088e9d87be_jpush_jpush_java_library_tgz-pJ8-cn_jpush_example_JPushClientExampleJ8.jar"
+        },
+        {
+            "program_name": "url0bbb975254_maxime_collin_mediatheque_tgz-pJ8-test_MainJ8",
+            "target_program": "../programs/njr/url0bbb975254_maxime_collin_mediatheque_tgz-pJ8-test_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0bbb975254_maxime_collin_mediatheque_tgz-pJ8-test_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.Main",
+            "program_jar_path": "../programs/njr/url0bbb975254_maxime_collin_mediatheque_tgz-pJ8-test_MainJ8/url0bbb975254_maxime_collin_mediatheque_tgz-pJ8-test_MainJ8.jar"
+        },
+        {
+            "program_name": "url0d084b4168_zhourui392_BaiduPicDown_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url0d084b4168_zhourui392_BaiduPicDown_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0d084b4168_zhourui392_BaiduPicDown_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url0d084b4168_zhourui392_BaiduPicDown_tgz-pJ8-org_json_TestJ8/url0d084b4168_zhourui392_BaiduPicDown_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url0d38a10ee7_diegopliebana_GEBT_tgz-pJ8-ch_idsia_scenarios_test_EvolveWithChangingSeedsJ8",
+            "target_program": "../programs/njr/url0d38a10ee7_diegopliebana_GEBT_tgz-pJ8-ch_idsia_scenarios_test_EvolveWithChangingSeedsJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0d38a10ee7_diegopliebana_GEBT_tgz-pJ8-ch_idsia_scenarios_test_EvolveWithChangingSeedsJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ch.idsia.scenarios.test.EvolveWithChangingSeeds",
+            "program_jar_path": "../programs/njr/url0d38a10ee7_diegopliebana_GEBT_tgz-pJ8-ch_idsia_scenarios_test_EvolveWithChangingSeedsJ8/url0d38a10ee7_diegopliebana_GEBT_tgz-pJ8-ch_idsia_scenarios_test_EvolveWithChangingSeedsJ8.jar"
+        },
+        {
+            "program_name": "url0f7f8f6435_TimmiTBy_Epam_tgz-pJ8-com_epam_electricalappliance_RunnerJ8",
+            "target_program": "../programs/njr/url0f7f8f6435_TimmiTBy_Epam_tgz-pJ8-com_epam_electricalappliance_RunnerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url0f7f8f6435_TimmiTBy_Epam_tgz-pJ8-com_epam_electricalappliance_RunnerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.epam.electricalappliance.Runner",
+            "program_jar_path": "../programs/njr/url0f7f8f6435_TimmiTBy_Epam_tgz-pJ8-com_epam_electricalappliance_RunnerJ8/url0f7f8f6435_TimmiTBy_Epam_tgz-pJ8-com_epam_electricalappliance_RunnerJ8.jar"
+        },
+        {
+            "program_name": "url11fb0973cf_raichuman9_Swimmer526_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8",
+            "target_program": "../programs/njr/url11fb0973cf_raichuman9_Swimmer526_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url11fb0973cf_raichuman9_Swimmer526_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "fr.inria.optimization.cmaes.examples.CMAExample1",
+            "program_jar_path": "../programs/njr/url11fb0973cf_raichuman9_Swimmer526_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8/url11fb0973cf_raichuman9_Swimmer526_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8.jar"
+        },
+        {
+            "program_name": "url146c819f25_jlink_Parse4SJM_tgz-pJ8-sjm_examples_book_robot_ShowRobotRefactoredJ8",
+            "target_program": "../programs/njr/url146c819f25_jlink_Parse4SJM_tgz-pJ8-sjm_examples_book_robot_ShowRobotRefactoredJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url146c819f25_jlink_Parse4SJM_tgz-pJ8-sjm_examples_book_robot_ShowRobotRefactoredJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "sjm.examples.book.robot.ShowRobotRefactored",
+            "program_jar_path": "../programs/njr/url146c819f25_jlink_Parse4SJM_tgz-pJ8-sjm_examples_book_robot_ShowRobotRefactoredJ8/url146c819f25_jlink_Parse4SJM_tgz-pJ8-sjm_examples_book_robot_ShowRobotRefactoredJ8.jar"
+        },
+        {
+            "program_name": "url18cf99526f_anasbenis_MiniProjetMay_tgz-pJ8-test_MainJ8",
+            "target_program": "../programs/njr/url18cf99526f_anasbenis_MiniProjetMay_tgz-pJ8-test_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url18cf99526f_anasbenis_MiniProjetMay_tgz-pJ8-test_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.Main",
+            "program_jar_path": "../programs/njr/url18cf99526f_anasbenis_MiniProjetMay_tgz-pJ8-test_MainJ8/url18cf99526f_anasbenis_MiniProjetMay_tgz-pJ8-test_MainJ8.jar"
+        },
+        {
+            "program_name": "url1a41b8e9f2_mr1azl_INF345_tgz-pJ8-TestParserJ8",
+            "target_program": "../programs/njr/url1a41b8e9f2_mr1azl_INF345_tgz-pJ8-TestParserJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url1a41b8e9f2_mr1azl_INF345_tgz-pJ8-TestParserJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "TestParser",
+            "program_jar_path": "../programs/njr/url1a41b8e9f2_mr1azl_INF345_tgz-pJ8-TestParserJ8/url1a41b8e9f2_mr1azl_INF345_tgz-pJ8-TestParserJ8.jar"
+        },
+        {
+            "program_name": "url1a745d67fc_sobercheg_InterviewTraining_tgz-pJ8-leetcode_oj_Solution2TestJ8",
+            "target_program": "../programs/njr/url1a745d67fc_sobercheg_InterviewTraining_tgz-pJ8-leetcode_oj_Solution2TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url1a745d67fc_sobercheg_InterviewTraining_tgz-pJ8-leetcode_oj_Solution2TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "leetcode.oj.Solution2Test",
+            "program_jar_path": "../programs/njr/url1a745d67fc_sobercheg_InterviewTraining_tgz-pJ8-leetcode_oj_Solution2TestJ8/url1a745d67fc_sobercheg_InterviewTraining_tgz-pJ8-leetcode_oj_Solution2TestJ8.jar"
+        },
+        {
+            "program_name": "url1cbaffb197_foxking0416_AlgorithmTraining_tgz-pJ8-algorithm_leetcode_MainLeetJ8",
+            "target_program": "../programs/njr/url1cbaffb197_foxking0416_AlgorithmTraining_tgz-pJ8-algorithm_leetcode_MainLeetJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url1cbaffb197_foxking0416_AlgorithmTraining_tgz-pJ8-algorithm_leetcode_MainLeetJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "algorithm.leetcode.MainLeet",
+            "program_jar_path": "../programs/njr/url1cbaffb197_foxking0416_AlgorithmTraining_tgz-pJ8-algorithm_leetcode_MainLeetJ8/url1cbaffb197_foxking0416_AlgorithmTraining_tgz-pJ8-algorithm_leetcode_MainLeetJ8.jar"
+        },
+        {
+            "program_name": "url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8",
+            "target_program": "../programs/njr/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.telsis.jocp.sampleApp.BasicOCPApp",
+            "program_jar_path": "../programs/njr/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8/url1d5e9d990f_Telsis_jOCP_tgz-pJ8-com_telsis_jocp_sampleApp_BasicOCPAppJ8.jar"
+        },
+        {
+            "program_name": "url1f1de5fc71_cooijmanstim_hobo_tgz-pJ8-hobo_TestingEnviromentJ8",
+            "target_program": "../programs/njr/url1f1de5fc71_cooijmanstim_hobo_tgz-pJ8-hobo_TestingEnviromentJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url1f1de5fc71_cooijmanstim_hobo_tgz-pJ8-hobo_TestingEnviromentJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "hobo.TestingEnviroment",
+            "program_jar_path": "../programs/njr/url1f1de5fc71_cooijmanstim_hobo_tgz-pJ8-hobo_TestingEnviromentJ8/url1f1de5fc71_cooijmanstim_hobo_tgz-pJ8-hobo_TestingEnviromentJ8.jar"
+        },
+        {
+            "program_name": "url20b0f880a5_jgraph_legacy_jgraph5_tgz-pJ8-org_jgraph_example_HelloWorldJ8",
+            "target_program": "../programs/njr/url20b0f880a5_jgraph_legacy_jgraph5_tgz-pJ8-org_jgraph_example_HelloWorldJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url20b0f880a5_jgraph_legacy_jgraph5_tgz-pJ8-org_jgraph_example_HelloWorldJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.jgraph.example.HelloWorld",
+            "program_jar_path": "../programs/njr/url20b0f880a5_jgraph_legacy_jgraph5_tgz-pJ8-org_jgraph_example_HelloWorldJ8/url20b0f880a5_jgraph_legacy_jgraph5_tgz-pJ8-org_jgraph_example_HelloWorldJ8.jar"
+        },
+        {
+            "program_name": "url24d793285d_auzll_gengweibo_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url24d793285d_auzll_gengweibo_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url24d793285d_auzll_gengweibo_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url24d793285d_auzll_gengweibo_tgz-pJ8-org_json_TestJ8/url24d793285d_auzll_gengweibo_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url2698a2c731_cassandra_project_cassandra_stand_alone_tgz-pJ8-eu_cassandra_sim_MySimpleDynamicScenarioSimulationJ8",
+            "target_program": "../programs/njr/url2698a2c731_cassandra_project_cassandra_stand_alone_tgz-pJ8-eu_cassandra_sim_MySimpleDynamicScenarioSimulationJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2698a2c731_cassandra_project_cassandra_stand_alone_tgz-pJ8-eu_cassandra_sim_MySimpleDynamicScenarioSimulationJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "eu.cassandra.sim.MySimpleDynamicScenarioSimulation",
+            "program_jar_path": "../programs/njr/url2698a2c731_cassandra_project_cassandra_stand_alone_tgz-pJ8-eu_cassandra_sim_MySimpleDynamicScenarioSimulationJ8/url2698a2c731_cassandra_project_cassandra_stand_alone_tgz-pJ8-eu_cassandra_sim_MySimpleDynamicScenarioSimulationJ8.jar"
+        },
+        {
+            "program_name": "url270fc4f5ee_ykcilborw_Joust_tgz-pJ8-fri_patterns_interpreter_parsergenerator_examples_HowToOverrideLexerImplJ8",
+            "target_program": "../programs/njr/url270fc4f5ee_ykcilborw_Joust_tgz-pJ8-fri_patterns_interpreter_parsergenerator_examples_HowToOverrideLexerImplJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url270fc4f5ee_ykcilborw_Joust_tgz-pJ8-fri_patterns_interpreter_parsergenerator_examples_HowToOverrideLexerImplJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "fri.patterns.interpreter.parsergenerator.examples.HowToOverrideLexerImpl",
+            "program_jar_path": "../programs/njr/url270fc4f5ee_ykcilborw_Joust_tgz-pJ8-fri_patterns_interpreter_parsergenerator_examples_HowToOverrideLexerImplJ8/url270fc4f5ee_ykcilborw_Joust_tgz-pJ8-fri_patterns_interpreter_parsergenerator_examples_HowToOverrideLexerImplJ8.jar"
+        },
+        {
+            "program_name": "url27db8982cd_leohinterlang_argFace_tgz-pJ8-com_fidelis_argface_ArgSampleJ8",
+            "target_program": "../programs/njr/url27db8982cd_leohinterlang_argFace_tgz-pJ8-com_fidelis_argface_ArgSampleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url27db8982cd_leohinterlang_argFace_tgz-pJ8-com_fidelis_argface_ArgSampleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.fidelis.argface.ArgSample",
+            "program_jar_path": "../programs/njr/url27db8982cd_leohinterlang_argFace_tgz-pJ8-com_fidelis_argface_ArgSampleJ8/url27db8982cd_leohinterlang_argFace_tgz-pJ8-com_fidelis_argface_ArgSampleJ8.jar"
+        },
+        {
+            "program_name": "url284ba87ea1_swabhs_forbidden_paths_tgz-pJ8-tagging_hypergraph_TaggingHypergraphGeneratorJ8",
+            "target_program": "../programs/njr/url284ba87ea1_swabhs_forbidden_paths_tgz-pJ8-tagging_hypergraph_TaggingHypergraphGeneratorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url284ba87ea1_swabhs_forbidden_paths_tgz-pJ8-tagging_hypergraph_TaggingHypergraphGeneratorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "tagging_hypergraph.TaggingHypergraphGenerator",
+            "program_jar_path": "../programs/njr/url284ba87ea1_swabhs_forbidden_paths_tgz-pJ8-tagging_hypergraph_TaggingHypergraphGeneratorJ8/url284ba87ea1_swabhs_forbidden_paths_tgz-pJ8-tagging_hypergraph_TaggingHypergraphGeneratorJ8.jar"
+        },
+        {
+            "program_name": "url2892692420_mikaello_inf3110_oblig1_tgz-pJ8-inf3110_oblig1_Inf3110_oblig1J8",
+            "target_program": "../programs/njr/url2892692420_mikaello_inf3110_oblig1_tgz-pJ8-inf3110_oblig1_Inf3110_oblig1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2892692420_mikaello_inf3110_oblig1_tgz-pJ8-inf3110_oblig1_Inf3110_oblig1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "inf3110_oblig1.Inf3110_oblig1",
+            "program_jar_path": "../programs/njr/url2892692420_mikaello_inf3110_oblig1_tgz-pJ8-inf3110_oblig1_Inf3110_oblig1J8/url2892692420_mikaello_inf3110_oblig1_tgz-pJ8-inf3110_oblig1_Inf3110_oblig1J8.jar"
+        },
+        {
+            "program_name": "url28dfd00382_byang223_TurnBAPI_tgz-pJ8-units_upgrades_UpgradeTestJ8",
+            "target_program": "../programs/njr/url28dfd00382_byang223_TurnBAPI_tgz-pJ8-units_upgrades_UpgradeTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url28dfd00382_byang223_TurnBAPI_tgz-pJ8-units_upgrades_UpgradeTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "units.upgrades.UpgradeTest",
+            "program_jar_path": "../programs/njr/url28dfd00382_byang223_TurnBAPI_tgz-pJ8-units_upgrades_UpgradeTestJ8/url28dfd00382_byang223_TurnBAPI_tgz-pJ8-units_upgrades_UpgradeTestJ8.jar"
+        },
+        {
+            "program_name": "url28f181064f_simonjupp_java_skos_api_tgz-pJ8-example_CreateSKOSExampleJ8",
+            "target_program": "../programs/njr/url28f181064f_simonjupp_java_skos_api_tgz-pJ8-example_CreateSKOSExampleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url28f181064f_simonjupp_java_skos_api_tgz-pJ8-example_CreateSKOSExampleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "example.CreateSKOSExample",
+            "program_jar_path": "../programs/njr/url28f181064f_simonjupp_java_skos_api_tgz-pJ8-example_CreateSKOSExampleJ8/url28f181064f_simonjupp_java_skos_api_tgz-pJ8-example_CreateSKOSExampleJ8.jar"
+        },
+        {
+            "program_name": "url294e6c45f3_Ecdosis_NMergeNew_tgz-pJ8-TestJ8",
+            "target_program": "../programs/njr/url294e6c45f3_Ecdosis_NMergeNew_tgz-pJ8-TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url294e6c45f3_Ecdosis_NMergeNew_tgz-pJ8-TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Test",
+            "program_jar_path": "../programs/njr/url294e6c45f3_Ecdosis_NMergeNew_tgz-pJ8-TestJ8/url294e6c45f3_Ecdosis_NMergeNew_tgz-pJ8-TestJ8.jar"
+        },
+        {
+            "program_name": "url29ae058134_yuriy_chumak_jatha_tgz-pJ8-org_jatha_LispJ8",
+            "target_program": "../programs/njr/url29ae058134_yuriy_chumak_jatha_tgz-pJ8-org_jatha_LispJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url29ae058134_yuriy_chumak_jatha_tgz-pJ8-org_jatha_LispJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.jatha.Lisp",
+            "program_jar_path": "../programs/njr/url29ae058134_yuriy_chumak_jatha_tgz-pJ8-org_jatha_LispJ8/url29ae058134_yuriy_chumak_jatha_tgz-pJ8-org_jatha_LispJ8.jar"
+        },
+        {
+            "program_name": "url29d9f49ba9_frankrefischer_STTRJ_tgz-pJ8-startrekj_STTR1J8",
+            "target_program": "../programs/njr/url29d9f49ba9_frankrefischer_STTRJ_tgz-pJ8-startrekj_STTR1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url29d9f49ba9_frankrefischer_STTRJ_tgz-pJ8-startrekj_STTR1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "startrekj.STTR1",
+            "program_jar_path": "../programs/njr/url29d9f49ba9_frankrefischer_STTRJ_tgz-pJ8-startrekj_STTR1J8/url29d9f49ba9_frankrefischer_STTRJ_tgz-pJ8-startrekj_STTR1J8.jar"
+        },
+        {
+            "program_name": "url29ecd5d728_geodb_db3dcore_tgz-pJ8-de_uos_igf_db3d_dbms_model3d_SegmentNetBuilderJ8",
+            "target_program": "../programs/njr/url29ecd5d728_geodb_db3dcore_tgz-pJ8-de_uos_igf_db3d_dbms_model3d_SegmentNetBuilderJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url29ecd5d728_geodb_db3dcore_tgz-pJ8-de_uos_igf_db3d_dbms_model3d_SegmentNetBuilderJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "de.uos.igf.db3d.dbms.model3d.SegmentNetBuilder",
+            "program_jar_path": "../programs/njr/url29ecd5d728_geodb_db3dcore_tgz-pJ8-de_uos_igf_db3d_dbms_model3d_SegmentNetBuilderJ8/url29ecd5d728_geodb_db3dcore_tgz-pJ8-de_uos_igf_db3d_dbms_model3d_SegmentNetBuilderJ8.jar"
+        },
+        {
+            "program_name": "url2a908001cd_malictus_klang_tgz-pJ8-malictus_klang_test_PrimitiveTestJ8",
+            "target_program": "../programs/njr/url2a908001cd_malictus_klang_tgz-pJ8-malictus_klang_test_PrimitiveTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2a908001cd_malictus_klang_tgz-pJ8-malictus_klang_test_PrimitiveTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "malictus.klang.test.PrimitiveTest",
+            "program_jar_path": "../programs/njr/url2a908001cd_malictus_klang_tgz-pJ8-malictus_klang_test_PrimitiveTestJ8/url2a908001cd_malictus_klang_tgz-pJ8-malictus_klang_test_PrimitiveTestJ8.jar"
+        },
+        {
+            "program_name": "url2b4a2d655b_Yehonal_unisa_prog2_jdm_tgz-pJ8-com_jdeals_tests_TestUserBuyingJ8",
+            "target_program": "../programs/njr/url2b4a2d655b_Yehonal_unisa_prog2_jdm_tgz-pJ8-com_jdeals_tests_TestUserBuyingJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2b4a2d655b_Yehonal_unisa_prog2_jdm_tgz-pJ8-com_jdeals_tests_TestUserBuyingJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.jdeals.tests.TestUserBuying",
+            "program_jar_path": "../programs/njr/url2b4a2d655b_Yehonal_unisa_prog2_jdm_tgz-pJ8-com_jdeals_tests_TestUserBuyingJ8/url2b4a2d655b_Yehonal_unisa_prog2_jdm_tgz-pJ8-com_jdeals_tests_TestUserBuyingJ8.jar"
+        },
+        {
+            "program_name": "url2b521cbda7_eobermuhlner_jhuge_tgz-pJ8-ch_obermuhlner_jhuge_example_MeasureHeapJ8",
+            "target_program": "../programs/njr/url2b521cbda7_eobermuhlner_jhuge_tgz-pJ8-ch_obermuhlner_jhuge_example_MeasureHeapJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2b521cbda7_eobermuhlner_jhuge_tgz-pJ8-ch_obermuhlner_jhuge_example_MeasureHeapJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ch.obermuhlner.jhuge.example.MeasureHeap",
+            "program_jar_path": "../programs/njr/url2b521cbda7_eobermuhlner_jhuge_tgz-pJ8-ch_obermuhlner_jhuge_example_MeasureHeapJ8/url2b521cbda7_eobermuhlner_jhuge_tgz-pJ8-ch_obermuhlner_jhuge_example_MeasureHeapJ8.jar"
+        },
+        {
+            "program_name": "url2b9f720f64_jfimbett_QBnB_tgz-pJ8-tests_TestJ8",
+            "target_program": "../programs/njr/url2b9f720f64_jfimbett_QBnB_tgz-pJ8-tests_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2b9f720f64_jfimbett_QBnB_tgz-pJ8-tests_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "tests.Test",
+            "program_jar_path": "../programs/njr/url2b9f720f64_jfimbett_QBnB_tgz-pJ8-tests_TestJ8/url2b9f720f64_jfimbett_QBnB_tgz-pJ8-tests_TestJ8.jar"
+        },
+        {
+            "program_name": "url2bc31e3489_ramonli_RabbitMQResearch_tgz-pJ8-com_mpos_lottery_te_thirdpartyservice_amqp_protobuf_CancellationMessagePulisherJ8",
+            "target_program": "../programs/njr/url2bc31e3489_ramonli_RabbitMQResearch_tgz-pJ8-com_mpos_lottery_te_thirdpartyservice_amqp_protobuf_CancellationMessagePulisherJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2bc31e3489_ramonli_RabbitMQResearch_tgz-pJ8-com_mpos_lottery_te_thirdpartyservice_amqp_protobuf_CancellationMessagePulisherJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.mpos.lottery.te.thirdpartyservice.amqp.protobuf.CancellationMessagePulisher",
+            "program_jar_path": "../programs/njr/url2bc31e3489_ramonli_RabbitMQResearch_tgz-pJ8-com_mpos_lottery_te_thirdpartyservice_amqp_protobuf_CancellationMessagePulisherJ8/url2bc31e3489_ramonli_RabbitMQResearch_tgz-pJ8-com_mpos_lottery_te_thirdpartyservice_amqp_protobuf_CancellationMessagePulisherJ8.jar"
+        },
+        {
+            "program_name": "url2d0aeba8a7_kobantser_Calculator_tgz-pJ8-com_teamdev_students_calculator_impl_StateMachineCalculatorJ8",
+            "target_program": "../programs/njr/url2d0aeba8a7_kobantser_Calculator_tgz-pJ8-com_teamdev_students_calculator_impl_StateMachineCalculatorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2d0aeba8a7_kobantser_Calculator_tgz-pJ8-com_teamdev_students_calculator_impl_StateMachineCalculatorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.teamdev.students.calculator.impl.StateMachineCalculator",
+            "program_jar_path": "../programs/njr/url2d0aeba8a7_kobantser_Calculator_tgz-pJ8-com_teamdev_students_calculator_impl_StateMachineCalculatorJ8/url2d0aeba8a7_kobantser_Calculator_tgz-pJ8-com_teamdev_students_calculator_impl_StateMachineCalculatorJ8.jar"
+        },
+        {
+            "program_name": "url2e4fca7217_mark_lacdao_RPGClient_tgz-pJ8-org_nerv_rpgclient_MainJ8",
+            "target_program": "../programs/njr/url2e4fca7217_mark_lacdao_RPGClient_tgz-pJ8-org_nerv_rpgclient_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2e4fca7217_mark_lacdao_RPGClient_tgz-pJ8-org_nerv_rpgclient_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.nerv.rpgclient.Main",
+            "program_jar_path": "../programs/njr/url2e4fca7217_mark_lacdao_RPGClient_tgz-pJ8-org_nerv_rpgclient_MainJ8/url2e4fca7217_mark_lacdao_RPGClient_tgz-pJ8-org_nerv_rpgclient_MainJ8.jar"
+        },
+        {
+            "program_name": "url2f44efcfa6_wangyudong_sohutw_java_sdk_2_0_tgz-pJ8-com_sohu_t_api_sdk_json_TestJ8",
+            "target_program": "../programs/njr/url2f44efcfa6_wangyudong_sohutw_java_sdk_2_0_tgz-pJ8-com_sohu_t_api_sdk_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url2f44efcfa6_wangyudong_sohutw_java_sdk_2_0_tgz-pJ8-com_sohu_t_api_sdk_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.sohu.t.api.sdk.json.Test",
+            "program_jar_path": "../programs/njr/url2f44efcfa6_wangyudong_sohutw_java_sdk_2_0_tgz-pJ8-com_sohu_t_api_sdk_json_TestJ8/url2f44efcfa6_wangyudong_sohutw_java_sdk_2_0_tgz-pJ8-com_sohu_t_api_sdk_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url3010dbde70_nbartlett_Sequence_Memoizer_tgz-pJ8-edu_columbia_stat_wood_pub_sequencememoizer_IntSequenceMemoizerJ8",
+            "target_program": "../programs/njr/url3010dbde70_nbartlett_Sequence_Memoizer_tgz-pJ8-edu_columbia_stat_wood_pub_sequencememoizer_IntSequenceMemoizerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3010dbde70_nbartlett_Sequence_Memoizer_tgz-pJ8-edu_columbia_stat_wood_pub_sequencememoizer_IntSequenceMemoizerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "edu.columbia.stat.wood.pub.sequencememoizer.IntSequenceMemoizer",
+            "program_jar_path": "../programs/njr/url3010dbde70_nbartlett_Sequence_Memoizer_tgz-pJ8-edu_columbia_stat_wood_pub_sequencememoizer_IntSequenceMemoizerJ8/url3010dbde70_nbartlett_Sequence_Memoizer_tgz-pJ8-edu_columbia_stat_wood_pub_sequencememoizer_IntSequenceMemoizerJ8.jar"
+        },
+        {
+            "program_name": "url30d916877f_shylux_shyview_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url30d916877f_shylux_shyview_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url30d916877f_shylux_shyview_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url30d916877f_shylux_shyview_tgz-pJ8-org_json_TestJ8/url30d916877f_shylux_shyview_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url3426a97ee4_rtreffer_minidns_tgz-pJ8-de_measite_minidns_minidnsrepl_MiniDnsReplJ8",
+            "target_program": "../programs/njr/url3426a97ee4_rtreffer_minidns_tgz-pJ8-de_measite_minidns_minidnsrepl_MiniDnsReplJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3426a97ee4_rtreffer_minidns_tgz-pJ8-de_measite_minidns_minidnsrepl_MiniDnsReplJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "de.measite.minidns.minidnsrepl.MiniDnsRepl",
+            "program_jar_path": "../programs/njr/url3426a97ee4_rtreffer_minidns_tgz-pJ8-de_measite_minidns_minidnsrepl_MiniDnsReplJ8/url3426a97ee4_rtreffer_minidns_tgz-pJ8-de_measite_minidns_minidnsrepl_MiniDnsReplJ8.jar"
+        },
+        {
+            "program_name": "url3c955055f0_dirkzhang_antlr_expressionEngine_tgz-pJ8-expression_DirkExpTestJ8",
+            "target_program": "../programs/njr/url3c955055f0_dirkzhang_antlr_expressionEngine_tgz-pJ8-expression_DirkExpTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3c955055f0_dirkzhang_antlr_expressionEngine_tgz-pJ8-expression_DirkExpTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "expression.DirkExpTest",
+            "program_jar_path": "../programs/njr/url3c955055f0_dirkzhang_antlr_expressionEngine_tgz-pJ8-expression_DirkExpTestJ8/url3c955055f0_dirkzhang_antlr_expressionEngine_tgz-pJ8-expression_DirkExpTestJ8.jar"
+        },
+        {
+            "program_name": "url3ed4973106_kosmasK_RecordPlayer_tgz-pJ8-es_uc3m_recordplayer_test_TestJ8",
+            "target_program": "../programs/njr/url3ed4973106_kosmasK_RecordPlayer_tgz-pJ8-es_uc3m_recordplayer_test_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3ed4973106_kosmasK_RecordPlayer_tgz-pJ8-es_uc3m_recordplayer_test_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "es.uc3m.recordplayer.test.Test",
+            "program_jar_path": "../programs/njr/url3ed4973106_kosmasK_RecordPlayer_tgz-pJ8-es_uc3m_recordplayer_test_TestJ8/url3ed4973106_kosmasK_RecordPlayer_tgz-pJ8-es_uc3m_recordplayer_test_TestJ8.jar"
+        },
+        {
+            "program_name": "url3ee04818e8_abliss_poker_tgz-pJ8-TestJ8",
+            "target_program": "../programs/njr/url3ee04818e8_abliss_poker_tgz-pJ8-TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3ee04818e8_abliss_poker_tgz-pJ8-TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Test",
+            "program_jar_path": "../programs/njr/url3ee04818e8_abliss_poker_tgz-pJ8-TestJ8/url3ee04818e8_abliss_poker_tgz-pJ8-TestJ8.jar"
+        },
+        {
+            "program_name": "url3f8d6440dd_huiwq1990_CognativeModel_tgz-pJ8-clarion_samples_HelloWorldJ8",
+            "target_program": "../programs/njr/url3f8d6440dd_huiwq1990_CognativeModel_tgz-pJ8-clarion_samples_HelloWorldJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url3f8d6440dd_huiwq1990_CognativeModel_tgz-pJ8-clarion_samples_HelloWorldJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "clarion.samples.HelloWorld",
+            "program_jar_path": "../programs/njr/url3f8d6440dd_huiwq1990_CognativeModel_tgz-pJ8-clarion_samples_HelloWorldJ8/url3f8d6440dd_huiwq1990_CognativeModel_tgz-pJ8-clarion_samples_HelloWorldJ8.jar"
+        },
+        {
+            "program_name": "url400631cdd0_ludaiqian_appliedxml_tgz-pJ8-test_simples_TestJ8",
+            "target_program": "../programs/njr/url400631cdd0_ludaiqian_appliedxml_tgz-pJ8-test_simples_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url400631cdd0_ludaiqian_appliedxml_tgz-pJ8-test_simples_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.simples.Test",
+            "program_jar_path": "../programs/njr/url400631cdd0_ludaiqian_appliedxml_tgz-pJ8-test_simples_TestJ8/url400631cdd0_ludaiqian_appliedxml_tgz-pJ8-test_simples_TestJ8.jar"
+        },
+        {
+            "program_name": "url416ee5b4ee_martinmarinov_HonProj_tgz-pJ8-martin_gui_MainJ8",
+            "target_program": "../programs/njr/url416ee5b4ee_martinmarinov_HonProj_tgz-pJ8-martin_gui_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url416ee5b4ee_martinmarinov_HonProj_tgz-pJ8-martin_gui_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "martin.gui.Main",
+            "program_jar_path": "../programs/njr/url416ee5b4ee_martinmarinov_HonProj_tgz-pJ8-martin_gui_MainJ8/url416ee5b4ee_martinmarinov_HonProj_tgz-pJ8-martin_gui_MainJ8.jar"
+        },
+        {
+            "program_name": "url41e0dd6de9_jakaldama_pipeline_simulator_tgz-pJ8-PipelineSimulatorJ8",
+            "target_program": "../programs/njr/url41e0dd6de9_jakaldama_pipeline_simulator_tgz-pJ8-PipelineSimulatorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url41e0dd6de9_jakaldama_pipeline_simulator_tgz-pJ8-PipelineSimulatorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "PipelineSimulator",
+            "program_jar_path": "../programs/njr/url41e0dd6de9_jakaldama_pipeline_simulator_tgz-pJ8-PipelineSimulatorJ8/url41e0dd6de9_jakaldama_pipeline_simulator_tgz-pJ8-PipelineSimulatorJ8.jar"
+        },
+        {
+            "program_name": "url433bec1e56_sarobe_DifficultyInvestigation_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8",
+            "target_program": "../programs/njr/url433bec1e56_sarobe_DifficultyInvestigation_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url433bec1e56_sarobe_DifficultyInvestigation_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "fr.inria.optimization.cmaes.examples.CMAExample1",
+            "program_jar_path": "../programs/njr/url433bec1e56_sarobe_DifficultyInvestigation_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8/url433bec1e56_sarobe_DifficultyInvestigation_tgz-pJ8-fr_inria_optimization_cmaes_examples_CMAExample1J8.jar"
+        },
+        {
+            "program_name": "url46a88cc932_toby1984_tinyc_tgz-pJ8-de_codesourcery_dcpu16_compiler_CompilerJ8",
+            "target_program": "../programs/njr/url46a88cc932_toby1984_tinyc_tgz-pJ8-de_codesourcery_dcpu16_compiler_CompilerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url46a88cc932_toby1984_tinyc_tgz-pJ8-de_codesourcery_dcpu16_compiler_CompilerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "de.codesourcery.dcpu16.compiler.Compiler",
+            "program_jar_path": "../programs/njr/url46a88cc932_toby1984_tinyc_tgz-pJ8-de_codesourcery_dcpu16_compiler_CompilerJ8/url46a88cc932_toby1984_tinyc_tgz-pJ8-de_codesourcery_dcpu16_compiler_CompilerJ8.jar"
+        },
+        {
+            "program_name": "url47af6b1535_rolandotr_db_comparison_tgz-pJ8-methodology_HistoryJ8",
+            "target_program": "../programs/njr/url47af6b1535_rolandotr_db_comparison_tgz-pJ8-methodology_HistoryJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url47af6b1535_rolandotr_db_comparison_tgz-pJ8-methodology_HistoryJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "methodology.History",
+            "program_jar_path": "../programs/njr/url47af6b1535_rolandotr_db_comparison_tgz-pJ8-methodology_HistoryJ8/url47af6b1535_rolandotr_db_comparison_tgz-pJ8-methodology_HistoryJ8.jar"
+        },
+        {
+            "program_name": "url47e6aca666_pocorall_automaton_tgz-pJ8-net_pocorall_automaton_DatatypesJ8",
+            "target_program": "../programs/njr/url47e6aca666_pocorall_automaton_tgz-pJ8-net_pocorall_automaton_DatatypesJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url47e6aca666_pocorall_automaton_tgz-pJ8-net_pocorall_automaton_DatatypesJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "net.pocorall.automaton.Datatypes",
+            "program_jar_path": "../programs/njr/url47e6aca666_pocorall_automaton_tgz-pJ8-net_pocorall_automaton_DatatypesJ8/url47e6aca666_pocorall_automaton_tgz-pJ8-net_pocorall_automaton_DatatypesJ8.jar"
+        },
+        {
+            "program_name": "url47fb0718db_dopl_bytecast_interp_tgz-pJ8-edu_syr_bytecast_interp_amd64_AMD64ExecutionEngineJ8",
+            "target_program": "../programs/njr/url47fb0718db_dopl_bytecast_interp_tgz-pJ8-edu_syr_bytecast_interp_amd64_AMD64ExecutionEngineJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url47fb0718db_dopl_bytecast_interp_tgz-pJ8-edu_syr_bytecast_interp_amd64_AMD64ExecutionEngineJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "edu.syr.bytecast.interp.amd64.AMD64ExecutionEngine",
+            "program_jar_path": "../programs/njr/url47fb0718db_dopl_bytecast_interp_tgz-pJ8-edu_syr_bytecast_interp_amd64_AMD64ExecutionEngineJ8/url47fb0718db_dopl_bytecast_interp_tgz-pJ8-edu_syr_bytecast_interp_amd64_AMD64ExecutionEngineJ8.jar"
+        },
+        {
+            "program_name": "url47fcfc0133_baliosian_tau_fst_tgz-pJ8-uy_edu_fing_mina_fsa_test_old_TestComposition1J8",
+            "target_program": "../programs/njr/url47fcfc0133_baliosian_tau_fst_tgz-pJ8-uy_edu_fing_mina_fsa_test_old_TestComposition1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url47fcfc0133_baliosian_tau_fst_tgz-pJ8-uy_edu_fing_mina_fsa_test_old_TestComposition1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "uy.edu.fing.mina.fsa.test.old.TestComposition1",
+            "program_jar_path": "../programs/njr/url47fcfc0133_baliosian_tau_fst_tgz-pJ8-uy_edu_fing_mina_fsa_test_old_TestComposition1J8/url47fcfc0133_baliosian_tau_fst_tgz-pJ8-uy_edu_fing_mina_fsa_test_old_TestComposition1J8.jar"
+        },
+        {
+            "program_name": "url4913e7683c_pusuo_patchca_tgz-pJ8-org_patchca_demo_PatchcaFilterDemoPNGJ8",
+            "target_program": "../programs/njr/url4913e7683c_pusuo_patchca_tgz-pJ8-org_patchca_demo_PatchcaFilterDemoPNGJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4913e7683c_pusuo_patchca_tgz-pJ8-org_patchca_demo_PatchcaFilterDemoPNGJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.patchca.demo.PatchcaFilterDemoPNG",
+            "program_jar_path": "../programs/njr/url4913e7683c_pusuo_patchca_tgz-pJ8-org_patchca_demo_PatchcaFilterDemoPNGJ8/url4913e7683c_pusuo_patchca_tgz-pJ8-org_patchca_demo_PatchcaFilterDemoPNGJ8.jar"
+        },
+        {
+            "program_name": "url49526af437_Maria_G_CS325_tgz-pJ8-assignments_farmer_FarmerImplJ8",
+            "target_program": "../programs/njr/url49526af437_Maria_G_CS325_tgz-pJ8-assignments_farmer_FarmerImplJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url49526af437_Maria_G_CS325_tgz-pJ8-assignments_farmer_FarmerImplJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "assignments.farmer.FarmerImpl",
+            "program_jar_path": "../programs/njr/url49526af437_Maria_G_CS325_tgz-pJ8-assignments_farmer_FarmerImplJ8/url49526af437_Maria_G_CS325_tgz-pJ8-assignments_farmer_FarmerImplJ8.jar"
+        },
+        {
+            "program_name": "url49fd521e8b_Kineolyan_JSpec_tgz-pJ8-fw_MainJ8",
+            "target_program": "../programs/njr/url49fd521e8b_Kineolyan_JSpec_tgz-pJ8-fw_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url49fd521e8b_Kineolyan_JSpec_tgz-pJ8-fw_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "fw.Main",
+            "program_jar_path": "../programs/njr/url49fd521e8b_Kineolyan_JSpec_tgz-pJ8-fw_MainJ8/url49fd521e8b_Kineolyan_JSpec_tgz-pJ8-fw_MainJ8.jar"
+        },
+        {
+            "program_name": "url4aac7e6f55_simon0191_tetris3d_tgz-pJ8-Tetris3dJ8",
+            "target_program": "../programs/njr/url4aac7e6f55_simon0191_tetris3d_tgz-pJ8-Tetris3dJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4aac7e6f55_simon0191_tetris3d_tgz-pJ8-Tetris3dJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Tetris3d",
+            "program_jar_path": "../programs/njr/url4aac7e6f55_simon0191_tetris3d_tgz-pJ8-Tetris3dJ8/url4aac7e6f55_simon0191_tetris3d_tgz-pJ8-Tetris3dJ8.jar"
+        },
+        {
+            "program_name": "url4b562c5cef_benos_9k_Initial3D_Stage1_tgz-pJ8-nz_net_initial3d_test_TestJ8",
+            "target_program": "../programs/njr/url4b562c5cef_benos_9k_Initial3D_Stage1_tgz-pJ8-nz_net_initial3d_test_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4b562c5cef_benos_9k_Initial3D_Stage1_tgz-pJ8-nz_net_initial3d_test_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "nz.net.initial3d.test.Test",
+            "program_jar_path": "../programs/njr/url4b562c5cef_benos_9k_Initial3D_Stage1_tgz-pJ8-nz_net_initial3d_test_TestJ8/url4b562c5cef_benos_9k_Initial3D_Stage1_tgz-pJ8-nz_net_initial3d_test_TestJ8.jar"
+        },
+        {
+            "program_name": "url4c27590fbe_Hoten_Java_Delaunay_tgz-pJ8-com_hoten_delaunay_examples_TestDriverJ8",
+            "target_program": "../programs/njr/url4c27590fbe_Hoten_Java_Delaunay_tgz-pJ8-com_hoten_delaunay_examples_TestDriverJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4c27590fbe_Hoten_Java_Delaunay_tgz-pJ8-com_hoten_delaunay_examples_TestDriverJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.hoten.delaunay.examples.TestDriver",
+            "program_jar_path": "../programs/njr/url4c27590fbe_Hoten_Java_Delaunay_tgz-pJ8-com_hoten_delaunay_examples_TestDriverJ8/url4c27590fbe_Hoten_Java_Delaunay_tgz-pJ8-com_hoten_delaunay_examples_TestDriverJ8.jar"
+        },
+        {
+            "program_name": "url4c41254592_topskychen_AuthTopk_tgz-pJ8-quickhull3d_QuickHull3DTestJ8",
+            "target_program": "../programs/njr/url4c41254592_topskychen_AuthTopk_tgz-pJ8-quickhull3d_QuickHull3DTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4c41254592_topskychen_AuthTopk_tgz-pJ8-quickhull3d_QuickHull3DTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "quickhull3d.QuickHull3DTest",
+            "program_jar_path": "../programs/njr/url4c41254592_topskychen_AuthTopk_tgz-pJ8-quickhull3d_QuickHull3DTestJ8/url4c41254592_topskychen_AuthTopk_tgz-pJ8-quickhull3d_QuickHull3DTestJ8.jar"
+        },
+        {
+            "program_name": "url4df616fce9_s3e0n1g1_prototype3_tgz-pJ8-Trading_Engine_MainJ8",
+            "target_program": "../programs/njr/url4df616fce9_s3e0n1g1_prototype3_tgz-pJ8-Trading_Engine_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4df616fce9_s3e0n1g1_prototype3_tgz-pJ8-Trading_Engine_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Trading_Engine.Main",
+            "program_jar_path": "../programs/njr/url4df616fce9_s3e0n1g1_prototype3_tgz-pJ8-Trading_Engine_MainJ8/url4df616fce9_s3e0n1g1_prototype3_tgz-pJ8-Trading_Engine_MainJ8.jar"
+        },
+        {
+            "program_name": "url4e79c36700_JacenLakiir_Tivoo_tgz-pJ8-MainJ8",
+            "target_program": "../programs/njr/url4e79c36700_JacenLakiir_Tivoo_tgz-pJ8-MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url4e79c36700_JacenLakiir_Tivoo_tgz-pJ8-MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Main",
+            "program_jar_path": "../programs/njr/url4e79c36700_JacenLakiir_Tivoo_tgz-pJ8-MainJ8/url4e79c36700_JacenLakiir_Tivoo_tgz-pJ8-MainJ8.jar"
+        },
+        {
+            "program_name": "url52422c4052_AtorVdm_Patterns_tgz-pJ8-patterns_MainJ8",
+            "target_program": "../programs/njr/url52422c4052_AtorVdm_Patterns_tgz-pJ8-patterns_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url52422c4052_AtorVdm_Patterns_tgz-pJ8-patterns_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "patterns.Main",
+            "program_jar_path": "../programs/njr/url52422c4052_AtorVdm_Patterns_tgz-pJ8-patterns_MainJ8/url52422c4052_AtorVdm_Patterns_tgz-pJ8-patterns_MainJ8.jar"
+        },
+        {
+            "program_name": "url529c09a30c_kianyangchn_DriveNow_tgz-pJ8-drivenow_tests_TestJ8",
+            "target_program": "../programs/njr/url529c09a30c_kianyangchn_DriveNow_tgz-pJ8-drivenow_tests_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url529c09a30c_kianyangchn_DriveNow_tgz-pJ8-drivenow_tests_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "drivenow.tests.Test",
+            "program_jar_path": "../programs/njr/url529c09a30c_kianyangchn_DriveNow_tgz-pJ8-drivenow_tests_TestJ8/url529c09a30c_kianyangchn_DriveNow_tgz-pJ8-drivenow_tests_TestJ8.jar"
+        },
+        {
+            "program_name": "url53f943c5cb_Praznat_AGP_tgz-pJ8-AMath_TestingJ8",
+            "target_program": "../programs/njr/url53f943c5cb_Praznat_AGP_tgz-pJ8-AMath_TestingJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url53f943c5cb_Praznat_AGP_tgz-pJ8-AMath_TestingJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "AMath.Testing",
+            "program_jar_path": "../programs/njr/url53f943c5cb_Praznat_AGP_tgz-pJ8-AMath_TestingJ8/url53f943c5cb_Praznat_AGP_tgz-pJ8-AMath_TestingJ8.jar"
+        },
+        {
+            "program_name": "url542ae48576_tonyheadford_m68k_tgz-pJ8-m68k_MonitorJ8",
+            "target_program": "../programs/njr/url542ae48576_tonyheadford_m68k_tgz-pJ8-m68k_MonitorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url542ae48576_tonyheadford_m68k_tgz-pJ8-m68k_MonitorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "m68k.Monitor",
+            "program_jar_path": "../programs/njr/url542ae48576_tonyheadford_m68k_tgz-pJ8-m68k_MonitorJ8/url542ae48576_tonyheadford_m68k_tgz-pJ8-m68k_MonitorJ8.jar"
+        },
+        {
+            "program_name": "url5492781e79_florianpilz_Concurrent_Hash_Collision_tgz-pJ8-main_MainJ8",
+            "target_program": "../programs/njr/url5492781e79_florianpilz_Concurrent_Hash_Collision_tgz-pJ8-main_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5492781e79_florianpilz_Concurrent_Hash_Collision_tgz-pJ8-main_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "main.Main",
+            "program_jar_path": "../programs/njr/url5492781e79_florianpilz_Concurrent_Hash_Collision_tgz-pJ8-main_MainJ8/url5492781e79_florianpilz_Concurrent_Hash_Collision_tgz-pJ8-main_MainJ8.jar"
+        },
+        {
+            "program_name": "url5583f3dbb2_XOR19_XScript_tgz-pJ8-xscript_interactive_MainJ8",
+            "target_program": "../programs/njr/url5583f3dbb2_XOR19_XScript_tgz-pJ8-xscript_interactive_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5583f3dbb2_XOR19_XScript_tgz-pJ8-xscript_interactive_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "xscript.interactive.Main",
+            "program_jar_path": "../programs/njr/url5583f3dbb2_XOR19_XScript_tgz-pJ8-xscript_interactive_MainJ8/url5583f3dbb2_XOR19_XScript_tgz-pJ8-xscript_interactive_MainJ8.jar"
+        },
+        {
+            "program_name": "url55e48746be_isostorm_RPGame_tgz-pJ8-rpg_MainJ8",
+            "target_program": "../programs/njr/url55e48746be_isostorm_RPGame_tgz-pJ8-rpg_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url55e48746be_isostorm_RPGame_tgz-pJ8-rpg_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "rpg.Main",
+            "program_jar_path": "../programs/njr/url55e48746be_isostorm_RPGame_tgz-pJ8-rpg_MainJ8/url55e48746be_isostorm_RPGame_tgz-pJ8-rpg_MainJ8.jar"
+        },
+        {
+            "program_name": "url5681492665_ArgParser_Java_ArgParser_tgz-pJ8-org_argparser_ArgParserTestJ8",
+            "target_program": "../programs/njr/url5681492665_ArgParser_Java_ArgParser_tgz-pJ8-org_argparser_ArgParserTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5681492665_ArgParser_Java_ArgParser_tgz-pJ8-org_argparser_ArgParserTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.argparser.ArgParserTest",
+            "program_jar_path": "../programs/njr/url5681492665_ArgParser_Java_ArgParser_tgz-pJ8-org_argparser_ArgParserTestJ8/url5681492665_ArgParser_Java_ArgParser_tgz-pJ8-org_argparser_ArgParserTestJ8.jar"
+        },
+        {
+            "program_name": "url56b1dc76d3_wufunxiang_Libs_tgz-pJ8-org_msgpack_util_TemplatePrecompilerJ8",
+            "target_program": "../programs/njr/url56b1dc76d3_wufunxiang_Libs_tgz-pJ8-org_msgpack_util_TemplatePrecompilerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url56b1dc76d3_wufunxiang_Libs_tgz-pJ8-org_msgpack_util_TemplatePrecompilerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.msgpack.util.TemplatePrecompiler",
+            "program_jar_path": "../programs/njr/url56b1dc76d3_wufunxiang_Libs_tgz-pJ8-org_msgpack_util_TemplatePrecompilerJ8/url56b1dc76d3_wufunxiang_Libs_tgz-pJ8-org_msgpack_util_TemplatePrecompilerJ8.jar"
+        },
+        {
+            "program_name": "url57668a8619_Datomic_fressian_tgz-pJ8-org_fressian_ExamplesJ8",
+            "target_program": "../programs/njr/url57668a8619_Datomic_fressian_tgz-pJ8-org_fressian_ExamplesJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url57668a8619_Datomic_fressian_tgz-pJ8-org_fressian_ExamplesJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.fressian.Examples",
+            "program_jar_path": "../programs/njr/url57668a8619_Datomic_fressian_tgz-pJ8-org_fressian_ExamplesJ8/url57668a8619_Datomic_fressian_tgz-pJ8-org_fressian_ExamplesJ8.jar"
+        },
+        {
+            "program_name": "url58b12a0c74_tatianaslod_daooTP_tgz-pJ8-tp1_MainTp1J8",
+            "target_program": "../programs/njr/url58b12a0c74_tatianaslod_daooTP_tgz-pJ8-tp1_MainTp1J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url58b12a0c74_tatianaslod_daooTP_tgz-pJ8-tp1_MainTp1J8/WALA/0-CFA/boundaries.json",
+            "main_class": "tp1.MainTp1",
+            "program_jar_path": "../programs/njr/url58b12a0c74_tatianaslod_daooTP_tgz-pJ8-tp1_MainTp1J8/url58b12a0c74_tatianaslod_daooTP_tgz-pJ8-tp1_MainTp1J8.jar"
+        },
+        {
+            "program_name": "url58e9ba4d92_novokrest_DrunkardGame_tgz-pJ8-DrunkardGame_MainJ8",
+            "target_program": "../programs/njr/url58e9ba4d92_novokrest_DrunkardGame_tgz-pJ8-DrunkardGame_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url58e9ba4d92_novokrest_DrunkardGame_tgz-pJ8-DrunkardGame_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "DrunkardGame.Main",
+            "program_jar_path": "../programs/njr/url58e9ba4d92_novokrest_DrunkardGame_tgz-pJ8-DrunkardGame_MainJ8/url58e9ba4d92_novokrest_DrunkardGame_tgz-pJ8-DrunkardGame_MainJ8.jar"
+        },
+        {
+            "program_name": "url5997ccb760_JANNLab_JANNLab_tgz-pJ8-de_jannlab_examples_recurrent_SequentialXorExampleJ8",
+            "target_program": "../programs/njr/url5997ccb760_JANNLab_JANNLab_tgz-pJ8-de_jannlab_examples_recurrent_SequentialXorExampleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5997ccb760_JANNLab_JANNLab_tgz-pJ8-de_jannlab_examples_recurrent_SequentialXorExampleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "de.jannlab.examples.recurrent.SequentialXorExample",
+            "program_jar_path": "../programs/njr/url5997ccb760_JANNLab_JANNLab_tgz-pJ8-de_jannlab_examples_recurrent_SequentialXorExampleJ8/url5997ccb760_JANNLab_JANNLab_tgz-pJ8-de_jannlab_examples_recurrent_SequentialXorExampleJ8.jar"
+        },
+        {
+            "program_name": "url5a01f2c1d9_core9_core_tgz-pJ8-io_core9_core_boot_BootstrapFrameworkJ8",
+            "target_program": "../programs/njr/url5a01f2c1d9_core9_core_tgz-pJ8-io_core9_core_boot_BootstrapFrameworkJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5a01f2c1d9_core9_core_tgz-pJ8-io_core9_core_boot_BootstrapFrameworkJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "io.core9.core.boot.BootstrapFramework",
+            "program_jar_path": "../programs/njr/url5a01f2c1d9_core9_core_tgz-pJ8-io_core9_core_boot_BootstrapFrameworkJ8/url5a01f2c1d9_core9_core_tgz-pJ8-io_core9_core_boot_BootstrapFrameworkJ8.jar"
+        },
+        {
+            "program_name": "url5c7c5a5b36_taczge_rdf_store_tgz-pJ8-experiment_SATSolverExperimentJ8",
+            "target_program": "../programs/njr/url5c7c5a5b36_taczge_rdf_store_tgz-pJ8-experiment_SATSolverExperimentJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5c7c5a5b36_taczge_rdf_store_tgz-pJ8-experiment_SATSolverExperimentJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "experiment.SATSolverExperiment",
+            "program_jar_path": "../programs/njr/url5c7c5a5b36_taczge_rdf_store_tgz-pJ8-experiment_SATSolverExperimentJ8/url5c7c5a5b36_taczge_rdf_store_tgz-pJ8-experiment_SATSolverExperimentJ8.jar"
+        },
+        {
+            "program_name": "url5e6a51063b_nuigroup_hci_for_java_tgz-pJ8-nui_squirt_demo_DemoSquirtApplicationJ8",
+            "target_program": "../programs/njr/url5e6a51063b_nuigroup_hci_for_java_tgz-pJ8-nui_squirt_demo_DemoSquirtApplicationJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url5e6a51063b_nuigroup_hci_for_java_tgz-pJ8-nui_squirt_demo_DemoSquirtApplicationJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "nui.squirt.demo.DemoSquirtApplication",
+            "program_jar_path": "../programs/njr/url5e6a51063b_nuigroup_hci_for_java_tgz-pJ8-nui_squirt_demo_DemoSquirtApplicationJ8/url5e6a51063b_nuigroup_hci_for_java_tgz-pJ8-nui_squirt_demo_DemoSquirtApplicationJ8.jar"
+        },
+        {
+            "program_name": "url632301a43b_octomarat_Drunkard_tgz-pJ8-ru_drunkard_game_DrunkardTheGameJ8",
+            "target_program": "../programs/njr/url632301a43b_octomarat_Drunkard_tgz-pJ8-ru_drunkard_game_DrunkardTheGameJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url632301a43b_octomarat_Drunkard_tgz-pJ8-ru_drunkard_game_DrunkardTheGameJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ru.drunkard.game.DrunkardTheGame",
+            "program_jar_path": "../programs/njr/url632301a43b_octomarat_Drunkard_tgz-pJ8-ru_drunkard_game_DrunkardTheGameJ8/url632301a43b_octomarat_Drunkard_tgz-pJ8-ru_drunkard_game_DrunkardTheGameJ8.jar"
+        },
+        {
+            "program_name": "url633772aa30_isma3l_Tp2_tgz-pJ8-ar_fiuba_tecnicas_framework_Pruebas_Casos1_MainJ8",
+            "target_program": "../programs/njr/url633772aa30_isma3l_Tp2_tgz-pJ8-ar_fiuba_tecnicas_framework_Pruebas_Casos1_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url633772aa30_isma3l_Tp2_tgz-pJ8-ar_fiuba_tecnicas_framework_Pruebas_Casos1_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ar.fiuba.tecnicas.framework.Pruebas.Casos1.Main",
+            "program_jar_path": "../programs/njr/url633772aa30_isma3l_Tp2_tgz-pJ8-ar_fiuba_tecnicas_framework_Pruebas_Casos1_MainJ8/url633772aa30_isma3l_Tp2_tgz-pJ8-ar_fiuba_tecnicas_framework_Pruebas_Casos1_MainJ8.jar"
+        },
+        {
+            "program_name": "url64700e9ab7_dwicke_course_scheduler_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url64700e9ab7_dwicke_course_scheduler_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url64700e9ab7_dwicke_course_scheduler_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url64700e9ab7_dwicke_course_scheduler_tgz-pJ8-org_json_TestJ8/url64700e9ab7_dwicke_course_scheduler_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url647b55da7c_Nikhilkumar13_emuSr_tgz-pJ8-MainJ8",
+            "target_program": "../programs/njr/url647b55da7c_Nikhilkumar13_emuSr_tgz-pJ8-MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url647b55da7c_Nikhilkumar13_emuSr_tgz-pJ8-MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Main",
+            "program_jar_path": "../programs/njr/url647b55da7c_Nikhilkumar13_emuSr_tgz-pJ8-MainJ8/url647b55da7c_Nikhilkumar13_emuSr_tgz-pJ8-MainJ8.jar"
+        },
+        {
+            "program_name": "url6544f14c72_charles_d_burton_java_websocket_example_tgz-pJ8-minewebsocket_MineWebSocketJ8",
+            "target_program": "../programs/njr/url6544f14c72_charles_d_burton_java_websocket_example_tgz-pJ8-minewebsocket_MineWebSocketJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url6544f14c72_charles_d_burton_java_websocket_example_tgz-pJ8-minewebsocket_MineWebSocketJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "minewebsocket.MineWebSocket",
+            "program_jar_path": "../programs/njr/url6544f14c72_charles_d_burton_java_websocket_example_tgz-pJ8-minewebsocket_MineWebSocketJ8/url6544f14c72_charles_d_burton_java_websocket_example_tgz-pJ8-minewebsocket_MineWebSocketJ8.jar"
+        },
+        {
+            "program_name": "url675964e2b9_pentaho_pentaho_commons_json_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url675964e2b9_pentaho_pentaho_commons_json_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url675964e2b9_pentaho_pentaho_commons_json_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url675964e2b9_pentaho_pentaho_commons_json_tgz-pJ8-org_json_TestJ8/url675964e2b9_pentaho_pentaho_commons_json_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url696d9a93c9_liaosiwei_bayesnetwork_tgz-pJ8-tutorial_TutorialJ8",
+            "target_program": "../programs/njr/url696d9a93c9_liaosiwei_bayesnetwork_tgz-pJ8-tutorial_TutorialJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url696d9a93c9_liaosiwei_bayesnetwork_tgz-pJ8-tutorial_TutorialJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "tutorial.Tutorial",
+            "program_jar_path": "../programs/njr/url696d9a93c9_liaosiwei_bayesnetwork_tgz-pJ8-tutorial_TutorialJ8/url696d9a93c9_liaosiwei_bayesnetwork_tgz-pJ8-tutorial_TutorialJ8.jar"
+        },
+        {
+            "program_name": "url6be695d833_nikoloz_pachuashvili_Patterneria_tgz-pJ8-org_patterneria_MainJ8",
+            "target_program": "../programs/njr/url6be695d833_nikoloz_pachuashvili_Patterneria_tgz-pJ8-org_patterneria_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url6be695d833_nikoloz_pachuashvili_Patterneria_tgz-pJ8-org_patterneria_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.patterneria.Main",
+            "program_jar_path": "../programs/njr/url6be695d833_nikoloz_pachuashvili_Patterneria_tgz-pJ8-org_patterneria_MainJ8/url6be695d833_nikoloz_pachuashvili_Patterneria_tgz-pJ8-org_patterneria_MainJ8.jar"
+        },
+        {
+            "program_name": "url6da19b5a7a_krakrak_Adventure_Game_tgz-pJ8-adventure_MainJ8",
+            "target_program": "../programs/njr/url6da19b5a7a_krakrak_Adventure_Game_tgz-pJ8-adventure_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url6da19b5a7a_krakrak_Adventure_Game_tgz-pJ8-adventure_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "adventure.Main",
+            "program_jar_path": "../programs/njr/url6da19b5a7a_krakrak_Adventure_Game_tgz-pJ8-adventure_MainJ8/url6da19b5a7a_krakrak_Adventure_Game_tgz-pJ8-adventure_MainJ8.jar"
+        },
+        {
+            "program_name": "url6f34cc586e_mekku93_sxl_interpreter_repl_tgz-pJ8-com_miguel_sxl_SXLJ8",
+            "target_program": "../programs/njr/url6f34cc586e_mekku93_sxl_interpreter_repl_tgz-pJ8-com_miguel_sxl_SXLJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url6f34cc586e_mekku93_sxl_interpreter_repl_tgz-pJ8-com_miguel_sxl_SXLJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.miguel.sxl.SXL",
+            "program_jar_path": "../programs/njr/url6f34cc586e_mekku93_sxl_interpreter_repl_tgz-pJ8-com_miguel_sxl_SXLJ8/url6f34cc586e_mekku93_sxl_interpreter_repl_tgz-pJ8-com_miguel_sxl_SXLJ8.jar"
+        },
+        {
+            "program_name": "url708d477f92_zSakare_SENG3011_tgz-pJ8-test_runner_TestRunnerJ8",
+            "target_program": "../programs/njr/url708d477f92_zSakare_SENG3011_tgz-pJ8-test_runner_TestRunnerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url708d477f92_zSakare_SENG3011_tgz-pJ8-test_runner_TestRunnerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.runner.TestRunner",
+            "program_jar_path": "../programs/njr/url708d477f92_zSakare_SENG3011_tgz-pJ8-test_runner_TestRunnerJ8/url708d477f92_zSakare_SENG3011_tgz-pJ8-test_runner_TestRunnerJ8.jar"
+        },
+        {
+            "program_name": "url70997c83aa_Xilaew_risiko_tgz-pJ8-risiko_XMI2XMLtransformerJ8",
+            "target_program": "../programs/njr/url70997c83aa_Xilaew_risiko_tgz-pJ8-risiko_XMI2XMLtransformerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url70997c83aa_Xilaew_risiko_tgz-pJ8-risiko_XMI2XMLtransformerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "risiko.XMI2XMLtransformer",
+            "program_jar_path": "../programs/njr/url70997c83aa_Xilaew_risiko_tgz-pJ8-risiko_XMI2XMLtransformerJ8/url70997c83aa_Xilaew_risiko_tgz-pJ8-risiko_XMI2XMLtransformerJ8.jar"
+        },
+        {
+            "program_name": "url70ed135da7_ralfbiedert_jcores_tgz-pJ8-sandbox_SimpleFilterTestJ8",
+            "target_program": "../programs/njr/url70ed135da7_ralfbiedert_jcores_tgz-pJ8-sandbox_SimpleFilterTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url70ed135da7_ralfbiedert_jcores_tgz-pJ8-sandbox_SimpleFilterTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "sandbox.SimpleFilterTest",
+            "program_jar_path": "../programs/njr/url70ed135da7_ralfbiedert_jcores_tgz-pJ8-sandbox_SimpleFilterTestJ8/url70ed135da7_ralfbiedert_jcores_tgz-pJ8-sandbox_SimpleFilterTestJ8.jar"
+        },
+        {
+            "program_name": "url72c32f3c54_Quickhull3d_quickhull3d_tgz-pJ8-com_github_quickhull3d_SimpleExampleJ8",
+            "target_program": "../programs/njr/url72c32f3c54_Quickhull3d_quickhull3d_tgz-pJ8-com_github_quickhull3d_SimpleExampleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url72c32f3c54_Quickhull3d_quickhull3d_tgz-pJ8-com_github_quickhull3d_SimpleExampleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.github.quickhull3d.SimpleExample",
+            "program_jar_path": "../programs/njr/url72c32f3c54_Quickhull3d_quickhull3d_tgz-pJ8-com_github_quickhull3d_SimpleExampleJ8/url72c32f3c54_Quickhull3d_quickhull3d_tgz-pJ8-com_github_quickhull3d_SimpleExampleJ8.jar"
+        },
+        {
+            "program_name": "url7315374482_toby1984_3dtest_tgz-pJ8-de_codesourcery_engine_Test3DJ8",
+            "target_program": "../programs/njr/url7315374482_toby1984_3dtest_tgz-pJ8-de_codesourcery_engine_Test3DJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url7315374482_toby1984_3dtest_tgz-pJ8-de_codesourcery_engine_Test3DJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "de.codesourcery.engine.Test3D",
+            "program_jar_path": "../programs/njr/url7315374482_toby1984_3dtest_tgz-pJ8-de_codesourcery_engine_Test3DJ8/url7315374482_toby1984_3dtest_tgz-pJ8-de_codesourcery_engine_Test3DJ8.jar"
+        },
+        {
+            "program_name": "url73605095e9_mp1401_misterx_tgz-pJ8-mp1401_examples_misterx_demo_shell_ShellDemoJ8",
+            "target_program": "../programs/njr/url73605095e9_mp1401_misterx_tgz-pJ8-mp1401_examples_misterx_demo_shell_ShellDemoJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url73605095e9_mp1401_misterx_tgz-pJ8-mp1401_examples_misterx_demo_shell_ShellDemoJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "mp1401.examples.misterx.demo.shell.ShellDemo",
+            "program_jar_path": "../programs/njr/url73605095e9_mp1401_misterx_tgz-pJ8-mp1401_examples_misterx_demo_shell_ShellDemoJ8/url73605095e9_mp1401_misterx_tgz-pJ8-mp1401_examples_misterx_demo_shell_ShellDemoJ8.jar"
+        },
+        {
+            "program_name": "url73e3057d61_empeeoh_BACnet4J_tgz-pJ8-com_serotonin_bacnet4j_test_OverflowTestJ8",
+            "target_program": "../programs/njr/url73e3057d61_empeeoh_BACnet4J_tgz-pJ8-com_serotonin_bacnet4j_test_OverflowTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url73e3057d61_empeeoh_BACnet4J_tgz-pJ8-com_serotonin_bacnet4j_test_OverflowTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.serotonin.bacnet4j.test.OverflowTest",
+            "program_jar_path": "../programs/njr/url73e3057d61_empeeoh_BACnet4J_tgz-pJ8-com_serotonin_bacnet4j_test_OverflowTestJ8/url73e3057d61_empeeoh_BACnet4J_tgz-pJ8-com_serotonin_bacnet4j_test_OverflowTestJ8.jar"
+        },
+        {
+            "program_name": "url74761fd9a6_cstriker1407_design_pattern_tgz-pJ8-yeah_cstriker1407_design_patterns_MainJ8",
+            "target_program": "../programs/njr/url74761fd9a6_cstriker1407_design_pattern_tgz-pJ8-yeah_cstriker1407_design_patterns_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url74761fd9a6_cstriker1407_design_pattern_tgz-pJ8-yeah_cstriker1407_design_patterns_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "yeah.cstriker1407.design_patterns.Main",
+            "program_jar_path": "../programs/njr/url74761fd9a6_cstriker1407_design_pattern_tgz-pJ8-yeah_cstriker1407_design_patterns_MainJ8/url74761fd9a6_cstriker1407_design_pattern_tgz-pJ8-yeah_cstriker1407_design_patterns_MainJ8.jar"
+        },
+        {
+            "program_name": "url74b2be4e76_gurbano_petulant_octo_sudoku_tgz-pJ8-test_testJ8",
+            "target_program": "../programs/njr/url74b2be4e76_gurbano_petulant_octo_sudoku_tgz-pJ8-test_testJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url74b2be4e76_gurbano_petulant_octo_sudoku_tgz-pJ8-test_testJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.test",
+            "program_jar_path": "../programs/njr/url74b2be4e76_gurbano_petulant_octo_sudoku_tgz-pJ8-test_testJ8/url74b2be4e76_gurbano_petulant_octo_sudoku_tgz-pJ8-test_testJ8.jar"
+        },
+        {
+            "program_name": "url74c52881d6_AndrewBourgeois_JGWCAConstants_tgz-pJ8-be_demmel_fun_jgwcaconstants_Tutorial4J8",
+            "target_program": "../programs/njr/url74c52881d6_AndrewBourgeois_JGWCAConstants_tgz-pJ8-be_demmel_fun_jgwcaconstants_Tutorial4J8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url74c52881d6_AndrewBourgeois_JGWCAConstants_tgz-pJ8-be_demmel_fun_jgwcaconstants_Tutorial4J8/WALA/0-CFA/boundaries.json",
+            "main_class": "be.demmel.fun.jgwcaconstants.Tutorial4",
+            "program_jar_path": "../programs/njr/url74c52881d6_AndrewBourgeois_JGWCAConstants_tgz-pJ8-be_demmel_fun_jgwcaconstants_Tutorial4J8/url74c52881d6_AndrewBourgeois_JGWCAConstants_tgz-pJ8-be_demmel_fun_jgwcaconstants_Tutorial4J8.jar"
+        },
+        {
+            "program_name": "url75694980d5_fabioalmeid_tp01ftc_tgz-pJ8-agentes_jade_Centralizador_ExemploParserGramaticaCentralizadorJ8",
+            "target_program": "../programs/njr/url75694980d5_fabioalmeid_tp01ftc_tgz-pJ8-agentes_jade_Centralizador_ExemploParserGramaticaCentralizadorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url75694980d5_fabioalmeid_tp01ftc_tgz-pJ8-agentes_jade_Centralizador_ExemploParserGramaticaCentralizadorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "agentes.jade.Centralizador.ExemploParserGramaticaCentralizador",
+            "program_jar_path": "../programs/njr/url75694980d5_fabioalmeid_tp01ftc_tgz-pJ8-agentes_jade_Centralizador_ExemploParserGramaticaCentralizadorJ8/url75694980d5_fabioalmeid_tp01ftc_tgz-pJ8-agentes_jade_Centralizador_ExemploParserGramaticaCentralizadorJ8.jar"
+        },
+        {
+            "program_name": "url7606378bcc_ljy2010a_protobuf2_tgz-pJ8-com_game_gameObj_bufBuilder_ReflectBuilderJ8",
+            "target_program": "../programs/njr/url7606378bcc_ljy2010a_protobuf2_tgz-pJ8-com_game_gameObj_bufBuilder_ReflectBuilderJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url7606378bcc_ljy2010a_protobuf2_tgz-pJ8-com_game_gameObj_bufBuilder_ReflectBuilderJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.game.gameObj.bufBuilder.ReflectBuilder",
+            "program_jar_path": "../programs/njr/url7606378bcc_ljy2010a_protobuf2_tgz-pJ8-com_game_gameObj_bufBuilder_ReflectBuilderJ8/url7606378bcc_ljy2010a_protobuf2_tgz-pJ8-com_game_gameObj_bufBuilder_ReflectBuilderJ8.jar"
+        },
+        {
+            "program_name": "url78117c6033_BrianMoths_LittleManManager_tgz-pJ8-littlemangame_LittleManGameJ8",
+            "target_program": "../programs/njr/url78117c6033_BrianMoths_LittleManManager_tgz-pJ8-littlemangame_LittleManGameJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url78117c6033_BrianMoths_LittleManManager_tgz-pJ8-littlemangame_LittleManGameJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "littlemangame.LittleManGame",
+            "program_jar_path": "../programs/njr/url78117c6033_BrianMoths_LittleManManager_tgz-pJ8-littlemangame_LittleManGameJ8/url78117c6033_BrianMoths_LittleManManager_tgz-pJ8-littlemangame_LittleManGameJ8.jar"
+        },
+        {
+            "program_name": "url78d0cbe382_TeeAaTeeUu_SitsiPlaseeraus_tgz-pJ8-sitsiplaseeraus_MainJ8",
+            "target_program": "../programs/njr/url78d0cbe382_TeeAaTeeUu_SitsiPlaseeraus_tgz-pJ8-sitsiplaseeraus_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url78d0cbe382_TeeAaTeeUu_SitsiPlaseeraus_tgz-pJ8-sitsiplaseeraus_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "sitsiplaseeraus.Main",
+            "program_jar_path": "../programs/njr/url78d0cbe382_TeeAaTeeUu_SitsiPlaseeraus_tgz-pJ8-sitsiplaseeraus_MainJ8/url78d0cbe382_TeeAaTeeUu_SitsiPlaseeraus_tgz-pJ8-sitsiplaseeraus_MainJ8.jar"
+        },
+        {
+            "program_name": "url78eec0e0b6_Orikuro_vic_tgz-pJ8-net_nexon_vindictus_itemcomparer_inport_StaticImportJ8",
+            "target_program": "../programs/njr/url78eec0e0b6_Orikuro_vic_tgz-pJ8-net_nexon_vindictus_itemcomparer_inport_StaticImportJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url78eec0e0b6_Orikuro_vic_tgz-pJ8-net_nexon_vindictus_itemcomparer_inport_StaticImportJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "net.nexon.vindictus.itemcomparer.inport.StaticImport",
+            "program_jar_path": "../programs/njr/url78eec0e0b6_Orikuro_vic_tgz-pJ8-net_nexon_vindictus_itemcomparer_inport_StaticImportJ8/url78eec0e0b6_Orikuro_vic_tgz-pJ8-net_nexon_vindictus_itemcomparer_inport_StaticImportJ8.jar"
+        },
+        {
+            "program_name": "url79d4f7c7ed_schanq_Live_Algorithm_tgz-pJ8-algorithms_and_systems_AI_Evolutionary_GeneticAlgorithmJ8",
+            "target_program": "../programs/njr/url79d4f7c7ed_schanq_Live_Algorithm_tgz-pJ8-algorithms_and_systems_AI_Evolutionary_GeneticAlgorithmJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url79d4f7c7ed_schanq_Live_Algorithm_tgz-pJ8-algorithms_and_systems_AI_Evolutionary_GeneticAlgorithmJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "algorithms_and_systems_AI_Evolutionary.GeneticAlgorithm",
+            "program_jar_path": "../programs/njr/url79d4f7c7ed_schanq_Live_Algorithm_tgz-pJ8-algorithms_and_systems_AI_Evolutionary_GeneticAlgorithmJ8/url79d4f7c7ed_schanq_Live_Algorithm_tgz-pJ8-algorithms_and_systems_AI_Evolutionary_GeneticAlgorithmJ8.jar"
+        },
+        {
+            "program_name": "url7a69e77641_benmouh_MySgbd_tgz-pJ8-Demo_CheckRowNumJ8",
+            "target_program": "../programs/njr/url7a69e77641_benmouh_MySgbd_tgz-pJ8-Demo_CheckRowNumJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url7a69e77641_benmouh_MySgbd_tgz-pJ8-Demo_CheckRowNumJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Demo.CheckRowNum",
+            "program_jar_path": "../programs/njr/url7a69e77641_benmouh_MySgbd_tgz-pJ8-Demo_CheckRowNumJ8/url7a69e77641_benmouh_MySgbd_tgz-pJ8-Demo_CheckRowNumJ8.jar"
+        },
+        {
+            "program_name": "url80587fc7d5_dennervidal_CloudSim_DVFS_tgz-pJ8-Examples_Dvfs_example_simpleJ8",
+            "target_program": "../programs/njr/url80587fc7d5_dennervidal_CloudSim_DVFS_tgz-pJ8-Examples_Dvfs_example_simpleJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url80587fc7d5_dennervidal_CloudSim_DVFS_tgz-pJ8-Examples_Dvfs_example_simpleJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Examples.Dvfs_example_simple",
+            "program_jar_path": "../programs/njr/url80587fc7d5_dennervidal_CloudSim_DVFS_tgz-pJ8-Examples_Dvfs_example_simpleJ8/url80587fc7d5_dennervidal_CloudSim_DVFS_tgz-pJ8-Examples_Dvfs_example_simpleJ8.jar"
+        },
+        {
+            "program_name": "url8551e9ebc1_mishika05_Salesforce_DataGen_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url8551e9ebc1_mishika05_Salesforce_DataGen_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url8551e9ebc1_mishika05_Salesforce_DataGen_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url8551e9ebc1_mishika05_Salesforce_DataGen_tgz-pJ8-org_json_TestJ8/url8551e9ebc1_mishika05_Salesforce_DataGen_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url85940d3d8e_ccp999_Expr4j_tgz-pJ8-org_boris_expr_util_ExprEvaluatorJ8",
+            "target_program": "../programs/njr/url85940d3d8e_ccp999_Expr4j_tgz-pJ8-org_boris_expr_util_ExprEvaluatorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url85940d3d8e_ccp999_Expr4j_tgz-pJ8-org_boris_expr_util_ExprEvaluatorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.boris.expr.util.ExprEvaluator",
+            "program_jar_path": "../programs/njr/url85940d3d8e_ccp999_Expr4j_tgz-pJ8-org_boris_expr_util_ExprEvaluatorJ8/url85940d3d8e_ccp999_Expr4j_tgz-pJ8-org_boris_expr_util_ExprEvaluatorJ8.jar"
+        },
+        {
+            "program_name": "url85e313f409_edugasser_Ascensor_tgz-pJ8-ascensor_MainJ8",
+            "target_program": "../programs/njr/url85e313f409_edugasser_Ascensor_tgz-pJ8-ascensor_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url85e313f409_edugasser_Ascensor_tgz-pJ8-ascensor_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ascensor.Main",
+            "program_jar_path": "../programs/njr/url85e313f409_edugasser_Ascensor_tgz-pJ8-ascensor_MainJ8/url85e313f409_edugasser_Ascensor_tgz-pJ8-ascensor_MainJ8.jar"
+        },
+        {
+            "program_name": "url863d2ab553_themadcreator_delaunay_tgz-pJ8-org_delaunay_PoissonDiscSamplesDemoJ8",
+            "target_program": "../programs/njr/url863d2ab553_themadcreator_delaunay_tgz-pJ8-org_delaunay_PoissonDiscSamplesDemoJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url863d2ab553_themadcreator_delaunay_tgz-pJ8-org_delaunay_PoissonDiscSamplesDemoJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.delaunay.PoissonDiscSamplesDemo",
+            "program_jar_path": "../programs/njr/url863d2ab553_themadcreator_delaunay_tgz-pJ8-org_delaunay_PoissonDiscSamplesDemoJ8/url863d2ab553_themadcreator_delaunay_tgz-pJ8-org_delaunay_PoissonDiscSamplesDemoJ8.jar"
+        },
+        {
+            "program_name": "url89cafed56a_AlexDiru_esper_compiler_final_tgz-pJ8-compiler_ProgramJ8",
+            "target_program": "../programs/njr/url89cafed56a_AlexDiru_esper_compiler_final_tgz-pJ8-compiler_ProgramJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url89cafed56a_AlexDiru_esper_compiler_final_tgz-pJ8-compiler_ProgramJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "compiler.Program",
+            "program_jar_path": "../programs/njr/url89cafed56a_AlexDiru_esper_compiler_final_tgz-pJ8-compiler_ProgramJ8/url89cafed56a_AlexDiru_esper_compiler_final_tgz-pJ8-compiler_ProgramJ8.jar"
+        },
+        {
+            "program_name": "url8af84d296f_mrcosta_gantt_generator_tgz-pJ8-org_gantt_generator_mrcpsp_RunJ8",
+            "target_program": "../programs/njr/url8af84d296f_mrcosta_gantt_generator_tgz-pJ8-org_gantt_generator_mrcpsp_RunJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url8af84d296f_mrcosta_gantt_generator_tgz-pJ8-org_gantt_generator_mrcpsp_RunJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.gantt.generator.mrcpsp.Run",
+            "program_jar_path": "../programs/njr/url8af84d296f_mrcosta_gantt_generator_tgz-pJ8-org_gantt_generator_mrcpsp_RunJ8/url8af84d296f_mrcosta_gantt_generator_tgz-pJ8-org_gantt_generator_mrcpsp_RunJ8.jar"
+        },
+        {
+            "program_name": "url8be3f02398_vnamboo_LearnJava_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/url8be3f02398_vnamboo_LearnJava_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url8be3f02398_vnamboo_LearnJava_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/url8be3f02398_vnamboo_LearnJava_tgz-pJ8-org_json_TestJ8/url8be3f02398_vnamboo_LearnJava_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "url8d1df200a8_gilleain_signatures_tgz-pJ8-signature_chemistry_LargeMoleculeTestJ8",
+            "target_program": "../programs/njr/url8d1df200a8_gilleain_signatures_tgz-pJ8-signature_chemistry_LargeMoleculeTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url8d1df200a8_gilleain_signatures_tgz-pJ8-signature_chemistry_LargeMoleculeTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "signature.chemistry.LargeMoleculeTest",
+            "program_jar_path": "../programs/njr/url8d1df200a8_gilleain_signatures_tgz-pJ8-signature_chemistry_LargeMoleculeTestJ8/url8d1df200a8_gilleain_signatures_tgz-pJ8-signature_chemistry_LargeMoleculeTestJ8.jar"
+        },
+        {
+            "program_name": "url901cc5721b_shidasan_KonohaCoffee_tgz-pJ8-org_KonohaScript_KonohaJ8",
+            "target_program": "../programs/njr/url901cc5721b_shidasan_KonohaCoffee_tgz-pJ8-org_KonohaScript_KonohaJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url901cc5721b_shidasan_KonohaCoffee_tgz-pJ8-org_KonohaScript_KonohaJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.KonohaScript.Konoha",
+            "program_jar_path": "../programs/njr/url901cc5721b_shidasan_KonohaCoffee_tgz-pJ8-org_KonohaScript_KonohaJ8/url901cc5721b_shidasan_KonohaCoffee_tgz-pJ8-org_KonohaScript_KonohaJ8.jar"
+        },
+        {
+            "program_name": "url9512d8fa89_bdkosher_card_games_tgz-pJ8-org_washcom_cardgames_battleroyale_BattleRoyaleGameSimulatorJ8",
+            "target_program": "../programs/njr/url9512d8fa89_bdkosher_card_games_tgz-pJ8-org_washcom_cardgames_battleroyale_BattleRoyaleGameSimulatorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url9512d8fa89_bdkosher_card_games_tgz-pJ8-org_washcom_cardgames_battleroyale_BattleRoyaleGameSimulatorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.washcom.cardgames.battleroyale.BattleRoyaleGameSimulator",
+            "program_jar_path": "../programs/njr/url9512d8fa89_bdkosher_card_games_tgz-pJ8-org_washcom_cardgames_battleroyale_BattleRoyaleGameSimulatorJ8/url9512d8fa89_bdkosher_card_games_tgz-pJ8-org_washcom_cardgames_battleroyale_BattleRoyaleGameSimulatorJ8.jar"
+        },
+        {
+            "program_name": "url97f33aa931_wnr_Othello_tgz-pJ8-kth_game_othello_tournament_MainJ8",
+            "target_program": "../programs/njr/url97f33aa931_wnr_Othello_tgz-pJ8-kth_game_othello_tournament_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url97f33aa931_wnr_Othello_tgz-pJ8-kth_game_othello_tournament_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "kth.game.othello.tournament.Main",
+            "program_jar_path": "../programs/njr/url97f33aa931_wnr_Othello_tgz-pJ8-kth_game_othello_tournament_MainJ8/url97f33aa931_wnr_Othello_tgz-pJ8-kth_game_othello_tournament_MainJ8.jar"
+        },
+        {
+            "program_name": "url9e7e48285f_nalbachk_MidiToPhaseShift_tgz-pJ8-com_my_main_MainJ8",
+            "target_program": "../programs/njr/url9e7e48285f_nalbachk_MidiToPhaseShift_tgz-pJ8-com_my_main_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/url9e7e48285f_nalbachk_MidiToPhaseShift_tgz-pJ8-com_my_main_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.my.main.Main",
+            "program_jar_path": "../programs/njr/url9e7e48285f_nalbachk_MidiToPhaseShift_tgz-pJ8-com_my_main_MainJ8/url9e7e48285f_nalbachk_MidiToPhaseShift_tgz-pJ8-com_my_main_MainJ8.jar"
+        },
+        {
+            "program_name": "urla05239b71c_viniciusinnovatium_mumps2java_api_tgz-pJ8-com_disclinc_netmanager_script_test_ExecTesteNewJ8",
+            "target_program": "../programs/njr/urla05239b71c_viniciusinnovatium_mumps2java_api_tgz-pJ8-com_disclinc_netmanager_script_test_ExecTesteNewJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urla05239b71c_viniciusinnovatium_mumps2java_api_tgz-pJ8-com_disclinc_netmanager_script_test_ExecTesteNewJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.disclinc.netmanager.script.test.ExecTesteNew",
+            "program_jar_path": "../programs/njr/urla05239b71c_viniciusinnovatium_mumps2java_api_tgz-pJ8-com_disclinc_netmanager_script_test_ExecTesteNewJ8/urla05239b71c_viniciusinnovatium_mumps2java_api_tgz-pJ8-com_disclinc_netmanager_script_test_ExecTesteNewJ8.jar"
+        },
+        {
+            "program_name": "urlabf490b498_anilasj_skillmonster_tgz-pJ8-org_json_TestJ8",
+            "target_program": "../programs/njr/urlabf490b498_anilasj_skillmonster_tgz-pJ8-org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlabf490b498_anilasj_skillmonster_tgz-pJ8-org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "org.json.Test",
+            "program_jar_path": "../programs/njr/urlabf490b498_anilasj_skillmonster_tgz-pJ8-org_json_TestJ8/urlabf490b498_anilasj_skillmonster_tgz-pJ8-org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "urlac20d257ff_zhongdj_Madz_Stochastic_tgz-pJ8-net_madz_test_stochastic_core_impl_DynamicDemoJ8",
+            "target_program": "../programs/njr/urlac20d257ff_zhongdj_Madz_Stochastic_tgz-pJ8-net_madz_test_stochastic_core_impl_DynamicDemoJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlac20d257ff_zhongdj_Madz_Stochastic_tgz-pJ8-net_madz_test_stochastic_core_impl_DynamicDemoJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "net.madz.test.stochastic.core.impl.DynamicDemo",
+            "program_jar_path": "../programs/njr/urlac20d257ff_zhongdj_Madz_Stochastic_tgz-pJ8-net_madz_test_stochastic_core_impl_DynamicDemoJ8/urlac20d257ff_zhongdj_Madz_Stochastic_tgz-pJ8-net_madz_test_stochastic_core_impl_DynamicDemoJ8.jar"
+        },
+        {
+            "program_name": "urlaf0069908d_AlexanderAndreev_Parking_tgz-pJ8-com_andreev_parking_controller_RunnerJ8",
+            "target_program": "../programs/njr/urlaf0069908d_AlexanderAndreev_Parking_tgz-pJ8-com_andreev_parking_controller_RunnerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlaf0069908d_AlexanderAndreev_Parking_tgz-pJ8-com_andreev_parking_controller_RunnerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.andreev.parking.controller.Runner",
+            "program_jar_path": "../programs/njr/urlaf0069908d_AlexanderAndreev_Parking_tgz-pJ8-com_andreev_parking_controller_RunnerJ8/urlaf0069908d_AlexanderAndreev_Parking_tgz-pJ8-com_andreev_parking_controller_RunnerJ8.jar"
+        },
+        {
+            "program_name": "urlb44e9843ba_QuasimodoNZ_SWEN222_Game_Project_tgz-pJ8-Game_World_GameWorldLevelBuilderJ8",
+            "target_program": "../programs/njr/urlb44e9843ba_QuasimodoNZ_SWEN222_Game_Project_tgz-pJ8-Game_World_GameWorldLevelBuilderJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlb44e9843ba_QuasimodoNZ_SWEN222_Game_Project_tgz-pJ8-Game_World_GameWorldLevelBuilderJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "Game_World.GameWorldLevelBuilder",
+            "program_jar_path": "../programs/njr/urlb44e9843ba_QuasimodoNZ_SWEN222_Game_Project_tgz-pJ8-Game_World_GameWorldLevelBuilderJ8/urlb44e9843ba_QuasimodoNZ_SWEN222_Game_Project_tgz-pJ8-Game_World_GameWorldLevelBuilderJ8.jar"
+        },
+        {
+            "program_name": "urlb534bf3fca_akademi4eg_aka_uvc_tgz-pJ8-net_dtkanov_blocks_core_AppCoreJ8",
+            "target_program": "../programs/njr/urlb534bf3fca_akademi4eg_aka_uvc_tgz-pJ8-net_dtkanov_blocks_core_AppCoreJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlb534bf3fca_akademi4eg_aka_uvc_tgz-pJ8-net_dtkanov_blocks_core_AppCoreJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "net.dtkanov.blocks.core.AppCore",
+            "program_jar_path": "../programs/njr/urlb534bf3fca_akademi4eg_aka_uvc_tgz-pJ8-net_dtkanov_blocks_core_AppCoreJ8/urlb534bf3fca_akademi4eg_aka_uvc_tgz-pJ8-net_dtkanov_blocks_core_AppCoreJ8.jar"
+        },
+        {
+            "program_name": "urlb5d5be4365_abmargb_oursim_ext_tgz-pJ8-br_edu_ufcg_lsd_oursim_experiments_RemoteNoFScenarioGeneratorJ8",
+            "target_program": "../programs/njr/urlb5d5be4365_abmargb_oursim_ext_tgz-pJ8-br_edu_ufcg_lsd_oursim_experiments_RemoteNoFScenarioGeneratorJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlb5d5be4365_abmargb_oursim_ext_tgz-pJ8-br_edu_ufcg_lsd_oursim_experiments_RemoteNoFScenarioGeneratorJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "br.edu.ufcg.lsd.oursim.experiments.RemoteNoFScenarioGenerator",
+            "program_jar_path": "../programs/njr/urlb5d5be4365_abmargb_oursim_ext_tgz-pJ8-br_edu_ufcg_lsd_oursim_experiments_RemoteNoFScenarioGeneratorJ8/urlb5d5be4365_abmargb_oursim_ext_tgz-pJ8-br_edu_ufcg_lsd_oursim_experiments_RemoteNoFScenarioGeneratorJ8.jar"
+        },
+        {
+            "program_name": "urlb879d9e865_ogotalski_elevator_tgz-pJ8-ElevatorTaskJ8",
+            "target_program": "../programs/njr/urlb879d9e865_ogotalski_elevator_tgz-pJ8-ElevatorTaskJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlb879d9e865_ogotalski_elevator_tgz-pJ8-ElevatorTaskJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ElevatorTask",
+            "program_jar_path": "../programs/njr/urlb879d9e865_ogotalski_elevator_tgz-pJ8-ElevatorTaskJ8/urlb879d9e865_ogotalski_elevator_tgz-pJ8-ElevatorTaskJ8.jar"
+        },
+        {
+            "program_name": "urlbd77b745af_KokaKiwi_MCLauncher_tgz-pJ8-net_contrapunctus_lzma_BenchmarkJ8",
+            "target_program": "../programs/njr/urlbd77b745af_KokaKiwi_MCLauncher_tgz-pJ8-net_contrapunctus_lzma_BenchmarkJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlbd77b745af_KokaKiwi_MCLauncher_tgz-pJ8-net_contrapunctus_lzma_BenchmarkJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "net.contrapunctus.lzma.Benchmark",
+            "program_jar_path": "../programs/njr/urlbd77b745af_KokaKiwi_MCLauncher_tgz-pJ8-net_contrapunctus_lzma_BenchmarkJ8/urlbd77b745af_KokaKiwi_MCLauncher_tgz-pJ8-net_contrapunctus_lzma_BenchmarkJ8.jar"
+        },
+        {
+            "program_name": "urlbf4fd38f68_rduerig_StrategyBDD_tgz-pJ8-com_strategy_util_TestMainJ8",
+            "target_program": "../programs/njr/urlbf4fd38f68_rduerig_StrategyBDD_tgz-pJ8-com_strategy_util_TestMainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlbf4fd38f68_rduerig_StrategyBDD_tgz-pJ8-com_strategy_util_TestMainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.strategy.util.TestMain",
+            "program_jar_path": "../programs/njr/urlbf4fd38f68_rduerig_StrategyBDD_tgz-pJ8-com_strategy_util_TestMainJ8/urlbf4fd38f68_rduerig_StrategyBDD_tgz-pJ8-com_strategy_util_TestMainJ8.jar"
+        },
+        {
+            "program_name": "urlc4364d0d12_ahmedelmorsy_cafetria_simulation_tgz-pJ8-main_MainJ8",
+            "target_program": "../programs/njr/urlc4364d0d12_ahmedelmorsy_cafetria_simulation_tgz-pJ8-main_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlc4364d0d12_ahmedelmorsy_cafetria_simulation_tgz-pJ8-main_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "main.Main",
+            "program_jar_path": "../programs/njr/urlc4364d0d12_ahmedelmorsy_cafetria_simulation_tgz-pJ8-main_MainJ8/urlc4364d0d12_ahmedelmorsy_cafetria_simulation_tgz-pJ8-main_MainJ8.jar"
+        },
+        {
+            "program_name": "urlc58b5c5b73_emiliano_fiuba_2013_2c_7510_tgz-pJ8-test_java_FrameworkTestsJ8",
+            "target_program": "../programs/njr/urlc58b5c5b73_emiliano_fiuba_2013_2c_7510_tgz-pJ8-test_java_FrameworkTestsJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlc58b5c5b73_emiliano_fiuba_2013_2c_7510_tgz-pJ8-test_java_FrameworkTestsJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "test.java.FrameworkTests",
+            "program_jar_path": "../programs/njr/urlc58b5c5b73_emiliano_fiuba_2013_2c_7510_tgz-pJ8-test_java_FrameworkTestsJ8/urlc58b5c5b73_emiliano_fiuba_2013_2c_7510_tgz-pJ8-test_java_FrameworkTestsJ8.jar"
+        },
+        {
+            "program_name": "urlc58f2e0b85_xoriole_CEAC_tgz-pJ8-com_sdm_phr_cpabe_CpabeTestJ8",
+            "target_program": "../programs/njr/urlc58f2e0b85_xoriole_CEAC_tgz-pJ8-com_sdm_phr_cpabe_CpabeTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlc58f2e0b85_xoriole_CEAC_tgz-pJ8-com_sdm_phr_cpabe_CpabeTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.sdm.phr.cpabe.CpabeTest",
+            "program_jar_path": "../programs/njr/urlc58f2e0b85_xoriole_CEAC_tgz-pJ8-com_sdm_phr_cpabe_CpabeTestJ8/urlc58f2e0b85_xoriole_CEAC_tgz-pJ8-com_sdm_phr_cpabe_CpabeTestJ8.jar"
+        },
+        {
+            "program_name": "urlcaef331f4e_dreamable_cra_tgz-pJ8-coho_lp_project_LPProjectJ8",
+            "target_program": "../programs/njr/urlcaef331f4e_dreamable_cra_tgz-pJ8-coho_lp_project_LPProjectJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlcaef331f4e_dreamable_cra_tgz-pJ8-coho_lp_project_LPProjectJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "coho.lp.project.LPProject",
+            "program_jar_path": "../programs/njr/urlcaef331f4e_dreamable_cra_tgz-pJ8-coho_lp_project_LPProjectJ8/urlcaef331f4e_dreamable_cra_tgz-pJ8-coho_lp_project_LPProjectJ8.jar"
+        },
+        {
+            "program_name": "urlcbcf8d4d58_vikaleshch_task1_tgz-pJ8-by_epam_christmasgift_main_MainJ8",
+            "target_program": "../programs/njr/urlcbcf8d4d58_vikaleshch_task1_tgz-pJ8-by_epam_christmasgift_main_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlcbcf8d4d58_vikaleshch_task1_tgz-pJ8-by_epam_christmasgift_main_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "by.epam.christmasgift.main.Main",
+            "program_jar_path": "../programs/njr/urlcbcf8d4d58_vikaleshch_task1_tgz-pJ8-by_epam_christmasgift_main_MainJ8/urlcbcf8d4d58_vikaleshch_task1_tgz-pJ8-by_epam_christmasgift_main_MainJ8.jar"
+        },
+        {
+            "program_name": "urlcf7851e92b_Triploblastic_CSCD350_FinalProject_tgz-pJ8-MazeGame_MazeJ8",
+            "target_program": "../programs/njr/urlcf7851e92b_Triploblastic_CSCD350_FinalProject_tgz-pJ8-MazeGame_MazeJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urlcf7851e92b_Triploblastic_CSCD350_FinalProject_tgz-pJ8-MazeGame_MazeJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "MazeGame.Maze",
+            "program_jar_path": "../programs/njr/urlcf7851e92b_Triploblastic_CSCD350_FinalProject_tgz-pJ8-MazeGame_MazeJ8/urlcf7851e92b_Triploblastic_CSCD350_FinalProject_tgz-pJ8-MazeGame_MazeJ8.jar"
+        },
+        {
+            "program_name": "urld025f21ac3_mvattipulusu_Innovation2013_tgz-pJ8-com_usps_data_ManifestFileTestJ8",
+            "target_program": "../programs/njr/urld025f21ac3_mvattipulusu_Innovation2013_tgz-pJ8-com_usps_data_ManifestFileTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urld025f21ac3_mvattipulusu_Innovation2013_tgz-pJ8-com_usps_data_ManifestFileTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "com.usps.data.ManifestFileTest",
+            "program_jar_path": "../programs/njr/urld025f21ac3_mvattipulusu_Innovation2013_tgz-pJ8-com_usps_data_ManifestFileTestJ8/urld025f21ac3_mvattipulusu_Innovation2013_tgz-pJ8-com_usps_data_ManifestFileTestJ8.jar"
+        },
+        {
+            "program_name": "urld2fb1d2b05_thnaeff_Util_tgz-pJ8-ch_thn_util_tests_TreeTestJ8",
+            "target_program": "../programs/njr/urld2fb1d2b05_thnaeff_Util_tgz-pJ8-ch_thn_util_tests_TreeTestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urld2fb1d2b05_thnaeff_Util_tgz-pJ8-ch_thn_util_tests_TreeTestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ch.thn.util.tests.TreeTest",
+            "program_jar_path": "../programs/njr/urld2fb1d2b05_thnaeff_Util_tgz-pJ8-ch_thn_util_tests_TreeTestJ8/urld2fb1d2b05_thnaeff_Util_tgz-pJ8-ch_thn_util_tests_TreeTestJ8.jar"
+        },
+        {
+            "program_name": "urld58fd5e7a9_longrm_weibo_robot_tgz-pJ8-weibo4j_org_json_TestJ8",
+            "target_program": "../programs/njr/urld58fd5e7a9_longrm_weibo_robot_tgz-pJ8-weibo4j_org_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urld58fd5e7a9_longrm_weibo_robot_tgz-pJ8-weibo4j_org_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "weibo4j.org.json.Test",
+            "program_jar_path": "../programs/njr/urld58fd5e7a9_longrm_weibo_robot_tgz-pJ8-weibo4j_org_json_TestJ8/urld58fd5e7a9_longrm_weibo_robot_tgz-pJ8-weibo4j_org_json_TestJ8.jar"
+        },
+        {
+            "program_name": "urld829b80034_wjch111_PTSP2013Wang_tgz-pJ8-controllers_momcts_momctsCore_TestPlannerJ8",
+            "target_program": "../programs/njr/urld829b80034_wjch111_PTSP2013Wang_tgz-pJ8-controllers_momcts_momctsCore_TestPlannerJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urld829b80034_wjch111_PTSP2013Wang_tgz-pJ8-controllers_momcts_momctsCore_TestPlannerJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "controllers.momcts.momctsCore.TestPlanner",
+            "program_jar_path": "../programs/njr/urld829b80034_wjch111_PTSP2013Wang_tgz-pJ8-controllers_momcts_momctsCore_TestPlannerJ8/urld829b80034_wjch111_PTSP2013Wang_tgz-pJ8-controllers_momcts_momctsCore_TestPlannerJ8.jar"
+        },
+        {
+            "program_name": "urldf54784279_tonyj321_Root_Play_tgz-pJ8-hep_io_root_output_demo_HistogramDemoJ8",
+            "target_program": "../programs/njr/urldf54784279_tonyj321_Root_Play_tgz-pJ8-hep_io_root_output_demo_HistogramDemoJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urldf54784279_tonyj321_Root_Play_tgz-pJ8-hep_io_root_output_demo_HistogramDemoJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "hep.io.root.output.demo.HistogramDemo",
+            "program_jar_path": "../programs/njr/urldf54784279_tonyj321_Root_Play_tgz-pJ8-hep_io_root_output_demo_HistogramDemoJ8/urldf54784279_tonyj321_Root_Play_tgz-pJ8-hep_io_root_output_demo_HistogramDemoJ8.jar"
+        },
+        {
+            "program_name": "urle514e161fe_pericodiaz89_NextGen_tgz-pJ8-lib_json_TestJ8",
+            "target_program": "../programs/njr/urle514e161fe_pericodiaz89_NextGen_tgz-pJ8-lib_json_TestJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urle514e161fe_pericodiaz89_NextGen_tgz-pJ8-lib_json_TestJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "lib.json.Test",
+            "program_jar_path": "../programs/njr/urle514e161fe_pericodiaz89_NextGen_tgz-pJ8-lib_json_TestJ8/urle514e161fe_pericodiaz89_NextGen_tgz-pJ8-lib_json_TestJ8.jar"
+        },
+        {
+            "program_name": "urleb43757003_Origraena_mas_platform_tgz-pJ8-ori_MainJ8",
+            "target_program": "../programs/njr/urleb43757003_Origraena_mas_platform_tgz-pJ8-ori_MainJ8",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/njr/urleb43757003_Origraena_mas_platform_tgz-pJ8-ori_MainJ8/WALA/0-CFA/boundaries.json",
+            "main_class": "ori.Main",
+            "program_jar_path": "../programs/njr/urleb43757003_Origraena_mas_platform_tgz-pJ8-ori_MainJ8/urleb43757003_Origraena_mas_platform_tgz-pJ8-ori_MainJ8.jar"
+        }
+    ]
+}

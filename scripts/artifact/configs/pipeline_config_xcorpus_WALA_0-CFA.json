@@ -1,0 +1,104 @@
+{
+    "analyses": [
+        {
+            "program_name": "checkstyle-5.1",
+            "target_program": "../programs/xcorpus/checkstyle-5.1",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/checkstyle-5.1/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/checkstyle-5.1/temp"
+        },
+        {
+            "program_name": "fitjava-1.1",
+            "target_program": "../programs/xcorpus/fitjava-1.1",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/fitjava-1.1/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/fitjava-1.1/temp"
+        },
+        {
+            "program_name": "jFin_DateMath-R1.0.1",
+            "target_program": "../programs/xcorpus/jFin_DateMath-R1.0.1",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/jFin_DateMath-R1.0.1/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jFin_DateMath-R1.0.1/temp"
+        },
+        {
+            "program_name": "javacc-5.0",
+            "target_program": "../programs/xcorpus/javacc-5.0",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/javacc-5.0/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/javacc-5.0/temp"
+        },
+        {
+            "program_name": "jrefactory-2.9.19",
+            "target_program": "../programs/xcorpus/jrefactory-2.9.19",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/jrefactory-2.9.19/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jrefactory-2.9.19/temp"
+        },
+        {
+            "program_name": "log4j-1.2.16",
+            "target_program": "../programs/xcorpus/log4j-1.2.16",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/log4j-1.2.16/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/log4j-1.2.16/temp"
+        },
+        {
+            "program_name": "marauroa-3.8.1",
+            "target_program": "../programs/xcorpus/marauroa-3.8.1",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/marauroa-3.8.1/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/marauroa-3.8.1/temp"
+        },
+        {
+            "program_name": "nekohtml-1.9.14",
+            "target_program": "../programs/xcorpus/nekohtml-1.9.14",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/nekohtml-1.9.14/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/nekohtml-1.9.14/temp"
+        },
+        {
+            "program_name": "pmd-4.2.5",
+            "target_program": "../programs/xcorpus/pmd-4.2.5",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/pmd-4.2.5/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/pmd-4.2.5/temp"
+        },
+        {
+            "program_name": "trove-2.1.0",
+            "target_program": "../programs/xcorpus/trove-2.1.0",
+            "sa_tool_name": "WALA",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/wala",
+            "boundaries_file": "../input_data/xcorpus/trove-2.1.0/WALA/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/trove-2.1.0/temp"
+        }
+    ]
+}

@@ -1,0 +1,174 @@
+{
+    "analyses": [
+        {
+            "program_name": "checkstyle-5.1",
+            "target_program": "../programs/xcorpus/checkstyle-5.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/checkstyle-5.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/checkstyle-5.1/temp"
+        },
+        {
+            "program_name": "commons-collections-3.2.1",
+            "target_program": "../programs/xcorpus/commons-collections-3.2.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/commons-collections-3.2.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/commons-collections-3.2.1/temp"
+        },
+        {
+            "program_name": "fitjava-1.1",
+            "target_program": "../programs/xcorpus/fitjava-1.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/fitjava-1.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/fitjava-1.1/temp"
+        },
+        {
+            "program_name": "jFin_DateMath-R1.0.1",
+            "target_program": "../programs/xcorpus/jFin_DateMath-R1.0.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/jFin_DateMath-R1.0.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jFin_DateMath-R1.0.1/temp"
+        },
+        {
+            "program_name": "javacc-5.0",
+            "target_program": "../programs/xcorpus/javacc-5.0",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/javacc-5.0/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/javacc-5.0/temp"
+        },
+        {
+            "program_name": "jena-2.6.3",
+            "target_program": "../programs/xcorpus/jena-2.6.3",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/jena-2.6.3/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jena-2.6.3/temp"
+        },
+        {
+            "program_name": "jgrapht-0.8.1",
+            "target_program": "../programs/xcorpus/jgrapht-0.8.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/jgrapht-0.8.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jgrapht-0.8.1/temp"
+        },
+        {
+            "program_name": "jrefactory-2.9.19",
+            "target_program": "../programs/xcorpus/jrefactory-2.9.19",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/jrefactory-2.9.19/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jrefactory-2.9.19/temp"
+        },
+        {
+            "program_name": "log4j-1.2.16",
+            "target_program": "../programs/xcorpus/log4j-1.2.16",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/log4j-1.2.16/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/log4j-1.2.16/temp"
+        },
+        {
+            "program_name": "lucene-4.3.0",
+            "target_program": "../programs/xcorpus/lucene-4.3.0",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/lucene-4.3.0/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/lucene-4.3.0/temp"
+        },
+        {
+            "program_name": "marauroa-3.8.1",
+            "target_program": "../programs/xcorpus/marauroa-3.8.1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/marauroa-3.8.1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/marauroa-3.8.1/temp"
+        },
+        {
+            "program_name": "nekohtml-1.9.14",
+            "target_program": "../programs/xcorpus/nekohtml-1.9.14",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/nekohtml-1.9.14/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/nekohtml-1.9.14/temp"
+        },
+        {
+            "program_name": "openjms-0.7.7-beta-1",
+            "target_program": "../programs/xcorpus/openjms-0.7.7-beta-1",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/openjms-0.7.7-beta-1/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/openjms-0.7.7-beta-1/temp"
+        },
+        {
+            "program_name": "quartz-1.8.3",
+            "target_program": "../programs/xcorpus/quartz-1.8.3",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/quartz-1.8.3/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/quartz-1.8.3/temp"
+        },
+        {
+            "program_name": "trove-2.1.0",
+            "target_program": "../programs/xcorpus/trove-2.1.0",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/trove-2.1.0/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/trove-2.1.0/temp"
+        },
+        {
+            "program_name": "velocity-1.6.4",
+            "target_program": "../programs/xcorpus/velocity-1.6.4",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/velocity-1.6.4/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/velocity-1.6.4/temp"
+        },
+        {
+            "program_name": "weka-3-7-9",
+            "target_program": "../programs/xcorpus/weka-3-7-9",
+            "sa_tool_name": "Soot",
+            "sa_algorithm": "SPARK",
+            "sa_tool": "../tools/soot",
+            "boundaries_file": "../input_data/xcorpus/weka-3-7-9/Soot/SPARK/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/weka-3-7-9/temp"
+        }
+    ]
+}

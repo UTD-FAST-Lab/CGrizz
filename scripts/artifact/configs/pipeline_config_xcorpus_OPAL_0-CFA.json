@@ -1,0 +1,214 @@
+{
+    "analyses": [
+        {
+            "program_name": "checkstyle-5.1",
+            "target_program": "../programs/xcorpus/checkstyle-5.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/checkstyle-5.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/checkstyle-5.1/temp"
+        },
+        {
+            "program_name": "commons-collections-3.2.1",
+            "target_program": "../programs/xcorpus/commons-collections-3.2.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/commons-collections-3.2.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/commons-collections-3.2.1/temp"
+        },
+        {
+            "program_name": "findbugs-1.3.9",
+            "target_program": "../programs/xcorpus/findbugs-1.3.9",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/findbugs-1.3.9/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/findbugs-1.3.9/temp"
+        },
+        {
+            "program_name": "fitjava-1.1",
+            "target_program": "../programs/xcorpus/fitjava-1.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/fitjava-1.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/fitjava-1.1/temp"
+        },
+        {
+            "program_name": "informa-0.7.0-alpha2",
+            "target_program": "../programs/xcorpus/informa-0.7.0-alpha2",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/informa-0.7.0-alpha2/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/informa-0.7.0-alpha2/temp"
+        },
+        {
+            "program_name": "jFin_DateMath-R1.0.1",
+            "target_program": "../programs/xcorpus/jFin_DateMath-R1.0.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/jFin_DateMath-R1.0.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jFin_DateMath-R1.0.1/temp"
+        },
+        {
+            "program_name": "javacc-5.0",
+            "target_program": "../programs/xcorpus/javacc-5.0",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/javacc-5.0/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/javacc-5.0/temp"
+        },
+        {
+            "program_name": "jena-2.6.3",
+            "target_program": "../programs/xcorpus/jena-2.6.3",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/jena-2.6.3/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jena-2.6.3/temp"
+        },
+        {
+            "program_name": "jgrapht-0.8.1",
+            "target_program": "../programs/xcorpus/jgrapht-0.8.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/jgrapht-0.8.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jgrapht-0.8.1/temp"
+        },
+        {
+            "program_name": "jrefactory-2.9.19",
+            "target_program": "../programs/xcorpus/jrefactory-2.9.19",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/jrefactory-2.9.19/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/jrefactory-2.9.19/temp"
+        },
+        {
+            "program_name": "log4j-1.2.16",
+            "target_program": "../programs/xcorpus/log4j-1.2.16",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/log4j-1.2.16/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/log4j-1.2.16/temp"
+        },
+        {
+            "program_name": "lucene-4.3.0",
+            "target_program": "../programs/xcorpus/lucene-4.3.0",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/lucene-4.3.0/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/lucene-4.3.0/temp"
+        },
+        {
+            "program_name": "marauroa-3.8.1",
+            "target_program": "../programs/xcorpus/marauroa-3.8.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/marauroa-3.8.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/marauroa-3.8.1/temp"
+        },
+        {
+            "program_name": "nekohtml-1.9.14",
+            "target_program": "../programs/xcorpus/nekohtml-1.9.14",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/nekohtml-1.9.14/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/nekohtml-1.9.14/temp"
+        },
+        {
+            "program_name": "oscache-2.4.1",
+            "target_program": "../programs/xcorpus/oscache-2.4.1",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/oscache-2.4.1/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/oscache-2.4.1/temp"
+        },
+        {
+            "program_name": "pmd-4.2.5",
+            "target_program": "../programs/xcorpus/pmd-4.2.5",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/pmd-4.2.5/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/pmd-4.2.5/temp"
+        },
+        {
+            "program_name": "quartz-1.8.3",
+            "target_program": "../programs/xcorpus/quartz-1.8.3",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/quartz-1.8.3/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/quartz-1.8.3/temp"
+        },
+        {
+            "program_name": "trove-2.1.0",
+            "target_program": "../programs/xcorpus/trove-2.1.0",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/trove-2.1.0/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/trove-2.1.0/temp"
+        },
+        {
+            "program_name": "velocity-1.6.4",
+            "target_program": "../programs/xcorpus/velocity-1.6.4",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/velocity-1.6.4/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/velocity-1.6.4/temp"
+        },
+        {
+            "program_name": "wct-1.5.2",
+            "target_program": "../programs/xcorpus/wct-1.5.2",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/wct-1.5.2/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/wct-1.5.2/temp"
+        },
+        {
+            "program_name": "weka-3-7-9",
+            "target_program": "../programs/xcorpus/weka-3-7-9",
+            "sa_tool_name": "OPAL",
+            "sa_algorithm": "0-CFA",
+            "sa_tool": "../tools/opal",
+            "boundaries_file": "../input_data/xcorpus/weka-3-7-9/OPAL/0-CFA/boundaries.json",
+            "main_class": "EntryPoint_builtinTest",
+            "program_jar_path": "../programs/xcorpus/weka-3-7-9/temp"
+        }
+    ]
+}
