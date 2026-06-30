@@ -284,7 +284,7 @@ async def run_oracle_on_program(
         try:
             result = await asyncio.to_thread(
                 subprocess.run, cmd, capture_output=True, stdin=subprocess.DEVNULL,
-                timeout=1800, check=False, cwd=tmp_dir,
+                timeout=3600, check=False, cwd=tmp_dir,
             )
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)

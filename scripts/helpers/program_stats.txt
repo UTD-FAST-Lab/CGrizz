@@ -1,0 +1,9 @@
+before filtering: 
+intersection of 3: 75
+
+
+after filtering:
+intersection of 3: 25
+wala: 25
+opal: 106
+soot: 85

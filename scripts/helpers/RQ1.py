@@ -213,12 +213,12 @@ def main():
 
     #
     # WRITE ONLY EXTRA INSPECTION OUTPUT (NO IMPACT ON STATS)
-    #
-    # output_dir = OUTPUT_PATH / "failure_analysis"
-    # output_dir.mkdir(exist_ok=True)
+    
+    output_dir = OUTPUT_PATH / "failure_analysis"
+    output_dir.mkdir(exist_ok=True)
 
-    # with open(output_dir / "detailed_edges.json", "w") as f:
-    #     json.dump(detailed, f, indent=2)
+    with open(output_dir / "detailed_edges.json", "w") as f:
+        json.dump(detailed, f, indent=2)
 
 
 if __name__ == '__main__':

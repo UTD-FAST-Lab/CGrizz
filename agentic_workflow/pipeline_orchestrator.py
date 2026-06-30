@@ -283,19 +283,25 @@ def _state_to_pruned_dict(s: PipelineState) -> dict:
 
 
 async def _run_prededup(
-    prev_results_dir: Path,
-    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
+    prev_results_dirs: list[Path],
+    program_queues:    dict[str, tuple[dict, list[PipelineState]]],
 ) -> None:
     """
     Before the main sequential loop, run every instrumentation JAR found in
-    prev_results_dir against each program in program_queues and prune matching
-    boundaries.  Oracle outputs go to <prev_boundary_dir>/oracles_prededup/.
+    each of prev_results_dirs against each program in program_queues and prune
+    matching boundaries.  Oracle outputs go to <prev_boundary_dir>/oracles_prededup/.
     Pruning results are appended to the previous boundary's pruning_report.json.
     Fail-open: any missing JAR, config, or oracle failure is logged and skipped.
     """
     total_before = sum(len(q) for _, q in program_queues.values())
 
-    for prev_boundary_dir in sorted(prev_results_dir.glob("*/*/*/*")):
+    prev_boundary_dirs = [
+        d
+        for prev_results_dir in prev_results_dirs
+        for d in sorted(prev_results_dir.glob("*/*/*/*"))
+    ]
+
+    for prev_boundary_dir in prev_boundary_dirs:
         if not prev_boundary_dir.is_dir():
             continue
 
@@ -305,10 +311,23 @@ async def _run_prededup(
 
         # Read identity from pipeline_result.json; fall back to path structure.
         result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
+
+        if not result_path.exists():
+            log.debug(f"Pre-dedup: no pipeline_result.json in {prev_boundary_dir} — skipping")
+            continue
+
         identity: dict = {}
         if result_path.exists():
             try:
-                identity = json.loads(result_path.read_text()).get("identity", {})
+                result_data = json.loads(result_path.read_text())
+                success = result_data.get("success", False)
+                if not success:
+                    log.debug(
+                        f"Pre-dedup: skipping {prev_boundary_dir} "
+                        f"(pipeline_result.json has success == false)"
+                    )
+                    continue
+                identity = result_data.get("identity", {})
             except Exception:
                 pass
         if not identity.get("program_name"):
@@ -389,8 +408,8 @@ async def _run_prededup(
 # ── Report-based pre-dedup (no instrumentation) ───────────────────────────────
 
 def _run_report_prededup(
-    prev_results_dir: Path,
-    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
+    prev_results_dirs: list[Path],
+    program_queues:    dict[str, tuple[dict, list[PipelineState]]],
 ) -> None:
     """Prune the queue using pruned_boundaries from existing pruning_report.json files.
     No instrumentation is run; this is a read-only, fast alternative to _run_prededup."""
@@ -402,7 +421,13 @@ def _run_report_prededup(
         for pk, (analysis, _) in program_queues.items()
     }
 
-    for prev_boundary_dir in sorted(prev_results_dir.glob("*/*/*/*")):
+    prev_boundary_dirs = [
+        d
+        for prev_results_dir in prev_results_dirs
+        for d in sorted(prev_results_dir.glob("*/*/*/*"))
+    ]
+
+    for prev_boundary_dir in prev_boundary_dirs:
         if not prev_boundary_dir.is_dir():
             continue
 
@@ -411,7 +436,19 @@ def _run_report_prededup(
             log.debug(f"Report-prededup: no pruning_report.json in {prev_boundary_dir} — skipping")
             continue
 
+        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
+        if not result_path.exists():
+            log.debug(f"Report-prededup: no pipeline_result.json in {prev_boundary_dir} — skipping")
+            continue
+
         try:
+            success = json.loads(result_path.read_text()).get("success", False)
+            if not success:
+                log.debug(
+                    f"Report-prededup: skipping {prev_boundary_dir} "
+                    f"(pipeline_result.json has success == false)"
+                )
+                continue
             report_data = json.loads(report_path.read_text())
         except Exception as e:
             log.warning(f"Report-prededup: failed to read {report_path}: {e} — skipping")
@@ -458,6 +495,86 @@ def _run_report_prededup(
     )
 
 
+# ── Resume filter (same output dir) ───────────────────────────────────────────
+
+def _filter_resume(
+    output_dir:     Path,
+    program_queues: dict[str, tuple[dict, list[PipelineState]]],
+) -> None:
+    """
+    Resume an interrupted run by pruning the freshly-built queue against an
+    existing output directory. Two passes, mutating program_queues in place:
+
+      A. Drop any state already analyzed/attempted — its
+         output_dir/pipeline_result.json exists (regardless of success).
+      B. Drop any state already deduplicated — listed in the pruned_boundaries
+         of some prior boundary whose pipeline_result.json has success == true
+         and that has a pruning_report.json. Matched by (program_name, boundary_id).
+
+    Read-only w.r.t. disk; fail-open on unreadable files.
+    """
+    total_before = sum(len(q) for _, q in program_queues.values())
+
+    # ── Pass A: already analyzed/attempted (own result file exists) ──
+    analyzed = 0
+    for program_key, (analysis, states) in program_queues.items():
+        kept: list[PipelineState] = []
+        for s in states:
+            if (s.output_dir / OUT_PIPELINE_RESULT).exists():
+                analyzed += 1
+            else:
+                kept.append(s)
+        program_queues[program_key] = (analysis, kept)
+
+    # ── Pass B: already deduplicated (listed in a successful pruning report) ──
+    pruned_ids: set[tuple[str, str]] = set()  # (program_name, boundary_id)
+    for prev_boundary_dir in sorted(output_dir.glob("*/*/*/*")):
+        if not prev_boundary_dir.is_dir():
+            continue
+
+        report_path = prev_boundary_dir / OUT_PRUNING_REPORT
+        if not report_path.exists():
+            continue
+
+        # Gate on success == true from the triggering boundary's result.
+        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
+        try:
+            success = json.loads(result_path.read_text()).get("success", False)
+        except Exception:
+            success = False
+        if not success:
+            continue
+
+        try:
+            report_data = json.loads(report_path.read_text())
+        except Exception as e:
+            log.warning(f"Resume filter: failed to read {report_path}: {e} — skipping")
+            continue
+
+        for entry in report_data.get("pruned_boundaries", []):
+            prog = entry.get("program_name")
+            b_id = entry.get("boundary_id")
+            if prog and b_id:
+                pruned_ids.add((prog, b_id))
+
+    deduplicated = 0
+    if pruned_ids:
+        for program_key, (analysis, states) in program_queues.items():
+            kept = []
+            for s in states:
+                if (s.program_name, s.boundary_id) in pruned_ids:
+                    deduplicated += 1
+                else:
+                    kept.append(s)
+            program_queues[program_key] = (analysis, kept)
+
+    total_after = sum(len(q) for _, q in program_queues.values())
+    log.info(
+        f"Resume filter: {total_before} → {total_after} boundaries remaining "
+        f"({analyzed} already-analyzed, {deduplicated} deduplicated)"
+    )
+
+
 # ── Sequential pipeline runner ────────────────────────────────────────────────
 
 async def _run_sequential(
@@ -500,7 +617,8 @@ async def _run_sequential(
             write_final_report(state, success=False, reason=f"Unexpected pipeline error: {e}")
             continue
 
-        if _is_successful(state) or find_agent_jar(state) is not None:
+        # if _is_successful(state) or find_agent_jar(state) is not None:
+        if _is_successful(state):
             log.info(
                 f"{state.label()} {'Success' if _is_successful(state) else 'Oracle JAR available'}"
                 f" — running oracle dedup"
@@ -579,11 +697,15 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
         f"boundaries: {len(states)} (after filtering from {len(all_boundaries)})"
     )
 
+    if Path(args.output_dir).exists():
+        _filter_resume(Path(args.output_dir), program_queues)
+
     if args.prev_results:
+        prev_dirs = [Path(p) for p in args.prev_results]
         if args.report_prededup:
-            _run_report_prededup(Path(args.prev_results), program_queues)
+            _run_report_prededup(prev_dirs, program_queues)
         else:
-            asyncio.run(_run_prededup(Path(args.prev_results), program_queues))
+            asyncio.run(_run_prededup(prev_dirs, program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 
@@ -632,11 +754,15 @@ def run_parallel_all(args: argparse.Namespace) -> None:
         f"total boundaries: {total}"
     )
 
+    if Path(args.output_dir).exists():
+        _filter_resume(Path(args.output_dir), program_queues)
+
     if args.prev_results:
+        prev_dirs = [Path(p) for p in args.prev_results]
         if args.report_prededup:
-            _run_report_prededup(Path(args.prev_results), program_queues)
+            _run_report_prededup(prev_dirs, program_queues)
         else:
-            asyncio.run(_run_prededup(Path(args.prev_results), program_queues))
+            asyncio.run(_run_prededup(prev_dirs, program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 
@@ -703,9 +829,10 @@ def parse_args() -> argparse.Namespace:
     pe.add_argument(
         "--prev-results",
         default=None,
+        nargs="+",
         metavar="PATH",
-        help="Path to a previous results directory. All instrumentation JARs found "
-             "there will be run against the new queue to pre-prune equivalent boundaries.",
+        help="One or more previous results directories. All instrumentation JARs found "
+             "in each will be run against the new queue to pre-prune equivalent boundaries.",
     )
     pe.add_argument(
         "--report-prededup",
@@ -725,9 +852,10 @@ def parse_args() -> argparse.Namespace:
     pa.add_argument(
         "--prev-results",
         default=None,
+        nargs="+",
         metavar="PATH",
-        help="Path to a previous results directory. All instrumentation JARs found "
-             "there will be run against the new queue to pre-prune equivalent boundaries.",
+        help="One or more previous results directories. All instrumentation JARs found "
+             "in each will be run against the new queue to pre-prune equivalent boundaries.",
     )
     pa.add_argument(
         "--report-prededup",

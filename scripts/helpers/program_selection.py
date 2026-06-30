@@ -100,7 +100,8 @@ def sort_programs_by_boundaries(bench):
 
         count[program] = total_boundaries
     
-    sorted_programs = sorted(count.items(), key=lambda x: x[1], reverse=True)
+    # sorted_programs = sorted(count.items(), key=lambda x: x[1], reverse=True)
+    sorted_programs = sorted(count.items(), key=lambda x: x[1], reverse=False)
     return sorted_programs
 
 
@@ -133,21 +134,21 @@ def rewrite_configs_with_sorted_programs(bench, sorted_programs):
 
 
 def main():
-    bench = 'njr'
+    bench = 'xcorpus'
     programs_before_filter = get_programs_before_filter(bench)
     programs_after_filter = get_intersection_programs(bench)
 
     print(f"Programs before filter for {bench}: {len(programs_before_filter)}")
     print(f"Programs after filter for {bench}: {len(programs_after_filter)}")
 
-    print(programs_after_filter)
+    # print(programs_after_filter)
 
-    # print("\nSorted programs by total boundaries:")
-    # sorted_programs = sort_programs_by_boundaries(bench)
-    # for program, total_boundaries in sorted_programs:
-    #     print(f"{program}: {total_boundaries} boundaries")
+    print("\nSorted programs by total boundaries:")
+    sorted_programs = sort_programs_by_boundaries(bench)
+    for program, total_boundaries in sorted_programs:
+        print(f"{program}: {total_boundaries} boundaries")
 
-    # rewrite_configs_with_sorted_programs(bench, sorted_programs)
+    rewrite_configs_with_sorted_programs(bench, sorted_programs)
 
 
 if __name__ == "__main__":
