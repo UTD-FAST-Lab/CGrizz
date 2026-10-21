@@ -181,6 +181,7 @@ def write_final_report(state: PipelineState, success: bool, reason: str) -> None
             "reproduce_feedback": state.reproduce_feedback,
             "trace_feedback":     state.trace_feedback,
         },
+        "report_history": state.report_history,
     }
 
     out_path = state.output_dir / OUT_PIPELINE_RESULT

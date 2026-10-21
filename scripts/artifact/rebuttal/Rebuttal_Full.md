@@ -1,0 +1,238 @@
+# Details of experiment for the rebuttal
+
+**(A-Q1, A-Q3, C) Three kinds of evidence are generated from the same unsoundness report: Why did you choose three kinds of evidence (not two or four), and is there a risk that they may agree while being wrong, since they derive from the same source?**
+
+
+*Table 1. Report revisions before success. Reasoned: boundaries analyzed successfully by CGrizz. Pattern / Boundary / Trace: restarts of report generation triggered by the instrumentation check, the test-case (boundary) check, and the tool-trace check, respectively. Revised: reasoned boundaries that needed a restart.*
+
+| Tool | Reasoned | Pattern | Boundary | Trace | Revised |
+|---|---:|---:|---:|---:|---:|
+| WALA | 38 | 3 | 2 | 1 | 6 (16%) |
+| OPAL | 44 | 3 | 5 | 0 | 8 (18%) |
+| Soot | 69 | 10 | 2 | 3 | 15 (22%) |
+| **Total** | **151** | **16** | **9** | **4** | **29 (19%)** |
+
+----------------------------------------------------------
+
+**(C-Q1) What independent evidence shows that grouped boundaries actually share the representative's root cause?**
+
+
+*Table 2. Root-cause agreement between group representatives and sampled members (WALA). Grouped boundaries: members of the group; Share: fraction of all grouped boundaries; Samples: members re-analyzed independently; Match / Mismatch: samples whose root cause does / does not match the representative's; Agreement: Match / Samples.*
+
+
+| Group size | Group_id | Grouped boundaries | Share | Samples | Match | Mismatch | Agreement |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Large (>20) | G1 | 53 | 27.0% | 14 | 14 | 0 | 100% |
+| Large (>20) | G2 | 26 | 13.3% | 6 | 1 | **5** | 17% |
+| Large (>20) | G3 | 25 | 12.8% | 4 | 1 | **3** | 25% |
+| Large (>20) | G4 | 24 | 12.2% | 5 | 5 | 0 | 100% |
+| **Large (>20) total** |  | **128** | **65.3%** | **29** | **21** | **8** | **72%** |
+| Medium (6–19) | G5 | 19 | 9.7% | 5 | 5 | 0 | 100% |
+| Medium (6–19) | G6 | 14 | 7.1% | 3 | 3 | 0 | 100% |
+| Medium (6–19) | G7 | 10 | 5.1% | 3 | 3 | 0 | 100% |
+| **Medium (6–19) total** |  | **43** | **21.9%** | **11** | **11** | **0** | **100%** |
+| Small (2–5) | G8 | 5 | 2.6% | 2 | 2 | 0 | 100% |
+| Small (2–5) | G9 | 5 | 2.6% | 2 | 2 | 0 | 100% |
+| Small (2–5) | G10 | 3 | 1.5% | 1 | 1 | 0 | 100% |
+| Small (2–5) | G11 | 3 | 1.5% | 1 | 1 | 0 | 100% |
+| Small (2–5) | G12 | 2 | 1.0% | 1 | 1 | 0 | 100% |
+| **Small (2–5) total** |  | **18** | **8.2%** | **7** | **7** | **0** | **100%** |
+| Size 1 | G13 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G14 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G15 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G16 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G17 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G18 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| Size 1 | G19 | 1 | 0.5% | 1 | 1 | 0 | 100% |
+| **Size 1 total** |  | **7** | **4.6%** | **7** | **7** | **0** | **100%** |
+| **All** |  | **196** | **100%** | **54** | **46** | **8** | **85%** |
+
+
+----------------------------------------------------------
+
+
+**(A-Q2, C-Q2) The methodology for assessing RQ3 may not produce accurate results due to the use of group membership to approximate coverage, and due to groups being determined by the full program set. Could a more direct assessment be performed?**
+
+
+*Table 3. Direct refactoring assessment. Selected: boundaries whose caller is application code; Refactored: root cause removed with functionality preserved; Not possible: no functionality-preserving refactoring, either rejected by the refactoring agent (direct) or accepted but failing the tests (failed tests).*
+
+
+| tool  | cases_total | app_cases_selected | refactored | not_possible | not_possible_direct | not_possible_failed_tests |
+|-------|------------:|---------------:|-----------:|-------------:|--------------------:|--------------------------:|
+| wala  | 22          | 12             | 5          | 7            | 6                   | 1                         |
+| opal  | 29          | 13             | 9          | 4            | 3                   | 1                         |
+| soot  | 46          | 22             | 16         | 6            | 6                   | 0                         |
+| TOTAL | 97         | **47**         | **30**     | 17           | 15                  | 2                         |
+
+----------------------------------------------------------
+
+
+## Root Causes of the 151 Reasoned Cases
+
+*Table 4. Missed call edge and root cause of each reasoned boundary (38 WALA, 44 OPAL, 69 Soot). Full reports: `paper_results/results_<tool>_<benchmark>/.../unsoundness_report.json`.*
+
+### WALA (0-CFA) — 38 cases
+
+| # | Benchmark | Program | Missed edge | Root cause |
+|---|---|---|---|---|
+| W1 | cats | CFNE1 | Demo.main → ClassCastException.<init> | WALA adds call edges only for explicit invoke bytecodes; a failing checkcast's implicit exception allocation is modeled only as exception-flow points-to, never as a constructor call. |
+| W2 | cats | CL4 | Demo.main → IntComparator.compare | The class is defined at runtime from an embedded byte array, so it is absent from WALA's class hierarchy; the loadClass lookup fails and newInstance yields no receiver, so the dispatch is lost. |
+| W3 | cats | CSR2 | Demo.main → ArrayIndexOutOfBoundsException.<init> | Implicit exceptions from PEIs like aaload are modeled only as points-to constraints on a type key; WALA never emits an edge to the exception constructor. |
+| W4 | cats | DP1 | Main.main → $Proxy0.bar | No model for Proxy.newProxyInstance; the runtime-generated $Proxy0 class is not in the class hierarchy, so the receiver's points-to set is empty and no target is dispatched. |
+| W5 | cats | TMR4 | Demo.main → Demo.toString | WALA's MethodHandle model is not enabled in the standard 0-CFA builder (and would not cover plain invoke()), so the invoke() result has no points-to and toString() cannot dispatch to Demo. |
+| W6 | cats | TR7 | Demo.main → CallTarget.target | Field.get() is modeled as returning a synthetic Malleable placeholder; the subsequent checkcast to the target interface filters it out, leaving an empty receiver set. |
+| W7 | cats | TR7 | Demo.main → Field.get | The Field receiver is not treated as a reflective constant (only Method/Constructor are), so the factory model for Field.get is never applied and no edge is recorded for the call site. |
+| W8 | cats | Unsafe1 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.compareAndSwapObject; the stored object never flows into the field, so the later virtual call has no UnsafeTarget receiver. |
+| W9 | cats | Unsafe2 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.putObject; the heap write is dropped, the field's points-to set stays empty, and the dispatch finds no target. |
+| W10 | cats | Unsafe3 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.getObject; the unmodeled native returns nothing, so the receiver has an empty points-to set and no target is resolved. |
+| W11 | cats | Unsafe4 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.getAndSetObject; the field write of UnsafeTarget is lost, so only SafeTarget (from a normal putfield) is dispatched. |
+| W12 | cats | Unsafe4 | Demo.main → SafeTarget.targetMethod | getAndSetObject's JDK body relies on the unmodeled native getObjectVolatile, so its return value (the old SafeTarget) has an empty points-to set and the dispatch finds nothing. |
+| W13 | cats | Unsafe5 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.putOrderedObject (only primitive puts are modeled); the write is treated as a no-op, so UnsafeTarget never reaches the field. |
+| W14 | cats | Unsafe6 | Demo.main → SafeTarget.targetMethod | No native model for Unsafe.getObjectVolatile; its return value has an empty points-to set, so the interface call has no receiver to dispatch on. |
+| W15 | cats | Unsafe7 | Demo.main → UnsafeTarget.targetMethod | No native model for Unsafe.putObjectVolatile; UnsafeTarget is never stored into the field, so only SafeTarget is resolved at the call. |
+| W16 | njr | TimmiTBy_Epam | DOMConfigurator.doConfigure → DocumentBuilderImpl.setErrorHandler | The JAXP factory chain (DocumentBuilderFactory.newInstance/newDocumentBuilder) selects implementations via JDK-internal reflection that WALA does not model, so DocumentBuilderImpl is never allocated and the receiver set is empty. |
+| W17 | njr | Telsis_jOCP | OCPLinkManager$RxThread.run → NullPointerException.<init> | The JVM-thrown NPE on a null receiver is modeled only as an exception type key in points-to; WALA never synthesizes a constructor call edge for implicit exceptions. |
+| W18 | njr | rtreffer_minidns | MiniDnsRepl.<clinit> → AccessibleObject.setAccessible | No native model for Class.getDeclaredFields0 (used by getDeclaredField), so no Field object is created and the setAccessible receiver has an empty points-to set. |
+| W19 | njr | ludaiqian_appliedxml | Excluder.excludeField → Field.getModifiers | Fields come from Class.getDeclaredFields, whose native getDeclaredFields0 is unmodeled; the returned array holds no Field objects, so the receiver set is empty. |
+| W20 | njr | ludaiqian_appliedxml | Test$2.translateName → String.toUpperCase | The Field parameter originates from unmodeled getDeclaredFields0, so f.getName() is never resolved and its String result has no points-to, leaving toUpperCase undispatched. |
+| W21 | njr | ludaiqian_appliedxml | ReflectiveTypeAdapterFactory$Adapter.write → Integer.toString | Unmodeled getDeclaredFields0 yields no Field objects, so no BoundFields are built and the values flowing to the toString() receiver are empty, leaving no callee. |
+| W22 | njr | ludaiqian_appliedxml | ReflectiveTypeAdapterFactory$BoundField.<init> → $Proxy2.name | Annotations from Field.getAnnotation are runtime-generated dynamic proxies; WALA models neither getAnnotation nor Proxy, and the proxy class is not in its hierarchy, so no receiver type is found. |
+| W23 | njr | s3e0n1g1_prototype3 | BlockJUnit4ClassRunner.getTimeout → $Proxy6.timeout | No model for Method.getAnnotation, so the annotation receiver's points-to set is empty; moreover the $Proxy6 annotation proxy is runtime-generated and absent from the class hierarchy. |
+| W24 | njr | s3e0n1g1_prototype3 | myDatabase.closeDatabase → NullPointerException.<init> | The NPE is constructed implicitly by the JVM on a null invokeinterface; WALA only models it as an exception type key and never emits a constructor edge. |
+| W25 | njr | core9_core | ClassPathManager.findSubclassesFor → Class.getCanonicalName | WALA's forName0 stub has an outdated 3-arg signature while JDK 8 uses 4 args, so the native call is unmodeled, Class.forName returns nothing, and the getCanonicalName receiver is empty. |
+| W26 | njr | core9_core | Spawner.processOtherPluginLoadedAnnotation → ArrayList.iterator | ConcurrentHashMap reads entries via the unmodeled native Unsafe.getObjectVolatile, so map.get() returns an empty set and the field-derived list receiver has no points-to. |
+| W27 | njr | zSakare_SENG3011 | OrderbookTestRunner.run → NoSuchMethodError.<init> | The called method is missing from the (stale) class file, so method resolution fails and WALA records no callee; it never models the JVM's implicit NoSuchMethodError construction at link time. |
+| W28 | njr | Xilaew_risiko | EMFPlugin.<clinit> → NoClassDefFoundError.<init> | The JVM allocates NoClassDefFoundError when an invokestatic target cannot be resolved; there is no bytecode for it, and WALA's implicit-exception model excludes linkage errors for invokestatic. |
+| W29 | njr | Xilaew_risiko | EMFPlugin.<clinit> → Throwable.initCause | WALA does not model that invokestatic can trigger failed class initialization, so the JVM-internal NoClassDefFoundError creation and its initCause call are never represented. |
+| W30 | njr | nalbachk_MidiToPhaseShift | AbstractLogger.<clinit> → MarkerManager$Log4jMarker.setParents | The Log4jMarker passes through ConcurrentHashMap, which stores/loads via Unsafe object accessors (putObjectVolatile, compareAndSwapObject, getObjectVolatile) that WALA does not model, so it never flows back out to the receiver. |
+| W31 | njr | zhongdj_Madz_Stochastic | AbsScriptEngine.executeScript → $Proxy4.annotationType | The receiver is a runtime-generated annotation proxy; with no model for getAnnotation/Proxy and the class absent from the hierarchy, no instance key reaches the receiver. |
+| W32 | njr | ogotalski_elevator | DOMConfigurator.doConfigure → Object.getClass | DocumentBuilderFactory.newInstance creates its result via JDK-internal reflection that WALA does not model, so the receiver is empty and even the final Object.getClass edge is dropped. |
+| W33 | njr | rduerig_StrategyBDD | ocalCache$Segment.copyEntry → ocalCache$StrongEntry.getKey | AtomicReferenceArray.get() bottoms out in the unmodeled native Unsafe.getObjectVolatile, so the entry passed to copyEntry has an empty points-to set and getKey() is not dispatched. |
+| W34 | njr | rduerig_StrategyBDD | Striped64$1.run → AccessibleObject.setAccessible | No native model for getDeclaredFields0 (only getFields is modeled), so the Field loaded from the returned array has an empty points-to set and setAccessible is not resolved. |
+| W35 | njr | rduerig_StrategyBDD | ocalCache$Segment.enqueueNotification → ocalCache$StrongValueReference.getWeight | AtomicReferenceArray.get() relies on an unmodeled Unsafe native read, so StrongEntry (and thus StrongValueReference) never reaches the ValueReference parameter, leaving getWeight() unresolved for that type. |
+| W36 | njr | Triploblastic_CSCD350_FinalProject | Conn.open → Boolean.booleanValue | WALA's reflective Method.invoke model returns the target's primitive boolean result without autoboxing, so no Boolean object reaches the booleanValue() receiver. |
+| W37 | njr | Triploblastic_CSCD350_FinalProject | Conn.<init> → NestedDB.shared_cache | WALA's Class.newInstance model only allocates classes with a public no-arg constructor; NestedDB's is package-private, so no NestedDB is allocated and the db field's receiver set is empty. |
+| W38 | xcorpus | nekohtml-1.9.14 | HTMLConfiguration.<clinit> → Class.getField | The class name for Class.forName comes from system properties, not a string constant, so WALA's reflection model assigns no type; the created object and its getClass() result are empty, dropping getField. |
+
+### OPAL (0-CFA) — 44 cases
+
+| # | Benchmark | Program | Missed edge | Root cause |
+|---|---|---|---|---|
+| O1 | cats | CFNE1 | Demo.main → ClassCastException.<init> | OPAL creates edges only for explicit invoke statements in TAC; a failing `checkcast` is a Checkcast statement, so the JVM's implicit construction of ClassCastException gets no edge. |
+| O2 | cats | CL3 | Demo.main → PrintStream.println | The receiver `System.out` is set by native JVM startup code (`System.setOut0`), and OPAL's config-based model of that chain puts no PrintStream into the field's points-to set. With an empty receiver set, the virtual call gets no targets. |
+| O3 | cats | CL4 | Demo.main → IntComparator.compare | The reflection model resolves `Class.newInstance()` only for class constants, `Class.forName`, `getClass` and primitive TYPE fields. A Class returned by `ClassLoader.loadClass` hits an unimplemented TODO, and the class is defined from raw bytes, so it is not in OPAL's class pool either. |
+| O4 | cats | CSR2 | Demo.main → ArrayIndexOutOfBoundsException.<init> | OPAL creates edges only for explicit invoke statements. The JVM's implicit construction of ArrayIndexOutOfBoundsException on an out-of-bounds `aaload` is not modeled. |
+| O5 | cats | ExtSer1 | Demo.main → ObjectOutputStream.writeObject | OPAL's serialization model treats `writeObject` as an API hook and emits only the indirect callbacks (writeExternal, the Object.writeReplace fallback) at the site. It never records the direct edge to `ObjectOutputStream.writeObject`. |
+| O6 | cats | JVMC3 | Demo.main → Thread.start | OPAL's ThreadStartAnalysis swaps the `start()` call for synthetic edges to `run()` and `Thread.exit()`. The direct `Thread.start` target is left out of the call site. |
+| O7 | cats | TMR4 | Demo.main → Demo.toString | OPAL's MethodHandle model does not pass the runtime type of `invoke()`'s return value to the result. It also ignores field-getter handles (`findStaticGetter`), so `toString` resolves only to `Object.toString`. |
+| O8 | cats | Unsafe1 | Demo.main → UnsafeTarget.targetMethod | The Unsafe receiver comes from reflective `Constructor.newInstance` and is never resolved, so `compareAndSwapObject` never gets an edge and its store model never runs. That model would also be offset-blind, so the stored target never reaches the field. |
+| O9 | cats | Unsafe1 | Demo.main → Unsafe.compareAndSwapObject | OPAL models `compareAndSwapObject` only as a points-to summary, not as a call edge. The generic dispatch fails because the Unsafe receiver comes from unresolved reflective `Constructor.newInstance` and has an empty points-to set. |
+| O10 | cats | Unsafe3 | Demo.main → UnsafeTarget.targetMethod | The receiver is the return value of native `Unsafe.getObject`. OPAL's heuristic model ignores the field offset and only fires once an Unsafe edge exists, which never happens because the reflectively created Unsafe receiver is unresolved. |
+| O11 | cats | Unsafe4 | Demo.main → SafeTarget.targetMethod | The receiver is the return value of native `Unsafe.getAndSetObject`. OPAL's hand-written model ignores the offset and the swap order, and depends on an Unsafe edge that is never resolved, so SafeTarget never reaches the receiver's points-to set. |
+| O12 | cats | Unsafe4 | Demo.main → Unsafe.getAndSetObject | The receiver `unsafe` comes from `Constructor.newInstance()`, and the reflection analysis does not resolve the `sun.misc.Unsafe` constructor. The points-to set stays empty and dispatch yields no target. |
+| O13 | njr | jpush_jpush_java_library | HttpPostClient.sendPost → HttpURLConnection.setRequestProperty | OPAL does not model the JDK's `URL.openConnection()`/URLStreamHandler factory chain, so the concrete `sun.net.www` HttpURLConnection never reaches the receiver's points-to set. No concrete override is dispatched to. |
+| O14 | njr | Telsis_jOCP | OCPLinkManager.<init> → egacyOCPMessageTypes.getImplementation | The receiver comes from iterating over `EnumSet.allOf(...)`, and OPAL has no points-to model for EnumSet contents or `Iterator.next()`. The enum constants never reach the receiver, so dispatch is empty. |
+| O15 | njr | ludaiqian_appliedxml | StringUtil.isEmpty → String.equals | The String comes from `name()` on an annotation, which is backed by a runtime-generated `java.lang.reflect.Proxy` class that OPAL cannot see. That call has no callees, its return points-to set is empty, and the empty set reaches the `equals` receiver. |
+| O16 | njr | s3e0n1g1_prototype3 | BlockJUnit4ClassRunner.getTimeout → $Proxy6.timeout | OPAL does not model JDK dynamic proxies (`Proxy.newProxyInstance`/InvocationHandler), so `$Proxy6` never appears in the points-to set of the `@Test` annotation receiver. |
+| O17 | njr | s3e0n1g1_prototype3 | TestClass.addToAnnotationLists → $Proxy5.annotationType | The runtime proxy class `$Proxy5` has no class file and is not in OPAL's class hierarchy, and `Proxy.newProxyInstance` is not modeled. It can never be a dispatch target. |
+| O18 | njr | s3e0n1g1_prototype3 | Assert.isEquals → Date.equals | The test methods that pass `java.sql.Time` values are invoked by JUnit's `Method.invoke`, and OPAL cannot trace where the Method object came from. Those calls are dropped (the site is marked incomplete), so Date/Time never reaches the `equals` receiver. |
+| O19 | njr | s3e0n1g1_prototype3 | myDatabase.closeDatabase → NullPointerException.<init> | When the receiver may be null, OPAL's virtual-call handling does nothing (there is a TODO in its code), so the JVM's implicit NullPointerException construction gets no edge. |
+| O20 | njr | s3e0n1g1_prototype3 | TestClass.runsTopToBottom → Object.equals | The Class receiver comes from `Annotation.annotationType()` on an unmodeled dynamic proxy. Its return points-to set is empty, so `equals` has no receiver types. |
+| O21 | njr | s3e0n1g1_prototype3 | FrameworkMethod.isShadowedBy → String.equals | The receiver is the String returned by native `Method.getName()`, and OPAL has no model that gives this return a String type. The receiver's points-to set is empty. |
+| O22 | njr | core9_core | oader.getResource → ClassLoader.getResource | For body-less JDK methods OPAL creates a synthetic allocation of the declared return type, but skips non-instantiable types. `Class.getClassLoader()` returns the abstract ClassLoader, so the receiver's points-to set is empty. |
+| O23 | njr | core9_core | JARClasspathLocation.listToplevelClassNamesForURI → JarFile.entries | `URL.openConnection()` is body-less and returns the abstract URLConnection, so the synthetic-allocation model adds nothing. The empty set cascades through `getJarFile()`, leaving the JarFile receiver without types. |
+| O24 | njr | core9_core | ClassPathLocator.blacklisted → String.contains | The receiver is the result of `URL.toString()`, which is built through a long, partly native JDK chain that the points-to analysis does not trace. No String type flows back and the receiver set is empty. |
+| O25 | njr | core9_core | PluginManagerImpl.addPluginsFrom → DiagnosisChannelDummyImpl.status | `Class.newInstance()` on a Class passed in as a parameter cannot be resolved, and with default soundness OPAL only marks the site incomplete. The plugin type never reaches the fields that lead to the `status()` receiver. |
+| O26 | njr | zSakare_SENG3011 | OrderbookTestRunner.run → NoSuchMethodError.<init> | OPAL resolves the call against the class version it analyzed and ignores JVM linkage errors. The implicit NoSuchMethodError construction, raised when the method is missing at runtime, gets no edge. |
+| O27 | njr | Xilaew_risiko | CommonUtil.<clinit> → Thread.start | OPAL's ThreadStartAnalysis replaces `Thread.start()` with synthetic indirect edges to `run()`/`exit()`. The direct `Thread.start` edge is never recorded. |
+| O28 | njr | Xilaew_risiko | EMFPlugin.<clinit> → Throwable.initCause | When class loading fails at an `invokestatic` (Platform is missing), the JVM builds a NoClassDefFoundError and calls `initCause` internally. OPAL does not model these implicit JVM calls. |
+| O29 | njr | Xilaew_risiko | EMFPlugin.<clinit> → NoClassDefFoundError.<init> | OPAL ignores LinkageErrors (`INVOKESTATIC.jvmExceptions` is empty). It has no way to add an edge to the constructor of NoClassDefFoundError, which the JVM raises when the referenced class is missing. |
+| O30 | njr | mrcosta_gantt_generator | GanttChart.fireTimeUnitChange → BaseUI$1.timeUnitChanged | OPAL models only `Method.invoke`, not `sun.reflect.misc.MethodUtil.invoke`, which Swing's `UIDefaults.getUI()` uses to create the UI delegate. `installUI` is never reached, so the anonymous listener is never instantiated. |
+| O31 | njr | nalbachk_MidiToPhaseShift | StandardLevel.getStandardLevel → StandardLevel.intLevel | The receiver comes from iterating over an EnumSet, and OPAL models neither `EnumSet.allOf`/`getEnumConstants` nor collection contents. The enum instances never reach the receiver, so its points-to set is empty. |
+| O32 | njr | nalbachk_MidiToPhaseShift | ConfigFile.write → AbstractMarshallerImpl.marshal | The concrete JAXB Marshaller is created inside an unmodeled service-provider and reflection chain, so no type reaches the receiver's points-to set. OPAL only marks the site incomplete. |
+| O33 | njr | nalbachk_MidiToPhaseShift | ConfigBassReal6.initMapMidiToPhaseShift → AbstractLogger.info | The logger comes from `LogManager.getLogger`, which log4j resolves through a reflective ServiceLoader/factory selection that OPAL does not model. The receiver `LOG` has an empty points-to set. |
+| O34 | njr | ogotalski_elevator | Building.startElevator → Thread.start | ThreadStartAnalysis emits indirect `run()`/`exit()` callees at the same PC as the direct `Thread.start` call. The serialized call sites collide on (pc, line), and the comparison lookup matches the wrong one, so the `start` edge is reported as missing. |
+| O35 | njr | ogotalski_elevator | DOMConfigurator.doConfigure → DocumentBuilderFactory.setValidating | `DocumentBuilderFactory.newInstance()` delegates to `FactoryFinder`, which calls `Class.forName` with a class name computed at runtime. OPAL cannot resolve it, so no concrete factory type reaches the receiver. |
+| O36 | njr | ogotalski_elevator | ogLog.error → PrintStream.println | `System.err` gets a value only through the modeled `setErr0` called from `System.initializeSystemClass`. JDK bodies are loaded as interfaces only, so no PrintStream ever reaches the field and the receiver set is empty. |
+| O37 | njr | rduerig_StrategyBDD | ocalCache$Segment.copyEntry → ocalCache$StrongEntry.getKey | The synthetic return of body-less `AtomicReferenceArray.get` has the erased type Object. The following checkcast to ReferenceEntry filters Object out, which leaves the receiver's points-to set empty. |
+| O38 | njr | rduerig_StrategyBDD | ocalCache$Segment.copyEntry → ocalCache$StrongValueReference.copyFor | OPAL's `Unsafe.getObjectVolatile` model skips array-typed bases, and AtomicReferenceArray stores its elements in `Object[]`. The loaded element gets no type, and the empty set propagates to the `copyFor` receiver. |
+| O39 | njr | rduerig_StrategyBDD | ocalCache$Segment.get → ocalCache$StrongValueReference.get | OPAL cannot trace which types flow out of body-less JDK `AtomicReferenceArray.get`. The entry, its value reference and the `get()` receiver all have empty points-to sets. |
+| O40 | njr | rduerig_StrategyBDD | TestMain.main → PrintStream.println | `System.out` gets a value only through the modeled `setOut0` and the JDK bootstrap chain, which is not propagated in this setup. The field's points-to set stays empty, so the call gets no target. |
+| O41 | njr | Triploblastic_CSCD350_FinalProject | UnixRuntime$GlobalState.<init> → String.length | The caller is unreachable because its class is loaded only through JDK/AWT `Class.forName` with a class name computed at runtime. OPAL resolves `forName` only for constant strings, and with default soundness it gives up. |
+| O42 | xcorpus | fitjava-1.1 | Fixture.parse → Object.equals | The Class receiver comes from `Field.getType()`/`Method.getReturnType()` and the old `class$` helper, none of which OPAL models as producing Class objects. The receiver's points-to set is empty. |
+| O43 | xcorpus | nekohtml-1.9.14 | AbstractSAXParser.endNamespaceMapping → NamespaceBinder$NamespaceSupport.getDeclaredPrefixCount | The NamespaceSupport object reaches the target only as an argument to a call on `XercesBridge.getInstance()`, whose instance is created by `Class.forName(...).newInstance()`. That reflection is never resolved under this configuration, so the call and its argument flow are dropped. |
+| O44 | xcorpus | nekohtml-1.9.14 | DOMFragmentParserTest.doTest → DOMSerializerImpl.writeToString | DOMSerializerImpl is created only through reflective service-provider lookups (`Class.forName`/`ClassLoader.loadClass` with names from properties or service files). OPAL resolves neither, so the receiver has no types. |
+
+### Soot (SPARK) — 69 cases
+
+| # | Benchmark | Program | Missed edge | Root cause |
+|---|---|---|---|---|
+| S1 | cats | CFNE1 | Demo.main → ClassCastException.<init> | Soot only creates edges for explicit invokes and a fixed set of implicit targets. A checkcast (Jimple CastExpr) that fails makes the JVM construct the exception implicitly, and Soot has no model for that. |
+| S2 | cats | CFNE1 | Demo.main → Class.newInstance | Soot routes every Class.newInstance() call to DefaultReflectionModel, which adds edges only for configured dynamic classes. None are configured, so no edge is created, not even the direct one to Class.newInstance itself. |
+| S3 | cats | CL4 | Demo.main → IntComparator.compare | IntComparator is defined at runtime from an embedded byte array by a custom class loader, so it never enters Soot's Scene. The reflection model and class hierarchy cannot see it as a Comparator implementor. |
+| S4 | cats | CSR2 | Demo.main → ArrayIndexOutOfBoundsException.<init> | Soot never creates edges for exceptions the JVM throws implicitly on array accesses (ArrayRef). No invoke or allocation of the exception exists in the Jimple code. |
+| S5 | cats | DP1 | Main.main → $Proxy0.bar | The virtualedges.xml summary for Proxy.newProxyInstance is declared as an instance invoke, but the method is static. The static-call lookup finds no match, so the edge to InvocationHandler.invoke and the proxy dispatch are dropped. |
+| S6 | cats | TMR4 | Demo.main → Demo.toString | SPARK has no model for MethodHandle.invoke(). The Object result gets no points-to types, so the following toString() call has no receiver types to resolve. |
+| S7 | cats | TR2 | Demo.caller → Method.invoke | Without types-for-invoke or a reflection log, SPARK uses DefaultReflectionModel, whose methodInvoke() only logs a warning and adds no edges at Method.invoke() call sites. |
+| S8 | cats | TR6 | Demo.main → Constructor.newInstance | DefaultReflectionModel adds Constructor.newInstance() edges only with safe-newinstance or explicitly listed dynamic classes. Neither is set, so the call site gets no callee. |
+| S9 | cats | TR7 | Demo.main → CallTarget.target | SPARK's native model for Field.get() always throws "not supported" and is silently skipped. The return value never links to the CallTarget object, so the receiver of target() has an empty points-to set. |
+| S10 | cats | TR7 | Demo.main → Field.get | Soot's reflection handling recognizes only Method.invoke, Class.newInstance, Constructor.newInstance and Class.forName. Field.get has no model at all, so no edge is added. |
+| S11 | cats | Unsafe1 | Demo.main → AccessibleObject.setAccessible | The Constructor object from the getDeclaredConstructors0 native model does not propagate through the JDK's getDeclaredConstructor wrapper (caching, arrays). The receiver's points-to set stays empty. |
+| S12 | cats | Unsafe1 | Demo.main → UnsafeTarget.targetMethod | SPARK's Unsafe native model handles only allocateInstance, so compareAndSwapObject is a no-op. The UnsafeTarget written into the field is never tracked, and the interface call cannot be resolved. |
+| S13 | cats | Unsafe1 | Demo.main → Unsafe.compareAndSwapObject | The Unsafe instance is created reflectively via Constructor.newInstance(), which DefaultReflectionModel does not model (no dynamic classes). The unsafe local gets no allocation node, so the call on it is never resolved. |
+| S14 | cats | Unsafe2 | Demo.main → UnsafeTarget.targetMethod | SPARK's Unsafe native model handles only allocateInstance, so putObject has no pointer effect. The UnsafeTarget stored into the field never enters its points-to set, and the dispatch misses it. |
+| S15 | cats | Unsafe3 | Demo.main → UnsafeTarget.targetMethod | Unsafe.getObject falls through to SPARK's no-op default native model, so its return value has no points-to types. The virtual call on it resolves to nothing. |
+| S16 | cats | Unsafe4 | Demo.main → UnsafeTarget.targetMethod | SPARK's Unsafe model treats getAndSetObject as a no-op, so the UnsafeTarget stored atomically into the field is never tracked. The dispatch resolves only to SafeTarget. |
+| S17 | cats | Unsafe4 | Demo.main → SafeTarget.targetMethod | getAndSetObject falls through to SPARK's no-op default native model, so its returned (old) value has an empty points-to set. The virtual call on it yields no edges. |
+| S18 | cats | Unsafe5 | Demo.main → UnsafeTarget.targetMethod | SPARK's Unsafe model treats putOrderedObject as a no-op, so the stored UnsafeTarget never reaches the field's points-to set. The dispatch resolves only to SafeTarget. |
+| S19 | cats | Unsafe6 | Demo.main → SafeTarget.targetMethod | SPARK's Unsafe model treats getObjectVolatile as a no-op, so its return value gets no allocation node. The receiver's points-to set is empty and no callee is resolved. |
+| S20 | njr | jpush_jpush_java_library | ReflectiveTypeAdapterFactory.excludeField → Field.getType | SPARK's native model for java.lang.Class lacks getDeclaredFields0(boolean), the JDK 8 native behind getDeclaredFields(). No Field objects are created, so the Field receiver's points-to set is empty. |
+| S21 | njr | jpush_jpush_java_library | ReflectiveTypeAdapterFactory$1.read → Field.set | JavaLangClassNative was written for an older JDK and has no case for getDeclaredFields0(boolean). The returned Field[] has no allocation, so the Field.set receiver is empty. |
+| S22 | njr | jpush_jpush_java_library | HttpPostClient.parse → CustomMessageParams.getMsgContent | Soot's method lookup narrows toward covariant return types and picks the real override, skipping the bridge method. The JVM dispatches on the exact descriptor to the bridge first, so that edge is missing. |
+| S23 | njr | jpush_jpush_java_library | ReflectiveTypeAdapterFactory.getBoundFields → AccessibleObject.setAccessible | getDeclaredFields0(boolean) has no native model in SPARK and falls through to a no-op. The Field[] elements have empty points-to sets, so field.setAccessible() is never resolved. |
+| S24 | njr | jpush_jpush_java_library | ReflectiveTypeAdapterFactory$1.write → Field.get | getDeclaredFields0(boolean) has no native model in SPARK and falls through to a no-op, so no Field allocation exists. The Field receiver of Field.get stays empty and no edge is created. |
+| S25 | njr | jpush_jpush_java_library | HttpPostClient.mapWithParms → HashMap$EntryIterator.next | Soot's method lookup narrows to the covariant next():Map$Entry and rejects the synthetic bridge next():Object that the JVM actually dispatches to. The bridge edge is never added. |
+| S26 | njr | jpush_jpush_java_library | FieldNamingPolicy$1.translateName → Field.getName | getDeclaredFields0(boolean) has no native model in SPARK, so no Field objects are created. The parameter f has an empty points-to set and f.getName() is never resolved. |
+| S27 | njr | jpush_jpush_java_library | ConstructorConstructor.newDefaultConstructor → AccessibleObject.isAccessible | The Constructor from getDeclaredConstructor() is returned through ReflectionFactory.copyConstructor(), which dispatches on a LangReflectAccess set by JDK bootstrap code SPARK doesn't trace. The receiver's points-to set stays empty. |
+| S28 | njr | jpush_jpush_java_library | ReflectiveTypeAdapterFactory.getFieldName → Field.getAnnotation | SPARK has no native model for getDeclaredFields0(boolean), so no Field objects flow from getDeclaredFields(). The field.getAnnotation() receiver is empty and gets no edge. |
+| S29 | njr | jpush_jpush_java_library | Excluder.excludeField → Field.isSynthetic | getDeclaredFields0(boolean) is missing from SPARK's native simulation and handled as a no-op, so no Field allocation enters the PAG. The field.isSynthetic() call is never resolved. |
+| S30 | njr | jpush_jpush_java_library | HttpPostClient.sendPost → HttpURLConnection.disconnect | URL's protocol handler is loaded via Class.forName on a concatenated (non-constant) name, which SPARK cannot resolve. openConnection() therefore yields no connection type, and conn has an empty points-to set. |
+| S31 | njr | TimmiTBy_Epam | oader.getTCL → Class.getMethod | Soot's reflection handling covers only forName, Class/Constructor.newInstance and Method.invoke. The call to Class.getMethod() is recognized but never gets an edge. |
+| S32 | njr | TimmiTBy_Epam | DOMConfigurator.doConfigure → DocumentBuilderFactory.setValidating | DocumentBuilderFactory.newInstance() instantiates the implementation via Class.newInstance(), which DefaultReflectionModel does not model (no dynamic classes). The factory receiver has no types, so setValidating() is unresolved. |
+| S33 | njr | TimmiTBy_Epam | oader.getResource → ClassLoader.getResource | The Class.classLoader field is written internally by the JVM during class loading, never by visible Java code. getClassLoader() returns an empty points-to set, so the getResource() call is unresolved. |
+| S34 | njr | TimmiTBy_Epam | DOMConfigurator.doConfigure → Class.getName | The factory from DocumentBuilderFactory.newInstance() comes from reflective loading with a non-constant class name, so its points-to set is empty. As a result getClass() is never resolved, no Class object flows, and getName() is also missed. |
+| S35 | njr | TimmiTBy_Epam | oader.getResource → Class.getClassLoader | With types-for-invoke off (the default), SPARK's PAG builder skips statements with invoke expressions, including Class.forName() in the synthetic class$ helper. The class-literal receiver gets no Class object, so getClassLoader() is unresolved. |
+| S36 | njr | TimmiTBy_Epam | DOMConfigurator.doConfigure → DocumentBuilderImpl.setErrorHandler | Soot excludes com.sun.* classes by default, so the JAXP implementation DocumentBuilderImpl never enters the Scene or class hierarchy. Dispatch on DocumentBuilder finds no concrete subclass. |
+| S37 | njr | Telsis_jOCP | OCPLinkManager$RxThread.run → NullPointerException.<init> | The JVM implicitly allocates a NullPointerException when a call is made on a null receiver. Soot builds edges only from explicit invokes and has no model for this implicit construction. |
+| S38 | njr | Telsis_jOCP | OCPLinkManager.<init> → RegularEnumSet$EnumSetIterator.next | Soot's method lookup narrows to the covariant next():Enum and rejects the synthetic bridge next():Object that the JVM dispatches to. Only the covariant target is recorded. |
+| S39 | njr | Telsis_jOCP | OCPLinkManager.loadConfig → InetAddress.getCanonicalHostName | The concrete Inet4/Inet6Address from InetAddress.getLocalHost() is allocated deep in JDK native lookup code that SPARK does not propagate. The receiver has no types, so the virtual call is unresolved. |
+| S40 | njr | Telsis_jOCP | OCPLinkManager.<init> → Class.getSimpleName | Enum constants from EnumSet.allOf(...).iterator().next() never reach the loop variable through JDK library code. type.getImplementation() is unresolved, so the chained getSimpleName() is missed too. |
+| S41 | njr | Telsis_jOCP | OCPLinkManager.<init> → egacyOCPMessageTypes.getImplementation | EnumSet obtains enum constants through Class.getEnumConstantsShared(), which uses Method.invoke on values(). SPARK's native model for Method.invoke is unsupported, so no enum objects reach 'type' and the call is unresolved. |
+| S42 | njr | rtreffer_minidns | MiniDnsJul.<clinit> → ogManager.readConfiguration | The LogManager instance comes back from AccessController.doPrivileged. Soot registers static virtual-edge targets as GENERIC_FAKE, which passes no parameters or return value, so run()'s result never flows back and the receiver stays empty. |
+| S43 | njr | rtreffer_minidns | AbstractDNSClient.query → ogger.log | With types-for-invoke off, SPARK's PAG builder skips the statement LOGGER = Logger.getLogger(...) because it contains an invoke. The static field LOGGER has an empty points-to set, so Logger.log() is unresolved. |
+| S44 | njr | rtreffer_minidns | MiniDnsRepl.<clinit> → AccessibleObject.setAccessible | SPARK's PAG builder skips invoke-containing assignments (types-for-invoke off), so getDeclaredField()'s result is never connected to the local. The setAccessible() receiver stays empty. |
+| S45 | njr | rtreffer_minidns | AlgorithmMap.<init> → ogger.log | The Logger from Logger.getLogger() is allocated deep in the JDK's LogManager factory chain, which includes unmodeled natives such as getCallerClass. The allocation never reaches the receiver, so LOGGER.log() gets no edge. |
+| S46 | njr | ludaiqian_appliedxml | $Gson$Types.resolve → Class.isArray | The Class receiver comes from native reflection methods (Field.getGenericType, Class.getGenericSuperclass) that SPARK models as no-ops. The receiver has an empty points-to set, so isArray() is never resolved. |
+| S47 | njr | ludaiqian_appliedxml | StringUtil.isEmpty → String.equals | The String receiver comes from annotation proxy accessors (e.g., Attribute.name()), which SPARK does not model. With no allocation in its points-to set, str.equals() is never resolved. |
+| S48 | njr | s3e0n1g1_prototype3 | Assert.isEquals → String.equals | The String arguments come from JUnit @Test methods that are reached only through Method.invoke. DefaultReflectionModel adds no edges for Method.invoke, so String never enters the receiver's points-to set. |
+| S49 | njr | s3e0n1g1_prototype3 | RunnerBuilder.safeRunnerForClass → AllDefaultPossibilitiesBuilder.runnerForClass | The AllDefaultPossibilitiesBuilder receiver reaches safeRunnerForClass's 'this' only via a Suite constructor called through Constructor/Class.newInstance. DefaultReflectionModel does not model these, so the type never flows in. |
+| S50 | njr | s3e0n1g1_prototype3 | TestClass.addToAnnotationLists → $Proxy5.annotationType | The receiver is a runtime-generated dynamic proxy for an annotation. Soot's native model for Proxy.defineClass0 is unsupported, so no $Proxy5 allocation reaches the points-to set. |
+| S51 | njr | core9_core | JARClasspathLocation.listToplevelClassNamesForURI → ZipEntry.getName | The JarEntry is allocated deep in the JDK chain that starts at URL.openConnection(). The URL protocol handler is loaded reflectively and is unresolved, so the entry receiver stays empty. |
+| S52 | njr | core9_core | PluginManagerImpl.addPluginsFrom → DiagnosisChannelDummyImpl.status | The diagnosis plugin is created via Class.newInstance(), which DefaultReflectionModel handles only for configured dynamic classes (none here). The objects the receiver depends on are never allocated. |
+| S53 | njr | core9_core | Spawner.processOtherPluginLoadedAnnotation → ArrayList.iterator | The ArrayList is reached only through a reflectively spawned plugin (Class.newInstance, not modeled) and a ConcurrentHashMap put/get round trip that SPARK does not connect. The receiver's points-to set is empty. |
+| S54 | njr | core9_core | ClassPathManager$1.run → ClassWorld.newRealm | doPrivileged is modeled, and the anonymous run() is reached. But the ClassWorld receiver is stored into and re-read from the enclosing instance's field through synthetic access$ accessors, and no concrete type reaches the receiver. |
+| S55 | njr | core9_core | Spawner.callInitMethods → Object.getClass | The receiver comes from Class.newInstance(), which gets no allocation node with the default configuration (types-for-invoke off). With an empty points-to set, getClass() is never resolved. |
+| S56 | njr | core9_core | ClassPathLocator.findInCurrentClassPath → ogger.fine | The Logger from the JDK factory Logger.getLogger() is allocated inside LogManager code whose allocation-to-return chain SPARK does not reproduce. The logger field stays empty and Logger.fine is missed. |
+| S57 | njr | zSakare_SENG3011 | OrderbookTestRunner.run → NoSuchMethodError.<init> | A stale or mismatched method reference makes the JVM construct a NoSuchMethodError at link time. Soot builds edges only from explicit Jimple invokes and allocations and has no model for linkage errors. |
+| S58 | njr | Xilaew_risiko | EMFPlugin.<clinit> → Throwable.initCause | Soot adds only the explicit edge to the declared static target, plus a fixed set of implicit edges. It has no model for the JVM chaining the cause of a NoClassDefFoundError when a callee fails to link. |
+| S59 | njr | Xilaew_risiko | EMFPlugin.<clinit> → NoClassDefFoundError.<init> | Soot resolves the missing Platform class to a phantom method and has no edge kind for a LinkageError that the VM allocates during resolution. The implicit error constructor is never added. |
+| S60 | njr | zhongdj_Madz_Stochastic | GlobalDimensionBasedDynamicCase.newDimension → $Proxy1.enumClass | The receiver is a JDK-generated dynamic proxy that materializes a runtime annotation. SPARK has no model for this synthesis, so no $Proxy1 allocation reaches the receiver and the interface call is unresolved. |
+| S61 | njr | rduerig_StrategyBDD | JFactory.or_rec → JFactory.LEVEL | Soot resolves a specialinvoke through the points-to-driven virtual call path rather than statically. With no concrete type in the receiver's points-to set, the or_rec → LEVEL edge is never created. |
+| S62 | njr | rduerig_StrategyBDD | ocalCache.<init> → CacheBuilder$2.get | Soot's method lookup narrows to the covariant get():StatsCounter and discards the synthetic bridge get():Object that the JVM actually invokes. The bridge edge is lost. |
+| S63 | njr | rduerig_StrategyBDD | BddCacheHavannah$1.onRemoval → RemovalNotification.getValue | The RemovalNotification is passed through a ConcurrentLinkedQueue whose nodes are linked and read via Unsafe put/CAS/get natives. SPARK models these as no-ops, so offer() never connects to poll() and the receiver is empty. |
+| S64 | njr | rduerig_StrategyBDD | ocalCache$Segment.clear → ocalCache$StrongValueReference.isActive | The entries are stored in and read from an AtomicReferenceArray through Unsafe putObjectVolatile/getObjectVolatile, which SPARK models as no-ops. The loaded entry has no types and isActive() is unresolved. |
+| S65 | njr | rduerig_StrategyBDD | Striped64$1.run → Field.get | Field objects come from getDeclaredFields(), backed by the native getDeclaredFields0(boolean), which SPARK's JavaLangClassNative does not model. The Field receiver has an empty points-to set. |
+| S66 | xcorpus | javacc-5.0 | NfaState.DumpMoveNfa → ArrayIndexOutOfBoundsException.<init> | An out-of-bounds array store makes the JVM throw the exception implicitly, with no invoke or NewExpr in Jimple. Soot never synthesizes edges for implicit runtime exceptions. |
+| S67 | xcorpus | nekohtml-1.9.14 | ObjectFactory.findClassLoader → Class.getClassLoader | The receiver is the cached class$ field set by Class.forName(local) in the synthetic class$() helper. SPARK creates a Class object only for string-constant arguments, so the receiver's points-to set is empty. |
+| S68 | xcorpus | nekohtml-1.9.14 | HTMLDocumentImpl.createElement → Constructor.newInstance | TypeBasedReflectionModel inherits DefaultReflectionModel's constructor handling, which adds edges only with safe-newinstance or dynamic classes. Neither is set, so the reflective call and its targets are omitted. |
+| S69 | xcorpus | nekohtml-1.9.14 | DOMFragmentParserTest.doTest → DOMSerializerImpl.writeToString | The serializer is created by Class.forName().newInstance() inside DOMImplementationRegistry. DefaultReflectionModel creates no object for this (no dynamic classes, non-constant name), so the 'writer' receiver stays empty. |

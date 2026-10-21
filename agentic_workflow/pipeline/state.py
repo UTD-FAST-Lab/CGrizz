@@ -56,6 +56,10 @@ class PipelineState:
 
     # ── Retry mode flags ──────────────────────────────────────────────────────
     report_oracle_failure: bool = False  # True when outer retry was triggered by oracle check failure
+    report_refine_reason:  Optional[str] = None  # tag for why the outer loop went back to the report stage
+
+    # ── Report history: previous reports archived on each outer retry ─────────
+    report_history: list[dict] = field(default_factory=list)  # [{loop, reason, path}]
 
     # ── Annotation info (populated after stage 6a) ────────────────────────────
     annotated_file:   Optional[str] = None   # relative path within annotated_sa_tool_path

@@ -76,6 +76,7 @@ async def stage_generate_report(state: PipelineState) -> bool:
     """
     options       = build_agent_options(state)
     report_path   = state.out(OUT_REPORT)
+    _archive_previous_report(state)
     feedback      = _build_feedback_section(state)
     retry_context = _build_retry_context(state)
 
@@ -120,6 +121,8 @@ Return JSON only:
     log.info(f"{state.label()} Report generation result: {result}")
     if result and "report_path" in result:
         state.unsoundness_report = result["report_path"]
+        if Path(report_path).exists():
+            state.unsoundness_report = report_path
         return True
 
     if Path(report_path).exists():
@@ -733,6 +736,7 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
                 state.oracle_feedback.clear()
                 state.oracle_refine_count = 0
                 state.report_oracle_failure = True
+                state.report_refine_reason = "oracle_failure"
                 log.info(f"{state.label()} Oracle refinement exhausted. Escalating to report generator.")
                 if state.loop_count >= MAX_LOOPS:
                     break
@@ -743,6 +747,7 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
         reproduced, repr_feedback = await stage_check_reproduction(state)
         if not reproduced:
             state.reproduce_feedback.append(repr_feedback)
+            state.report_refine_reason = "not_reproduced"
             log.info(f"{state.label()} Not reproduced. Feedback recorded.")
             if state.loop_count >= MAX_LOOPS:
                 break
@@ -796,6 +801,7 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
         if state.loop_count >= MAX_LOOPS:
             break
         state.loop_count += 1
+        state.report_refine_reason = "trace_failure"
         # → back to stage 3 with all feedback injected (rare: only if outer loop allows it)
 
     # Max loops reached
@@ -985,6 +991,33 @@ def _build_feedback_section(state: PipelineState) -> str:
     return "\n".join(lines)
 
 
+def _archive_previous_report(state: PipelineState) -> None:
+    """
+    On outer-loop retries, rename the previous report so the new one does not
+    overwrite it: unsoundness_report.json → unsoundness_report.loop<N>.<reason>.json,
+    where N is the loop that produced it and reason is why it was sent back.
+    """
+    if state.loop_count == 0:
+        return
+
+    canonical = Path(state.out(OUT_REPORT))
+    prev = Path(state.unsoundness_report) if state.unsoundness_report else canonical
+    if not prev.exists():
+        prev = canonical
+    if not prev.exists():
+        return
+
+    produced_in = state.loop_count - 1
+    reason = state.report_refine_reason or "refine"
+    archived = canonical.with_name(f"{canonical.stem}.loop{produced_in}.{reason}{canonical.suffix}")
+    shutil.move(str(prev), str(archived))
+
+    state.report_history.append({"loop": produced_in, "reason": reason, "path": str(archived)})
+    state.unsoundness_report = None
+    state.report_refine_reason = None
+    log.info(f"{state.label()} Archived previous report → {archived}")
+
+
 def _build_retry_context(state: PipelineState) -> str:
     """
     Build the context block injected into the report prompt on retries.
@@ -995,21 +1028,25 @@ def _build_retry_context(state: PipelineState) -> str:
     if state.loop_count == 0:
         return ""
 
+    report_path = state.out(OUT_REPORT)
     lines = [
         "\n## Context from previous attempt\n",
         "IMPORTANT — FORMAT PRESERVATION: This is a retry. You MUST read the previous",
-        "report file listed below, apply the feedback, and write the revised analysis",
-        "back to the SAME output path using the EXACT SAME JSON schema as the original.",
+        "report file listed below, apply the feedback, and write a NEW revised report",
+        f"to {report_path} using the EXACT SAME JSON schema as the previous one.",
         "Do not add, remove, or rename any top-level keys. Do not change the format.",
-        "Only update field VALUES based on the feedback above.\n",
+        "Only update field VALUES based on the feedback above.",
+        "Do NOT modify or delete the previous report file — it is kept for history.\n",
     ]
 
-    if state.unsoundness_report and Path(state.unsoundness_report).exists():
+    prev = state.report_history[-1] if state.report_history else None
+    if prev and Path(prev["path"]).exists():
         lines += [
             "### Previous unsoundness report",
             "",
-            f"Path: {state.unsoundness_report}",
-            "(Read this file to review your previous analysis before revising it based on the feedback above.)",
+            f"Path: {prev['path']}",
+            f"(Produced in loop {prev['loop']}; rejected due to: {prev['reason']}. "
+            "Read this file to review your previous analysis before revising it based on the feedback above.)",
         ]
 
     if state.reproducing_test_case_path and Path(state.reproducing_test_case_path).exists():

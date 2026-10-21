@@ -241,8 +241,8 @@ def main():
         fontsize=13, fontweight='bold',
     )
 
-    fig.savefig(CHART_PATH, dpi=150)
-    print(f"\nSaved chart -> {CHART_PATH}")
+    # fig.savefig(CHART_PATH, dpi=150)
+    # print(f"\nSaved chart -> {CHART_PATH}")
 
 
 if __name__ == '__main__':
