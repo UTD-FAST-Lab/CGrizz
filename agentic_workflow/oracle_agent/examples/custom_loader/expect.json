@@ -1,0 +1,5 @@
+{
+  "present": [["ex.custom_loader.Main.main", "ex.custom_loader.Main$IntCmp.compare"]],
+  "absent":  [["ex.custom_loader.Main.main", "ex.custom_loader.Main$IntCmp.name"]],
+  "rootCauseMethods": ["ex.custom_loader.Main.main"]
+}

@@ -1,0 +1,8 @@
+{
+  "description": "Class.forName with a class name that is not a string constant",
+  "rootCauses": [
+    {"id": "forName", "at": "call", "owner": "java.lang.Class", "name": "forName", "tag": "return",
+     "when": [{"on": "arg0", "is": "nonConstant"}]}
+  ],
+  "symptoms": {"match": ["receiverClass"]}
+}

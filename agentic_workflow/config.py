@@ -28,6 +28,7 @@ ORACLE_SPEC_FILE        = "oracle_spec.json"
 ORACLE_RUN_TIMEOUT      = 1800  # seconds per oracle run on a real program (SIGTERM, then the oracle is still written)
 ORACLE_REFINE_ATTEMPTS  = 2     # spec refinements after a failed check on the real program
 ORACLE_GENERATE_ATTEMPTS = 2    # attempts to get a valid spec + non-empty oracle on the test case
+ORACLE_NEGATIVE_CHECK   = True  # the spec must produce no symptoms on the non-reproducing (near-miss) test case
 
 # ── JCG containers (jcg/) ──────────────────────────────────────────────────────
 

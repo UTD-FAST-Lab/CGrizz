@@ -34,22 +34,29 @@ You will receive:
 - Initialize it via a factory that uses `ClassLoader.loadClass(phi_joined_string)`
 - Call method on the interface; SA tool cannot resolve the concrete class
 
-## Test Case 2: Non-reproducing (Negative)
+## Test Case 2: Non-reproducing (Near miss)
 
-**Goal:** Write a semantically similar Maven project where the edge IS visible to the SA tool.
+**Goal:** the same program as test case 1, changed only so that the condition the tool
+depends on no longer holds. The SA tool now resolves `caller → target`.
 
 **How:**
-1. Start from test case 1 structure and semantics (same call paths, same data flow intent)
-2. **Remove the root cause** — replace the mechanism that blocked SA tool analysis
-3. The edge `caller → target` must now be resolvable by static analysis (concrete call)
-4. Write to `<output_dir>/non_reproducing/`
+1. Start from test case 1 (same classes, call paths and data flow).
+2. Read `toolLimitation` (`reason`, `codeSnippet`): it names the condition under which the
+   tool gives up. Flip **only that condition** and keep the mechanism. For example:
+   - tool resolves `Class.forName` only for constant strings → pass a string literal instead of a
+     computed name, keeping `Class.forName(...).newInstance()`;
+   - tool's `newInstance` model needs a public no-arg constructor → make the constructor public;
+   - tool drops classes defined from bytes → load the same class from the classpath.
+3. Only if the mechanism itself is what the tool cannot handle (no variant of it is resolved),
+   replace it with the closest resolvable equivalent (e.g. direct instantiation).
+4. Write to `<output_dir>/non_reproducing/`.
 
-**Critical:** If it is **not possible** to remove the root cause while keeping the test semantically similar, **do not generate test case 2**. Skip it entirely rather than write a non-analogous test.
+The pipeline runs the oracle and the annotated tool on this test case too: a precise root cause
+must not fire here. That is why the near miss should differ from test case 1 in as little as
+possible.
 
-**Example:** If test case 1 uses reflection:
-- Replace `ClassLoader.loadClass(phi_var)` with direct instantiation: `new SimpleLog()`
-- Replace `logClass.getConstructor().newInstance()` with direct constructor call
-- The call graph is now concrete; SA tool can resolve `caller → target`
+**Critical:** If no semantically similar variant exists, **do not generate test case 2**. Skip it
+entirely rather than write a non-analogous test.
 
 ## Output Structure
 

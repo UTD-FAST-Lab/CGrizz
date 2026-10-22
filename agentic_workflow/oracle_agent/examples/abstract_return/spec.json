@@ -1,0 +1,8 @@
+{
+  "description": "JDK calls whose declared return type is abstract or an interface",
+  "rootCauses": [
+    {"id": "abstractReturn", "at": "call", "owner": "java.*", "name": "*", "tag": "return",
+     "when": [{"on": "return", "is": "declaredTypeAbstract"}]}
+  ],
+  "symptoms": {"match": ["receiver"]}
+}
