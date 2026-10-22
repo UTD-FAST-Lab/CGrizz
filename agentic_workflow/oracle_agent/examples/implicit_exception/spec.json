@@ -1,5 +1,4 @@
 {
-  "pattern_class": "implicit_jvm_exception",
   "rootCauses": [
     {"id": "cast", "at": "insn", "opcodes": ["CHECKCAST"]},
     {"id": "nullRecv", "at": "insn", "opcodes": ["INVOKEVIRTUAL", "INVOKEINTERFACE"], "exceptions": ["java.lang.NullPointerException"]}

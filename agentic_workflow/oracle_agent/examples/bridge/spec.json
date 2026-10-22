@@ -1,5 +1,4 @@
 {
-  "pattern_class": "bridge_method_dispatch",
   "rootCauses": [
     {"id": "bridgeCall", "at": "call", "owner": "*", "name": "*", "selfEdge": true, "when": "bridge"}
   ],

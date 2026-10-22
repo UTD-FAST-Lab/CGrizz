@@ -8,12 +8,31 @@ success / failure summaries printed at the end of a run.
 import json
 import logging
 from datetime import datetime
+from pathlib import Path
 from typing import Optional
 
 from pipeline.state import PipelineState
+from pipeline.report_schema import tool_location
 from config import OUT_PIPELINE_RESULT
 
 log = logging.getLogger("pipeline")
+
+
+def _report_summary(state: PipelineState) -> dict:
+    """The comparable fields of the unsoundness report (scripts/helpers/reproducibility.py)."""
+    try:
+        r = json.loads(Path(state.unsoundness_report).read_text())
+    except Exception:
+        r = {}
+    limitation = r.get("toolLimitation") if isinstance(r.get("toolLimitation"), dict) else {}
+    tool_files = (limitation.get("toolCodeEvidence") or {}).get("relevantFiles") or []
+    evidence = r.get("evidence") if isinstance(r.get("evidence"), list) else []
+    return {
+        "evidence_locations": [f"{p}:{n}" for p, n in filter(None, map(tool_location, evidence))],
+        "tool_locations": [f"{p}:{n}" for p, n in filter(None, map(tool_location, tool_files))],
+        "rootCause": limitation.get("rootCause"),
+        "schema_problems": state.report_schema_problems,
+    }
 
 
 # ── Final report ──────────────────────────────────────────────────────────────
@@ -53,6 +72,8 @@ def write_final_report(state: PipelineState, success: bool, reason: str,
             "oracle_spec":               state.oracle_spec_path,
             "target_oracle":             state.target_oracle_path,
         },
+        "report": _report_summary(state),
+        "annotation": {"file": state.annotated_file, "line": state.injected_at_line},
         "oracle_verdicts": state.oracle_verdicts,
         "stage_seconds": state.stage_seconds,
         "feedback_history": {

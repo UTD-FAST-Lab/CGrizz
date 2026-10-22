@@ -62,6 +62,9 @@ class PipelineState:
     # ── Retry mode flags ──────────────────────────────────────────────────────
     report_refine_reason:  Optional[str] = None  # tag for why the outer loop went back to the report stage
 
+    # ── Report validation (pipeline/report_schema.py) ─────────────────────────
+    report_schema_problems: list[str] = field(default_factory=list)
+
     # ── Wall-clock seconds per stage (pipeline.timing.timed) ──────────────────
     stage_seconds: dict[str, float] = field(default_factory=dict)
 

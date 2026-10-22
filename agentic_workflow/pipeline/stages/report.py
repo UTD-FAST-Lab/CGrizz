@@ -13,7 +13,8 @@ from pipeline.state import PipelineState
 from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.agent_runner import run_agent, parse_json_from_response
-from config import OUT_REPORT
+from pipeline.report_schema import validate_file, root_cause_markdown
+from config import OUT_REPORT, REPORT_SCHEMA_RETRIES
 
 log = logging.getLogger("pipeline")
 
@@ -53,6 +54,8 @@ Static analysis tool   : {state.sa_tool_path}
 Tool / Algorithm       : {state.tool_name} / {state.algorithm}
 Main class             : {state.main_class}
 
+{root_cause_markdown()}
+
 ### Boundary entry
 
 {state.boundary_summary()}
@@ -79,15 +82,47 @@ Return JSON only:
         state.unsoundness_report = result["report_path"]
         if Path(report_path).exists():
             state.unsoundness_report = report_path
+        await _enforce_schema(state)
         return True
 
     if Path(report_path).exists():
         state.unsoundness_report = report_path
         log.warning(f"{state.label()} Could not parse agent response, but found report at {report_path}. Proceeding with it.")
+        await _enforce_schema(state)
         return True
 
     log.error(f"{state.label()} Report generation failed.")
     return False
+
+
+async def _enforce_schema(state: PipelineState) -> None:
+    """
+    Validate the report against pipeline/report_schema.py and let the analyzer fix
+    it (REPORT_SCHEMA_RETRIES times). Remaining problems are recorded, not fatal.
+    """
+    tool_dir = Path(state.sa_tool_path)
+    problems = validate_file(state.unsoundness_report, tool_dir)
+    for _ in range(REPORT_SCHEMA_RETRIES):
+        if not problems:
+            break
+        log.warning(f"{state.label()} Report does not match the schema: {problems}")
+        await run_agent(
+            prompt=f"""Use the fn-edge-analyzer agent to fix the format of the unsoundness report at
+{state.unsoundness_report}. Invoke it via the Task tool. Keep the analysis; only fix:
+
+{chr(10).join(f"- {p}" for p in problems)}
+
+{root_cause_markdown()}
+
+Overwrite the file in place. Return JSON only: {{"report_path": "{state.unsoundness_report}"}}""",
+            options=build_agent_options(state),
+            stage_name=f"{state.label()} FixReportSchema",
+        )
+        problems = validate_file(state.unsoundness_report, tool_dir)
+    state.report_schema_problems = problems
+    if problems:
+        log.warning(f"{state.label()} Continuing with schema problems in the report: {problems}")
+
 
 # ── Stage 9: Refine unsoundness report ───────────────────────────────────────
 

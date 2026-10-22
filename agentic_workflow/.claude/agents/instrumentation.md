@@ -13,7 +13,7 @@ Read the spec reference given in the task (`SPEC.md`) before writing anything.
 
 ## Inputs
 
-- **Unsoundness report** — `pattern_class`, the missed edge, `toolLimitation.reason`
+- **Unsoundness report** — the program `evidence`, the missed edge, `toolLimitation`
 - **Reproducing test case** — a Maven project; its jar is under `target/`, its main class
   is `main` in `jcg.conf`
 - **Spec path** — where to write `oracle_spec.json`

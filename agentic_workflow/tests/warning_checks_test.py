@@ -16,11 +16,11 @@ import pipeline.stages.annotation as A
 from pipeline.state import PipelineState
 from pipeline.warning_checks import check_negative, check_selectivity, warning_callers, warning_lines
 
-PATTERN = "reflection_indirect_instantiation"
+LIMITATION = "Class.forName with non-constant name not resolved"
 
 
 def line(caller: str) -> str:
-    return f"[info] [UNSOUNDNESS] {PATTERN} | caller={caller} | site=invokevirtual@12"
+    return f"[info] [UNSOUNDNESS] {LIMITATION} | caller={caller} | site=invokevirtual@12"
 
 
 def make_test_case(root: Path, name: str, pkg: str = "com.example") -> Path:

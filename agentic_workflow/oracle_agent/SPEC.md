@@ -31,7 +31,6 @@ match the application-side call that reaches it (e.g. `java.util.concurrent.Conc
 
 ```json
 {
-  "pattern_class": "reflection_indirect_instantiation",
   "description": "one sentence: what produces the invisible value and where it is used",
   "rootCauses": [ <root cause>, ... ],
   "propagate":  [ "reflection", <propagation>, ... ],
