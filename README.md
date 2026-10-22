@@ -202,6 +202,14 @@ python scripts/helpers/reproducibility.py results_run1 results_run2 results_run3
 results directory or for an annotated tool's trace on a whole program, which boundaries a warning
 explains, which have no warning, and which warnings have no boundary.
 
+**Per-edge warnings (`tool_markers/`).** For Soot, a marker module is installed into the annotated
+tool. The annotation marks the value the tool loses (`Unsound.mark(...)`), SPARK propagates the
+marker like the lost object, and the tool prints `[UNSOUNDNESS-EDGE] … | caller=… | line=… | pc=… |
+rc=…` at every call it reaches, without changing the call graph. Stage 8 then also checks that the
+annotated tool's call graph equals the original's and that every missed edge of the test case has
+a warning. `tool_markers/soot/test/run_test.sh` runs this on the real, pinned Soot. The tools can be
+fetched at the experiments' commits with `python scripts/setup/download_tools.py`.
+
 **Performance.** The JCG images are built once per pipeline run, and the static and dynamic
 call graphs of a test case are generated concurrently. `pipeline_result.json` records
 `stage_seconds` per stage. `JCG_FAST_PATH` in `config.py` (off by default) skips sbt

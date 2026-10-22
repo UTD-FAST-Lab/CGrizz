@@ -46,6 +46,7 @@ class PipelineState:
     execution_trace_path:           Optional[str] = None   # execution trace log from annotated SA tool
     negative_trace_path:            Optional[str] = None   # same, for the non-reproducing test case
     warning_coverage:               dict = field(default_factory=dict)  # warnings vs. test-case boundaries (edge_mapping)
+    tool_markers_installed:         bool = False           # the tool's unsoundness-marker module is in the annotated copy
 
     # ── Feedback accumulated across retries ────────────────────────────────────
     reproduce_feedback:   list[str] = field(default_factory=list)

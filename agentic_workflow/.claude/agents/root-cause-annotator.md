@@ -57,6 +57,13 @@ System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_e
   method (still in the caller's context) that has them.
 - Use the tool's language (Java or Scala).
 
+## Unsoundness markers (when the task has a section about them)
+
+For some tools a marker module is installed in the tool copy (see the instructions file named in
+the task). When the root cause **loses a value that later reaches calls**, also mark that value at
+the give-up point: the tool then prints `[UNSOUNDNESS-EDGE]` at every call the value reaches, so each
+missed edge gets its own warning. Guard the mark exactly like the warning.
+
 ## How it is checked
 
 The pipeline runs the annotated tool and accepts the annotation only if:
@@ -67,7 +74,11 @@ The pipeline runs the annotated tool and accepts the annotation only if:
 2. it fires for only a small share of all methods the tool analyses (a log in a generic
    place fails this);
 3. on the **non-reproducing** test case — the same program without the root cause — it
-   does **not** fire for any of that test case's own methods.
+   does **not** fire for any of that test case's own methods (edge warnings included);
+4. the annotated tool computes **the same call graph** on the test case as the original tool:
+   the annotation only prints and marks, it never changes the analysis;
+5. with a marker module: **every missed edge** of the test case has a warning at its call
+   instruction (`[UNSOUNDNESS-EDGE]`, or the root-cause warning when the edge is missed right there).
 
 ## On retry
 

@@ -34,6 +34,7 @@ The pipeline is organized into stages (`pipeline/stages/`) wired together by `pi
 - **`pipeline/agent_runner.py`** — `run_agent()` executor; handles agent invocation and JSON parsing
 - **`pipeline/edges.py`** — matching of edges / method names across boundary, CG and trace formats
 - **`pipeline/oracle.py`** — building/running the oracle agent, spec lint, verdict classification, symptoms
+- **`tool_markers/<tool>/`** — unsoundness-marker modules (Soot so far): installed into the annotated tool, they turn one `Unsound.mark(...)` at the root cause into `[UNSOUNDNESS-EDGE]` warnings at every affected call (`pipeline/tool_markers.py`)
 - **`oracle_agent/`** — the prebuilt Java oracle agent; the instrumentation agent only writes `oracle_spec.json` (see `oracle_agent/SPEC.md`)
 - **`pipeline/dedup.py`** — oracle deduplication and pruning reports
 - **`pipeline/boundaries.py`** — building states from boundaries.json, resume filter
@@ -140,7 +141,7 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 | 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG) |
 | 6b shrink | `stage_shrink_test_case` (test-case-generator) | smaller version kept only if the oracle checks and reproduction still pass |
 | 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
-| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
+| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; call graph unchanged; with a marker module every missed edge warned; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
 | 9 refine | `stage_refine_report` | — |
 
 Failures become feedback for the next attempt: `oracle_feedback` (instrumentation agent),
@@ -168,6 +169,8 @@ python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
 python tests/feedback_test.py        # feedback messages
 python tests/test_case_size_test.py  # test-case budget and shrinking
 python tests/edge_mapping_test.py    # warnings ↔ boundaries (scripts/helpers/warning_coverage.py)
+python tests/tool_markers_test.py    # marker installer, non-interference / coverage checks
+tool_markers/soot/test/run_test.sh   # the Soot marker module on the real, pinned Soot (needs tools/soot)
 python tests/determinism_test.py     # report format, reproducibility script
 python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn
 ```
