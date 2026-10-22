@@ -30,7 +30,7 @@ The pipeline is organized into stages (`pipeline/stages/`) wired together by `pi
 - **`pipeline/oracle.py`** — locating and running the oracle agent; reading symptoms
 - **`pipeline/dedup.py`** — oracle deduplication and pruning reports
 - **`pipeline/boundaries.py`** — building states from boundaries.json, resume filter
-- **`pipeline/results.py`** — `pipeline_result.json` and run summaries
+- **`pipeline/outcome.py`** — `pipeline_result.json` and run summaries
 - **`pipeline/analysis.py`** — wrappers for running the SA tool on test cases (via `jcg/`)
 - **`config.py`** — all pipeline constants (models, output filenames, retry limits)
 - **`pipeline_config.json`** — declares which (program, tool, algorithm) triples to analyze

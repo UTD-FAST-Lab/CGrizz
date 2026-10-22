@@ -9,7 +9,7 @@ annotation loop (stages 7–8), and writes the final report.
 import logging
 
 from pipeline.state import PipelineState
-from pipeline.results import write_final_report, print_success_summary, print_failure_summary
+from pipeline.outcome import write_final_report, print_success_summary, print_failure_summary
 from pipeline.stages import (
     stage_generate_report,
     stage_generate_test_case,

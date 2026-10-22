@@ -56,7 +56,7 @@ from pathlib import Path
 
 from pipeline.state import PipelineState
 from pipeline.runner import run_pipeline
-from pipeline.results import write_final_report
+from pipeline.outcome import write_final_report
 from pipeline.boundaries import make_state, load_boundaries, filter_resume
 from pipeline.dedup import is_successful, run_dedup, run_prededup, run_report_prededup
 from pipeline.sampler import (

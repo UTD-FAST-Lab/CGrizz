@@ -58,7 +58,7 @@ pipeline/
   oracle.py                Locating and running the oracle agent; reading symptoms
   dedup.py                 Oracle deduplication (post-success and pre-run) and pruning reports
   boundaries.py            PipelineState construction, boundaries.json loading, resume filter
-  results.py               pipeline_result.json and run summaries
+  outcome.py               pipeline_result.json and run summaries
   analysis.py              Invokes the SA tool / annotated tool via jcg/*
   sampler.py               Pre-filters JVM-runtime and JDK-caller boundaries
   logs.py                  Logging configuration
