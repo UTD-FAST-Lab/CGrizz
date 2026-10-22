@@ -22,7 +22,7 @@ LIMITATION = "Class.forName with non-constant name not resolved"
 
 
 def line(caller: str) -> str:
-    return f"[info] [UNSOUNDNESS] {LIMITATION} | caller={caller} | site=invokevirtual@12"
+    return f"[info] [UNSOUNDNESS] {LIMITATION} | caller={caller} | site=invokevirtual@12 | line=7 | pc=12"
 
 
 def make_test_case(root: Path, name: str, pkg: str = "com.example") -> Path:
@@ -91,6 +91,10 @@ def run_trace_check(root: Path, repro_lines, non_repro_lines, n_methods=1000):
                       target_program_path=".", main_class="M", sa_tool_path=".", boundary={}, output_dir=root)
     s.reproducing_test_case_path, s.non_reproducing_test_case_path = str(repro), str(non_repro)
     s.oracle_path, s.staticcg_path = str(oracle), str(make_cg(root, n_methods))
+    (root / "boundaries.json").write_text(json.dumps({"boundaries": [
+        {"caller": {"declaringClass": "Lcom/example/App;", "name": "main"},
+         "missedCallee": {"declaringClass": "Lcom/example/App$Impl;", "name": "run"}, "line": 7, "pc": 12}]}))
+    s.boundary_path = str(root / "boundaries.json")
     runs = []
 
     def fake_run(state, project="reproducing", test_case_path=None):
@@ -106,6 +110,11 @@ def test_stage(root_factory):
     main = "com.example.App.main([Ljava/lang/String;)"
     ok, fb, runs, s = run_trace_check(root_factory(), [line(main)], [line("java.lang.Class.forName()")])
     assert ok and runs == ["non_reproducing"] and s.negative_trace_path, (ok, fb)
+    assert s.warning_coverage["explained"] == 1 and s.warning_coverage["boundary_only"] == 0  # recorded (#14)
+
+    no_location = f"[UNSOUNDNESS] {LIMITATION} | caller={main} | site=s"
+    ok, fb, runs, _ = run_trace_check(root_factory(), [no_location], [])
+    assert not ok and "Location check failed" in fb and runs == []
 
     ok, fb, runs, _ = run_trace_check(root_factory(), [line(main)] + [line(f"java.util.C{i}.m{i}()") for i in range(400)], [])
     assert not ok and "Selectivity" in fb and runs == []  # selectivity fails before the second tool run

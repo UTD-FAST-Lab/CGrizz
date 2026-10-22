@@ -23,6 +23,7 @@ WARNING_TAG = "[UNSOUNDNESS]"
 _CALLER = re.compile(r"caller=(.*?)\s*(?:\||$)")
 _DESCRIPTION = re.compile(r"\[UNSOUNDNESS\]\s*(.*?)\s*\|\s*caller=")
 _PLACEHOLDER = re.compile(r"<[^>]*>|pattern_class|TODO", re.IGNORECASE)
+_FIELD = re.compile(r"\|\s*(\w+)=([^|]*)")
 
 
 def warning_lines(trace_text: str) -> list[str]:
@@ -46,6 +47,53 @@ def warning_descriptions(lines: list[str]) -> list[str]:
         m = _DESCRIPTION.search(line)
         seen.setdefault(m.group(1).strip() if m else "", None)
     return list(seen)
+
+
+def _int(value: Optional[str]) -> Optional[int]:
+    try:
+        n = int(str(value).strip())
+        return n if n >= 0 else None
+    except (TypeError, ValueError):
+        return None
+
+
+def warning_records(lines: list[str]) -> list[dict]:
+    """
+    Parsed warnings: {description, caller, site, line, pc}. line / pc are None
+    when missing or -1 (unknown).
+    """
+    out = []
+    for raw in lines:
+        if WARNING_TAG not in raw:
+            continue
+        fields = {k: v.strip() for k, v in _FIELD.findall(raw[raw.index(WARNING_TAG):])}
+        m = _DESCRIPTION.search(raw)
+        out.append({
+            "description": m.group(1).strip() if m else "",
+            "caller": fields.get("caller", ""),
+            "site": fields.get("site", ""),
+            "line": _int(fields.get("line")),
+            "pc": _int(fields.get("pc")),
+            "has_location_fields": "line" in fields and "pc" in fields,
+        })
+    return out
+
+
+def check_location(lines: list[str]) -> tuple[bool, str]:
+    """Every warning names the call instruction: line= and pc= present, at least one of them known."""
+    records = warning_records(lines)
+    missing = [r for r in records if not r["has_location_fields"]]
+    unknown = [r for r in records if r["has_location_fields"] and r["line"] is None and r["pc"] is None]
+    if not missing and not unknown:
+        return True, ""
+    what = ("has no `line=` / `pc=` fields" if missing else "prints line=-1 and pc=-1 (both unknown)")
+    return False, (
+        f"[annotation / trace check] Location check failed — the [UNSOUNDNESS] log {what}. Each warning must say "
+        "which call instruction of the caller is affected, so it can be matched to a missed edge: "
+        "[UNSOUNDNESS] <description> | caller=<method> | site=<site> | line=<source line> | pc=<bytecode offset>. "
+        "Use -1 only for a value the tool really does not have, and at least one of the two must be known "
+        "(see the per-tool hints in your instructions)."
+    )
 
 
 def check_description(lines: list[str], max_chars: int) -> tuple[bool, str]:

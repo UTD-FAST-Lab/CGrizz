@@ -29,7 +29,8 @@ Start from `toolLimitation.toolCodeEvidence` (`relevantFiles`, `codeSnippet`) in
 ## The log
 
 ```java
-System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>);
+System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>
+                   + " | line=" + <line_expr> + " | pc=" + <pc_expr>);
 ```
 
 - `<description>` — what the tool could not do, in plain words a user of the tool understands
@@ -43,6 +44,15 @@ System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_e
   everything before the last `.` preceding `(`, and the method name after it, so convert
   descriptors like `Lcom/example/App;` to dotted names.
 - `<site_expr>` — the call-site reference in scope (e.g. `site`, `callSite`).
+- `<line_expr>`, `<pc_expr>` — the source line and the bytecode offset of the **call instruction in
+  the caller** whose edge the tool drops. They let each warning be matched to a missed edge. Use
+  `-1` for a value the tool does not have, but at least one must be known. Typical sources:
+  - WALA: for the invoke instruction `call` in `node`'s IR,
+    `int pc = ((IBytecodeMethod<?>) node.getMethod()).getBytecodeIndex(call.iIndex());`
+    `int line = node.getMethod().getLineNumber(pc);` (catch `InvalidClassFileException` → `-1`).
+  - Soot: for the `Stmt s`, `line = s.getJavaSourceStartLineNumber()`;
+    `pc = s.hasTag("BytecodeOffsetTag") ? ((BytecodeOffsetTag) s.getTag("BytecodeOffsetTag")).getBytecodeOffset() : -1`.
+  - OPAL: `pc` is in scope where calls are handled; `line = method.body.get.lineNumber(pc).getOrElse(-1)`.
 - If the caller/site variables are not in scope, move up the call chain to the nearest
   method (still in the caller's context) that has them.
 - Use the tool's language (Java or Scala).
@@ -52,7 +62,8 @@ System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_e
 The pipeline runs the annotated tool and accepts the annotation only if:
 
 1. on the **reproducing** test case, the log fires with `caller=` naming the root-cause
-   method(s) from the oracle, and its description is at most 60 characters;
+   method(s) from the oracle, its description is at most 60 characters, and it has `line=` and
+   `pc=` (at least one known);
 2. it fires for only a small share of all methods the tool analyses (a log in a generic
    place fails this);
 3. on the **non-reproducing** test case — the same program without the root cause — it
