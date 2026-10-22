@@ -1,0 +1,5 @@
+{
+  "present": [["ex.reflection.Main.main", "ex.reflection.Main$Impl.run"]],
+  "absent":  [["ex.reflection.Main.main", "ex.reflection.Main$Direct.run"]],
+  "rootCauseMethods": ["ex.reflection.Main.main"]
+}

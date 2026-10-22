@@ -5,6 +5,8 @@ All pipeline constants. This is the only file you need to edit
 for tuning behaviour — no logic lives here.
 """
 
+from pathlib import Path
+
 # ── Loop control ───────────────────────────────────────────────────────────────
 
 MAX_LOOPS              = 1    # Maximum outer retries (stages 3–6, only on reproduce failure)
@@ -12,6 +14,15 @@ ANNOTATION_MAX_RETRIES = 3    # Maximum inner retries for stages 7–8 (annotati
 MAX_AGENT_RETRIES      = 3    # Retries on transient agent initialization timeout
 AGENT_RETRY_BASE_DELAY = 5    # Base delay in seconds (doubles each attempt)
 MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipeline concurrency)
+
+# ── Oracle (spec-driven instrumentation, see oracle_agent/SPEC.md) ────────────
+
+ORACLE_AGENT_DIR        = Path(__file__).parent / "oracle_agent"
+ORACLE_AGENT_JAR        = ORACLE_AGENT_DIR / "target" / "cgrizz-oracle-agent.jar"
+ORACLE_SPEC_FILE        = "oracle_spec.json"
+ORACLE_RUN_TIMEOUT      = 1800  # seconds per oracle run on a real program (SIGTERM, then the oracle is still written)
+ORACLE_REFINE_ATTEMPTS  = 2     # spec refinements after a failed check on the real program
+ORACLE_GENERATE_ATTEMPTS = 2    # attempts to get a valid spec + non-empty oracle on the test case
 
 # ── Models ────────────────────────────────────────────────────────────────────
 

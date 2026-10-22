@@ -1,0 +1,5 @@
+{
+  "present": [["ex.thread_start.Main.main", "java.lang.Thread.start"]],
+  "absent":  [["ex.thread_start.Main.main", "java.lang.Thread.join"]],
+  "rootCauseMethods": ["ex.thread_start.Main.main"]
+}

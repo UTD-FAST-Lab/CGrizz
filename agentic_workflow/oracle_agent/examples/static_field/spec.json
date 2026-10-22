@@ -1,0 +1,6 @@
+{
+  "pattern_class": "jvm_initialized_static_field",
+  "rootCauses": [
+    {"id": "sysOut", "at": "field", "owner": "java.lang.System", "name": "out", "access": "get"}
+  ]
+}

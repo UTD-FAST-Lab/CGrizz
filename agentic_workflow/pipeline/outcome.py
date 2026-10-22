@@ -8,6 +8,7 @@ success / failure summaries printed at the end of a run.
 import json
 import logging
 from datetime import datetime
+from typing import Optional
 
 from pipeline.state import PipelineState
 from config import OUT_PIPELINE_RESULT
@@ -18,16 +19,21 @@ log = logging.getLogger("pipeline")
 # ── Final report ──────────────────────────────────────────────────────────────
 
 
-def write_final_report(state: PipelineState, success: bool, reason: str) -> None:
+def write_final_report(state: PipelineState, success: bool, reason: str,
+                       failure_kind: Optional[str] = None) -> None:
     """
     Write pipeline_result.json to the output directory.
     Always called at the end of the pipeline, whether success or failure.
+
+    failure_kind separates failures that say nothing about the hypothesis
+    ("instrumentation_failure", "oracle_unsupported") from the others (None).
     """
     report = {
         "timestamp":  datetime.now().isoformat(),
         "success":    success,
         "loops_used": state.loop_count,
         "reason":     reason,
+        "failure_kind": failure_kind,
         "identity": {
             "program_name":    state.program_name,
             "tool_name":       state.tool_name,
@@ -44,7 +50,10 @@ def write_final_report(state: PipelineState, success: bool, reason: str) -> None
             "boundary":                  state.boundary_path,
             "annotated_sa_tool":         state.annotated_sa_tool_path,
             "modified_analysis":         state.modified_analysis_path,
+            "oracle_spec":               state.oracle_spec_path,
+            "target_oracle":             state.target_oracle_path,
         },
+        "oracle_verdicts": state.oracle_verdicts,
         "feedback_history": {
             "reproduce_feedback": state.reproduce_feedback,
             "trace_feedback":     state.trace_feedback,

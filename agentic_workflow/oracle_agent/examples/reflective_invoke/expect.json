@@ -1,0 +1,6 @@
+{
+  "present": [["ex.reflective_invoke.Main.main", "java.lang.reflect.Method.invoke"],
+              ["ex.reflective_invoke.Main.main", "ex.reflective_invoke.Main$Target.greet"]],
+  "absent":  [],
+  "rootCauseMethods": ["ex.reflective_invoke.Main.main"]
+}

@@ -1,0 +1,5 @@
+{
+  "present": [["ex.proxy.Main.main", "$Proxy"]],
+  "absent":  [],
+  "rootCauseMethods": ["ex.proxy.Main.main"]
+}

@@ -1,0 +1,5 @@
+{
+  "present": [["ex.bridge.Main.main", "ex.bridge.Main$Words.next"]],
+  "absent":  [["ex.bridge.Main.main", "ex.bridge.Main$Words.hasNext"]],
+  "rootCauseMethods": ["ex.bridge.Main.main"]
+}

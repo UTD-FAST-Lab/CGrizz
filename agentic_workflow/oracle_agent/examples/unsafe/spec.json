@@ -1,0 +1,7 @@
+{
+  "pattern_class": "unmodeled_native_heap_access",
+  "rootCauses": [
+    {"id": "put", "at": "call", "owner": "sun.misc.Unsafe", "name": "put*Object*", "tag": "arg2"},
+    {"id": "get", "at": "call", "owner": "sun.misc.Unsafe", "name": "get*Object*", "tag": "return"}
+  ]
+}
