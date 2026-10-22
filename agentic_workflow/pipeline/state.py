@@ -44,6 +44,7 @@ class PipelineState:
     annotated_sa_tool_path:         Optional[str] = None
     modified_analysis_path:         Optional[str] = None   # annotated SA tool output (SCG')
     execution_trace_path:           Optional[str] = None   # execution trace log from annotated SA tool
+    negative_trace_path:            Optional[str] = None   # same, for the non-reproducing test case
 
     # ── Feedback accumulated across retries ────────────────────────────────────
     reproduce_feedback:   list[str] = field(default_factory=list)

@@ -15,6 +15,11 @@ MAX_AGENT_RETRIES      = 3    # Retries on transient agent initialization timeou
 AGENT_RETRY_BASE_DELAY = 5    # Base delay in seconds (doubles each attempt)
 MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipeline concurrency)
 
+# ── Tool warning checks (pipeline/warning_checks.py) ───────────────────────────
+
+ANNOTATION_MAX_CALLER_FRACTION = 0.05  # [UNSOUNDNESS] may fire for at most this share of reachable methods
+ANNOTATION_NEGATIVE_CHECK      = True  # also run the annotated tool on the non-reproducing test case
+
 # ── Oracle (spec-driven instrumentation, see oracle_agent/SPEC.md) ────────────
 
 ORACLE_AGENT_DIR        = Path(__file__).parent / "oracle_agent"
