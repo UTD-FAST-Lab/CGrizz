@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 
 from pipeline.state import PipelineState
+from pipeline.timing import timed
 from pipeline.analysis import run_analysis_interface
 from pipeline.edges import edge_in_boundary, is_reachable
 
@@ -20,6 +21,7 @@ log = logging.getLogger("pipeline")
 # ── Stage 6: Reproduction check ───────────────────────────────────────────────
 
 
+@timed("reproduction")
 async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     """
     Run the CG analysis interface on the reproducing test case, then check

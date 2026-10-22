@@ -9,6 +9,7 @@ import shutil
 from pathlib import Path
 
 from pipeline.state import PipelineState
+from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.agent_runner import run_agent, parse_json_from_response
 from config import OUT_TEST_CASE_DIR
@@ -19,6 +20,7 @@ log = logging.getLogger("pipeline")
 # ── Stage 4: Test case generation ─────────────────────────────────────────────
 
 
+@timed("test_case")
 async def stage_generate_test_case(state: PipelineState) -> bool:
     """
     Delegates to the test-case-generator agent to create two minimal Maven projects:

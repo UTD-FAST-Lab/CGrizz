@@ -54,6 +54,7 @@ def write_final_report(state: PipelineState, success: bool, reason: str,
             "target_oracle":             state.target_oracle_path,
         },
         "oracle_verdicts": state.oracle_verdicts,
+        "stage_seconds": state.stage_seconds,
         "feedback_history": {
             "reproduce_feedback": state.reproduce_feedback,
             "trace_feedback":     state.trace_feedback,

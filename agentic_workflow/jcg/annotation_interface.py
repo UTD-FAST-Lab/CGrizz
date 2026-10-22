@@ -22,11 +22,52 @@ config = {
     "SOOT_ORG_PATH": Path(__file__).parent.parent.parent / "tools" / "soot"
 }
 
+SOURCE_SUFFIXES = (".java", ".scala")
+SKIP_DIRS = {"target", "build", "out", ".git", ".gradle", ".idea", ".bsp", "node_modules"}
 
-def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, annotated_sa_tool_path: str, boundary_id: str):
+
+def changed_sources(annotated: Path, original: Path) -> List[str]:
+    """
+    Tool source files the annotator changed (relative paths), found by comparing
+    the annotated copy with the original tool. copytree keeps mtimes, so only
+    files whose size or mtime differ are read.
+    """
+    changed = []
+    for root, dirs, files in os.walk(annotated):
+        dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
+        for name in sorted(files):
+            if not name.endswith(SOURCE_SUFFIXES):
+                continue
+            a = Path(root) / name
+            rel = a.relative_to(annotated)
+            o = original / rel
+            if not o.exists():
+                changed.append(str(rel))
+                continue
+            sa, so = a.stat(), o.stat()
+            if sa.st_size != so.st_size or (sa.st_mtime != so.st_mtime and a.read_bytes() != o.read_bytes()):
+                changed.append(str(rel))
+    return changed
+
+
+def container_env(framework: str, annotated_sa_tool_path: str, fast_path: bool) -> Dict[str, str]:
+    """
+    SA_FRAMEWORK selects the tool rebuilt by TC_entrypoint.sh. With --fast-path,
+    CHANGED_SOURCES lets it compile just those files on top of the prebuilt tool
+    (WALA, Soot) instead of rebuilding the whole tool and JCG.
+    """
+    env = {"SA_FRAMEWORK": framework.upper()}
+    if fast_path:
+        original = config.get(f"{framework.upper()}_ORG_PATH")
+        files = changed_sources(Path(annotated_sa_tool_path), Path(original)) if original else []
+        env["JCG_FAST_PATH"] = "1"
+        env["CHANGED_SOURCES"] = ":".join(files)
+        print(f"Fast path: changed tool sources: {files or 'none'}")
+    return env
+
+
+def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, annotated_sa_tool_path: str, boundary_id: str, fast_path: bool = False):
         """Generate static call graph"""
-        build_jcg_image()
-        
         staticcg_path = Path(reproducing_test_case_path) / "staticcg"
         os.makedirs(staticcg_path, exist_ok=True)
         (staticcg_path / "log.txt").touch()
@@ -69,7 +110,8 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
         ]
         
         docker_remove(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}')
-        docker_run(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd, env={"SA_FRAMEWORK": framework.upper()})
+        docker_run(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd,
+                   env=container_env(framework, annotated_sa_tool_path, fast_path))
 
 
 
@@ -173,13 +215,20 @@ def main():
     parser.add_argument("--reproducing_test_case_path", required=True, help="Path to the reproducing test case")
     parser.add_argument("--annotated_sa_tool_path", help="Path to the annotated static analysis tool")
     parser.add_argument("--boundary_id", help="Id of the boundary edge")
+    parser.add_argument("--skip-image-build", action="store_true",
+                        help="The pipeline already built the image for this run (pipeline/analysis.py)")
+    parser.add_argument("--fast-path", action="store_true",
+                        help="Compile only the changed tool sources on top of the prebuilt tool (WALA, Soot)")
 
     args = parser.parse_args()
 
     boundary_id = args.boundary_id
     boundary_id = boundary_id.split("_")[0]
-   
-    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path, args.annotated_sa_tool_path, boundary_id)
+
+    if not args.skip_image_build:
+        build_jcg_image()
+    static_callgraph(args.framework, args.algorithm, args.project, args.reproducing_test_case_path,
+                     args.annotated_sa_tool_path, boundary_id, fast_path=args.fast_path)
     
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ import shutil
 from pathlib import Path
 
 from pipeline.state import PipelineState
+from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.agent_runner import run_agent, parse_json_from_response
 from config import OUT_REPORT
@@ -20,6 +21,7 @@ log = logging.getLogger("pipeline")
 # ── Stage 3: Unsoundness reasoning report ─────────────────────────────────────
 
 
+@timed("report")
 async def stage_generate_report(state: PipelineState) -> bool:
     """
     Delegates to the fn-edge-analyzer agent (via the Task tool) to produce a
@@ -90,6 +92,7 @@ Return JSON only:
 # ── Stage 9: Refine unsoundness report ───────────────────────────────────────
 
 
+@timed("refine_report")
 async def stage_refine_report(state: PipelineState) -> bool:
     """
     After trace confirmation, update the unsoundness report to replace the initial

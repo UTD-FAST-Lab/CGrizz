@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Optional
 
 from pipeline.state import PipelineState
+from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.agent_runner import run_agent
 from pipeline import oracle
@@ -37,6 +38,7 @@ SPEC_REFERENCE = ORACLE_AGENT_DIR / "SPEC.md"
 # ── Stage 5: Oracle spec on the test case ─────────────────────────────────────
 
 
+@timed("oracle_generation")
 async def stage_generate_oracle(state: PipelineState, feedback: str = "") -> bool:
     """
     Ask the instrumentation agent for an oracle spec, then run it on the
@@ -175,6 +177,7 @@ async def generate_oracle_testcase(state: PipelineState) -> bool:
 # ── Stage 5b: Oracle check on the real program ────────────────────────────────
 
 
+@timed("oracle_check")
 async def stage_check_oracle_on_program(state: PipelineState) -> Verdict:
     """
     Run the spec against the real target program and classify the result for

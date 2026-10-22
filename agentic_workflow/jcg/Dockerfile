@@ -110,7 +110,8 @@ RUN echo "newtesting4"
 RUN git clone https://github.com/mohPYdev/JCG.git $JCG_DIR && \
     cd $JCG_DIR && \
     git checkout feature/boundary && \
-    sbt compile
+    sbt compile && \
+    sbt -Dsbt.log.noformat=true "export jcg_evaluation/Runtime/fullClasspath" | tail -n 1 > $JCG_DIR/.runtime-classpath
 COPY jre.conf $JCG_DIR/jre.conf
 
 WORKDIR $JCG_DIR
