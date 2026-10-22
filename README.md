@@ -27,7 +27,7 @@ with retry loops in `pipeline/runner.py` (stage functions live in `pipeline/stag
 | 6. Reproduction check | Run the SA tool on the test case (via `jcg/analysis_interface.py`) and confirm the edge is genuinely missed | — |
 | 6b. Shrink test case | If the test case is still large, make it (and its near miss) smaller; kept only if the oracle and reproduction checks still pass, otherwise restored | `test-case-generator` |
 | 7. Root-cause annotation | Inject one targeted `[UNSOUNDNESS]` log into the SA tool's source at the failure point, then re-run it | `root-cause-annotator` |
-| 8. Trace check | Verify the annotated tool's trace fired the `[UNSOUNDNESS] <short description> \| caller=… \| site=…` log for the root-cause method, with a description of at most 60 characters, for at most `ANNOTATION_MAX_CALLER_FRACTION` of the analysed methods, and not for the non-reproducing test case's own methods | — |
+| 8. Trace check | Verify the annotated tool's trace fired the `[UNSOUNDNESS] <short description> \| caller=… \| site=… \| line=… \| pc=…` log for the root-cause method, with a description of at most 60 characters and the call instruction's line/pc, for at most `ANNOTATION_MAX_CALLER_FRACTION` of the analysed methods, and not for the non-reproducing test case's own methods | — |
 | 9. Refine report | Update the report with the confirmed code location | `fn-edge-analyzer` |
 
 If a check fails, feedback is accumulated into `PipelineState` and the relevant stages
@@ -195,6 +195,12 @@ annotated tool file and line, and the grouping. To measure how much repeated run
 ```bash
 python scripts/helpers/reproducibility.py results_run1 results_run2 results_run3
 ```
+
+**Warnings vs. missed edges.** Each `[UNSOUNDNESS]` warning names the call instruction
+(caller, line, pc), so it can be matched to boundaries. `pipeline_result.json` records
+`warning_coverage` for the test case, and `scripts/helpers/warning_coverage.py` reports, for a
+results directory or for an annotated tool's trace on a whole program, which boundaries a warning
+explains, which have no warning, and which warnings have no boundary.
 
 **Performance.** The JCG images are built once per pipeline run, and the static and dynamic
 call graphs of a test case are generated concurrently. `pipeline_result.json` records

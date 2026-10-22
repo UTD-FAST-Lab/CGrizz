@@ -140,7 +140,7 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 | 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG) |
 | 6b shrink | `stage_shrink_test_case` (test-case-generator) | smaller version kept only if the oracle checks and reproduction still pass |
 | 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
-| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; ≤ 5% of methods; not on the near miss |
+| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
 | 9 refine | `stage_refine_report` | — |
 
 Failures become feedback for the next attempt: `oracle_feedback` (instrumentation agent),
@@ -167,6 +167,7 @@ python tests/oracle_e2e.py           # oracle stages, dedup, runner routing (stu
 python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
 python tests/feedback_test.py        # feedback messages
 python tests/test_case_size_test.py  # test-case budget and shrinking
+python tests/edge_mapping_test.py    # warnings ↔ boundaries (scripts/helpers/warning_coverage.py)
 python tests/determinism_test.py     # report format, reproducibility script
 python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn
 ```

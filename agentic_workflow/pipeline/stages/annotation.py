@@ -19,8 +19,10 @@ from pipeline.agents import build_agent_options
 from pipeline.analysis import run_annotated_sa
 from pipeline.agent_runner import run_agent, parse_json_from_response
 from pipeline.edges import is_reachable, rc_in_trace
+from pipeline.edge_mapping import map_files
 from pipeline.warning_checks import (
     check_description,
+    check_location,
     check_negative,
     check_selectivity,
     warning_callers,
@@ -195,6 +197,11 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
         log.error(f"{state.label()} {feedback.splitlines()[0]}")
         return False, feedback
 
+    ok, feedback = check_location(unsoundness_lines)
+    if not ok:
+        log.error(f"{state.label()} {feedback.splitlines()[0]}")
+        return False, feedback
+
     ok, feedback = check_selectivity(unsoundness_lines, state.staticcg_path, ANNOTATION_MAX_CALLER_FRACTION)
     if not ok:
         log.error(f"{state.label()} {feedback.splitlines()[0]}")
@@ -216,6 +223,18 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
                 log.error(f"{state.label()} {feedback.splitlines()[0]}")
                 return False, feedback
             log.info(f"{state.label()} Negative check passed — no [UNSOUNDNESS] log for the non-reproducing test case.")
+
+    # Which missed edges of the test case the warnings point at (issue #14). Recorded, not enforced:
+    # a warning at the root cause covers only edges missed at that instruction.
+    if state.boundary_path:
+        mapping = map_files([trace_log_path], state.boundary_path)
+        state.warning_coverage = {
+            **mapping["counts"],
+            "explained_edges": mapping["explained"][:20],
+            "boundaries_without_warning": mapping["boundary_only"][:20],
+            "warnings_without_boundary": mapping["warning_only"][:20],
+        }
+        log.info(f"{state.label()} Warning coverage on the test case: {mapping['counts']}")
 
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
@@ -273,7 +292,7 @@ def _build_annotation_feedback(state: PipelineState) -> str:
 
     lines += [
         "\n### Required log format (the trace checker parses this):",
-        "  [UNSOUNDNESS] <very short problem description> | caller=<caller_method_fullname> | site=<site>",
+        "  [UNSOUNDNESS] <very short problem description> | caller=<caller_method_fullname> | site=<site> | line=<line> | pc=<pc>",
         "\nRevise the injection point so the log fires with the correct caller format.",
     ]
 
