@@ -18,14 +18,20 @@ The system supports three execution modes:
 
 ## Architecture
 
-The pipeline is organized into stages that are orchestrated in `pipeline_orchestrator.py`. All data flows through a single `PipelineState` object (not passed as loose arguments):
+The pipeline is organized into stages (`pipeline/stages/`) wired together by `pipeline/runner.py`; `pipeline_orchestrator.py` builds the queues and runs them. All data flows through a single `PipelineState` object (not passed as loose arguments):
 
-- **`pipeline_orchestrator.py`** — entry point; spawns tasks and orchestrates stages
+- **`pipeline_orchestrator.py`** — entry point; CLI and the three modes
 - **`pipeline/state.py`** — `PipelineState` dataclass; single source of truth for all in-flight data
-- **`pipeline/stages.py`** — stage functions; each calls `run_agent()` and mutates state
+- **`pipeline/runner.py`** — `run_pipeline()`: the retry loops that wire the stages together
+- **`pipeline/stages/`** — stage functions, one module per stage family (`report`, `test_case`, `oracle`, `reproduction`, `annotation`); each calls `run_agent()` and mutates state
 - **`pipeline/agents.py`** — factory for `ClaudeAgentOptions`; loads agents from `.claude/agents/`
-- **`pipeline/utils.py`** — `run_agent()` executor; handles agent invocation and JSON parsing
-- **`pipeline/analysis.py`** — wrappers for running the SA tool on test cases (stubs that need implementation)
+- **`pipeline/agent_runner.py`** — `run_agent()` executor; handles agent invocation and JSON parsing
+- **`pipeline/edges.py`** — matching of edges / method names across boundary, CG and trace formats
+- **`pipeline/oracle.py`** — locating and running the oracle agent; reading symptoms
+- **`pipeline/dedup.py`** — oracle deduplication and pruning reports
+- **`pipeline/boundaries.py`** — building states from boundaries.json, resume filter
+- **`pipeline/results.py`** — `pipeline_result.json` and run summaries
+- **`pipeline/analysis.py`** — wrappers for running the SA tool on test cases (via `jcg/`)
 - **`config.py`** — all pipeline constants (models, output filenames, retry limits)
 - **`pipeline_config.json`** — declares which (program, tool, algorithm) triples to analyze
 

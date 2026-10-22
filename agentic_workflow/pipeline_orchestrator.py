@@ -53,526 +53,18 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Optional
 
 from pipeline.state import PipelineState
-from pipeline.stages import run_pipeline
-from pipeline.utils import (
-    write_final_report,
-    find_agent_jar,
-    find_agent_jar_from_dir,
-    run_oracle_on_program,
-    extract_symptoms,
-    prune_queue,
-    write_pruning_report,
-    update_pruning_report_prededup,
-)
+from pipeline.runner import run_pipeline
+from pipeline.results import write_final_report
+from pipeline.boundaries import make_state, load_boundaries, filter_resume
+from pipeline.dedup import is_successful, run_dedup, run_prededup, run_report_prededup
 from pipeline.sampler import (
     filter_jvm_runtime_boundaries,
     filter_jdk_caller_boundaries,
 )
-from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT, OUT_TARGET_ORACLE
 
 log = logging.getLogger("pipeline.orchestrator")
-
-
-# ── Boundary ID ───────────────────────────────────────────────────────────────
-
-def _boundary_id(boundary: dict, index: int) -> str:
-    """
-    Derive a human-readable ID from a boundary entry.
-    Used for directory naming and log labels.
-    Example: "Handler.dispatch__ConcreteHandler.handlePost"
-    """
-    caller = boundary.get("caller", {})
-    missed = boundary.get("missedCallee", {})
-
-    def short(cls: str) -> str:
-        return cls.rstrip(";").split("/")[-1].lstrip("L") if cls else "?"
-
-    caller_label = f"{short(caller.get('declaringClass', ''))}.{caller.get('name', '?')}"
-    missed_label = f"{short(missed.get('declaringClass', ''))}.{missed.get('name', '?')}"
-    safe = f"{caller_label}__{missed_label}".replace("/", ".").replace(" ", "_")
-    return f"b{index}_{safe}"
-
-
-# ── State factory ─────────────────────────────────────────────────────────────
-
-def make_state(
-    program_name:    str,
-    tool_name:       str,
-    algorithm:       str,
-    target_program:  str,
-    main_class:      str,
-    sa_tool:         str,
-    boundary:        dict,
-    boundary_index:  int,
-    base_output_dir: Path,
-    program_jar_path: Optional[str] = None,
-) -> PipelineState:
-    """
-    Build a PipelineState with an isolated output directory.
-    Output path: <base>/<program>/<tool>/<algorithm>/<boundary_id>/
-    """
-    b_id       = _boundary_id(boundary, boundary_index)
-    output_dir = base_output_dir / program_name / tool_name / algorithm / b_id
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    state = PipelineState(
-        program_name=program_name,
-        tool_name=tool_name,
-        algorithm=algorithm,
-        boundary_index=boundary_index,
-        boundary_id=b_id,
-        target_program_path=target_program,
-        main_class=main_class,
-        sa_tool_path=sa_tool,
-        boundary=boundary,
-        output_dir=output_dir,
-    )
-    state.program_jar_path = program_jar_path
-    return state
-
-
-# ── Boundaries loader ─────────────────────────────────────────────────────────
-
-def load_boundaries(path: str) -> list[dict]:
-    """Load and return the list of boundary entries from a boundaries.json file."""
-    p = Path(path)
-    if not p.exists():
-        log.error(f"Boundaries file not found: {path}")
-        sys.exit(1)
-    with open(p) as f:
-        data = json.load(f)
-    entries = data.get("boundaries", [])
-    if not entries:
-        log.error(f"No boundary entries found in: {path}")
-        # sys.exit(1)
-    log.info(f"Loaded {len(entries)} boundary entries from: {path}")
-    return entries
-
-
-# ── Oracle deduplication helpers ──────────────────────────────────────────────
-
-def _is_successful(state: PipelineState) -> bool:
-    """Read pipeline_result.json and return the success flag."""
-    result_path = state.output_dir / OUT_PIPELINE_RESULT
-    try:
-        return json.loads(result_path.read_text()).get("success", False)
-    except Exception:
-        return False
-
-
-async def _run_dedup(
-    successful_state: PipelineState,
-    program_queues:   dict[str, tuple[dict, list[PipelineState]]],
-) -> None:
-    """
-    After a successful pipeline run, run the oracle agent against every program
-    that still has remaining boundaries in the queue and prune matching entries.
-    Fail-open: failures in any step are logged and skipped.
-    """
-    agent_jar = find_agent_jar(successful_state)
-    if not agent_jar:
-        log.warning(f"{successful_state.label()} Agent JAR not found — skipping dedup")
-        return
-
-    all_pruned:  list[PipelineState] = []
-    oracle_runs: list[dict]          = []
-
-    successful_key = (
-        f"{successful_state.program_name}/"
-        f"{successful_state.tool_name}/"
-        f"{successful_state.algorithm}"
-    )
-
-    for program_key, (analysis, remaining) in program_queues.items():
-        if not remaining:
-            continue
-
-        # For the successful state's own program, the oracle was already run
-        # against the real program during the pipeline — reuse oracle_target.json
-        # instead of re-running instrumentation.
-        if program_key == successful_key:
-            oracle_target = (
-                Path(successful_state.target_oracle_path)
-                if successful_state.target_oracle_path
-                else successful_state.output_dir / OUT_TARGET_ORACLE
-            )
-            if oracle_target.exists():
-                log.info(
-                    f"{successful_state.label()} Reusing existing oracle_target.json "
-                    f"for {analysis.get('program_name', program_key)} — skipping oracle run"
-                )
-                oracle_runs.append({
-                    "program_name": analysis.get("program_name", program_key),
-                    "oracle_path":  str(oracle_target),
-                    "status":       "reused_target_oracle",
-                })
-                symptoms = extract_symptoms(oracle_target)
-                if symptoms:
-                    kept, pruned = prune_queue(remaining, symptoms)
-                    program_queues[program_key] = (analysis, kept)
-                    all_pruned.extend(pruned)
-                    if pruned:
-                        log.info(
-                            f"{successful_state.label()} Pruned {len(pruned)} boundaries "
-                            f"from {analysis['program_name']}: "
-                            f"{[s.boundary_id for s in pruned]}"
-                        )
-            continue
-            # No oracle_target.json on disk — fall through to running the oracle.
-
-        jar_path   = analysis.get("program_jar_path")
-        main_class = analysis.get("main_class")
-
-        if not jar_path or not main_class:
-            log.warning(
-                f"{successful_state.label()} Missing program_jar_path or main_class "
-                f"for {analysis.get('program_name', program_key)} — skipping oracle"
-            )
-            oracle_runs.append({
-                "program_name": analysis.get("program_name", program_key),
-                "oracle_path":  None,
-                "status":       "skipped_no_config",
-            })
-            continue
-
-        oracle_out = (
-            successful_state.output_dir
-            / "oracles" / f"oracle_{analysis['program_name']}.json"
-        )
-        oracle_out.parent.mkdir(parents=True, exist_ok=True)
-
-        ok = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
-        oracle_runs.append({
-            "program_name": analysis["program_name"],
-            "oracle_path":  str(oracle_out),
-            "status":       "ok" if ok else "failed",
-        })
-
-        if ok:
-            symptoms = extract_symptoms(oracle_out)
-            if symptoms:
-                kept, pruned = prune_queue(remaining, symptoms)
-                program_queues[program_key] = (analysis, kept)
-                all_pruned.extend(pruned)
-                if pruned:
-                    log.info(
-                        f"{successful_state.label()} Pruned {len(pruned)} boundaries "
-                        f"from {analysis['program_name']}: "
-                        f"{[s.boundary_id for s in pruned]}"
-                    )
-
-    if all_pruned:
-        write_pruning_report(successful_state, all_pruned, oracle_runs)
-
-
-# ── Pre-run deduplication ─────────────────────────────────────────────────────
-
-def _state_to_pruned_dict(s: PipelineState) -> dict:
-    return {
-        "boundary_id":    s.boundary_id,
-        "boundary_index": s.boundary_index,
-        "program_name":   s.program_name,
-        "caller_class":   s.boundary.get("caller", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
-        "caller_method":  s.boundary.get("caller", {}).get("name", ""),
-        "callee_class":   s.boundary.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
-        "callee_method":  s.boundary.get("missedCallee", {}).get("name", ""),
-    }
-
-
-async def _run_prededup(
-    prev_results_dirs: list[Path],
-    program_queues:    dict[str, tuple[dict, list[PipelineState]]],
-) -> None:
-    """
-    Before the main sequential loop, run every instrumentation JAR found in
-    each of prev_results_dirs against each program in program_queues and prune
-    matching boundaries.  Oracle outputs go to <prev_boundary_dir>/oracles_prededup/.
-    Pruning results are appended to the previous boundary's pruning_report.json.
-    Fail-open: any missing JAR, config, or oracle failure is logged and skipped.
-    """
-    total_before = sum(len(q) for _, q in program_queues.values())
-
-    prev_boundary_dirs = [
-        d
-        for prev_results_dir in prev_results_dirs
-        for d in sorted(prev_results_dir.glob("*/*/*/*"))
-    ]
-
-    for prev_boundary_dir in prev_boundary_dirs:
-        if not prev_boundary_dir.is_dir():
-            continue
-
-        agent_jar = find_agent_jar_from_dir(prev_boundary_dir)
-        if not agent_jar:
-            continue
-
-        # Read identity from pipeline_result.json; fall back to path structure.
-        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
-
-        if not result_path.exists():
-            log.debug(f"Pre-dedup: no pipeline_result.json in {prev_boundary_dir} — skipping")
-            continue
-
-        identity: dict = {}
-        if result_path.exists():
-            try:
-                result_data = json.loads(result_path.read_text())
-                success = result_data.get("success", False)
-                if not success:
-                    log.debug(
-                        f"Pre-dedup: skipping {prev_boundary_dir} "
-                        f"(pipeline_result.json has success == false)"
-                    )
-                    continue
-                identity = result_data.get("identity", {})
-            except Exception:
-                pass
-        if not identity.get("program_name"):
-            parts = prev_boundary_dir.parts
-            identity = {
-                "program_name":   parts[-4],
-                "tool_name":      parts[-3],
-                "algorithm":      parts[-2],
-                "boundary_id":    parts[-1],
-                "boundary_index": 0,
-            }
-
-        log.info(
-            f"Pre-dedup: running instrumentation from "
-            f"{identity.get('boundary_id', prev_boundary_dir.name)}"
-        )
-
-        oracle_runs:  list[dict] = []
-        pruned_dicts: list[dict] = []
-
-        for program_key, (analysis, remaining) in program_queues.items():
-            if not remaining:
-                continue
-
-            jar_path   = analysis.get("program_jar_path")
-            main_class = analysis.get("main_class")
-
-            if not jar_path or not main_class:
-                log.warning(
-                    f"Pre-dedup: missing program_jar_path or main_class for "
-                    f"{analysis.get('program_name', program_key)} — skipping"
-                )
-                oracle_runs.append({
-                    "program_name": analysis.get("program_name", program_key),
-                    "oracle_path":  None,
-                    "status":       "skipped_no_config",
-                    "phase":        "prededup",
-                })
-                continue
-
-            oracle_out = (
-                prev_boundary_dir
-                / "oracles_prededup"
-                / f"oracle_{analysis['program_name']}.json"
-            )
-            oracle_out.parent.mkdir(parents=True, exist_ok=True)
-
-            ok, _, _, _ = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
-            oracle_runs.append({
-                "program_name": analysis["program_name"],
-                "oracle_path":  str(oracle_out),
-                "status":       "ok" if ok else "failed",
-                "phase":        "prededup",
-            })
-
-            if ok:
-                symptoms = extract_symptoms(oracle_out)
-                if symptoms:
-                    kept, pruned = prune_queue(remaining, symptoms)
-                    program_queues[program_key] = (analysis, kept)
-                    pruned_dicts.extend(_state_to_pruned_dict(s) for s in pruned)
-                    if pruned:
-                        log.info(
-                            f"Pre-dedup: pruned {len(pruned)} boundaries from "
-                            f"{analysis['program_name']}: "
-                            f"{[s.boundary_id for s in pruned]}"
-                        )
-
-        update_pruning_report_prededup(prev_boundary_dir, identity, oracle_runs, pruned_dicts)
-
-    total_after = sum(len(q) for _, q in program_queues.values())
-    log.info(
-        f"Pre-dedup complete: {total_before} → {total_after} boundaries remaining "
-        f"({total_before - total_after} pruned)"
-    )
-
-
-# ── Report-based pre-dedup (no instrumentation) ───────────────────────────────
-
-def _run_report_prededup(
-    prev_results_dirs: list[Path],
-    program_queues:    dict[str, tuple[dict, list[PipelineState]]],
-) -> None:
-    """Prune the queue using pruned_boundaries from existing pruning_report.json files.
-    No instrumentation is run; this is a read-only, fast alternative to _run_prededup."""
-    total_before = sum(len(q) for _, q in program_queues.values())
-
-    # Build index: program_name → program_key for O(1) lookup
-    program_name_to_key: dict[str, str] = {
-        analysis["program_name"]: pk
-        for pk, (analysis, _) in program_queues.items()
-    }
-
-    prev_boundary_dirs = [
-        d
-        for prev_results_dir in prev_results_dirs
-        for d in sorted(prev_results_dir.glob("*/*/*/*"))
-    ]
-
-    for prev_boundary_dir in prev_boundary_dirs:
-        if not prev_boundary_dir.is_dir():
-            continue
-
-        report_path = prev_boundary_dir / OUT_PRUNING_REPORT
-        if not report_path.exists():
-            log.debug(f"Report-prededup: no pruning_report.json in {prev_boundary_dir} — skipping")
-            continue
-
-        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
-        if not result_path.exists():
-            log.debug(f"Report-prededup: no pipeline_result.json in {prev_boundary_dir} — skipping")
-            continue
-
-        try:
-            success = json.loads(result_path.read_text()).get("success", False)
-            if not success:
-                log.debug(
-                    f"Report-prededup: skipping {prev_boundary_dir} "
-                    f"(pipeline_result.json has success == false)"
-                )
-                continue
-            report_data = json.loads(report_path.read_text())
-        except Exception as e:
-            log.warning(f"Report-prededup: failed to read {report_path}: {e} — skipping")
-            continue
-
-        pruned_boundaries = report_data.get("pruned_boundaries", [])
-        if not pruned_boundaries:
-            continue
-
-        # Group symptoms by program_name
-        symptoms_by_program: dict[str, set] = {}
-        for entry in pruned_boundaries:
-            prog = entry.get("program_name")
-            cc = entry.get("caller_class",  "").replace("/", ".")
-            cm = entry.get("caller_method", "")
-            ec = entry.get("callee_class",  "").replace("/", ".")
-            em = entry.get("callee_method", "")
-            if prog and cc and cm and ec and em:
-                symptoms_by_program.setdefault(prog, set()).add((cc, cm, ec, em))
-
-        for prog_name, symptoms in symptoms_by_program.items():
-            program_key = program_name_to_key.get(prog_name)
-            if program_key is None:
-                log.debug(f"Report-prededup: '{prog_name}' not in current queues — skipping")
-                continue
-
-            analysis, remaining = program_queues[program_key]
-            if not remaining:
-                continue
-
-            kept, pruned = prune_queue(remaining, symptoms)
-            program_queues[program_key] = (analysis, kept)
-
-            if pruned:
-                log.info(
-                    f"Report-prededup: pruned {len(pruned)} from '{prog_name}' "
-                    f"via {prev_boundary_dir.name}: {[s.boundary_id for s in pruned]}"
-                )
-
-    total_after = sum(len(q) for _, q in program_queues.values())
-    log.info(
-        f"Report-prededup complete: {total_before} → {total_after} boundaries remaining "
-        f"({total_before - total_after} pruned)"
-    )
-
-
-# ── Resume filter (same output dir) ───────────────────────────────────────────
-
-def _filter_resume(
-    output_dir:     Path,
-    program_queues: dict[str, tuple[dict, list[PipelineState]]],
-) -> None:
-    """
-    Resume an interrupted run by pruning the freshly-built queue against an
-    existing output directory. Two passes, mutating program_queues in place:
-
-      A. Drop any state already analyzed/attempted — its
-         output_dir/pipeline_result.json exists (regardless of success).
-      B. Drop any state already deduplicated — listed in the pruned_boundaries
-         of some prior boundary whose pipeline_result.json has success == true
-         and that has a pruning_report.json. Matched by (program_name, boundary_id).
-
-    Read-only w.r.t. disk; fail-open on unreadable files.
-    """
-    total_before = sum(len(q) for _, q in program_queues.values())
-
-    # ── Pass A: already analyzed/attempted (own result file exists) ──
-    analyzed = 0
-    for program_key, (analysis, states) in program_queues.items():
-        kept: list[PipelineState] = []
-        for s in states:
-            if (s.output_dir / OUT_PIPELINE_RESULT).exists():
-                analyzed += 1
-            else:
-                kept.append(s)
-        program_queues[program_key] = (analysis, kept)
-
-    # ── Pass B: already deduplicated (listed in a successful pruning report) ──
-    pruned_ids: set[tuple[str, str]] = set()  # (program_name, boundary_id)
-    for prev_boundary_dir in sorted(output_dir.glob("*/*/*/*")):
-        if not prev_boundary_dir.is_dir():
-            continue
-
-        report_path = prev_boundary_dir / OUT_PRUNING_REPORT
-        if not report_path.exists():
-            continue
-
-        # Gate on success == true from the triggering boundary's result.
-        result_path = prev_boundary_dir / OUT_PIPELINE_RESULT
-        try:
-            success = json.loads(result_path.read_text()).get("success", False)
-        except Exception:
-            success = False
-        if not success:
-            continue
-
-        try:
-            report_data = json.loads(report_path.read_text())
-        except Exception as e:
-            log.warning(f"Resume filter: failed to read {report_path}: {e} — skipping")
-            continue
-
-        for entry in report_data.get("pruned_boundaries", []):
-            prog = entry.get("program_name")
-            b_id = entry.get("boundary_id")
-            if prog and b_id:
-                pruned_ids.add((prog, b_id))
-
-    deduplicated = 0
-    if pruned_ids:
-        for program_key, (analysis, states) in program_queues.items():
-            kept = []
-            for s in states:
-                if (s.program_name, s.boundary_id) in pruned_ids:
-                    deduplicated += 1
-                else:
-                    kept.append(s)
-            program_queues[program_key] = (analysis, kept)
-
-    total_after = sum(len(q) for _, q in program_queues.values())
-    log.info(
-        f"Resume filter: {total_before} → {total_after} boundaries remaining "
-        f"({analyzed} already-analyzed, {deduplicated} deduplicated)"
-    )
 
 
 # ── Sequential pipeline runner ────────────────────────────────────────────────
@@ -617,13 +109,13 @@ async def _run_sequential(
             write_final_report(state, success=False, reason=f"Unexpected pipeline error: {e}")
             continue
 
-        # if _is_successful(state) or find_agent_jar(state) is not None:
-        if _is_successful(state):
+        # if is_successful(state) or find_agent_jar(state) is not None:
+        if is_successful(state):
             log.info(
-                f"{state.label()} {'Success' if _is_successful(state) else 'Oracle JAR available'}"
+                f"{state.label()} {'Success' if is_successful(state) else 'Oracle JAR available'}"
                 f" — running oracle dedup"
             )
-            await _run_dedup(state, program_queues)
+            await run_dedup(state, program_queues)
 
 
 # ── Mode 1: single ────────────────────────────────────────────────────────────
@@ -698,14 +190,14 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
     )
 
     if Path(args.output_dir).exists():
-        _filter_resume(Path(args.output_dir), program_queues)
+        filter_resume(Path(args.output_dir), program_queues)
 
     if args.prev_results:
         prev_dirs = [Path(p) for p in args.prev_results]
         if args.report_prededup:
-            _run_report_prededup(prev_dirs, program_queues)
+            run_report_prededup(prev_dirs, program_queues)
         else:
-            asyncio.run(_run_prededup(prev_dirs, program_queues))
+            asyncio.run(run_prededup(prev_dirs, program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 
@@ -755,14 +247,14 @@ def run_parallel_all(args: argparse.Namespace) -> None:
     )
 
     if Path(args.output_dir).exists():
-        _filter_resume(Path(args.output_dir), program_queues)
+        filter_resume(Path(args.output_dir), program_queues)
 
     if args.prev_results:
         prev_dirs = [Path(p) for p in args.prev_results]
         if args.report_prededup:
-            _run_report_prededup(prev_dirs, program_queues)
+            run_report_prededup(prev_dirs, program_queues)
         else:
-            asyncio.run(_run_prededup(prev_dirs, program_queues))
+            asyncio.run(run_prededup(prev_dirs, program_queues))
     asyncio.run(_run_sequential(program_queues))
 
 

@@ -16,7 +16,7 @@ Benchmarks: **cats**, **njr**, **xcorpus**.
 
 Each boundary is processed as one pipeline run driven by `PipelineState` (the single
 source of truth — see `pipeline/state.py`). The orchestrator wires the stages together
-with retry loops in `pipeline/stages.py`:
+with retry loops in `pipeline/runner.py` (stage functions live in `pipeline/stages/`):
 
 | Stage | What it does | Agent |
 |-------|--------------|-------|
@@ -41,15 +41,27 @@ the analysis scale: one reasoned boundary can explain many.
 ### Code layout
 
 ```
-pipeline_orchestrator.py   Entry point; modes, queues, dedup, resume
+pipeline_orchestrator.py   Entry point; CLI and the three modes
 config.py                  All constants (models, retries, output filenames)
 pipeline/
   state.py                 PipelineState dataclass (all in-flight data)
-  stages.py                Stage functions + run_pipeline() retry loops
+  runner.py                run_pipeline(): the retry loops that wire the stages together
+  stages/                  One module per stage family
+    report.py              3. generate report, 9. refine report (+ retry feedback)
+    test_case.py           4. test case generation
+    oracle.py              5. oracle generation, 5b. oracle check on the real program
+    reproduction.py        6. reproduction check
+    annotation.py          7. root-cause annotation, 8. trace check
   agents.py                Builds ClaudeAgentOptions (auto-loads .claude/agents/*)
-  utils.py                 run_agent(), JSON parsing, oracle runs, pruning helpers
+  agent_runner.py          run_agent() and JSON parsing of agent responses
+  edges.py                 Edge / method-name matching across boundary, CG and trace formats
+  oracle.py                Locating and running the oracle agent; reading symptoms
+  dedup.py                 Oracle deduplication (post-success and pre-run) and pruning reports
+  boundaries.py            PipelineState construction, boundaries.json loading, resume filter
+  results.py               pipeline_result.json and run summaries
   analysis.py              Invokes the SA tool / annotated tool via jcg/*
   sampler.py               Pre-filters JVM-runtime and JDK-caller boundaries
+  logs.py                  Logging configuration
 .claude/agents/            The four subagent definitions (Markdown + frontmatter)
 jcg/                       analysis_interface.py / annotation_interface.py — run WALA/Soot/OPAL
 scripts/                   helpers/ and paper/ — results aggregation (RQ1, RQ2, runtime)
