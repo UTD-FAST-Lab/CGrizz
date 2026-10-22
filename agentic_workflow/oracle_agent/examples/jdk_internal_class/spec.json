@@ -1,0 +1,8 @@
+{
+  "description": "factories whose implementation is in a package the tool excludes (com.sun.*)",
+  "rootCauses": [
+    {"id": "factory", "at": "call", "owner": "*", "name": "newInstance", "tag": "return",
+     "when": [{"on": "return", "is": "runtimeClass", "type": "com.sun.*"}]}
+  ],
+  "symptoms": {"match": ["receiver"]}
+}

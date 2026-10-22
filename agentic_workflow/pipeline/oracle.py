@@ -257,7 +257,7 @@ def boundary_edge(boundary: dict) -> tuple[str, str, str, str]:
 # ── Spec lint ─────────────────────────────────────────────────────────────────
 
 
-def _test_case_packages(test_case_dir: Path) -> set[str]:
+def test_case_packages(test_case_dir: Path) -> set[str]:
     pkgs = set()
     src = test_case_dir / "src" / "main" / "java"
     for f in src.rglob("*.java") if src.exists() else []:
@@ -290,7 +290,7 @@ def lint_spec(spec: Path, test_case_dir: Optional[Path] = None) -> list[str]:
         problems.append("'rootCauses' must be a non-empty array")
         rcs = []
     if test_case_dir:
-        pkgs = _test_case_packages(Path(test_case_dir))
+        pkgs = test_case_packages(Path(test_case_dir))
         for rc in rcs:
             if not isinstance(rc, dict):
                 continue
@@ -345,16 +345,21 @@ def classify(run: OracleRun, boundary: dict) -> Verdict:
 
     sites = stats.get("rootCauseSites", {})
     hits = stats.get("rootCauseHits", {})
+    excluded = {k: v for k, v in stats.get("rootCauseSitesExcludedByConditions", {}).items() if v}
+    rejected = stats.get("rootCauseRuntimeRejections", {})
     if not any(sites.values()):
+        why = (f" {excluded} instructions matched owner/name but their load-time conditions excluded them."
+               if excluded else "")
         return Verdict("rc_not_matched", PATTERN,
                        "No instruction in the program's (non-JDK) classes matched any root cause of the spec "
-                       f"(sites per root cause: {sites}). Either the matcher is too narrow (owner/name/desc), "
+                       f"(sites per root cause: {sites}).{why} Either the matcher or a condition is too narrow, "
                        "or the root cause happens only inside JDK code — then match the application-side call "
                        "that reaches it (e.g. the JDK API the program calls).")
     if not any(hits.values()):
+        why = f" The runtime conditions rejected them: {rejected}." if rejected else ""
         return Verdict("rc_not_hit", PATTERN,
-                       f"Root-cause instructions exist ({sites}) but none executed and produced a value on this run. "
-                       "The program's execution does not go through this pattern.")
+                       f"Root-cause instructions exist ({sites}) but none applied on this run.{why} "
+                       "The program's execution does not go through this pattern, or a condition is too narrow.")
     if not edges:
         return Verdict("no_symptoms", PATTERN,
                        f"Root causes fired ({hits}) but no tagged value reached a call site. "

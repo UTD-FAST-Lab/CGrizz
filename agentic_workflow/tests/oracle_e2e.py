@@ -28,6 +28,22 @@ TEST_CASE_APP = 'package com.example;\npublic class App {\n    public interface 
 
 PROGRAM_MAIN = 'package org.app;\nimport java.util.*;\npublic class Main {\n    public interface Plugin { String name(); void start(); }\n    public static class Alpha implements Plugin { public String name() { return "alpha"; } public void start() {} }\n    public static class Beta implements Plugin { public String name() { return "beta"; } public void start() {} }\n    static List<Plugin> load(String... names) throws Exception {\n        List<Plugin> out = new ArrayList<>();\n        for (String n : names) out.add((Plugin) Class.forName("org.app.Main$" + n).newInstance());\n        return out;\n    }\n    public static void main(String[] a) throws Exception {\n        for (Plugin p : load("Alpha", "Beta")) { System.out.println(p.name()); p.start(); }\n        System.out.println(new ArrayList<String>().size());\n    }\n}\n'
 
+NEAR_MISS_APP = """package com.example;
+public class App {
+    public interface Log { boolean isDebugEnabled(); }
+    public static class SimpleLog implements Log { public boolean isDebugEnabled() { return true; } }
+    public static void main(String[] a) throws Exception {
+        Log l = (Log) Class.forName("com.example.App$SimpleLog").newInstance();
+        System.out.println(l.isDebugEnabled());
+    }
+}
+"""
+
+COND_SPEC = """{"rootCauses": [{"id": "forName", "at": "call", "owner": "java.lang.Class", "name": "forName", "tag": "return",
+                 "when": [{"on": "arg0", "is": "nonConstant"}]}],
+ "symptoms": {"match": ["receiverClass"]}}
+"""
+
 SPECS = {'good_spec.json': '{"pattern_class": "reflection_indirect_instantiation",\n "rootCauses": [{"id": "forName", "at": "call", "owner": "java.lang.Class", "name": "forName", "tag": "return"}],\n "symptoms": {"match": ["receiverClass"]}}\n', 'testy_spec.json': '{"rootCauses": [{"id": "x", "at": "call", "owner": "com.example.App", "name": "main", "tag": "return"}]}\n', 'bad_spec.json': '{"rootCauses": [{"id": "x", "at": "call", "owner": "java.lang.Class", "name": "forName", "tag": "returns"}], "extra": 1}\n'}
 
 
@@ -53,6 +69,16 @@ def build_fixtures(root: Path) -> None:
     subprocess.run(["jar", "cf", str(prog / "jars/prog.jar"), "-C", str(prog / "classes"), "."], check=True)
     for name, text in SPECS.items():
         (root / name).write_text(text)
+    (root / "cond_spec.json").write_text(COND_SPEC)
+    # the near miss: same program, constant class name (the tool resolves it)
+    nr = root / "tcnr"
+    (nr / "src/main/java/com/example").mkdir(parents=True)
+    (nr / "src/main/java/com/example/App.java").write_text(NEAR_MISS_APP)
+    (nr / "jcg.conf").write_text((tc / "jcg.conf").read_text())
+    (nr / "target/classes").mkdir(parents=True)
+    subprocess.run(["javac", "-nowarn", "-d", str(nr / "target/classes"), str(nr / "src/main/java/com/example/App.java")],
+                   check=True)
+    subprocess.run(["jar", "cf", str(nr / "target/app-1.jar"), "-C", str(nr / "target/classes"), "."], check=True)
 
 
 T = Path(tempfile.mkdtemp(prefix="oracle_e2e_"))
@@ -150,6 +176,20 @@ async def main():
     results["timeout: status"] = run.status
     results["timeout: verdict"] = O.classify(run, s.boundary).category
 
+    # 7. negative check: an unconditional forName spec also fires on the near miss → rejected as too broad;
+    #    the same spec with {"on": "arg0", "is": "nonConstant"} passes
+    specs[:] = ["good_spec.json", "cond_spec.json"]
+    prompts.clear()
+    s6 = make_state(boundary("org.app.Main", "main", "org.app.Main$Alpha", "name"), 7)
+    shutil.copytree(T / "tcnr", s6.output_dir / "test_case" / "non_reproducing")
+    s6.non_reproducing_test_case_path = str(s6.output_dir / "test_case" / "non_reproducing")
+    ok6 = await SO.stage_generate_oracle(s6)
+    results["negative check: generated"] = ok6
+    results["negative check: first spec rejected as too broad"] = (
+        len(prompts) == 2 and "NON-reproducing" in prompts[1] and "com.example.App.main" in prompts[1])
+    v6 = await SO.stage_check_oracle_on_program(s6)
+    results["negative check: conditional spec still finds the real edge"] = v6.kind
+
     async def ok_(state, *a, **k):
         return True
     for n in ["stage_generate_report", "stage_generate_test_case", "stage_generate_oracle"]:
@@ -188,6 +228,9 @@ EXPECTED = {
     "timeout: status": "timeout",
     "timeout: verdict": "infrastructure",
     "runner on infra failure": (False, "instrumentation_failure", 0, []),
+    "negative check: generated": True,
+    "negative check: first spec rejected as too broad": True,
+    "negative check: conditional spec still finds the real edge": "found",
 }
 failed = 0
 for k, want in EXPECTED.items():

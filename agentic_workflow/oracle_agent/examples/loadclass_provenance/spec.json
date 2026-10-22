@@ -1,0 +1,11 @@
+{
+  "description": "Class.newInstance on a Class obtained from ClassLoader.loadClass",
+  "rootCauses": [
+    {"id": "loadClass", "at": "call", "owner": "java.lang.ClassLoader", "name": "loadClass", "tag": "return"},
+    {"id": "newInstanceLocal", "at": "call", "owner": "java.lang.Class", "name": "newInstance", "tag": "return",
+     "when": [{"on": "receiver", "is": "fromCall", "owner": "java.lang.ClassLoader", "name": "loadClass"}]},
+    {"id": "newInstanceAcross", "at": "call", "owner": "java.lang.Class", "name": "newInstance", "tag": "return",
+     "when": [{"on": "receiver", "is": "taggedBy", "ids": ["loadClass"]}]}
+  ],
+  "symptoms": {"match": ["receiver"]}
+}

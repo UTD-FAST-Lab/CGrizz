@@ -1,0 +1,8 @@
+{
+  "description": "Class.newInstance on a class without a public no-arg constructor",
+  "rootCauses": [
+    {"id": "newInstance", "at": "call", "owner": "java.lang.Class", "name": "newInstance", "tag": "return",
+     "when": [{"on": "receiver", "is": "noPublicNoArgConstructor"}]}
+  ],
+  "symptoms": {"match": ["receiver"]}
+}

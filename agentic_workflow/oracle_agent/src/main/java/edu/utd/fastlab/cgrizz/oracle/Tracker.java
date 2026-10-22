@@ -58,6 +58,7 @@ public final class Tracker {
     /** rc site id → symptom key → symptom entry */
     private static final Map<Integer, Map<String, Map<String, Object>>> SYMPTOMS = new ConcurrentHashMap<>();
     private static final Set<Integer> HIT_SITES = ConcurrentHashMap.newKeySet();
+    private static final Map<Integer, AtomicLong> RULE_HITS = new ConcurrentHashMap<>();  // rule index → hits
 
     private static final ClassValue<Map<String, Resolved>> RESOLVED = new ClassValue<Map<String, Resolved>>() {
         @Override
@@ -72,6 +73,9 @@ public final class Tracker {
     static final AtomicLong PROPAGATION_SITES = new AtomicLong();
     static final AtomicLong HANDLER_HOOKS = new AtomicLong();
     static final Map<String, AtomicLong> RC_SITES_BY_RULE = new ConcurrentHashMap<>();
+    static final Map<String, AtomicLong> RC_SITES_FILTERED = new ConcurrentHashMap<>();   // load-time conditions false
+    static final Map<String, AtomicLong> RC_RUNTIME_REJECTED = new ConcurrentHashMap<>(); // runtime conditions false
+    static final AtomicLong STATIC_CONDITIONS_UNKNOWN = new AtomicLong();
     private static final AtomicLong EXCEPTIONS_SEEN = new AtomicLong();
     private static final AtomicLong EXCEPTIONS_LINKED = new AtomicLong();
     private static final List<String> INSTRUMENTATION_ERRORS = new ArrayList<>();
@@ -100,19 +104,20 @@ public final class Tracker {
 
     // ── Hooks called from injected bytecode ───────────────────────────────────
 
-    public static void tag(Object value, int siteId) {
+    /** {@code value} produced at root-cause site {@code siteId} by rule {@code rule}. */
+    public static void tag(Object value, int siteId, int rule) {
         if (value == null) return;
         try {
-            doTag(value, siteId);
+            doTag(value, siteId, rule);
         } catch (Throwable ignored) {
         }
     }
 
-    public static void tagElements(Object array, int siteId) {
+    public static void tagElements(Object array, int siteId, int rule) {
         if (!(array instanceof Object[])) return;
         try {
             for (Object o : (Object[]) array) {
-                if (o != null) doTag(o, siteId);
+                if (o != null) doTag(o, siteId, rule);
             }
         } catch (Throwable ignored) {
         }
@@ -124,8 +129,8 @@ public final class Tracker {
         try {
             int rc = TAGS.get(source);
             if (rc < 0) return;
-            if (toElements == 1) tagElements(result, rc);
-            else doTag(result, rc);
+            if (toElements == 1) tagElements(result, rc, -1);   // -1: inherited, not a new hit
+            else doTag(result, rc, -1);
         } catch (Throwable ignored) {
         }
     }
@@ -142,7 +147,7 @@ public final class Tracker {
                 } else {
                     Resolved r = resolve(rc, s);
                     if (!s.bridgeOnly || r.bridge) {
-                        hit(s);
+                        hit(s, s.selfRule);
                         record(s.id, s, r.owner, s.calleeName, s.calleeDesc);
                         s.remember(rc, s.id);
                     }
@@ -172,7 +177,7 @@ public final class Tracker {
             Sites.Site s = Sites.get(siteId);
             if (s == null) return;
             if (s.selfEdge) {
-                hit(s);
+                hit(s, s.selfRule);
                 if (!s.seen(null, s.id)) {
                     record(s.id, s, s.calleeOwner, s.calleeName, s.calleeDesc);
                     s.remember(null, s.id);
@@ -183,6 +188,121 @@ public final class Tracker {
             if (t != null) record(t, s, s.calleeOwner, s.calleeName, s.calleeDesc);
         } catch (Throwable ignored) {
         }
+    }
+
+    /**
+     * After a root-cause instruction with runtime conditions: {@code result} is the
+     * call's return value (or the field value), {@code ops} the receiver and the
+     * arguments (null for primitives). The first root cause whose conditions hold acts.
+     */
+    public static void rc(Object result, Object[] ops, int siteId) {
+        try {
+            Sites.Site s = Sites.get(siteId);
+            if (s == null) return;
+            for (Spec.RootCause rule : s.conditionalRules) {
+                Spec.Condition failed = firstFailing(rule, result, ops, s);
+                if (failed != null) {
+                    RC_RUNTIME_REJECTED.computeIfAbsent(rule.id + ": " + failed, k -> new AtomicLong()).incrementAndGet();
+                    continue;
+                }
+                act(rule, result, ops, s);
+                return;
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
+    private static void act(Spec.RootCause rule, Object result, Object[] ops, Sites.Site s) {
+        Object receiver = ops == null ? null : ops[0];
+        if (rule.selfEdge) {
+            Resolved r = resolve(receiver == null ? null : receiver.getClass(), s);
+            if (!rule.bridgeOnly || r.bridge) {
+                hit(s, rule.index);
+                record(s.id, s, r.owner, s.calleeName, s.calleeDesc);
+            }
+        }
+        Object value;
+        if (rule.at.equals("field") || rule.tag.equals("return")) value = result;
+        else if (rule.tag.equals("receiver")) value = receiver;
+        else if (rule.tagArg >= 0 && ops != null && rule.tagArg + 1 < ops.length) value = ops[rule.tagArg + 1];
+        else return;
+        if (rule.tagElements) tagElements(value, s.id, rule.index);
+        else tag(value, s.id, rule.index);
+    }
+
+    private static Spec.Condition firstFailing(Spec.RootCause rule, Object result, Object[] ops, Sites.Site s) {
+        for (Spec.Condition c : rule.runtimeConditions) {
+            Object v;
+            if (c.on.equals("receiver")) v = ops == null ? null : ops[0];
+            else if (c.arg >= 0) v = ops != null && c.arg + 1 < ops.length ? ops[c.arg + 1] : null;
+            else v = result;  // return / value
+            if (holds(c, v, s) == c.not) return c;
+        }
+        return null;
+    }
+
+    private static final ClassLoader SYSTEM = ClassLoader.getSystemClassLoader();
+
+    /** A runtime predicate on an operand value (before applying 'not'). */
+    static boolean holds(Spec.Condition c, Object v, Sites.Site s) {
+        switch (c.is) {
+            case "isNull":
+                return v == null;
+            case "nonNull":
+                return v != null;
+            case "runtimeClass":
+                return v != null && c.type.matches(v.getClass().getName());
+            case "classValue":
+                return v instanceof Class && c.type.matches(((Class<?>) v).getName());
+            case "customLoader": {
+                if (v == null) return false;
+                Class<?> k = v instanceof Class ? (Class<?>) v : v.getClass();
+                ClassLoader l = k.getClassLoader();
+                return l != null && l != SYSTEM && l != SYSTEM.getParent();
+            }
+            case "notPublic":
+                if (v instanceof Class) return !Modifier.isPublic(((Class<?>) v).getModifiers());
+                if (v instanceof java.lang.reflect.Member) return !Modifier.isPublic(((java.lang.reflect.Member) v).getModifiers());
+                return false;
+            case "noPublicNoArgConstructor":
+                if (!(v instanceof Class)) return false;
+                try {
+                    ((Class<?>) v).getConstructor();
+                    return false;
+                } catch (NoSuchMethodException e) {
+                    return true;
+                }
+            case "declaredTypeAbstract":
+                return declaredTypeAbstract(c, v, s);
+            case "taggedBy": {
+                int tag = TAGS.get(v);
+                if (tag < 0) return false;
+                if (c.ids.contains("*")) return true;
+                Sites.Site from = Sites.get(tag);
+                return from != null && from.rootCause != null && c.ids.contains(from.rootCause.id);
+            }
+            default:
+                return true;
+        }
+    }
+
+    private static final Map<String, Boolean> ABSTRACT_TYPES = new ConcurrentHashMap<>();
+
+    /** Is the type in the instruction's descriptor (return or argument type) abstract or an interface? */
+    private static boolean declaredTypeAbstract(Spec.Condition c, Object v, Sites.Site s) {
+        Type t = c.arg >= 0 ? Type.getArgumentTypes(s.calleeDesc)[c.arg] : Type.getReturnType(s.calleeDesc);
+        if (t.getSort() != Type.OBJECT) return false;
+        String name = t.getClassName();
+        return ABSTRACT_TYPES.computeIfAbsent(name, n -> {
+            for (ClassLoader l : new ClassLoader[]{null, v == null ? null : v.getClass().getClassLoader(), SYSTEM}) {
+                try {
+                    Class<?> k = Class.forName(n, false, l);
+                    return k.isInterface() || Modifier.isAbstract(k.getModifiers());
+                } catch (Throwable ignored) {
+                }
+            }
+            return false;
+        });
     }
 
     /** Start of an exception handler in application code. */
@@ -196,18 +316,25 @@ public final class Tracker {
 
     // ── Internals ─────────────────────────────────────────────────────────────
 
-    private static void doTag(Object value, int siteId) {
-        if (TAGS.putIfAbsent(value, siteId)) {
+    private static void doTag(Object value, int siteId, int rule) {
+        if (rule >= 0) {
+            // A hit = the root cause applied to a value, even if an earlier root cause tagged it first.
             Sites.Site s = Sites.get(siteId);
-            if (s != null) hit(s);
+            if (s != null) hit(s, rule);
+        }
+        if (TAGS.putIfAbsent(value, siteId)) {
             if (value instanceof Class) {
                 TAGGED_CLASS_NAMES.putIfAbsent(((Class<?>) value).getName(), siteId);
             }
         }
     }
 
-    private static void hit(Sites.Site s) {
+    private static void hit(Sites.Site s, int rule) {
         if (s.hits.getAndIncrement() == 0) HIT_SITES.add(s.id);
+        if (rule >= 0) {
+            s.fired.add(rule);
+            RULE_HITS.computeIfAbsent(rule, k -> new AtomicLong()).incrementAndGet();
+        }
         dirty = true;
     }
 
@@ -230,7 +357,7 @@ public final class Tracker {
             }
             if (!compatible) continue;
             EXCEPTIONS_LINKED.incrementAndGet();
-            hit(s);
+            hit(s, s.rootCause.index);
             record(s.id, s, t.getClass().getName(), "<init>", "()V");
             return;
         }
@@ -327,7 +454,9 @@ public final class Tracker {
                     entry.put("method", rc.callerMethod());
                     entry.put("pc", rc.index);
                     entry.put("line", rc.line);
-                    entry.put("rootCause", rc.rootCause.id);
+                    List<String> fired = firedRules(rc);
+                    entry.put("rootCause", fired.isEmpty() ? rc.rootCause.id : fired.get(0));
+                    entry.put("rootCauses", fired);
                     entry.put("kind", rc.rootCause.at);
                     entry.put("hits", rc.hits.get());
                     entry.put("symptoms", new ArrayList<Object>());
@@ -346,6 +475,14 @@ public final class Tracker {
         } catch (Throwable t) {
             System.err.println("[cgrizz-oracle] failed to write oracle: " + t);
         }
+    }
+
+    private static List<String> firedRules(Sites.Site s) {
+        List<Integer> idx = new ArrayList<>(s.fired);
+        java.util.Collections.sort(idx);
+        List<String> ids = new ArrayList<>();
+        for (int i : idx) ids.add(spec.rootCauses.get(i).id);
+        return ids;
     }
 
     static String statsPath(String out) {
@@ -369,12 +506,13 @@ public final class Tracker {
             sitesByRule.put(rc.id, n == null ? 0 : n.get());
             hitsByRule.put(rc.id, 0L);
         }
-        for (Integer id : HIT_SITES) {
-            Sites.Site s = Sites.get(id);
-            if (s == null || s.rootCause == null) continue;
-            hitsByRule.put(s.rootCause.id, (Long) hitsByRule.get(s.rootCause.id) + s.hits.get());
+        for (Map.Entry<Integer, AtomicLong> e : RULE_HITS.entrySet()) {
+            hitsByRule.put(spec.rootCauses.get(e.getKey()).id, e.getValue().get());
         }
         st.put("rootCauseSites", sitesByRule);
+        st.put("rootCauseSitesExcludedByConditions", counts(RC_SITES_FILTERED));
+        st.put("rootCauseRuntimeRejections", counts(RC_RUNTIME_REJECTED));
+        st.put("conditionsUndecided", STATIC_CONDITIONS_UNKNOWN.get());
         st.put("rootCauseHits", hitsByRule);
         st.put("symptomSites", SYMPTOM_SITES.get());
         st.put("propagationSites", PROPAGATION_SITES.get());
@@ -389,6 +527,12 @@ public final class Tracker {
         }
         st.put("symptomsRecorded", n);
         return st;
+    }
+
+    private static Map<String, Object> counts(Map<String, AtomicLong> m) {
+        Map<String, Object> out = new TreeMap<>();
+        for (Map.Entry<String, AtomicLong> e : m.entrySet()) out.put(e.getKey(), e.getValue().get());
+        return out;
     }
 
     private static void write(String path, String content) throws Exception {

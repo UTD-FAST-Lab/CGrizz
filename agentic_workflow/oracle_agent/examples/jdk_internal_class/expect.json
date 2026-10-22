@@ -1,0 +1,5 @@
+{
+  "present": [["ex.jdk_internal_class.Main.main", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl.newDocumentBuilder"]],
+  "absent":  [["ex.jdk_internal_class.Main.main", "ex.jdk_internal_class.Main$MyFactory.make"]],
+  "rootCauseMethods": ["ex.jdk_internal_class.Main.main"]
+}
