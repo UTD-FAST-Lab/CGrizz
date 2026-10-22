@@ -23,6 +23,7 @@ ORACLE_RUN_EXECUTION_ERROR = "ORACLE_RUN_EXECUTION_ERROR"
 
 # ── Stage 5: Oracle generation ────────────────────────────────────────────────
 
+
 async def stage_generate_oracle(state: PipelineState, refine: bool = False) -> bool:
     """
     Invokes the instrumentation agent to generate an oracle for the reproducing
@@ -91,6 +92,7 @@ Return JSON only:
 
 # ── Stage 5b: Oracle check on real program ────────────────────────────────────
 
+
 async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str]:
     """
     Run the built instrumentation agent JAR against the actual target program and
@@ -152,6 +154,7 @@ async def stage_check_oracle_on_program(state: PipelineState) -> tuple[bool, str
 
 # ── Private helpers ───────────────────────────────────────────────────────────
 
+
 async def generate_oracle_testcase(state: PipelineState) -> bool:
     """ generate the oracle.json file in the reproducing test case directory"""
 
@@ -192,6 +195,7 @@ async def generate_oracle_testcase(state: PipelineState) -> bool:
     else:
         log.info(f"{state.label()} Oracle.json generated in reproducing test case directory.")
         return True
+
 
 def build_oracle_feedback_section(state: PipelineState, oracle_prog_feedback: str) -> str:
     """
@@ -305,6 +309,7 @@ def build_oracle_feedback_section(state: PipelineState, oracle_prog_feedback: st
     return "\n".join(lines)
 
 # ── Stage 10: Generalize instrumentation oracle ───────────────────────────────
+
 
 async def stage_generalize_instrumentation(state: PipelineState) -> bool:
     """

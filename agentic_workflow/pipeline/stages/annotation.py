@@ -23,6 +23,7 @@ log = logging.getLogger("pipeline")
 
 # ── Stage 7: Root cause annotation ────────────────────────────────────────────
 
+
 async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
     """
     Root-cause-annotator agent adds targeted logging to the SA tool,
@@ -110,6 +111,7 @@ If the log already exists for the same reason (`skipped: true`):
 
 # ── Stage 8: Trace check ───────────────────────────────────────────────────────
 
+
 async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     """
     Checks whether the execution trace produced by the annotated SA tool
@@ -163,6 +165,7 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
 
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
+
 
 def _build_annotation_feedback(state: PipelineState) -> str:
     """

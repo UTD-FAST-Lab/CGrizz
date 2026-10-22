@@ -43,6 +43,7 @@ def prune_queue(
 
     return kept, pruned
 
+
 def write_pruning_report(
     state:       PipelineState,
     pruned:      list[PipelineState],
@@ -78,6 +79,7 @@ def write_pruning_report(
         log.info(f"{state.label()} Pruning report → {out_path}")
     except Exception as e:
         log.warning(f"{state.label()} Failed to write pruning report: {e}")
+
 
 def update_pruning_report_prededup(
     boundary_dir:    Path,
@@ -115,6 +117,7 @@ def update_pruning_report_prededup(
         log.warning(f"Failed to update pruning report at {out_path}: {e}")
 # ── Oracle deduplication helpers ──────────────────────────────────────────────
 
+
 def is_successful(state: PipelineState) -> bool:
     """Read pipeline_result.json and return the success flag."""
     result_path = state.output_dir / OUT_PIPELINE_RESULT
@@ -122,6 +125,7 @@ def is_successful(state: PipelineState) -> bool:
         return json.loads(result_path.read_text()).get("success", False)
     except Exception:
         return False
+
 
 async def run_dedup(
     successful_state: PipelineState,
@@ -229,6 +233,7 @@ async def run_dedup(
 
 # ── Pre-run deduplication ─────────────────────────────────────────────────────
 
+
 def _state_to_pruned_dict(s: PipelineState) -> dict:
     return {
         "boundary_id":    s.boundary_id,
@@ -239,6 +244,7 @@ def _state_to_pruned_dict(s: PipelineState) -> dict:
         "callee_class":   s.boundary.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";"),
         "callee_method":  s.boundary.get("missedCallee", {}).get("name", ""),
     }
+
 
 async def run_prededup(
     prev_results_dirs: list[Path],
@@ -363,6 +369,7 @@ async def run_prededup(
     )
 
 # ── Report-based pre-dedup (no instrumentation) ───────────────────────────────
+
 
 def run_report_prededup(
     prev_results_dirs: list[Path],

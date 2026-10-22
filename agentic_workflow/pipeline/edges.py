@@ -19,6 +19,7 @@ def descriptor_to_classname(descriptor: str) -> str:
     """
     return descriptor.lstrip("L").rstrip(";").replace("/", ".")
 
+
 def entry_matches(entry: dict, expected_caller: str, expected_callee: str) -> bool:
     """
     Check whether a structured boundary entry matches the expected caller and
@@ -42,6 +43,7 @@ def entry_matches(entry: dict, expected_caller: str, expected_callee: str) -> bo
     caller_match = caller_class in expected_caller and caller_method in expected_caller
     callee_match = callee_class in expected_callee and callee_method in expected_callee
     return caller_match and callee_match
+
 
 def edge_in_boundary(
     boundary_path: str,
@@ -80,6 +82,7 @@ def edge_in_boundary(
         f"Searched {Path(boundary_path).name}."
     )
 
+
 def rc_in_trace(expected_method: str, trace_log_lines: list[str]) -> bool:
     
     ex_classname = expected_method.split("(")[0].rsplit(".", 1)[0] if "." in expected_method else None
@@ -93,6 +96,7 @@ def rc_in_trace(expected_method: str, trace_log_lines: list[str]) -> bool:
     else:
         log.warning("expected root cause method is not in expected format")
         return False
+
 
 def is_reachable(expected_caller: str, staticcg_path: str) -> bool:
     """Check whether a caller method appears in the static call graph."""

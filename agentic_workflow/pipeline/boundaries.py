@@ -18,6 +18,7 @@ log = logging.getLogger("pipeline")
 
 # ── Boundary ID ───────────────────────────────────────────────────────────────
 
+
 def _boundary_id(boundary: dict, index: int) -> str:
     """
     Derive a human-readable ID from a boundary entry.
@@ -36,6 +37,7 @@ def _boundary_id(boundary: dict, index: int) -> str:
     return f"b{index}_{safe}"
 
 # ── State factory ─────────────────────────────────────────────────────────────
+
 
 def make_state(
     program_name:    str,
@@ -74,6 +76,7 @@ def make_state(
 
 # ── Boundaries loader ─────────────────────────────────────────────────────────
 
+
 def load_boundaries(path: str) -> list[dict]:
     """Load and return the list of boundary entries from a boundaries.json file."""
     p = Path(path)
@@ -90,6 +93,7 @@ def load_boundaries(path: str) -> list[dict]:
     return entries
 
 # ── Resume filter (same output dir) ───────────────────────────────────────────
+
 
 def filter_resume(
     output_dir:     Path,

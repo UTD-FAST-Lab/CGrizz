@@ -38,6 +38,7 @@ def _get_agent_sem() -> asyncio.Semaphore:
 
 # ── Agent runner ──────────────────────────────────────────────────────────────
 
+
 async def run_agent(prompt: str, options: ClaudeAgentOptions, stage_name: str) -> str:
     """
     Run a single agent query and collect the full text response.
@@ -102,6 +103,7 @@ async def run_agent(prompt: str, options: ClaudeAgentOptions, stage_name: str) -
     return ""  # unreachable, satisfies type checker
 
 # ── JSON extraction ───────────────────────────────────────────────────────────
+
 
 def parse_json_from_response(response: str) -> Optional[dict]:
     """

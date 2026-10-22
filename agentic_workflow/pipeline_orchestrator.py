@@ -69,6 +69,7 @@ log = logging.getLogger("pipeline.orchestrator")
 
 # ── Sequential pipeline runner ────────────────────────────────────────────────
 
+
 async def _run_sequential(
     program_queues: dict[str, tuple[dict, list[PipelineState]]],
 ) -> None:
@@ -120,6 +121,7 @@ async def _run_sequential(
 
 # ── Mode 1: single ────────────────────────────────────────────────────────────
 
+
 def run_single(args: argparse.Namespace) -> None:
     """One analysis entry, one boundary entry by index. No dedup."""
     boundaries = load_boundaries(args.boundaries)
@@ -150,6 +152,7 @@ def run_single(args: argparse.Namespace) -> None:
 
 
 # ── Mode 2: parallel-edges ────────────────────────────────────────────────────
+
 
 def run_parallel_edges(args: argparse.Namespace) -> None:
     """One analysis entry from config, all boundaries processed sequentially with dedup."""
@@ -202,6 +205,7 @@ def run_parallel_edges(args: argparse.Namespace) -> None:
 
 
 # ── Mode 3: parallel-all ──────────────────────────────────────────────────────
+
 
 def run_parallel_all(args: argparse.Namespace) -> None:
     """All analysis entries × all boundary entries, processed sequentially with dedup."""
@@ -260,6 +264,7 @@ def run_parallel_all(args: argparse.Namespace) -> None:
 
 # ── Config helpers ────────────────────────────────────────────────────────────
 
+
 def _load_config(config_path: str) -> dict:
     p = Path(config_path)
     if not p.exists():
@@ -287,6 +292,7 @@ def _find_analysis(args: argparse.Namespace) -> dict:
 
 
 # ── Argument parsing ──────────────────────────────────────────────────────────
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -362,6 +368,7 @@ def parse_args() -> argparse.Namespace:
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 
+
 def setup_logging() -> None:
     logging.basicConfig(
         level=logging.INFO,
@@ -371,6 +378,7 @@ def setup_logging() -> None:
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
+
 
 def main() -> None:
     setup_logging()

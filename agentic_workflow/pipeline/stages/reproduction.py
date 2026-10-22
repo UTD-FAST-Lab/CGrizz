@@ -19,6 +19,7 @@ log = logging.getLogger("pipeline")
 
 # ── Stage 6: Reproduction check ───────────────────────────────────────────────
 
+
 async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     """
     Run the CG analysis interface on the reproducing test case, then check

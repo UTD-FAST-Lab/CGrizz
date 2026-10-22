@@ -19,6 +19,7 @@ log = logging.getLogger("pipeline")
 
 # ── Stage 3: Unsoundness reasoning report ─────────────────────────────────────
 
+
 async def stage_generate_report(state: PipelineState) -> bool:
     """
     Delegates to the fn-edge-analyzer agent (via the Task tool) to produce a
@@ -88,6 +89,7 @@ Return JSON only:
 
 # ── Stage 9: Refine unsoundness report ───────────────────────────────────────
 
+
 async def stage_refine_report(state: PipelineState) -> bool:
     """
     After trace confirmation, update the unsoundness report to replace the initial
@@ -139,6 +141,7 @@ Return JSON only:
     log.info(f"{state.label()} Report refinement complete.")
     return True
 
+
 def _build_feedback_section(state: PipelineState) -> str:
     """Build the feedback block injected into the report prompt on retries."""
     if not state.has_reproduce_feedback() and not state.has_trace_feedback():
@@ -154,6 +157,7 @@ def _build_feedback_section(state: PipelineState) -> str:
     lines.append("\nRevise your root cause hypothesis and test case strategy accordingly.")
 
     return "\n".join(lines)
+
 
 def _archive_previous_report(state: PipelineState) -> None:
     """
@@ -180,6 +184,7 @@ def _archive_previous_report(state: PipelineState) -> None:
     state.unsoundness_report = None
     state.report_refine_reason = None
     log.info(f"{state.label()} Archived previous report → {archived}")
+
 
 def _build_retry_context(state: PipelineState) -> str:
     """

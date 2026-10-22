@@ -18,6 +18,7 @@ log = logging.getLogger("pipeline")
 
 # ── Stage 4: Test case generation ─────────────────────────────────────────────
 
+
 async def stage_generate_test_case(state: PipelineState) -> bool:
     """
     Delegates to the test-case-generator agent to create two minimal Maven projects:

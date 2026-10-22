@@ -28,6 +28,7 @@ log = logging.getLogger("pipeline")
 
 # ── Per-edge file logging ──────────────────────────────────────────────────────
 
+
 class _EdgeLogFilter(logging.Filter):
     """Passes only records whose message contains this edge's label."""
     def __init__(self, label: str):
@@ -38,6 +39,7 @@ class _EdgeLogFilter(logging.Filter):
         return self._label in record.getMessage()
 
 # ── Main pipeline ─────────────────────────────────────────────────────────────
+
 
 async def run_pipeline(state: PipelineState) -> None:
     state.output_dir.mkdir(parents=True, exist_ok=True)
@@ -52,6 +54,7 @@ async def run_pipeline(state: PipelineState) -> None:
     finally:
         logging.getLogger("pipeline").removeHandler(file_handler)
         file_handler.close()
+
 
 async def _run_pipeline_inner(state: PipelineState) -> None:
     log.info(f"{state.label()} {'=' * 50}")

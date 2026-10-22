@@ -21,6 +21,7 @@ log = logging.getLogger("pipeline")
 
 # ── Oracle helpers ────────────────────────────────────────────────────────────
 
+
 def find_agent_jar(state: PipelineState) -> Optional[Path]:
     """Find the built instrumentation agent JAR inside the reproducing test case."""
     if not state.reproducing_test_case_path:
@@ -29,6 +30,7 @@ def find_agent_jar(state: PipelineState) -> Optional[Path]:
     jars = [j for j in target_dir.glob("*.jar") if not j.name.startswith("original-")]
     return jars[0] if jars else None
 
+
 def find_agent_jar_from_dir(boundary_dir: Path) -> Optional[Path]:
     """Find the built instrumentation agent JAR given a previous boundary output directory."""
     target_dir = boundary_dir / "test_case" / "reproducing" / "instrumentation" / "target"
@@ -36,6 +38,7 @@ def find_agent_jar_from_dir(boundary_dir: Path) -> Optional[Path]:
         return None
     jars = [j for j in target_dir.glob("*.jar") if not j.name.startswith("original-")]
     return jars[0] if jars else None
+
 
 def build_classpath(program_jar_path: str) -> Optional[str]:
     """
@@ -50,6 +53,7 @@ def build_classpath(program_jar_path: str) -> Optional[str]:
         return str(p)
     jars = list(p.glob("*.jar"))
     return ":".join(str(j) for j in jars) if jars else None
+
 
 async def run_oracle_on_program(
     agent_jar: Path,
@@ -108,6 +112,7 @@ async def run_oracle_on_program(
     except Exception as e:
         log.warning(f"Oracle run failed for {program_jar_path}: {e}")
         return False, True, str(e), None
+
 
 def extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
     """
