@@ -1,0 +1,12 @@
+{
+  "note": "What the root-cause annotator would add for OPAL O22/O23: the synthetic allocation of a body-less method's abstract return type is dropped.",
+  "edits": [
+    {
+      "file": "OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/pointsto/ConfiguredMethodsPointsToAnalysis.scala",
+      "anchor": "                    if (!filterNonInstantiableTypes || canBeInstantiated(theInstantiatedType))\n",
+      "insert": "before",
+      "text": "                    if (filterNonInstantiableTypes && !canBeInstantiated(theInstantiatedType)) {\n                        println(\"[UNSOUNDNESS] abstract return type not modelled | caller=\"+\n                            state.callContext.method.declaringClassType.toJava+\".\"+state.callContext.method.name+\n                            \"() | site=return | line=-1 | pc=0\")\n                        state.includeSharedPointsToSet(\n                            defSiteObject,\n                            createPointsToSet(\n                                pc,\n                                allocationContext,\n                                org.opalj.br.fpcf.properties.pointsto.Unsound.markerType(\n                                    \"abstractReturn\", \"abstract return type not modelled\"\n                                ),\n                                isConstant = false\n                            ),\n                            PointsToSetLike.noFilter\n                        )\n                    }\n"
+    }
+  ],
+  "expect": {"edge_warning_lines": [6, 8], "no_warning_lines": [10]}
+}

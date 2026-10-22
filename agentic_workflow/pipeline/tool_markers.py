@@ -50,7 +50,7 @@ def install(tool_name: str, tool_dir: str | Path) -> list[str]:
 
 
 def apply_edits(edits: list[dict], tool_dir: str | Path, what: str = "edit") -> list[str]:
-    """Anchored insertions: {file, anchor, insert: before|after, text}. Already applied → skipped."""
+    """Anchored edits: {file, anchor, insert: before|after|replace, text}. Already applied → skipped."""
     tool_dir, changed = Path(tool_dir), []
     for e in edits:
         path = tool_dir / e["file"]
@@ -63,7 +63,7 @@ def apply_edits(edits: list[dict], tool_dir: str | Path, what: str = "edit") -> 
         if count != 1:
             raise ToolMarkerError(f"{what}: anchor found {count} times in {e['file']} (expected once) — "
                                   "the tool version differs from the one this was written for")
-        new = e["text"] + e["anchor"] if e["insert"] == "before" else e["anchor"] + e["text"]
+        new = {"before": e["text"] + e["anchor"], "after": e["anchor"] + e["text"], "replace": e["text"]}[e["insert"]]
         path.write_text(text.replace(e["anchor"], new))
         changed.append(e["file"])
     return changed

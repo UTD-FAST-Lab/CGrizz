@@ -34,7 +34,7 @@ The pipeline is organized into stages (`pipeline/stages/`) wired together by `pi
 - **`pipeline/agent_runner.py`** — `run_agent()` executor; handles agent invocation and JSON parsing
 - **`pipeline/edges.py`** — matching of edges / method names across boundary, CG and trace formats
 - **`pipeline/oracle.py`** — building/running the oracle agent, spec lint, verdict classification, symptoms
-- **`tool_markers/<tool>/`** — unsoundness-marker modules (Soot so far): installed into the annotated tool, they turn one `Unsound.mark(...)` at the root cause into `[UNSOUNDNESS-EDGE]` warnings at every affected call (`pipeline/tool_markers.py`)
+- **`tool_markers/<tool>/`** — unsoundness-marker modules for Soot, WALA and OPAL: installed into the annotated tool, they turn one `Unsound.mark(...)` at the root cause into `[UNSOUNDNESS-EDGE]` warnings at every affected call (`pipeline/tool_markers.py`)
 - **`oracle_agent/`** — the prebuilt Java oracle agent; the instrumentation agent only writes `oracle_spec.json` (see `oracle_agent/SPEC.md`)
 - **`pipeline/dedup.py`** — oracle deduplication and pruning reports
 - **`pipeline/boundaries.py`** — building states from boundaries.json, resume filter
@@ -170,7 +170,7 @@ python tests/feedback_test.py        # feedback messages
 python tests/test_case_size_test.py  # test-case budget and shrinking
 python tests/edge_mapping_test.py    # warnings ↔ boundaries (scripts/helpers/warning_coverage.py)
 python tests/tool_markers_test.py    # marker installer, non-interference / coverage checks
-tool_markers/soot/test/run_test.sh   # the Soot marker module on the real, pinned Soot (needs tools/soot)
+tool_markers/run_test.sh <tool>      # a marker module on the real, pinned tool (needs tools/<tool>)
 python tests/determinism_test.py     # report format, reproducibility script
 python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn
 ```

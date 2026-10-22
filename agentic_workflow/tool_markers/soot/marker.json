@@ -16,5 +16,5 @@
       "text": "  /** CGrizz unsoundness markers: the virtual call sites whose receiver is {@code receiver}. */\n  public List<VirtualCallSite> cgrizzSitesOf(Local receiver) {\n    return receiverToSites.get(receiver);\n  }\n\n"
     }
   ],
-  "usage": "tool_markers/soot/README.md"
+  "usage": "soot/README.md"
 }

@@ -122,9 +122,12 @@ def cg_edges(cg_path: str) -> Optional[set[str]]:
     edges = set()
     for rm in methods:
         caller = name(rm.get("method", {}))
+        # A synthetic root (WALA's FakeRootClass) numbers its call sites in discovery order.
+        synthetic = "FakeRootClass" in caller
         for site in rm.get("callSites", []) or []:
+            at = "synthetic" if synthetic else f"{site.get('line')}/{site.get('pc')}"
             for t in site.get("targets", []) or []:
-                edges.add(f"{caller} @{site.get('line')}/{site.get('pc')} -> {name(t)}")
+                edges.add(f"{caller} @{at} -> {name(t)}")
     return edges
 
 
