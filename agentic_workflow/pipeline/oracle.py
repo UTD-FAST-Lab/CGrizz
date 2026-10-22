@@ -27,6 +27,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
+from pipeline.warning_checks import test_case_packages
 from config import (
     ORACLE_AGENT_DIR,
     ORACLE_AGENT_JAR,
@@ -257,16 +258,6 @@ def boundary_edge(boundary: dict) -> tuple[str, str, str, str]:
 # ── Spec lint ─────────────────────────────────────────────────────────────────
 
 
-def _test_case_packages(test_case_dir: Path) -> set[str]:
-    pkgs = set()
-    src = test_case_dir / "src" / "main" / "java"
-    for f in src.rglob("*.java") if src.exists() else []:
-        rel = f.parent.relative_to(src)
-        if rel.parts:
-            pkgs.add(".".join(rel.parts))
-    return pkgs
-
-
 def lint_spec(spec: Path, test_case_dir: Optional[Path] = None) -> list[str]:
     """
     Cheap structural checks done before any JVM run (full validation happens in
@@ -290,7 +281,7 @@ def lint_spec(spec: Path, test_case_dir: Optional[Path] = None) -> list[str]:
         problems.append("'rootCauses' must be a non-empty array")
         rcs = []
     if test_case_dir:
-        pkgs = _test_case_packages(Path(test_case_dir))
+        pkgs = test_case_packages(Path(test_case_dir))
         for rc in rcs:
             if not isinstance(rc, dict):
                 continue

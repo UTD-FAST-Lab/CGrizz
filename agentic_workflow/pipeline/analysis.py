@@ -78,22 +78,24 @@ def run_analysis_interface(state: PipelineState) -> tuple[str, str, str]:
     return str(staticcg_path), str(dyncg_path), str(boundary_path)
 
 
-def run_annotated_sa(state: PipelineState) -> str:
+def run_annotated_sa(state: PipelineState, project: str = "reproducing", test_case_path: str | None = None) -> str:
     """
-    Run the annotated SA tool on the test case to produce the modified
-    analysis output (SCG') and execution trace log.
+    Run the annotated SA tool on a test case to produce the modified
+    analysis output (SCG') and execution trace log
+    (<test_case>/staticcg/log.txt).
 
-    Used in stage 6 (trace check) to confirm the root cause via
-    the execution trace written by the annotations.
+    Used in stage 8 (trace check): on the reproducing test case to confirm the
+    root cause, and on the non-reproducing one to check the warning is selective.
 
     Returns:
         modified_analysis_path — path to the annotated SA tool output
     """
     out_path = state.out(OUT_MODIFIED_ANALYSIS)
+    test_case_path = test_case_path or state.reproducing_test_case_path
 
-    log.info(f"{state.label()} Running annotated SA tool...")
+    log.info(f"{state.label()} Running annotated SA tool ({project})...")
     log.info(f"{state.label()} Annotated tool : {state.annotated_sa_tool_path}")
-    log.info(f"{state.label()} Test case      : {state.reproducing_test_case_path}")
+    log.info(f"{state.label()} Test case      : {test_case_path}")
 
     annotation_interface_path = Path(__file__).parent.parent / "jcg" / "annotation_interface.py"
 
@@ -103,8 +105,8 @@ def run_annotated_sa(state: PipelineState) -> str:
             str(annotation_interface_path),
             '--framework', state.tool_name,
             '--algorithm', state.algorithm,
-            '--project', 'reproducing',
-            '--reproducing_test_case_path', str(Path(state.reproducing_test_case_path).resolve()),
+            '--project', project,
+            '--reproducing_test_case_path', str(Path(test_case_path).resolve()),
             '--annotated_sa_tool_path', str(Path(state.annotated_sa_tool_path).resolve()),
             '--boundary_id', str(state.boundary_id),
         ]

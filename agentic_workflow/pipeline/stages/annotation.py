@@ -2,7 +2,9 @@
 pipeline/stages/annotation.py
 ==============================
 Stage 7 (annotate the SA tool with one [UNSOUNDNESS] log and run it) and
-stage 8 (check the execution trace).
+stage 8 (check the execution trace: the log fires for the root-cause methods,
+only for a small share of the analysed methods, and not for the
+non-reproducing test case — see pipeline/warning_checks.py).
 """
 
 import asyncio
@@ -16,7 +18,14 @@ from pipeline.agents import build_agent_options
 from pipeline.analysis import run_annotated_sa
 from pipeline.agent_runner import run_agent, parse_json_from_response
 from pipeline.edges import is_reachable, rc_in_trace
-from config import OUT_ANNOTATED_TOOL_DIR, OUT_EXECUTION_TRACE, OUT_STATICCG_DIR
+from pipeline.warning_checks import check_negative, check_selectivity, warning_lines
+from config import (
+    OUT_ANNOTATED_TOOL_DIR,
+    OUT_EXECUTION_TRACE,
+    OUT_STATICCG_DIR,
+    ANNOTATION_MAX_CALLER_FRACTION,
+    ANNOTATION_NEGATIVE_CHECK,
+)
 
 log = logging.getLogger("pipeline")
 
@@ -163,6 +172,29 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
             log.error(f"{state.label()} Trace check failed — expected root cause method '{method}' not found in execution trace.")
             return False, f"Trace check failed — expected root cause method '{method}' not found in execution trace."
 
+    # The warning must also be specific to the pattern (issue #4).
+    ok, feedback = check_selectivity(unsoundness_lines, state.staticcg_path, ANNOTATION_MAX_CALLER_FRACTION)
+    if not ok:
+        log.error(f"{state.label()} {feedback.splitlines()[0]}")
+        return False, feedback
+
+    if ANNOTATION_NEGATIVE_CHECK and state.non_reproducing_test_case_path \
+            and Path(state.non_reproducing_test_case_path).exists():
+        non_repro = Path(state.non_reproducing_test_case_path)
+        run_annotated_sa(state, project="non_reproducing", test_case_path=str(non_repro))
+        negative_log = non_repro / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE
+        try:
+            negative_lines = warning_lines(negative_log.read_text())
+        except Exception as e:
+            log.warning(f"{state.label()} Negative check skipped — could not read {negative_log}: {e}")
+        else:
+            state.negative_trace_path = str(negative_log)
+            ok, feedback = check_negative(negative_lines, non_repro)
+            if not ok:
+                log.error(f"{state.label()} {feedback.splitlines()[0]}")
+                return False, feedback
+            log.info(f"{state.label()} Negative check passed — no [UNSOUNDNESS] log for the non-reproducing test case.")
+
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
 
@@ -188,6 +220,15 @@ def _build_annotation_feedback(state: PipelineState) -> str:
                 lines += [f"  {l}" for l in unsoundness_lines[:min(30, len(unsoundness_lines))]]  # show up to 30 lines
             else:
                 lines.append("\n### Previous execution trace: no [UNSOUNDNESS] lines found at all.")
+        except Exception:
+            pass
+
+    if state.negative_trace_path and Path(state.negative_trace_path).exists():
+        try:
+            negative = warning_lines(Path(state.negative_trace_path).read_text())
+            if negative:
+                lines.append("\n### [UNSOUNDNESS] lines on the NON-reproducing test case (must be none for its own classes; limited to 15):")
+                lines += [f"  {l}" for l in negative[:15]]
         except Exception:
             pass
 
