@@ -28,6 +28,7 @@ from config import (
     OUT_TARGET_ORACLE,
     ORACLE_AGENT_DIR,
     ORACLE_GENERATE_ATTEMPTS,
+    ORACLE_NEGATIVE_CHECK,
 )
 
 log = logging.getLogger("pipeline")
@@ -130,12 +131,48 @@ async def _validate_on_test_case(state: PipelineState, spec: Path, oracle_path: 
     if run.status != "ok":
         return f"The oracle run on the test case failed ({run.status}). Output:\n{run.output_tail[-1500:]}", "run"
     if not oracle.symptom_edges(run.oracle):
+        keys = ("rootCauseSites", "rootCauseSitesExcludedByConditions", "rootCauseHits", "rootCauseRuntimeRejections",
+                "symptomSites", "taggedObjects")
         return ("The spec produced no symptoms on the test case. Statistics: "
-                f"{json.dumps({k: run.stats.get(k) for k in ('rootCauseSites', 'rootCauseHits', 'symptomSites', 'taggedObjects')})}. "
-                "rootCauseSites = 0 → no instruction matched; rootCauseHits = 0 → matched but never executed or "
-                "produced null; hits > 0 → the tagged value never reached a call site (check tag / propagate / "
-                "symptoms.match).", "empty")
+                f"{json.dumps({k: run.stats.get(k) for k in keys})}. "
+                "rootCauseSites = 0 → no instruction matched (or the load-time conditions excluded them all); "
+                "rootCauseHits = 0 → matched but never executed, produced null, or the runtime conditions rejected it; "
+                "hits > 0 → the tagged value never reached a call site (check tag / propagate / symptoms.match).",
+                "empty")
+    if ORACLE_NEGATIVE_CHECK and state.non_reproducing_test_case_path \
+            and Path(state.non_reproducing_test_case_path).exists():
+        problem = await _negative_check(state)
+        if problem:
+            return problem, "precision"
     return "", ""
+
+
+async def _negative_check(state: PipelineState) -> str:
+    """
+    The spec must not produce symptoms in the non-reproducing test case: it is the
+    same program with the root-cause condition flipped, and the tool resolves its
+    edges. Symptoms there mean the root cause is matched too broadly.
+    """
+    non_repro = Path(state.non_reproducing_test_case_path)
+    run = await run_on_test_case(state, non_repro / OUT_ORACLE, test_case=non_repro)
+    if run is None or run.status != "ok":
+        log.warning(f"{state.label()} Negative oracle check skipped — the non-reproducing test case did not run "
+                    f"({run.status if run else 'no jar / main class'})")
+        return ""
+    pkgs = oracle.test_case_packages(non_repro)
+    own = sorted(f"{a}.{b} → {c}.{d}" for a, b, c, d in oracle.symptom_edges(run.oracle)
+                 if any(a == p or a.startswith(p + ".") for p in pkgs))
+    if not own:
+        log.info(f"{state.label()} Negative oracle check passed — no symptoms on the non-reproducing test case.")
+        return ""
+    return (
+        f"The spec also produces symptoms on the NON-reproducing test case ({non_repro}) — the same program with "
+        "the root-cause condition flipped, where the tool resolves the edges:\n- " + "\n- ".join(own[:10]) + "\n"
+        "The root cause is matched too broadly. Restrict it with `when` conditions that express the condition under "
+        "which the tool gives up (toolLimitation.codeSnippet in the report), e.g. "
+        '{"on": "arg0", "is": "nonConstant"} — see "Conditions" in the spec reference. '
+        "Compare the two test cases' sources to find the difference."
+    )
 
 
 def _archive_spec(state: PipelineState, spec: Path) -> None:
@@ -152,16 +189,18 @@ def _test_case_jar_and_main(repro: Path) -> tuple[Optional[Path], Optional[str]]
     return (jars[0] if jars else None), main
 
 
-async def run_on_test_case(state: PipelineState, oracle_path: Path) -> Optional[OracleRun]:
-    """Build the reproducing test case if needed and run the oracle on its jar."""
-    repro = Path(state.reproducing_test_case_path)
-    jar, main = _test_case_jar_and_main(repro)
-    if jar is None and (repro / "pom.xml").exists():
-        subprocess.run(["mvn", "-q", "-B", "package", "-DskipTests"], cwd=repro, check=False)
-        jar, main = _test_case_jar_and_main(repro)
+async def run_on_test_case(state: PipelineState, oracle_path: Path,
+                           test_case: Optional[Path] = None) -> Optional[OracleRun]:
+    """Build a test case (default: the reproducing one) if needed and run the spec on its jar."""
+    spec = oracle.spec_path(state.reproducing_test_case_path)
+    tc = Path(test_case or state.reproducing_test_case_path)
+    jar, main = _test_case_jar_and_main(tc)
+    if jar is None and (tc / "pom.xml").exists():
+        subprocess.run(["mvn", "-q", "-B", "package", "-DskipTests"], cwd=tc, check=False)
+        jar, main = _test_case_jar_and_main(tc)
     if jar is None or not main:
         return None
-    return await oracle.run_oracle(oracle.spec_path(repro), str(jar), main, oracle_path)
+    return await oracle.run_oracle(spec, str(jar), main, oracle_path)
 
 
 async def generate_oracle_testcase(state: PipelineState) -> bool:

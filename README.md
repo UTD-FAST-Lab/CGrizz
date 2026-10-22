@@ -39,7 +39,10 @@ hypothesis.
 **Oracle agent.** `oracle_agent/` is a prebuilt, tested Java agent (ASM, Java 8). It tags
 the values that a root cause produces (by object identity) and records a symptom whenever
 a tagged value — or an instance of a tagged class — reaches a call site; it also covers
-implicit JVM exceptions, bridge methods and direct API edges. The LLM only writes the spec;
+implicit JVM exceptions, bridge methods and direct API edges. A root cause can carry
+conditions that mirror the tool's give-up guard, decided at load time (e.g. `forName` only with a
+non-constant name) or at run time (e.g. a class defined by a custom loader), and the spec must
+produce no symptoms on the non-reproducing (near-miss) test case. The LLM only writes the spec;
 see [`oracle_agent/SPEC.md`](agentic_workflow/oracle_agent/SPEC.md). `oracle_agent/test.sh`
 runs the example programs in `oracle_agent/examples/` (one per root-cause family) under
 `-Xverify:all`.

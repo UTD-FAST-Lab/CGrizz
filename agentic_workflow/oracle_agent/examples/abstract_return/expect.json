@@ -1,0 +1,5 @@
+{
+  "present": [["ex.abstract_return.Main.main", "java.lang.ClassLoader.getResource"]],
+  "absent":  [["ex.abstract_return.Main.main", "java.lang.String.length"]],
+  "rootCauseMethods": ["ex.abstract_return.Main.main"]
+}

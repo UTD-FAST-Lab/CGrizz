@@ -49,6 +49,37 @@ final class Spec {
         }
     }
 
+    /**
+     * A condition on one operand of a root-cause instruction. Static predicates
+     * are decided when the class is loaded (data flow inside the method), runtime
+     * predicates when the instruction executes (actual values). All conditions of
+     * a root cause must hold.
+     */
+    static final class Condition {
+        static final Set<String> STATIC = new HashSet<>(Arrays.asList(
+                "constant", "nonConstant", "classLiteral", "fromParameter", "fromField", "fromCall", "fromNew",
+                "staticType"));
+        static final Set<String> RUNTIME = new HashSet<>(Arrays.asList(
+                "isNull", "nonNull", "runtimeClass", "classValue", "customLoader", "notPublic",
+                "noPublicNoArgConstructor", "declaredTypeAbstract", "taggedBy", "bridge"));
+
+        String on;             // receiver | argN | return | value | target
+        int arg = -1;          // N for argN
+        String is;
+        boolean not;
+        Glob owner, name, type;      // fromField / fromCall (owner, name), fromNew / staticType / runtimeClass / classValue (type)
+        final Set<String> ids = new HashSet<>();   // taggedBy
+
+        boolean isStatic() {
+            return STATIC.contains(is);
+        }
+
+        @Override
+        public String toString() {
+            return (not ? "not " : "") + on + " " + is;
+        }
+    }
+
     static final class RootCause {
         int index;
         String id;
@@ -63,6 +94,8 @@ final class Spec {
         String access = "get";     // field: get | put | any
         Set<Integer> opcodes = new HashSet<>();     // insn
         List<String> exceptions = new ArrayList<>(); // insn: implicit exceptions to link
+        final List<Condition> staticConditions = new ArrayList<>();
+        final List<Condition> runtimeConditions = new ArrayList<>();
 
         boolean matchesEnclosing(String ownerDotted, String methodName) {
             return Glob.matches(inOwner, ownerDotted) && Glob.matches(inName, methodName);
@@ -161,6 +194,8 @@ final class Spec {
             "description", "unsupported", "rootCauses", "propagate", "symptoms", "exclude"));
     private static final Set<String> RC_KEYS = new HashSet<>(Arrays.asList(
             "id", "at", "owner", "name", "desc", "in", "tag", "selfEdge", "when", "access", "opcodes", "exceptions", "note"));
+    private static final Set<String> COND_KEYS = new HashSet<>(Arrays.asList(
+            "on", "is", "not", "owner", "name", "type", "ids", "note"));
     private static final Set<String> PROP_KEYS = new HashSet<>(Arrays.asList(
             "owner", "name", "desc", "from", "to", "note"));
 
@@ -253,6 +288,7 @@ final class Spec {
             }
             if (rc.opcodes.isEmpty()) errors.add(where + ": insn root causes need a non-empty 'opcodes' array");
             for (Object o : list(m, "exceptions")) rc.exceptions.add(String.valueOf(o));
+            if (m.containsKey("when")) errors.add(where + ": insn root causes do not take 'when' (use 'exceptions')");
             if (rc.exceptions.isEmpty()) {
                 Set<String> defaults = new LinkedHashSet<>();
                 for (int code : rc.opcodes) defaults.addAll(DEFAULT_EXCEPTIONS.getOrDefault(code, Collections.<String>emptyList()));
@@ -285,17 +321,88 @@ final class Spec {
                 errors.add(where + ": tag must be return, receiver, argN (optionally with []), or none");
             }
             rc.selfEdge = bool(m, "selfEdge");
-            String when = str(m, "when", null);
-            if (when != null) {
-                if (!when.equals("bridge")) errors.add(where + ": 'when' only supports \"bridge\"");
-                rc.bridgeOnly = true;
-                if (!rc.selfEdge) errors.add(where + ": 'when' requires selfEdge: true");
-            }
             if (tag.equals("none") && !rc.selfEdge) {
                 errors.add(where + ": a call root cause must tag a value or set selfEdge: true");
             }
         }
+        conditions(rc, m.get("when"), where);
         return rc;
+    }
+
+    private void conditions(RootCause rc, Object when, String where) {
+        if (when == null) return;
+        if ("bridge".equals(when)) {          // shorthand kept from the first spec version
+            when = Collections.singletonList(new java.util.LinkedHashMap<String, Object>() {{
+                put("on", "target");
+                put("is", "bridge");
+            }});
+        }
+        if (!(when instanceof List)) {
+            errors.add(where + ": 'when' must be a list of conditions");
+            return;
+        }
+        List<?> list = (List<?>) when;
+        for (int k = 0; k < list.size(); k++) {
+            String w = where + ".when[" + k + "]";
+            if (!(list.get(k) instanceof Map)) {
+                errors.add(w + ": a condition must be an object");
+                continue;
+            }
+            @SuppressWarnings("unchecked") Map<String, Object> m = (Map<String, Object>) list.get(k);
+            unknownKeys(m, COND_KEYS, w);
+            Condition c = new Condition();
+            c.on = str(m, "on", null);
+            c.is = str(m, "is", null);
+            c.not = bool(m, "not");
+            c.owner = glob(m, "owner");
+            c.name = glob(m, "name");
+            c.type = glob(m, "type");
+            for (Object id : list(m, "ids")) c.ids.add(String.valueOf(id));
+            if (c.is == null || !(Condition.STATIC.contains(c.is) || Condition.RUNTIME.contains(c.is))) {
+                errors.add(w + ": 'is' must be one of " + sorted(Condition.STATIC) + " (decided at load time) or "
+                        + sorted(Condition.RUNTIME) + " (decided at run time)");
+                continue;
+            }
+            if (c.on == null) {
+                errors.add(w + ": 'on' is required (receiver, argN, return, value, target)");
+                continue;
+            }
+            if (c.on.startsWith("arg")) {
+                try {
+                    c.arg = Integer.parseInt(c.on.substring(3));
+                } catch (NumberFormatException e) {
+                    errors.add(w + ": bad operand '" + c.on + "'");
+                }
+            } else if (!Arrays.asList("receiver", "return", "value", "target").contains(c.on)) {
+                errors.add(w + ": 'on' must be receiver, argN, return, value or target");
+            }
+            boolean field = rc.at.equals("field");
+            if (field != c.on.equals("value")) {
+                errors.add(w + ": field root causes use 'on': \"value\"; call root causes use receiver/argN/return/target");
+            }
+            if (c.isStatic() && (c.on.equals("return") || c.on.equals("target"))) {
+                errors.add(w + ": '" + c.is + "' is decided at load time and cannot look at '" + c.on + "'");
+            }
+            if (c.isStatic() && field && "get".equals(rc.access)) {
+                errors.add(w + ": load-time conditions on a field read are not supported (the value is the field itself)");
+            }
+            if (c.is.equals("bridge")) {
+                if (!c.on.equals("target") || !rc.selfEdge || c.not) {
+                    errors.add(w + ": 'bridge' applies to 'target' of a selfEdge root cause");
+                }
+                rc.bridgeOnly = true;
+                continue;
+            }
+            if (c.is.equals("taggedBy") && c.ids.isEmpty()) errors.add(w + ": 'taggedBy' needs 'ids' (root cause ids, or \"*\")");
+            if ((c.is.equals("fromNew") || c.is.equals("staticType") || c.is.equals("runtimeClass")
+                    || c.is.equals("classValue")) && c.type == null) {
+                errors.add(w + ": '" + c.is + "' needs 'type'");
+            }
+            if (c.is.equals("declaredTypeAbstract") && !c.on.equals("return") && c.arg < 0) {
+                errors.add(w + ": 'declaredTypeAbstract' applies to 'return' or an argument");
+            }
+            (c.isStatic() ? rc.staticConditions : rc.runtimeConditions).add(c);
+        }
     }
 
     private Propagation propagation(Map<String, Object> m, String where) {

@@ -29,22 +29,31 @@ Read the spec reference given in the task (`SPEC.md`) before writing anything.
    - an edge the tool replaces or drops at the call itself (`Thread.start`, bridge
      methods, `writeObject` hooks) → `selfEdge`;
    - an exception the JVM throws implicitly → `insn` root cause.
-2. Write the spec. Match the **API or instruction pattern**, never the test case's own
+2. **Translate the tool's give-up condition into `when` conditions.** The report's
+   `toolLimitation.codeSnippet` shows the guard where the tool drops the edge (e.g.
+   `if (symbolTable.isStringConstant(use))`). A root cause is the instruction *under that
+   condition*, not every call of the API: `Class.forName` with a non-constant name →
+   `{"on": "arg0", "is": "nonConstant"}`; `newInstance` on a class without a public no-arg
+   constructor → `{"on": "receiver", "is": "noPublicNoArgConstructor"}`; a class defined by a
+   custom loader → `customLoader`; a value from another root cause → `taggedBy`. See
+   "Conditions" in the spec reference.
+3. Write the spec. Match the **API or instruction pattern**, never the test case's own
    classes or packages: the same spec is later run on the real program, and every other
    boundary whose edge shows up as a symptom is grouped with this one. A spec that
    names test-case classes is rejected.
-3. Build the test case if needed (`mvn -q package -DskipTests` in its directory) and run:
+4. Build the test case if needed (`mvn -q package -DskipTests` in its directory) and run:
    ```bash
    java -XX:-OmitStackTraceInFastThrow -javaagent:<agent jar>=<spec> \
         -Dcgrizz.oracle.out=/tmp/oracle_try.json -Dcgrizz.oracle.verbose=true \
         -cp <test case jar> <main class>
    ```
    Check `/tmp/oracle_try.stats.json` and `/tmp/oracle_try.json`: the test case's missed
-   edge must be a symptom of your root cause. Adjust the spec until it is. Use a scratch
-   output path: the pipeline runs the oracle itself and writes the real `oracle.json`.
-4. Keep the spec as narrow as the pattern and as general as the mechanism: tag the
-   value the tool loses, not every value.
-5. If the spec language cannot express the pattern, write `{"unsupported": "<why>"}`.
+   edge must be a symptom of your root cause. Run it on the **non-reproducing** test case
+   too (`<test case>/../non_reproducing`, if it exists): it is the near miss where the tool
+   resolves the edge, so it must produce **no** symptoms in its own classes — the pipeline
+   rejects the spec otherwise. Use scratch output paths: the pipeline runs the oracle
+   itself and writes the real `oracle.json`.
+5. If the spec language cannot express the pattern (or the condition), write `{"unsupported": "<why>"}`.
 
 Never run anything against the real program, and only write files inside the
 `instrumentation/` directory of the test case (plus scratch files under `/tmp`).

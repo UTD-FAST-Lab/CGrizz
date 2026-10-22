@@ -22,6 +22,14 @@ def main(oracle_path: str, expect_path: str) -> int:
     for m in expect.get("rootCauseMethods", []):
         if not any(r.startswith(m + "(") for r in rc_methods):
             problems.append(f"missing root cause in {m}")
+    if expect.get("stats"):
+        stats_path = oracle_path[:-5] + ".stats.json"
+        stats = json.load(open(stats_path))
+        for key, want in expect["stats"].items():
+            got = stats.get(key, {})
+            for k, v in want.items():
+                if got.get(k) != v:
+                    problems.append(f"stats {key}[{k}] = {got.get(k)}, expected {v}")
     for p in problems:
         print("  FAIL:", p)
     if problems:
