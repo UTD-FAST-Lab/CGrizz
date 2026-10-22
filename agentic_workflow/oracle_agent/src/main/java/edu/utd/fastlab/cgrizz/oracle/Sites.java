@@ -29,6 +29,11 @@ final class Sites {
         boolean symptom;           // generic symptom site (receiver / caller-class checks)
         boolean selfEdge;          // root cause whose own call is the symptom
         boolean bridgeOnly;
+        int selfRule = -1;         // rule index of the selfEdge root cause
+        /** Indices of the root-cause rules that fired at this instruction. */
+        final java.util.Set<Integer> fired = java.util.concurrent.ConcurrentHashMap.newKeySet();
+        /** Root causes whose runtime conditions Tracker.rc decides when the instruction executes. */
+        final List<Spec.RootCause> conditionalRules = new ArrayList<>();
         final AtomicLong hits = new AtomicLong();
         /** Last (receiver class, tag) this site recorded; skips repeated work in loops. */
         private volatile Last last;

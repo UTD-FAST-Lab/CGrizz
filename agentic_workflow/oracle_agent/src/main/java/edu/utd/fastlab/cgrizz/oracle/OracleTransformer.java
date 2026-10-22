@@ -19,6 +19,7 @@ import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TryCatchBlockNode;
+import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 import java.lang.instrument.ClassFileTransformer;
@@ -79,8 +80,14 @@ final class OracleTransformer implements ClassFileTransformer {
         long symptomSites, propagationSites, handlerHooks;
         final Map<String, Long> rcSites = new HashMap<>();
 
+        final Map<String, Long> filtered = new HashMap<>();
+
         void rc(String id) {
             rcSites.merge(id, 1L, Long::sum);
+        }
+
+        void filtered(String id) {
+            filtered.merge(id, 1L, Long::sum);
         }
 
         void commit() {
@@ -89,6 +96,9 @@ final class OracleTransformer implements ClassFileTransformer {
             Tracker.HANDLER_HOOKS.addAndGet(handlerHooks);
             for (Map.Entry<String, Long> e : rcSites.entrySet()) {
                 Tracker.RC_SITES_BY_RULE.computeIfAbsent(e.getKey(), k -> new AtomicLong()).addAndGet(e.getValue());
+            }
+            for (Map.Entry<String, Long> e : filtered.entrySet()) {
+                Tracker.RC_SITES_FILTERED.computeIfAbsent(e.getKey(), k -> new AtomicLong()).addAndGet(e.getValue());
             }
         }
     }
@@ -119,6 +129,8 @@ final class OracleTransformer implements ClassFileTransformer {
         boolean changed = false;
         int line = -1;
         int ordinal = -1;
+        // Load-time conditions need the data flow of the unmodified method.
+        Provenance prov = needsProvenance(mn) ? Provenance.of(cn.name, mn) : null;
         for (AbstractInsnNode in : mn.instructions.toArray()) {
             if (in instanceof LineNumberNode) {
                 line = ((LineNumberNode) in).line;
@@ -138,13 +150,49 @@ final class OracleTransformer implements ClassFileTransformer {
                 }
             }
             if (in instanceof MethodInsnNode) {
-                changed |= invoke(owner, mn, (MethodInsnNode) in, ordinal, line, lite, c);
+                changed |= invoke(owner, mn, (MethodInsnNode) in, ordinal, line, lite, c, prov);
             } else if (in instanceof FieldInsnNode) {
-                changed |= field(owner, mn, (FieldInsnNode) in, ordinal, line, c);
+                changed |= field(owner, mn, (FieldInsnNode) in, ordinal, line, c, prov);
             }
         }
         if (spec.hasInsnRootCauses()) changed |= handlerHooks(mn, c);
         return changed;
+    }
+
+    /** Does some root cause with load-time conditions name-match an instruction of this method? */
+    private boolean needsProvenance(MethodNode mn) {
+        for (Spec.RootCause rc : spec.rootCauses) {
+            if (rc.staticConditions.isEmpty()) continue;
+            for (AbstractInsnNode in : mn.instructions.toArray()) {
+                if (in instanceof MethodInsnNode && rc.at.equals("call")
+                        && rc.name.matches(((MethodInsnNode) in).name)
+                        && rc.owner.matches(Type.getObjectType(((MethodInsnNode) in).owner).getClassName())) {
+                    return true;
+                }
+                if (in instanceof FieldInsnNode && rc.at.equals("field") && rc.name.matches(((FieldInsnNode) in).name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Load-time conditions of a root cause at an instruction. depthOf maps an
+     * operand to its stack depth just before the instruction (-1: no such operand).
+     */
+    private static boolean staticConditionsHold(Spec.RootCause rc, Provenance prov, AbstractInsnNode at,
+                                                java.util.function.ToIntFunction<Spec.Condition> depthOf) {
+        for (Spec.Condition cond : rc.staticConditions) {
+            int depth = depthOf.applyAsInt(cond);
+            if (depth < 0) return false;
+            if (prov == null) {
+                Tracker.STATIC_CONDITIONS_UNKNOWN.incrementAndGet();
+                continue;                     // cannot tell: keep it a root cause
+            }
+            if (!Provenance.holds(cond, prov.origins(at, depth))) return false;
+        }
+        return true;
     }
 
     private static Sites.Site site(String owner, MethodNode mn, int ordinal, int line, int op) {
@@ -165,7 +213,7 @@ final class OracleTransformer implements ClassFileTransformer {
     // ── Invoke instructions ───────────────────────────────────────────────────
 
     private boolean invoke(String owner, MethodNode mn, MethodInsnNode m, int ordinal, int line,
-                           boolean lite, Counters c) {
+                           boolean lite, Counters c, Provenance prov) {
         int op = m.getOpcode();
         String calleeOwner = Type.getObjectType(m.owner).getClassName();
         boolean isCtor = m.name.equals("<init>");
@@ -174,11 +222,20 @@ final class OracleTransformer implements ClassFileTransformer {
         Type ret = Type.getReturnType(m.desc);
         boolean retRef = isRef(ret);
 
-        List<Spec.RootCause> rcs = new ArrayList<>();
+        List<Spec.RootCause> rcs = new ArrayList<>();          // unconditional at run time
+        List<Spec.RootCause> conditional = new ArrayList<>();  // decided by Tracker.rc at run time
+        int nArgs = args.length;
         for (Spec.RootCause rc : spec.rootCauses) {
             if (rc.at.equals("call") && rc.owner.matches(calleeOwner) && rc.name.matches(m.name)
                     && Spec.Glob.matches(rc.desc, m.desc) && rc.matchesEnclosing(owner, mn.name)) {
-                rcs.add(rc);
+                boolean holds = staticConditionsHold(rc, prov, m, cond ->
+                        cond.on.equals("receiver") ? (op == Opcodes.INVOKESTATIC ? -1 : nArgs)
+                                : cond.arg >= 0 && cond.arg < nArgs ? nArgs - 1 - cond.arg : -1);
+                if (!holds) {
+                    c.filtered(rc.id);
+                    continue;
+                }
+                (rc.runtimeConditions.isEmpty() ? rcs : conditional).add(rc);
             }
         }
         List<Spec.Propagation> props = new ArrayList<>();
@@ -194,7 +251,7 @@ final class OracleTransformer implements ClassFileTransformer {
         boolean symptom = !lite && (hasRecv
                 ? spec.matchReceiver || spec.matchReceiverClass || spec.matchCallerClass
                 : spec.matchCallerClass);
-        if (rcs.isEmpty() && props.isEmpty() && !symptom) return false;
+        if (rcs.isEmpty() && conditional.isEmpty() && props.isEmpty() && !symptom) return false;
 
         Sites.Site s = site(owner, mn, ordinal, line, op);
         s.calleeOwner = calleeOwner;
@@ -202,9 +259,12 @@ final class OracleTransformer implements ClassFileTransformer {
         s.calleeDesc = m.desc;
         s.symptom = symptom;
         if (!rcs.isEmpty()) s.rootCause = rcs.get(0);
+        else if (!conditional.isEmpty()) s.rootCause = conditional.get(0);
+        s.conditionalRules.addAll(conditional);
         for (Spec.RootCause rc : rcs) {
             if (rc.selfEdge) {
                 s.selfEdge = true;
+                s.selfRule = rc.index;
                 s.bridgeOnly = rc.bridgeOnly;
                 break;
             }
@@ -214,6 +274,12 @@ final class OracleTransformer implements ClassFileTransformer {
             c.rc(rc.id);
             Tracker.log("root cause site " + rc.id + " at " + s.rcKey() + " (" + calleeOwner + "." + m.name + ")");
         }
+        for (Spec.RootCause rc : conditional) {
+            c.rc(rc.id);
+            Tracker.log("root cause site " + rc.id + " at " + s.rcKey() + " (" + calleeOwner + "." + m.name
+                    + ", runtime conditions " + rc.runtimeConditions + ")");
+        }
+        boolean needOps = !conditional.isEmpty();
         if (symptom) c.symptomSites++;
         c.propagationSites += props.size();
 
@@ -233,8 +299,9 @@ final class OracleTransformer implements ClassFileTransformer {
             if (p.from < 0) recvAfter = true;
             else argSourced = true;
         }
+        if (needOps && hasRecv) recvAfter = true;
         boolean spill = args.length > 0
-                && (recvHook || !tagRecv.isEmpty() || !tagArgs.isEmpty() || recvAfter || argSourced);
+                && (recvHook || !tagRecv.isEmpty() || !tagArgs.isEmpty() || recvAfter || argSourced || needOps);
 
         int next = mn.maxLocals;
         int[] argLocal = new int[args.length];
@@ -289,6 +356,21 @@ final class OracleTransformer implements ClassFileTransformer {
             post.add(push(p.toElements ? 1 : 0));
             post.add(hook("propagate", "(Ljava/lang/Object;Ljava/lang/Object;I)V"));
         }
+        if (needOps) {
+            // Tracker.rc(result, {receiver, arg0, ...}, site) decides the runtime conditions and acts.
+            post.add(new InsnNode(retRef ? Opcodes.DUP : Opcodes.ACONST_NULL));
+            post.add(push(args.length + 1));
+            post.add(new TypeInsnNode(Opcodes.ANEWARRAY, "java/lang/Object"));
+            for (int k = -1; k < args.length; k++) {
+                post.add(new InsnNode(Opcodes.DUP));
+                post.add(push(k + 1));
+                if (k < 0) post.add(hasRecv ? new VarInsnNode(Opcodes.ALOAD, recvLocal) : new InsnNode(Opcodes.ACONST_NULL));
+                else post.add(isRef(args[k]) ? new VarInsnNode(Opcodes.ALOAD, argLocal[k]) : new InsnNode(Opcodes.ACONST_NULL));
+                post.add(new InsnNode(Opcodes.AASTORE));
+            }
+            post.add(push(id));
+            post.add(hook("rc", "(Ljava/lang/Object;[Ljava/lang/Object;I)V"));
+        }
 
         if (pre.size() == 0 && post.size() == 0) return false;
         if (pre.size() > 0) mn.instructions.insertBefore(m, pre);
@@ -298,7 +380,8 @@ final class OracleTransformer implements ClassFileTransformer {
 
     // ── Field instructions ────────────────────────────────────────────────────
 
-    private boolean field(String owner, MethodNode mn, FieldInsnNode f, int ordinal, int line, Counters c) {
+    private boolean field(String owner, MethodNode mn, FieldInsnNode f, int ordinal, int line, Counters c,
+                          Provenance prov) {
         if (!isRef(Type.getType(f.desc))) return false;
         int op = f.getOpcode();
         boolean get = op == Opcodes.GETFIELD || op == Opcodes.GETSTATIC;
@@ -309,6 +392,10 @@ final class OracleTransformer implements ClassFileTransformer {
             boolean accessOk = rc.access.equals("any") || rc.access.equals(get ? "get" : "put");
             if (accessOk && rc.owner.matches(fieldOwner) && rc.name.matches(f.name)
                     && Spec.Glob.matches(rc.desc, f.desc) && rc.matchesEnclosing(owner, mn.name)) {
+                if (!staticConditionsHold(rc, prov, f, cond -> get ? -1 : 0)) {
+                    c.filtered(rc.id);
+                    continue;
+                }
                 match = rc;
                 break;
             }
@@ -319,13 +406,21 @@ final class OracleTransformer implements ClassFileTransformer {
         s.calleeName = f.name;
         s.calleeDesc = f.desc;
         s.rootCause = match;
+        boolean runtime = !match.runtimeConditions.isEmpty();
+        if (runtime) s.conditionalRules.add(match);
         int id = Sites.add(s);
         c.rc(match.id);
         Tracker.log("root cause site " + match.id + " at " + s.rcKey() + " (field " + fieldOwner + "." + f.name + ")");
         InsnList hook = new InsnList();
         hook.add(new InsnNode(Opcodes.DUP));
-        hook.add(push(id));
-        hook.add(tagHook(match));
+        if (runtime) {
+            hook.add(new InsnNode(Opcodes.ACONST_NULL));
+            hook.add(push(id));
+            hook.add(hook("rc", "(Ljava/lang/Object;[Ljava/lang/Object;I)V"));
+        } else {
+            hook.add(push(id));
+            hook.add(tagHook(match));
+        }
         if (get) mn.instructions.insert(f, hook);
         else mn.instructions.insertBefore(f, hook);
         return true;
@@ -358,8 +453,12 @@ final class OracleTransformer implements ClassFileTransformer {
         return new MethodInsnNode(Opcodes.INVOKESTATIC, TRACKER, name, desc, false);
     }
 
-    private static MethodInsnNode tagHook(Spec.RootCause rc) {
-        return hook(rc.tagElements ? "tagElements" : "tag", "(Ljava/lang/Object;I)V");
+    /** Expects (value, site id) on the stack; adds the rule index and calls tag/tagElements. */
+    private static InsnList tagHook(Spec.RootCause rc) {
+        InsnList l = new InsnList();
+        l.add(push(rc.index));
+        l.add(hook(rc.tagElements ? "tagElements" : "tag", "(Ljava/lang/Object;II)V"));
+        return l;
     }
 
     private static AbstractInsnNode push(int v) {

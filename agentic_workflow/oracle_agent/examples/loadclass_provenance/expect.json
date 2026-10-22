@@ -1,0 +1,6 @@
+{
+  "present": [["ex.loadclass_provenance.Main.main", "ex.loadclass_provenance.Main$A.go"],
+              ["ex.loadclass_provenance.Main.main", "ex.loadclass_provenance.Main$C.go"]],
+  "absent":  [["ex.loadclass_provenance.Main.main", "ex.loadclass_provenance.Main$B.go"]],
+  "rootCauseMethods": ["ex.loadclass_provenance.Main.main", "ex.loadclass_provenance.Main.make"]
+}

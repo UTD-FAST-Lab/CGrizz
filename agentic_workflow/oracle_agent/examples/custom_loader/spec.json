@@ -1,0 +1,8 @@
+{
+  "description": "objects of classes defined by a custom class loader",
+  "rootCauses": [
+    {"id": "newInstance", "at": "call", "owner": "java.lang.Class", "name": "newInstance", "tag": "return",
+     "when": [{"on": "receiver", "is": "customLoader"}]}
+  ],
+  "symptoms": {"match": ["receiver"]}
+}

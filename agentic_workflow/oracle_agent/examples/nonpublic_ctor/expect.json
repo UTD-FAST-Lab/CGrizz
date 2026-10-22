@@ -1,0 +1,5 @@
+{
+  "present": [["ex.nonpublic_ctor.Main.main", "ex.nonpublic_ctor.Main$HiddenDb.query"]],
+  "absent":  [["ex.nonpublic_ctor.Main.main", "ex.nonpublic_ctor.Main$PublicDb.query"]],
+  "rootCauseMethods": ["ex.nonpublic_ctor.Main.main"]
+}
