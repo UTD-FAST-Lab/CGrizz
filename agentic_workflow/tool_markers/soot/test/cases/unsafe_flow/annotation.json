@@ -1,0 +1,12 @@
+{
+  "note": "What the root-cause annotator would add for this root cause (Soot S15).",
+  "edits": [
+    {
+      "file": "src/main/java/soot/jimple/toolkits/pointer/nativemethods/SunMiscUnsafeNative.java",
+      "anchor": "    {\n      defaultMethod(method, thisVar, returnVar, params);\n      return;\n",
+      "insert": "before",
+      "text": "    if (subSignature.equals(\"java.lang.Object getObject(java.lang.Object,long)\")) {\n      System.out.println(\"[UNSOUNDNESS] Unsafe.getObject result not modelled | caller=\" + method.getDeclaringClass().getName() + \".\" + method.getName() + \"() | site=getObject | line=-1 | pc=0\");\n      soot.jimple.spark.unsound.Unsound.mark(returnVar, method, \"unsafeGetObject\", \"Unsafe.getObject result not modelled\");\n    }\n"
+    }
+  ],
+  "expect": {"edge_warning_lines": [19, 21, 23], "no_warning_lines": [24]}
+}

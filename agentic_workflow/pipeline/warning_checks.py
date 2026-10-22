@@ -19,15 +19,22 @@ import re
 from pathlib import Path
 from typing import Optional
 
-WARNING_TAG = "[UNSOUNDNESS]"
+WARNING_TAG = "[UNSOUNDNESS]"          # the root-cause warning (one per root cause)
+EDGE_TAG = "[UNSOUNDNESS-EDGE]"        # per affected call, from a tool marker module (tool_markers/)
 _CALLER = re.compile(r"caller=(.*?)\s*(?:\||$)")
-_DESCRIPTION = re.compile(r"\[UNSOUNDNESS\]\s*(.*?)\s*\|\s*caller=")
+_DESCRIPTION = re.compile(r"\[UNSOUNDNESS(?:-EDGE)?\]\s*(.*?)\s*\|\s*caller=")
 _PLACEHOLDER = re.compile(r"<[^>]*>|pattern_class|TODO", re.IGNORECASE)
 _FIELD = re.compile(r"\|\s*(\w+)=([^|]*)")
 
 
 def warning_lines(trace_text: str) -> list[str]:
+    """Root-cause warnings ([UNSOUNDNESS])."""
     return [line for line in trace_text.splitlines() if WARNING_TAG in line]
+
+
+def edge_warning_lines(trace_text: str) -> list[str]:
+    """Per-call warnings ([UNSOUNDNESS-EDGE]) printed by a tool marker module."""
+    return [line for line in trace_text.splitlines() if EDGE_TAG in line]
 
 
 def warning_callers(lines: list[str]) -> list[str]:
@@ -64,9 +71,10 @@ def warning_records(lines: list[str]) -> list[dict]:
     """
     out = []
     for raw in lines:
-        if WARNING_TAG not in raw:
+        tag = EDGE_TAG if EDGE_TAG in raw else WARNING_TAG if WARNING_TAG in raw else None
+        if tag is None:
             continue
-        fields = {k: v.strip() for k, v in _FIELD.findall(raw[raw.index(WARNING_TAG):])}
+        fields = {k: v.strip() for k, v in _FIELD.findall(raw[raw.index(tag):])}
         m = _DESCRIPTION.search(raw)
         out.append({
             "description": m.group(1).strip() if m else "",
@@ -75,6 +83,8 @@ def warning_records(lines: list[str]) -> list[dict]:
             "line": _int(fields.get("line")),
             "pc": _int(fields.get("pc")),
             "has_location_fields": "line" in fields and "pc" in fields,
+            "kind": "edge" if tag == EDGE_TAG else "root_cause",
+            "rc": fields.get("rc"),
         })
     return out
 
@@ -109,6 +119,49 @@ def check_description(lines: list[str], max_chars: int) -> tuple[bool, str]:
         f"at most {max_chars} characters, so a user of the tool understands the warning without reading the "
         f"report — e.g. \"Class.forName name is not a constant\" or \"Proxy class missing from class hierarchy\". "
         f"Keep the format: [UNSOUNDNESS] <description> | caller=<method> | site=<site>."
+    )
+
+
+def check_noninterference(original_cg: Optional[str], annotated_cg: Optional[str]) -> tuple[bool, str]:
+    """The annotation may only add warnings: the call graph on the test case must not change."""
+    from pipeline.edges import cg_edges
+    before = cg_edges(original_cg) if original_cg else None
+    after = cg_edges(annotated_cg) if annotated_cg else None
+    if before is None or after is None or before == after:
+        return True, ""
+    added, removed = sorted(after - before), sorted(before - after)
+    lines = [f"[annotation / trace check] Non-interference check failed — on the reproducing test case the "
+             f"annotated tool's call graph differs from the original tool's ({len(added)} edges added, "
+             f"{len(removed)} removed). The annotation must only print warnings and mark values; it must not change "
+             "what the tool computes."]
+    lines += [f"  + {e}" for e in added[:5]] + [f"  - {e}" for e in removed[:5]]
+    return False, "\n".join(lines)
+
+
+def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path) -> tuple[bool, str]:
+    """
+    With a tool marker module: every missed edge in the test case's own code has a
+    warning at its call instruction — [UNSOUNDNESS-EDGE] where the lost value reaches
+    a call, or the root-cause warning itself when the edge is missed right there.
+    """
+    from pipeline.edge_mapping import boundary_records, load_boundaries, map_warnings
+    pkgs = test_case_packages(test_case_dir)
+    if not boundary_path or not pkgs:
+        return True, ""
+    own = [b for b in boundary_records(load_boundaries(boundary_path))
+           if any(b["caller_class"] == p or b["caller_class"].startswith(p + ".") for p in pkgs)]
+    if not own:
+        return True, ""
+    mapping = map_warnings(warning_records(warning_lines(trace_text) + edge_warning_lines(trace_text)), own)
+    missing = mapping["boundary_only"]
+    if not missing:
+        return True, ""
+    return False, (
+        f"[annotation / trace check] Coverage check failed — {len(missing)} of the {len(own)} missed edges in the "
+        "test case have no warning at their call instruction:\n- " + "\n- ".join(missing[:10]) + "\n"
+        "If the root cause loses a value that later reaches these calls, mark it at the give-up point with the "
+        "tool's marker (see the marker instructions) so the tool warns at each call ([UNSOUNDNESS-EDGE]). If the edge "
+        "is missed at the root-cause instruction itself, the root-cause warning must print that instruction's line/pc."
     )
 
 

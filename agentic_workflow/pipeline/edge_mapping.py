@@ -1,8 +1,9 @@
 """
 pipeline/edge_mapping.py
 ========================
-Maps [UNSOUNDNESS] warnings of an annotated SA tool to the boundaries (missed
-edges) of the same program (issue #14):
+Maps the warnings of an annotated SA tool — [UNSOUNDNESS] at the root cause and,
+with a tool marker module, [UNSOUNDNESS-EDGE] at every affected call — to the
+boundaries (missed edges) of the same program (issue #14):
 
   explained      a boundary at a call instruction the tool warned about
   boundary_only  missed edges without a warning — run-time-only causes the
@@ -23,7 +24,7 @@ from pathlib import Path
 from typing import Optional
 
 from pipeline.edges import descriptor_to_classname
-from pipeline.warning_checks import warning_lines, warning_records
+from pipeline.warning_checks import edge_warning_lines, warning_lines, warning_records
 
 
 def _split(method: str) -> tuple[str, str]:
@@ -113,7 +114,8 @@ def map_files(trace_paths: list[str | Path], boundaries_path: str | Path) -> dic
     lines: list[str] = []
     for p in trace_paths:
         try:
-            lines += warning_lines(Path(p).read_text(errors="replace"))
+            text = Path(p).read_text(errors="replace")
+            lines += warning_lines(text) + edge_warning_lines(text)
         except FileNotFoundError:
             pass
     return map_warnings(warning_records(lines), boundary_records(load_boundaries(boundaries_path)))

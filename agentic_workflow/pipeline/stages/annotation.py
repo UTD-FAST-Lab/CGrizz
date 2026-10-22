@@ -21,9 +21,12 @@ from pipeline.agent_runner import run_agent, parse_json_from_response
 from pipeline.edges import is_reachable, rc_in_trace
 from pipeline.edge_mapping import map_files
 from pipeline.warning_checks import (
+    check_coverage,
     check_description,
     check_location,
     check_negative,
+    check_noninterference,
+    edge_warning_lines,
     check_selectivity,
     warning_callers,
     warning_lines,
@@ -35,7 +38,11 @@ from config import (
     ANNOTATION_MAX_CALLER_FRACTION,
     ANNOTATION_NEGATIVE_CHECK,
     ANNOTATION_MAX_DESCRIPTION_CHARS,
+    ANNOTATION_NONINTERFERENCE_CHECK,
+    ANNOTATION_REQUIRE_EDGE_COVERAGE,
+    TOOL_MARKERS,
 )
+from pipeline import tool_markers
 
 log = logging.getLogger("pipeline")
 
@@ -66,7 +73,17 @@ async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
         await asyncio.to_thread(shutil.copytree, state.sa_tool_path, annotated_out)
         log.info(f"{state.label()} SA tool copy done.")        
 
+    # Unsoundness-marker module of this tool, if there is one (issue #14). Idempotent.
+    if TOOL_MARKERS and tool_markers.spec(state.tool_name):
+        try:
+            changed = tool_markers.install(state.tool_name, annotated_out)
+            state.tool_markers_installed = True
+            log.info(f"{state.label()} Tool marker module installed ({len(changed)} files).")
+        except tool_markers.ToolMarkerError as e:
+            log.warning(f"{state.label()} Tool marker module not installed: {e}")
+
     annot_feedback = _build_annotation_feedback(state)
+    markers = _marker_section(state)
 
     annot_response = await run_agent(
         prompt=f"""\
@@ -80,7 +97,7 @@ Invoke it via the Task tool.
 ## SA tool source
 
 {annotated_out}/
-{annot_feedback}
+{markers}{annot_feedback}
 
 Return the JSON result from the agent directly.
 
@@ -124,6 +141,12 @@ If the log already exists for the same reason (`skipped: true`):
             f"{state.label()} Annotated {state.annotated_file} "
             f"at line {state.injected_at_line}"
         )
+
+    # Keep the original tool's call graph of the test case (the annotated run overwrites it)
+    # for the non-interference check.
+    original = Path(state.reproducing_test_case_path) / "staticcg.original.json"
+    if not original.exists() and state.staticcg_path and Path(state.staticcg_path).exists():
+        shutil.copyfile(state.staticcg_path, original)
 
     # Run annotated tool → produces the execution trace consumed by stage_check_trace
     state.modified_analysis_path = run_annotated_sa(state)
@@ -197,10 +220,18 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
         log.error(f"{state.label()} {feedback.splitlines()[0]}")
         return False, feedback
 
-    ok, feedback = check_location(unsoundness_lines)
-    if not ok:
-        log.error(f"{state.label()} {feedback.splitlines()[0]}")
-        return False, feedback
+    edge_lines = edge_warning_lines(trace_log)
+    for check in (lambda: check_description(edge_lines, ANNOTATION_MAX_DESCRIPTION_CHARS),
+                  lambda: check_location(unsoundness_lines + edge_lines),
+                  lambda: check_noninterference(
+                      str(Path(state.reproducing_test_case_path) / "staticcg.original.json")
+                      if ANNOTATION_NONINTERFERENCE_CHECK else None, state.staticcg_path),
+                  lambda: check_coverage(trace_log, state.boundary_path, Path(state.reproducing_test_case_path))
+                  if state.tool_markers_installed and ANNOTATION_REQUIRE_EDGE_COVERAGE else (True, "")):
+        ok, feedback = check()
+        if not ok:
+            log.error(f"{state.label()} {feedback.splitlines()[0]}")
+            return False, feedback
 
     ok, feedback = check_selectivity(unsoundness_lines, state.staticcg_path, ANNOTATION_MAX_CALLER_FRACTION)
     if not ok:
@@ -213,7 +244,8 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
         run_annotated_sa(state, project="non_reproducing", test_case_path=str(non_repro))
         negative_log = non_repro / OUT_STATICCG_DIR / OUT_EXECUTION_TRACE
         try:
-            negative_lines = warning_lines(negative_log.read_text())
+            negative_text = negative_log.read_text()
+            negative_lines = warning_lines(negative_text) + edge_warning_lines(negative_text)
         except Exception as e:
             log.warning(f"{state.label()} Negative check skipped — could not read {negative_log}: {e}")
         else:
@@ -240,6 +272,17 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     return True, "Trace check passed — expected logs found in execution trace."
 
 
+def _marker_section(state: PipelineState) -> str:
+    """How to use the tool's unsoundness-marker module, when it is installed (issue #14)."""
+    usage = tool_markers.usage_file(state.tool_name) if state.tool_markers_installed else None
+    if not usage:
+        return ""
+    return (f"\n## Unsoundness markers for {state.tool_name}\n\n"
+            f"A marker module is installed in the tool. Read {usage} and, when the root cause loses a value that "
+            "later reaches calls, mark it at the give-up point so the tool warns at every affected call "
+            "([UNSOUNDNESS-EDGE]). The pipeline checks that every missed edge of the test case gets a warning.\n")
+
+
 def _build_annotation_feedback(state: PipelineState) -> str:
     """
     Build the feedback block injected into the annotation stage prompt on retries.
@@ -256,6 +299,10 @@ def _build_annotation_feedback(state: PipelineState) -> str:
         try:
             trace_text = Path(state.execution_trace_path).read_text()
             unsoundness_lines = [l for l in trace_text.splitlines() if "[UNSOUNDNESS]" in l]
+            edges = edge_warning_lines(trace_text)
+            if edges:
+                lines.append(f"\n### [UNSOUNDNESS-EDGE] lines in the previous trace ({len(edges)}, limited to 10):")
+                lines += [f"  {l}" for l in edges[:10]]
             if unsoundness_lines:
                 lines.append("\n### [UNSOUNDNESS] lines found in previous execution trace (limited to 30):")
                 lines += [f"  {l}" for l in unsoundness_lines[:min(30, len(unsoundness_lines))]]  # show up to 30 lines

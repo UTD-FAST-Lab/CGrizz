@@ -109,6 +109,25 @@ def edge_in_cg(cg_path: str, expected_caller: str, expected_callee: str) -> Opti
     return False if saw_call_sites or methods else None
 
 
+def cg_edges(cg_path: str) -> Optional[set[str]]:
+    """All edges of a JCG call graph as 'caller @line/pc -> target' strings; None if unreadable."""
+    try:
+        methods = json.loads(Path(cg_path).read_text()).get("reachableMethods", [])
+    except Exception:
+        return None
+
+    def name(m: dict) -> str:
+        return (f"{descriptor_to_classname(m.get('declaringClass', ''))}.{m.get('name', '')}"
+                f"({','.join(m.get('parameterTypes', []))})")
+    edges = set()
+    for rm in methods:
+        caller = name(rm.get("method", {}))
+        for site in rm.get("callSites", []) or []:
+            for t in site.get("targets", []) or []:
+                edges.add(f"{caller} @{site.get('line')}/{site.get('pc')} -> {name(t)}")
+    return edges
+
+
 def boundary_edges(boundary_path: str, limit: int = 10) -> list[str]:
     """'Caller.m → Callee.n' for the first missed edges in a boundaries.json."""
     try:
