@@ -1,0 +1,5 @@
+{
+  "present": [["ex.unsafe.Main.main", "ex.unsafe.Main$UnsafeTarget.targetMethod"]],
+  "absent":  [["ex.unsafe.Main.main", "ex.unsafe.Main$SafeTarget.targetMethod"]],
+  "rootCauseMethods": ["ex.unsafe.Main.main"]
+}

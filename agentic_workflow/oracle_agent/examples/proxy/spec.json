@@ -1,0 +1,6 @@
+{
+  "pattern_class": "dynamic_proxy",
+  "rootCauses": [
+    {"id": "newProxy", "at": "call", "owner": "java.lang.reflect.Proxy", "name": "newProxyInstance", "tag": "return"}
+  ]
+}

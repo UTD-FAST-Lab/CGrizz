@@ -27,7 +27,8 @@ The pipeline is organized into stages (`pipeline/stages/`) wired together by `pi
 - **`pipeline/agents.py`** — factory for `ClaudeAgentOptions`; loads agents from `.claude/agents/`
 - **`pipeline/agent_runner.py`** — `run_agent()` executor; handles agent invocation and JSON parsing
 - **`pipeline/edges.py`** — matching of edges / method names across boundary, CG and trace formats
-- **`pipeline/oracle.py`** — locating and running the oracle agent; reading symptoms
+- **`pipeline/oracle.py`** — building/running the oracle agent, spec lint, verdict classification, symptoms
+- **`oracle_agent/`** — the prebuilt Java oracle agent; the instrumentation agent only writes `oracle_spec.json` (see `oracle_agent/SPEC.md`)
 - **`pipeline/dedup.py`** — oracle deduplication and pruning reports
 - **`pipeline/boundaries.py`** — building states from boundaries.json, resume filter
 - **`pipeline/outcome.py`** — `pipeline_result.json` and run summaries

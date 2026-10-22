@@ -59,6 +59,7 @@ from pipeline.runner import run_pipeline
 from pipeline.outcome import write_final_report
 from pipeline.boundaries import make_state, load_boundaries, filter_resume
 from pipeline.dedup import is_successful, run_dedup, run_prededup, run_report_prededup
+from pipeline.oracle import ensure_agent_built
 from pipeline.sampler import (
     filter_jvm_runtime_boundaries,
     filter_jdk_caller_boundaries,
@@ -329,7 +330,7 @@ def parse_args() -> argparse.Namespace:
         default=None,
         nargs="+",
         metavar="PATH",
-        help="One or more previous results directories. All instrumentation JARs found "
+        help="One or more previous results directories. All oracle specs found "
              "in each will be run against the new queue to pre-prune equivalent boundaries.",
     )
     pe.add_argument(
@@ -352,7 +353,7 @@ def parse_args() -> argparse.Namespace:
         default=None,
         nargs="+",
         metavar="PATH",
-        help="One or more previous results directories. All instrumentation JARs found "
+        help="One or more previous results directories. All oracle specs found "
              "in each will be run against the new queue to pre-prune equivalent boundaries.",
     )
     pa.add_argument(
@@ -383,6 +384,13 @@ def setup_logging() -> None:
 def main() -> None:
     setup_logging()
     args = parse_args()
+
+    # Build the shared oracle agent once, before any boundary needs it.
+    try:
+        ensure_agent_built()
+    except Exception as e:
+        log.error(f"Could not build the oracle agent in oracle_agent/ (needs Maven and a JDK): {e}")
+        sys.exit(1)
 
     if args.mode == "single":
         run_single(args)

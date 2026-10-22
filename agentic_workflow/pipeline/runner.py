@@ -4,6 +4,12 @@ pipeline/runner.py
 run_pipeline(): wires the stages together for one boundary, with the outer
 retry loop (stages 3–6), the oracle refinement sub-loop and the inner
 annotation loop (stages 7–8), and writes the final report.
+
+Oracle outcomes are routed by category (pipeline.oracle.classify):
+  found          → continue to the reproduction check
+  pattern / spec → refine the spec (ORACLE_REFINE_ATTEMPTS); if the pattern still
+                   does not explain the edge, send the report back (outer loop)
+  infrastructure / unsupported → fail with failure_kind, without touching the report
 """
 
 import logging
@@ -21,7 +27,8 @@ from pipeline.stages import (
     stage_refine_report,
 )
 from pipeline.stages.oracle import build_oracle_feedback_section
-from config import MAX_LOOPS, ANNOTATION_MAX_RETRIES
+from pipeline.oracle import PATTERN, SPEC, INFRA, UNSUPPORTED
+from config import MAX_LOOPS, ANNOTATION_MAX_RETRIES, ORACLE_REFINE_ATTEMPTS
 
 log = logging.getLogger("pipeline")
 
@@ -63,8 +70,6 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
     # Stages 3–8: main retry loop (each PipelineState holds exactly one boundary entry)
     while state.loop_count <= MAX_LOOPS:
-        state.report_oracle_failure = False
-        state.oracle_refine_count = 0
         label = f"Loop {state.loop_count}" if state.loop_count > 0 else "Initial run"
         log.info(f"{state.label()} {'─' * 40} {label}")
 
@@ -78,43 +83,46 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
             write_final_report(state, success=False, reason="Test case generation failed.")
             return
 
-        # Stage 5: Generate oracle
+        # Stage 5: Oracle spec, validated on the test case
         if not await stage_generate_oracle(state):
-            write_final_report(state, success=False, reason="Oracle generation failed.")
+            write_final_report(state, success=False, failure_kind=state.oracle_failure_kind,
+                               reason=f"Oracle generation failed: {state.oracle_failure}")
             return
 
-        # Stage 5b: Check oracle on real program
-        oracle_prog_ok, oracle_prog_feedback = await stage_check_oracle_on_program(state)
-        if not oracle_prog_ok:
-            # Oracle refinement sub-loop: try refining instrumentation up to 2 times
-            # before escalating to the report generator.
-            for _ in range(2):
-                instr_fb = build_oracle_feedback_section(state, oracle_prog_feedback)
-                state.oracle_feedback.append(instr_fb)
-                state.oracle_refine_count += 1
-                log.info(f"{state.label()} Oracle refinement attempt {state.oracle_refine_count}/2")
-                if not await stage_generate_oracle(state, refine=True):
-                    break  # oracle generation itself failed; escalate
-                oracle_prog_ok, oracle_prog_feedback = await stage_check_oracle_on_program(state)
-                if oracle_prog_ok:
-                    break  # refinement succeeded; fall through to Stage 6
+        # Stage 5b: Check the oracle on the real program
+        verdict = await stage_check_oracle_on_program(state)
+        refinements = 0
+        while verdict.category in (PATTERN, SPEC) and refinements < ORACLE_REFINE_ATTEMPTS:
+            refinements += 1
+            log.info(f"{state.label()} Oracle refinement attempt {refinements}/{ORACLE_REFINE_ATTEMPTS}")
+            if not await stage_generate_oracle(state, feedback=build_oracle_feedback_section(state, verdict)):
+                write_final_report(state, success=False, failure_kind=state.oracle_failure_kind,
+                                   reason=f"Oracle refinement failed: {state.oracle_failure}")
+                return
+            verdict = await stage_check_oracle_on_program(state)
 
-            if not oracle_prog_ok:
-                # All refinement attempts exhausted — escalate to report generator with vague feedback.
-                state.reproduce_feedback.append(
-                    "The root cause hypothesis is not correct. "
-                    "Please refine your root cause analysis and reconsider what static analysis "
-                    "behaviour leads to this boundary being missed."
-                )
-                state.oracle_feedback.clear()
-                state.oracle_refine_count = 0
-                state.report_oracle_failure = True
-                state.report_refine_reason = "oracle_failure"
-                log.info(f"{state.label()} Oracle refinement exhausted. Escalating to report generator.")
-                if state.loop_count >= MAX_LOOPS:
-                    break
-                state.loop_count += 1
-                continue  # → back to Stage 3 with vague feedback
+        if verdict.category in (INFRA, UNSUPPORTED, SPEC):
+            # The oracle could not be run or expressed: this says nothing about the
+            # hypothesis, so the report is not sent back for refinement.
+            kind = "oracle_unsupported" if verdict.category == UNSUPPORTED else "instrumentation_failure"
+            write_final_report(state, success=False, failure_kind=kind,
+                               reason=f"Oracle check on the real program failed ({verdict.kind}): {verdict.message}")
+            print_failure_summary(state)
+            return
+
+        if verdict.category == PATTERN:
+            # The oracle ran but the pattern does not explain this boundary → revise the hypothesis.
+            state.reproduce_feedback.append(
+                "The root cause hypothesis is not correct. "
+                "Please refine your root cause analysis and reconsider what static analysis "
+                "behaviour leads to this boundary being missed."
+            )
+            state.report_refine_reason = "oracle_failure"
+            log.info(f"{state.label()} Oracle refinement exhausted ({verdict.kind}). Escalating to report generator.")
+            if state.loop_count >= MAX_LOOPS:
+                break
+            state.loop_count += 1
+            continue  # → back to Stage 3
 
         # Stage 6: Check reproduction
         reproduced, repr_feedback = await stage_check_reproduction(state)

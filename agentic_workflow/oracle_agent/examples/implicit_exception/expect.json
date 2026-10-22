@@ -1,0 +1,6 @@
+{
+  "present": [["ex.implicit_exception.Main.main", "java.lang.ClassCastException.<init>"],
+              ["ex.implicit_exception.Main.worker", "java.lang.NullPointerException.<init>"]],
+  "absent":  [["ex.implicit_exception.Main.main", "java.lang.IllegalStateException.<init>"]],
+  "rootCauseMethods": ["ex.implicit_exception.Main.main", "ex.implicit_exception.Main.worker"]
+}

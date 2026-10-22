@@ -32,6 +32,7 @@ class PipelineState:
     unsoundness_report:             Optional[str] = None
     reproducing_test_case_path:     Optional[str] = None
     non_reproducing_test_case_path: Optional[str] = None
+    oracle_spec_path:               Optional[str] = None   # oracle_spec.json (instrumentation/ inside the reproducing test case)
     oracle_path:                    Optional[str] = None   # oracle.json inside reproducing test case dir
     target_oracle_path:             Optional[str] = None   # oracle.json produced by running instrumentation against real program
     oracle_run_output:              Optional[str] = None   # combined stdout+stderr from last oracle run on real program
@@ -47,15 +48,17 @@ class PipelineState:
     # ── Feedback accumulated across retries ────────────────────────────────────
     reproduce_feedback:   list[str] = field(default_factory=list)
     trace_feedback:       list[str] = field(default_factory=list)
-    oracle_feedback:      list[str] = field(default_factory=list)  # feedback for instrumentation agent during oracle refinement
+    oracle_verdicts:      list[dict] = field(default_factory=list) # one classified result per oracle run on the real program
+
+    # ── Oracle failure (set by stage_generate_oracle) ──────────────────────────
+    oracle_failure:       Optional[str] = None   # why the spec could not be validated on the test case
+    oracle_failure_kind:  Optional[str] = None   # instrumentation_failure | oracle_unsupported
 
     # ── Loop counters ──────────────────────────────────────────────────────────
     loop_count:          int = 0     # outer loop: increments only on reproduce/oracle failures
     annot_attempt:       int = 0     # inner loop: increments on annotation/trace failures
-    oracle_refine_count: int = 0     # oracle-only refinement attempts within current outer iteration
 
     # ── Retry mode flags ──────────────────────────────────────────────────────
-    report_oracle_failure: bool = False  # True when outer retry was triggered by oracle check failure
     report_refine_reason:  Optional[str] = None  # tag for why the outer loop went back to the report stage
 
     # ── Report history: previous reports archived on each outer retry ─────────
@@ -135,6 +138,3 @@ class PipelineState:
 
     def has_trace_feedback(self) -> bool:
         return len(self.trace_feedback) > 0
-
-    def has_oracle_feedback(self) -> bool:
-        return len(self.oracle_feedback) > 0

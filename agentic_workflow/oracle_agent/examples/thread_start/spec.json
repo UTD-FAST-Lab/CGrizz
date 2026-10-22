@@ -1,0 +1,7 @@
+{
+  "pattern_class": "thread_start_direct_edge",
+  "rootCauses": [
+    {"id": "start", "at": "call", "owner": "*", "name": "start", "desc": "()V", "selfEdge": true}
+  ],
+  "symptoms": {"match": []}
+}

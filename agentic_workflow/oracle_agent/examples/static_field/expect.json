@@ -1,0 +1,5 @@
+{
+  "present": [["ex.static_field.Main.main", "java.io.PrintStream.println"]],
+  "absent":  [["ex.static_field.Main.main", "java.io.PrintStream.flush"]],
+  "rootCauseMethods": ["ex.static_field.Main.main"]
+}

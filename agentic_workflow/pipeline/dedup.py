@@ -12,10 +12,13 @@ from datetime import datetime
 from pathlib import Path
 
 from pipeline.state import PipelineState
-from pipeline.oracle import find_agent_jar, find_agent_jar_from_dir, run_oracle_on_program, extract_symptoms
+from pipeline.oracle import find_spec_from_dir, run_oracle_on_jar, extract_symptoms
 from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT, OUT_TARGET_ORACLE
 
 log = logging.getLogger("pipeline")
+
+# A timed-out run still writes the symptoms seen so far (SIGTERM → shutdown hook).
+USABLE_RUNS = ("ok", "timeout")
 
 
 def prune_queue(
@@ -136,9 +139,10 @@ async def run_dedup(
     that still has remaining boundaries in the queue and prune matching entries.
     Fail-open: failures in any step are logged and skipped.
     """
-    agent_jar = find_agent_jar(successful_state)
-    if not agent_jar:
-        log.warning(f"{successful_state.label()} Agent JAR not found — skipping dedup")
+    spec = (Path(successful_state.oracle_spec_path) if successful_state.oracle_spec_path
+            else find_spec_from_dir(successful_state.output_dir))
+    if not spec or not spec.exists():
+        log.warning(f"{successful_state.label()} Oracle spec not found — skipping dedup")
         return
 
     all_pruned:  list[PipelineState] = []
@@ -208,14 +212,15 @@ async def run_dedup(
         )
         oracle_out.parent.mkdir(parents=True, exist_ok=True)
 
-        ok = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
+        run = await run_oracle_on_jar(spec, jar_path, main_class, oracle_out)
         oracle_runs.append({
             "program_name": analysis["program_name"],
             "oracle_path":  str(oracle_out),
-            "status":       "ok" if ok else "failed",
+            "status":       run.status,
+            "run":          run.summary(),
         })
 
-        if ok:
+        if run.status in USABLE_RUNS:
             symptoms = extract_symptoms(oracle_out)
             if symptoms:
                 kept, pruned = prune_queue(remaining, symptoms)
@@ -251,11 +256,11 @@ async def run_prededup(
     program_queues:    dict[str, tuple[dict, list[PipelineState]]],
 ) -> None:
     """
-    Before the main sequential loop, run every instrumentation JAR found in
+    Before the main sequential loop, run every oracle spec found in
     each of prev_results_dirs against each program in program_queues and prune
     matching boundaries.  Oracle outputs go to <prev_boundary_dir>/oracles_prededup/.
     Pruning results are appended to the previous boundary's pruning_report.json.
-    Fail-open: any missing JAR, config, or oracle failure is logged and skipped.
+    Fail-open: any missing spec, config, or oracle failure is logged and skipped.
     """
     total_before = sum(len(q) for _, q in program_queues.values())
 
@@ -269,8 +274,8 @@ async def run_prededup(
         if not prev_boundary_dir.is_dir():
             continue
 
-        agent_jar = find_agent_jar_from_dir(prev_boundary_dir)
-        if not agent_jar:
+        spec = find_spec_from_dir(prev_boundary_dir)
+        if not spec:
             continue
 
         # Read identity from pipeline_result.json; fall back to path structure.
@@ -339,15 +344,16 @@ async def run_prededup(
             )
             oracle_out.parent.mkdir(parents=True, exist_ok=True)
 
-            ok, _, _, _ = await run_oracle_on_program(agent_jar, jar_path, main_class, oracle_out)
+            run = await run_oracle_on_jar(spec, jar_path, main_class, oracle_out)
             oracle_runs.append({
                 "program_name": analysis["program_name"],
                 "oracle_path":  str(oracle_out),
-                "status":       "ok" if ok else "failed",
+                "status":       run.status,
                 "phase":        "prededup",
+                "run":          run.summary(),
             })
 
-            if ok:
+            if run.status in USABLE_RUNS:
                 symptoms = extract_symptoms(oracle_out)
                 if symptoms:
                     kept, pruned = prune_queue(remaining, symptoms)

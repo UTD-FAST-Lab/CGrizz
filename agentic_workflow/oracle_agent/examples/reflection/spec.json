@@ -1,0 +1,7 @@
+{
+  "pattern_class": "reflection_indirect_instantiation",
+  "rootCauses": [
+    {"id": "forName", "at": "call", "owner": "java.lang.Class", "name": "forName", "tag": "return"}
+  ],
+  "symptoms": {"match": ["receiverClass"]}
+}

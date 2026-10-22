@@ -22,17 +22,32 @@ with retry loops in `pipeline/runner.py` (stage functions live in `pipeline/stag
 |-------|--------------|-------|
 | 3. Generate report | Reason about why the edge was missed → `unsoundness_report.json` | `fn-edge-analyzer` |
 | 4. Generate test case | Two minimal Maven projects: one reproducing the unsoundness, one without the root cause | `test-case-generator` |
-| 5. Generate oracle | Write an ASM Java-agent that observes the root-cause pattern at runtime → `oracle.json` | `instrumentation` |
-| 5b. Check oracle on real program | Run the instrumentation JAR against the actual program; confirm the boundary edge shows up as a symptom | — |
+| 5. Generate oracle | Write a declarative `oracle_spec.json` for the root-cause pattern; the pipeline runs it on the test case with the prebuilt oracle agent (`oracle_agent/`) → `oracle.json` | `instrumentation` |
+| 5b. Check oracle on real program | Run the same spec on the actual program and classify the result: edge found, pattern does not explain the edge, invalid spec, or the run failed | — |
 | 6. Reproduction check | Run the SA tool on the test case (via `jcg/analysis_interface.py`) and confirm the edge is genuinely missed | — |
 | 7. Root-cause annotation | Inject one targeted `[UNSOUNDNESS]` log into the SA tool's source at the failure point, then re-run it | `root-cause-annotator` |
 | 8. Trace check | Verify the annotated tool's execution trace fired the `[UNSOUNDNESS]` log for the expected method | — |
 | 9. Refine report | Update the report with the confirmed code location | `fn-edge-analyzer` |
 
 If a check fails, feedback is accumulated into `PipelineState` and the relevant stages
-are retried (loop counts in `config.py`: `MAX_LOOPS`, `ANNOTATION_MAX_RETRIES`).
+are retried (loop counts in `config.py`: `MAX_LOOPS`, `ANNOTATION_MAX_RETRIES`,
+`ORACLE_REFINE_ATTEMPTS`). An oracle that cannot be run or expressed (timeout, JVM failure,
+invalid or unsupported spec) fails the boundary with `failure_kind` set in
+`pipeline_result.json` instead of sending the report back: it says nothing about the
+hypothesis.
 
-**Oracle deduplication.** After a boundary succeeds, its instrumentation JAR is run
+**Oracle agent.** `oracle_agent/` is a prebuilt, tested Java agent (ASM, Java 8). It tags
+the values that a root cause produces (by object identity) and records a symptom whenever
+a tagged value — or an instance of a tagged class — reaches a call site; it also covers
+implicit JVM exceptions, bridge methods and direct API edges. A root cause can carry
+conditions that mirror the tool's give-up guard, decided at load time (e.g. `forName` only with a
+non-constant name) or at run time (e.g. a class defined by a custom loader), and the spec must
+produce no symptoms on the non-reproducing (near-miss) test case. The LLM only writes the spec;
+see [`oracle_agent/SPEC.md`](agentic_workflow/oracle_agent/SPEC.md). `oracle_agent/test.sh`
+runs the example programs in `oracle_agent/examples/` (one per root-cause family) under
+`-Xverify:all`.
+
+**Oracle deduplication.** After a boundary succeeds, its oracle spec is run
 against every remaining boundary; any boundary whose missed edge also appears as a
 symptom is *pruned* (it shares the same root cause). Each successful boundary therefore
 defines an **equivalence group**, recorded in `pruning_report.json`. This is what makes
@@ -55,13 +70,14 @@ pipeline/
   agents.py                Builds ClaudeAgentOptions (auto-loads .claude/agents/*)
   agent_runner.py          run_agent() and JSON parsing of agent responses
   edges.py                 Edge / method-name matching across boundary, CG and trace formats
-  oracle.py                Locating and running the oracle agent; reading symptoms
+  oracle.py                Building/running the oracle agent, spec lint, verdicts, symptoms
   dedup.py                 Oracle deduplication (post-success and pre-run) and pruning reports
   boundaries.py            PipelineState construction, boundaries.json loading, resume filter
   outcome.py               pipeline_result.json and run summaries
   analysis.py              Invokes the SA tool / annotated tool via jcg/*
   sampler.py               Pre-filters JVM-runtime and JDK-caller boundaries
   logs.py                  Logging configuration
+oracle_agent/              Prebuilt oracle Java agent (spec reference: SPEC.md, examples/, test.sh)
 .claude/agents/            The four subagent definitions (Markdown + frontmatter)
 jcg/                       analysis_interface.py / annotation_interface.py — run WALA/Soot/OPAL
 scripts/                   helpers/ and paper/ — results aggregation (RQ1, RQ2, runtime)
@@ -81,7 +97,7 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 ├── unsoundness_report.json   reasoning: edgeId, caller, target, pattern_class,
 │                             evidence, toolLimitation, potentialTestCase
 ├── test_case/
-│   ├── reproducing/          minimal Maven project (+ oracle.json, instrumentation/)
+│   ├── reproducing/          minimal Maven project (+ oracle.json, instrumentation/oracle_spec.json)
 │   └── non_reproducing/      same minus the root cause
 ├── annotated_sa_tool/        SA tool source with the injected [UNSOUNDNESS] log
 ├── oracle_target.json        oracle run against the real program
@@ -109,6 +125,8 @@ and charts:
 ```bash
 pip install -r requirements.txt   # claude-agent-sdk
 ```
+
+Java 8+ and Maven must be on `PATH`: the orchestrator builds `oracle_agent/` on startup.
 
 You also need a working Java/Maven toolchain (agents build and run test cases), and the
 SA tools under `tools/` buildable by `jcg/analysis_interface.py`. Agents are
@@ -167,7 +185,7 @@ python pipeline_orchestrator.py parallel-all \
 
 **Resuming & cross-run dedup** (modes 2/3): if `--output-dir` already has results, the
 run skips already-analyzed and already-pruned boundaries automatically. Pass
-`--prev-results <dir>...` to pre-prune the new queue using a prior run's instrumentation
+`--prev-results <dir>...` to pre-prune the new queue using a prior run's oracle specs
 (or add `--report-prededup` to prune from existing `pruning_report.json` files without
 re-running anything).
 

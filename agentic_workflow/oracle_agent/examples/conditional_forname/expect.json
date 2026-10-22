@@ -1,0 +1,8 @@
+{
+  "present": [["ex.conditional_forname.Main.main", "ex.conditional_forname.Main$Dyn.run"],
+              ["ex.conditional_forname.Main.main", "ex.conditional_forname.Main$Phi.run"]],
+  "absent":  [["ex.conditional_forname.Main.main", "ex.conditional_forname.Main$Fixed.run"],
+              ["ex.conditional_forname.Main.main", "ex.conditional_forname.Main$Local.run"]],
+  "rootCauseMethods": ["ex.conditional_forname.Main.main"],
+  "stats": {"rootCauseSitesExcludedByConditions": {"forName": 2}, "rootCauseSites": {"forName": 2}}
+}

@@ -8,3 +8,4 @@ ignored_stuff
 __pycache__/
 *.pyc
 venv/
+agentic_workflow/oracle_agent/target/
