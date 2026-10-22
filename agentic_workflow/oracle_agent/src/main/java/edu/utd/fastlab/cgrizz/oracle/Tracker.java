@@ -355,7 +355,6 @@ public final class Tracker {
     private static Map<String, Object> stats(String reason, Map<String, Object> oracle) {
         Map<String, Object> st = new LinkedHashMap<>();
         st.put("written", reason);
-        st.put("pattern_class", spec.patternClass);
         st.put("specErrors", spec.errors);
         st.put("unsupported", spec.unsupported);
         st.put("classesInstrumented", CLASSES_INSTRUMENTED.get());

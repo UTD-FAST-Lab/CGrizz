@@ -76,7 +76,6 @@ final class Spec {
         boolean toElements;        // return[]
     }
 
-    String patternClass = "";
     String description = "";
     String unsupported;
     final List<RootCause> rootCauses = new ArrayList<>();
@@ -159,7 +158,7 @@ final class Spec {
     }
 
     private static final Set<String> TOP_KEYS = new HashSet<>(Arrays.asList(
-            "pattern_class", "description", "unsupported", "rootCauses", "propagate", "symptoms", "exclude"));
+            "description", "unsupported", "rootCauses", "propagate", "symptoms", "exclude"));
     private static final Set<String> RC_KEYS = new HashSet<>(Arrays.asList(
             "id", "at", "owner", "name", "desc", "in", "tag", "selfEdge", "when", "access", "opcodes", "exceptions", "note"));
     private static final Set<String> PROP_KEYS = new HashSet<>(Arrays.asList(
@@ -173,7 +172,6 @@ final class Spec {
         }
         Map<String, Object> m = (Map<String, Object>) json;
         unknownKeys(m, TOP_KEYS, "spec");
-        patternClass = str(m, "pattern_class", "");
         description = str(m, "description", "");
         unsupported = str(m, "unsupported", null);
         if (unsupported != null) return;

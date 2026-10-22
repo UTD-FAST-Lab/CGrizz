@@ -74,6 +74,7 @@ pipeline/
   analysis.py              Invokes the SA tool / annotated tool via jcg/*
   sampler.py               Pre-filters JVM-runtime and JDK-caller boundaries
   logs.py                  Logging configuration
+  report_schema.py         Unsoundness report format and its validation
 oracle_agent/              Prebuilt oracle Java agent (spec reference: SPEC.md, examples/, test.sh)
 .claude/agents/            The four subagent definitions (Markdown + frontmatter)
 jcg/                       analysis_interface.py / annotation_interface.py — run WALA/Soot/OPAL
@@ -91,8 +92,8 @@ Output is written under `--output-dir`, one directory per boundary:
 
 ```
 results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
-├── unsoundness_report.json   reasoning: edgeId, caller, target, pattern_class,
-│                             evidence, toolLimitation, potentialTestCase
+├── unsoundness_report.json   reasoning: edgeId, caller, target, evidence (program),
+│                             toolLimitation (tool code), potentialTestCase
 ├── test_case/
 │   ├── reproducing/          minimal Maven project (+ oracle.json, instrumentation/oracle_spec.json)
 │   └── non_reproducing/      same minus the root cause
@@ -178,6 +179,17 @@ python pipeline_orchestrator.py parallel-edges \
 python pipeline_orchestrator.py parallel-all \
     --config ./pipeline_config.json \
     --output-dir ../results
+```
+
+**Reproducibility.** Stage 3 validates each report's format (`pipeline/report_schema.py`):
+the required fields, `path:line` evidence, and tool locations that exist in the SA tool
+source. The analyzer gets one chance to fix format problems. There is no fixed list of root
+causes, so new ones are reported like known ones. Runs are compared on code locations rather
+than labels: the tool files in `toolCodeEvidence`, the program files in `evidence`, the
+annotated tool file and line, and the grouping. To measure how much repeated runs agree:
+
+```bash
+python scripts/helpers/reproducibility.py results_run1 results_run2 results_run3
 ```
 
 **Performance.** The JCG images are built once per pipeline run, and the static and dynamic

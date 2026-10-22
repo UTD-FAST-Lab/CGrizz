@@ -29,10 +29,11 @@ Start from `toolLimitation.toolCodeEvidence` (`relevantFiles`, `codeSnippet`) in
 ## The log
 
 ```java
-System.out.println("[UNSOUNDNESS] " + "<pattern_class>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>);
+System.out.println("[UNSOUNDNESS] " + "<limitation>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>);
 ```
 
-- `<pattern_class>` — the report's `pattern_class` string.
+- `<limitation>` — a short (≤ 10 words) description of the tool limitation, from the report's
+  `toolLimitation.reason` (e.g. `"Class.forName with non-constant name not resolved"`).
 - `<caller_expr>` — the method **being analysed** (the caller of the missed edge),
   formatted as `package.ClassName.methodName(params)`, e.g.
   `java.nio.charset.CharsetEncoder.replaceWith([B)`. The checker takes the class as

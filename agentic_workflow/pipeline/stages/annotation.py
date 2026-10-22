@@ -254,7 +254,7 @@ def _build_annotation_feedback(state: PipelineState) -> str:
 
     lines += [
         "\n### Required log format (the trace checker parses this):",
-        f"  [UNSOUNDNESS] <pattern_class> | caller=<caller_method_fullname> | site=<site>",
+        "  [UNSOUNDNESS] <one-line tool limitation> | caller=<caller_method_fullname> | site=<site>",
         "\nRevise the injection point so the log fires with the correct caller format.",
     ]
 

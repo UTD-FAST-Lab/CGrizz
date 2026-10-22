@@ -14,7 +14,7 @@ You MUST only create, modify, or write files inside the two output directories g
 ## Input
 
 You will receive:
-- **Unsoundness report JSON** — includes `edgeId`, `caller`, `target`, `pattern_class`, `toolLimitation.reason`, and `potentialTestCase` section
+- **Unsoundness report JSON** — includes `edgeId`, `caller`, `target`, `evidence`, `toolLimitation.reason`, and `potentialTestCase` section
 - **Target program path** — directory containing the original program
 - **Output directories** — where to write test cases or reproducing and non_reproducing
 

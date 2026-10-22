@@ -29,6 +29,10 @@ ORACLE_RUN_TIMEOUT      = 1800  # seconds per oracle run on a real program (SIGT
 ORACLE_REFINE_ATTEMPTS  = 2     # spec refinements after a failed check on the real program
 ORACLE_GENERATE_ATTEMPTS = 2    # attempts to get a valid spec + non-empty oracle on the test case
 
+# ── Reports (pipeline/report_schema.py) ───────────────────────────────────────
+
+REPORT_SCHEMA_RETRIES = 1    # times the analyzer may fix a report that does not match the schema
+
 # ── JCG containers (jcg/) ──────────────────────────────────────────────────────
 
 # Opt-in until validated on your setup (jcg/validate_fast_path.py): run JCG mains
@@ -39,9 +43,13 @@ JCG_FAST_PATH = False
 
 # ── Models ────────────────────────────────────────────────────────────────────
 
-MODEL_DEFAULT  = "claude-sonnet-4-5"          # orchestrator + most stages
+MODEL_DEFAULT  = "claude-sonnet-4-5"          # not used by the pipeline sessions (see MODEL_PIPELINE)
 MODEL_FAST     = "claude-haiku-4-5-20251001"  # boundary selector (simple filtering)
-MODEL_POWERFUL = "claude-opus-4-8"            # root cause annotator (deep reasoning)
+MODEL_POWERFUL = "claude-opus-4-8"            # deep reasoning
+
+# The model every pipeline session (and its subagents, which set no model of
+# their own) runs on — pipeline/agents.py. One pinned model keeps runs comparable.
+MODEL_PIPELINE = MODEL_POWERFUL
 
 # ── Output filenames ───────────────────────────────────────────────────────────
 
