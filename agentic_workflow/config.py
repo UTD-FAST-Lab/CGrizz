@@ -29,6 +29,14 @@ ORACLE_RUN_TIMEOUT      = 1800  # seconds per oracle run on a real program (SIGT
 ORACLE_REFINE_ATTEMPTS  = 2     # spec refinements after a failed check on the real program
 ORACLE_GENERATE_ATTEMPTS = 2    # attempts to get a valid spec + non-empty oracle on the test case
 
+# ── JCG containers (jcg/) ──────────────────────────────────────────────────────
+
+# Opt-in until validated on your setup (jcg/validate_fast_path.py): run JCG mains
+# with java on the classpath exported at image build time instead of sbt, and for
+# WALA/Soot compile only the annotated files on top of the prebuilt tool instead
+# of rebuilding the tool and JCG for every trace check. OPAL always rebuilds.
+JCG_FAST_PATH = False
+
 # ── Models ────────────────────────────────────────────────────────────────────
 
 MODEL_DEFAULT  = "claude-sonnet-4-5"          # orchestrator + most stages

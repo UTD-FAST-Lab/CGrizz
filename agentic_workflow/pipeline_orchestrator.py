@@ -60,6 +60,7 @@ from pipeline.outcome import write_final_report
 from pipeline.boundaries import make_state, load_boundaries, filter_resume
 from pipeline.dedup import is_successful, run_dedup, run_prededup, run_report_prededup
 from pipeline.oracle import ensure_agent_built
+from pipeline.analysis import ensure_images
 from pipeline.sampler import (
     filter_jvm_runtime_boundaries,
     filter_jdk_caller_boundaries,
@@ -385,11 +386,16 @@ def main() -> None:
     setup_logging()
     args = parse_args()
 
-    # Build the shared oracle agent once, before any boundary needs it.
+    # Build the shared oracle agent and the JCG images once, before any boundary needs them.
     try:
         ensure_agent_built()
     except Exception as e:
         log.error(f"Could not build the oracle agent in oracle_agent/ (needs Maven and a JDK): {e}")
+        sys.exit(1)
+    try:
+        ensure_images()
+    except Exception as e:
+        log.error(f"Could not build the JCG Docker images in jcg/: {e}")
         sys.exit(1)
 
     if args.mode == "single":

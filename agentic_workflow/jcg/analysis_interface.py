@@ -7,6 +7,7 @@ import shutil
 from pathlib import Path
 from typing import Optional, List, Dict
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 config = {
@@ -20,11 +21,17 @@ config = {
     "JCG_IMAGE": "jcg_image_test_case",
 }
 
+# --fast-path: containers run the JCG main class with plain `java` on the
+# classpath exported at image build time, instead of starting sbt (entrypoint.sh).
+FAST_PATH = False
+
+
+def container_env() -> Optional[Dict[str, str]]:
+    return {"JCG_FAST_PATH": "1"} if FAST_PATH else None
+
 
 def static_callgraph(framework: str, algo: str, project: str, reproducing_test_case_path: str, boundary_id: str):
         """Generate static call graph"""
-        build_jcg_image()
-        
         staticcg_path = Path(reproducing_test_case_path) / "staticcg"
         os.makedirs(staticcg_path, exist_ok=True)
         (staticcg_path / "log.txt").touch()
@@ -49,14 +56,13 @@ def static_callgraph(framework: str, algo: str, project: str, reproducing_test_c
         ]
         
         docker_remove(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}')
-        docker_run(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd)
+        docker_run(f'{config["STATICCG_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd,
+                   env=container_env())
 
 
 
 def dynamic_callgraph(project: str, reproducing_test_case_path: str, boundary_id: str):
         """Generate dynamic call graph for a specific experiment directory"""
-        build_jcg_image()
-        
         dyncg_path = Path(reproducing_test_case_path) / "dyncg"
         os.makedirs(dyncg_path, exist_ok=True)
         
@@ -79,14 +85,12 @@ def dynamic_callgraph(project: str, reproducing_test_case_path: str, boundary_id
         ]
         
         docker_remove(f'{config["DYNAMICCG_CONTAINER"]}_{boundary_id}')
-        docker_run(f'{config["DYNAMICCG_CONTAINER"]}_{boundary_id}', config["JCG_IMAGE"], mounts, cmd)
+        docker_run(f'{config["DYNAMICCG_CONTAINER"]}_{boundary_id}', config["JCG_IMAGE"], mounts, cmd,
+                   env=container_env())
 
 
 def boundary_generation(framework: str, algo: str, project: str, reproducing_test_case_path: str, boundary_id: str):
     """Generate boundary call graph for a specific experiment directory"""
-    
-    build_jcg_image()
-    
     dyncg_path = Path(reproducing_test_case_path) / "dyncg" / project / "Dynamic" / "Dynamic"
     staticcg_path = Path(reproducing_test_case_path) / "staticcg" / project / framework / algo
     boundary_path = Path(reproducing_test_case_path) / "boundary" / framework / algo
@@ -94,16 +98,20 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
     if os.path.exists(boundary_path / "boundaries.json"):
         return  # Boundary already generated, skip
 
+    # The static and dynamic call graphs are independent: generate them concurrently.
+    jobs = {}
     if not os.path.exists(dyncg_path / "cg.json"):
-        try:
-            dynamic_callgraph(project, reproducing_test_case_path, boundary_id)
-        except Exception as e:
-            print(f"Error occurred while generating dynamic call graph for {project}: {e}")
+        jobs["dynamic call graph"] = lambda: dynamic_callgraph(project, reproducing_test_case_path, boundary_id)
     if not os.path.exists(staticcg_path / "cg.json"):
-        try:
-            static_callgraph(framework, algo, project, reproducing_test_case_path, boundary_id)
-        except Exception as e:
-            print(f"Error occurred while generating static call graph for {project} with {framework} and {algo}: {e}")
+        jobs[f"static call graph ({framework}/{algo})"] = lambda: static_callgraph(
+            framework, algo, project, reproducing_test_case_path, boundary_id)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = {pool.submit(job): name for name, job in jobs.items()}
+        for future in as_completed(futures):
+            try:
+                future.result()
+            except Exception as e:
+                print(f"Error occurred while generating {futures[future]} for {project}: {e}")
 
 
     os.makedirs(boundary_path, exist_ok=True)
@@ -131,7 +139,8 @@ def boundary_generation(framework: str, algo: str, project: str, reproducing_tes
     
     docker_remove(f'{config["BOUNDARY_CONTAINER"]}_{boundary_id}_{framework}_{algo}')
     try:
-        docker_run(f'{config["BOUNDARY_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd)
+        docker_run(f'{config["BOUNDARY_CONTAINER"]}_{boundary_id}_{framework}_{algo}', config["JCG_IMAGE"], mounts, cmd,
+                   env=container_env())
     except Exception as e:
         print(f"Error occurred while generating boundary call graph for {project}: {e}")
 
@@ -242,8 +251,17 @@ def main():
 
     parser.add_argument("--reproducing_test_case_path", required=True, help="Path to the reproducing test case")
     parser.add_argument("--boundary_id", help="Id of the boundary edge")
+    parser.add_argument("--skip-image-build", action="store_true",
+                        help="The pipeline already built the image for this run (pipeline/analysis.py)")
+    parser.add_argument("--fast-path", action="store_true",
+                        help="Run JCG mains with java on the exported classpath instead of sbt")
 
     args = parser.parse_args()
+
+    global FAST_PATH
+    FAST_PATH = args.fast_path
+    if not args.skip_image_build:
+        build_jcg_image()
 
     project_build(args.project, args.reproducing_test_case_path)
 

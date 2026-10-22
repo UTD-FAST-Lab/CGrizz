@@ -180,6 +180,19 @@ python pipeline_orchestrator.py parallel-all \
     --output-dir ../results
 ```
 
+**Performance.** The JCG images are built once per pipeline run, and the static and dynamic
+call graphs of a test case are generated concurrently. `pipeline_result.json` records
+`stage_seconds` per stage. `JCG_FAST_PATH` in `config.py` (off by default) skips sbt
+startup (plain `java` on the classpath exported at image build time). For WALA and Soot it
+also compiles only the annotated tool files on top of the prebuilt tool, instead of
+rebuilding the tool and JCG for every trace check. Check it on one finished boundary
+before enabling it:
+
+```bash
+python jcg/validate_fast_path.py --framework WALA --algorithm 0-CFA \
+    --boundary-dir ../results/<program>/WALA/0-CFA/<boundary>
+```
+
 **Resuming & cross-run dedup** (modes 2/3): if `--output-dir` already has results, the
 run skips already-analyzed and already-pruned boundaries automatically. Pass
 `--prev-results <dir>...` to pre-prune the new queue using a prior run's oracle specs

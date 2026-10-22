@@ -14,6 +14,7 @@ import shutil
 from pathlib import Path
 
 from pipeline.state import PipelineState
+from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.analysis import run_annotated_sa
 from pipeline.agent_runner import run_agent, parse_json_from_response
@@ -33,6 +34,7 @@ log = logging.getLogger("pipeline")
 # ── Stage 7: Root cause annotation ────────────────────────────────────────────
 
 
+@timed("annotation")
 async def stage_root_cause_annotation(state: PipelineState) -> tuple[bool, str]:
     """
     Root-cause-annotator agent adds targeted logging to the SA tool,
@@ -121,6 +123,7 @@ If the log already exists for the same reason (`skipped: true`):
 # ── Stage 8: Trace check ───────────────────────────────────────────────────────
 
 
+@timed("trace_check")
 async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     """
     Checks whether the execution trace produced by the annotated SA tool
