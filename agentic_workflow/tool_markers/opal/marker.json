@@ -1,0 +1,38 @@
+{
+  "tool": "OPAL",
+  "description": "Unsoundness markers for OPAL's type-based points-to analysis: add Unsound.markerType(id, description) to the lost value's points-to set; [UNSOUNDNESS-EDGE] warnings at every call whose receiver it reaches.",
+  "files": ["OPAL/br/src/main/scala/org/opalj/br/fpcf/properties/pointsto/Unsound.scala"],
+  "edits": [
+    {
+      "file": "OPAL/br/src/main/scala/org/opalj/br/fpcf/properties/pointsto/TypeBasedPointsToSet.scala",
+      "anchor": "            if (typeFilter(t) && !types.contains(t)) {\n",
+      "insert": "replace",
+      "text": "            if ((typeFilter(t) || Unsound.isMarker(t)) && !types.contains(t)) { // CGrizz marker passes filters\n"
+    },
+    {
+      "file": "OPAL/br/src/main/scala/org/opalj/br/fpcf/properties/pointsto/TypeBasedPointsToSet.scala",
+      "anchor": "            if (typeFilter(t)) {\n",
+      "insert": "replace",
+      "text": "            if (typeFilter(t) || Unsound.isMarker(t)) { // CGrizz marker passes filters\n"
+    },
+    {
+      "file": "OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/TypeIterator.scala",
+      "anchor": "    private[cg] def isPossibleType(use: V, tpe: ReferenceType): Boolean = {\n",
+      "insert": "after",
+      "text": "        if (org.opalj.br.fpcf.properties.pointsto.Unsound.isMarker(tpe)) return true; // CGrizz\n"
+    },
+    {
+      "file": "OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/TypeIterator.scala",
+      "anchor": "    private[cg] def isPossibleType(field: Field, tpe: ReferenceType): Boolean = {\n",
+      "insert": "after",
+      "text": "        if (org.opalj.br.fpcf.properties.pointsto.Unsound.isMarker(tpe)) return true; // CGrizz\n"
+    },
+    {
+      "file": "OPAL/tac/src/main/scala/org/opalj/tac/fpcf/analyses/cg/CallGraphAnalysis.scala",
+      "anchor": "        if (target.hasValue) {\n            val tgtDM = declaredMethods(target.value)\n",
+      "insert": "before",
+      "text": "        if (org.opalj.br.fpcf.properties.pointsto.Unsound.isMarker(receiverType)) { // CGrizz unsoundness marker\n            val m = callContext.method\n            val line =\n                if (m.hasSingleDefinedMethod) m.definedMethod.body.flatMap(_.lineNumber(pc)).getOrElse(-1) else -1\n            org.opalj.br.fpcf.properties.pointsto.Unsound.report(\n                receiverType,\n                m.declaringClassType.toJava+\".\"+m.name+m.descriptor.parameterTypes.map(_.toJava).mkString(\"(\", \",\", \")\"),\n                callDeclaringClass.toJava+\".\"+callName,\n                line,\n                pc\n            )\n            return;\n        }\n"
+    }
+  ],
+  "usage": "opal/README.md"
+}

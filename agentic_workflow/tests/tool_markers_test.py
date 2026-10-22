@@ -1,7 +1,7 @@
 """
 Tests for tool unsoundness markers (issue #14, step 2): the installer, the
 non-interference and coverage checks, and stage 8 with [UNSOUNDNESS-EDGE] lines.
-The real-Soot test is tool_markers/soot/test/run_test.sh.
+The real-tool tests are tool_markers/run_test.sh <soot|wala|opal>.
 
     cd agentic_workflow && python tests/tool_markers_test.py
 """
@@ -51,19 +51,37 @@ def test_install():
         raise AssertionError("expected ToolMarkerError")
     except tool_markers.ToolMarkerError as e:
         assert "anchor found 0 times" in str(e)
-    assert tool_markers.spec("WALA") is None and tool_markers.install("WALA", broken) == []
+    assert tool_markers.spec("Doop") is None and tool_markers.install("Doop", broken) == []
 
 
-def test_install_on_pinned_soot():
-    soot = ROOT.parent / "tools" / "soot"
-    if not (soot / SOOT_EDITS[0]).exists():
-        print("  (tools/soot not downloaded — skipped; scripts/setup/download_tools.py soot)")
-        return
-    copy = Path(tempfile.mkdtemp()) / "soot"
-    for f in SOOT_EDITS:
-        (copy / f).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(soot / f, copy / f)
-    tool_markers.install("Soot", copy)                                   # anchors match the pinned commit
+TOOLS = ["Soot", "WALA", "OPAL"]
+
+
+def test_every_module_is_complete():
+    for tool in TOOLS:
+        spec = tool_markers.spec(tool)
+        assert spec and spec["edits"], tool
+        assert tool_markers.usage_file(tool) and tool_markers.usage_file(tool).exists(), f"{tool}: usage file missing"
+        for f in spec["files"]:
+            assert (tool_markers.MARKERS_DIR / tool.lower() / f).exists(), f"{tool}: {f} missing"
+
+
+def test_install_on_pinned_tools():
+    for tool in TOOLS:
+        src = ROOT.parent / "tools" / tool.lower()
+        edited = {e["file"] for e in tool_markers.spec(tool)["edits"]}
+        if not all((src / f).exists() for f in edited):
+            print(f"  (tools/{tool.lower()} not downloaded — skipped; scripts/setup/download_tools.py {tool.lower()})")
+            continue
+        copy = Path(tempfile.mkdtemp()) / tool.lower()
+        for f in edited:
+            (copy / f).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src / f, copy / f)
+        changed = tool_markers.install(tool, copy)                       # anchors match the pinned commit
+        assert edited <= set(changed), tool
+        before = {f: (copy / f).read_text() for f in edited}
+        tool_markers.install(tool, copy)                                 # idempotent, incl. "replace" edits
+        assert {f: (copy / f).read_text() for f in edited} == before, tool
 
 
 def cg(path: Path, edges: list[tuple[str, str, int]]) -> str:
@@ -159,7 +177,8 @@ def test_stage():
 
 if __name__ == "__main__":
     test_install()
-    test_install_on_pinned_soot()
+    test_every_module_is_complete()
+    test_install_on_pinned_tools()
     test_noninterference()
     test_edge_parsing_and_coverage()
     test_stage()

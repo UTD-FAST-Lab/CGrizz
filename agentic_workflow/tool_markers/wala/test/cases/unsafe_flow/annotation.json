@@ -1,0 +1,12 @@
+{
+  "note": "What the root-cause annotator would add for WALA W10: the result of the native Unsafe.getObject has no model.",
+  "edits": [
+    {
+      "file": "com.ibm.wala.core/src/main/java/com/ibm/wala/ipa/callgraph/propagation/SSAPropagationCallGraphBuilder.java",
+      "anchor": "    processCallingConstraints(caller, instruction, target, constParams, uniqueCatchKey);\n  }\n",
+      "insert": "before",
+      "text": "    if (target.getMethod().isNative() && instruction.hasDef()\n        && target.getMethod().getDeclaringClass().getName().toString().equals(\"Lsun/misc/Unsafe\")\n        && target.getMethod().getName().toString().equals(\"getObject\")) {\n      System.out.println(\"[UNSOUNDNESS] Unsafe.getObject result not modelled | caller=\" + caller.getMethod().getSignature()\n          + \" | site=getObject | line=-1 | pc=\" + instruction.getCallSite().getProgramCounter());\n      com.ibm.wala.ipa.callgraph.propagation.unsound.Unsound.mark(\n          this, caller, instruction.getDef(), \"unsafeGetObject\", \"Unsafe.getObject result not modelled\");\n    }\n"
+    }
+  ],
+  "expect": {"edge_warning_lines": [19, 21, 23], "no_warning_lines": [24]}
+}
