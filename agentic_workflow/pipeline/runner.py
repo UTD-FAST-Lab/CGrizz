@@ -26,7 +26,7 @@ from pipeline.stages import (
     stage_check_trace,
     stage_refine_report,
 )
-from pipeline.stages.oracle import build_oracle_feedback_section
+from pipeline.stages.oracle import build_oracle_feedback_section, report_feedback_from_verdict
 from pipeline.oracle import PATTERN, SPEC, INFRA, UNSUPPORTED
 from config import MAX_LOOPS, ANNOTATION_MAX_RETRIES, ORACLE_REFINE_ATTEMPTS
 
@@ -112,11 +112,7 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
 
         if verdict.category == PATTERN:
             # The oracle ran but the pattern does not explain this boundary → revise the hypothesis.
-            state.reproduce_feedback.append(
-                "The root cause hypothesis is not correct. "
-                "Please refine your root cause analysis and reconsider what static analysis "
-                "behaviour leads to this boundary being missed."
-            )
+            state.reproduce_feedback.append(report_feedback_from_verdict(state, verdict))
             state.report_refine_reason = "oracle_failure"
             log.info(f"{state.label()} Oracle refinement exhausted ({verdict.kind}). Escalating to report generator.")
             if state.loop_count >= MAX_LOOPS:

@@ -4,17 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Agentic Workflow** is an unsoundness analysis pipeline that uses Claude agents to reason about why static analysis tools miss certain function calls. The pipeline:
+**Agentic Workflow** explains why static analysis (SA) call-graph tools (WALA, Soot, OPAL) miss
+call edges. For each *boundary* — an edge seen at run time but missing from the tool's call
+graph — Claude agents and deterministic checks:
 
-1. Takes boundaries (places where SA tools missed dynamically-observed callees)
-2. Generates test cases to reproduce the unsoundness
-3. Produces detailed reasoning reports explaining the root causes
-4. Annotates the SA tool to trace execution and compare call graphs
+1. write an unsoundness report: the evidence in the program, the tool limitation (tool code that
+   drops the edge) and a minimal test case description;
+2. generate a reproducing test case and a non-reproducing *near miss*;
+3. write an oracle spec that the prebuilt oracle agent (`oracle_agent/`) uses to observe the root
+   cause and its symptoms, on the test cases and on the real program;
+4. check the edge is missed on the test case, annotate the SA tool with one `[UNSOUNDNESS]`
+   warning and check it fires only for this root cause;
+5. group every other boundary whose edge the oracle reports as a symptom.
 
-The system supports three execution modes:
-- **single** — analyze one boundary entry
-- **parallel-edges** — analyze all boundaries for one (program, tool, algorithm) concurrently
-- **parallel-all** — analyze all combinations concurrently
+Modes (`pipeline_orchestrator.py`): **single** (one boundary), **parallel-edges** (all boundaries of
+one program/tool/algorithm) and **parallel-all** (everything in the config). Despite the names,
+boundaries run sequentially so that deduplication can prune the queue after each success; the
+order is deterministic (config order, then `boundaries.json` order).
 
 ## Architecture
 
@@ -52,19 +58,17 @@ python pipeline_orchestrator.py single \
     --boundary-index 0 \
     --output-dir     ./results
 
-# All boundaries for one analysis, concurrent
+# All boundaries for one analysis (sequential, with dedup)
 python pipeline_orchestrator.py parallel-edges \
     --config      ./pipeline_config.json \
     --program-name program_A \
     --tool-name   WALA \
     --algorithm   0-CFA \
-    --concurrency 5 \
     --output-dir  ./results
 
-# All programs × all edges, concurrent
+# All programs × all edges (sequential, with dedup)
 python pipeline_orchestrator.py parallel-all \
     --config      ./pipeline_config.json \
-    --concurrency 5 \
     --output-dir  ./results
 ```
 
@@ -103,51 +107,67 @@ Each `boundaries_file` is a JSON array of boundary entries. A boundary entry des
 
 **Output (per boundary):**
 ```
-results/
-└── program_A/
-    └── WALA/
-        └── 0-CFA/
-            └── b0_Handler.dispatch__ConcreteHandler.handlePost/
-                ├── unsoundness_report.md      # reasoning about root cause
-                ├── test_case/                  # generated reproducible test
-                ├── test_analysis.json          # SA tool output on test case
-                ├── annotated_sa_tool/          # instrumented SA tool directory
-                ├── modified_analysis.json      # SA tool output (with annotations)
-                ├── execution_trace.log         # trace from annotated tool
-                └── pipeline_result.json        # final result summary
+results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
+├── unsoundness_report.json      edgeId, caller, target, evidence, toolLimitation, potentialTestCase
+├── test_case/
+│   ├── reproducing/             Maven project, jcg.conf, oracle.json, instrumentation/oracle_spec.json,
+│   │                            staticcg/ dyncg/ boundary/ (JCG outputs; staticcg/log.txt = tool trace)
+│   └── non_reproducing/         the near miss (optional)
+├── annotated_sa_tool/           copy of the SA tool with the [UNSOUNDNESS] log
+├── oracle_target.json           the spec's oracle on the real program (+ .stats.json, .log)
+├── pruning_report.json          boundaries grouped under this one
+├── pipeline_result.json         success, reason, failure_kind, report summary, annotation,
+│                                oracle_verdicts, stage_seconds, feedback_history
+└── pipeline.log
 ```
 
-**Constants & Tuning (`config.py`):**
-- `MAX_LOOPS` — maximum retry attempts if stages fail
-- `MODEL_DEFAULT` — model for orchestrator and most stages
-- `MODEL_FAST` — model for simple filtering (e.g., boundary selector)
-- `MODEL_POWERFUL` — model for deep reasoning (e.g., root cause annotator)
-- Output filename constants
+**Constants (`config.py`)** — loop limits (`MAX_LOOPS`, `ANNOTATION_MAX_RETRIES`,
+`ORACLE_REFINE_ATTEMPTS`, `ORACLE_GENERATE_ATTEMPTS`, `REPORT_SCHEMA_RETRIES`), check settings
+(`ORACLE_NEGATIVE_CHECK`, `ANNOTATION_NEGATIVE_CHECK`, `ANNOTATION_MAX_CALLER_FRACTION`,
+`ANNOTATION_MAX_DESCRIPTION_CHARS`), `ORACLE_RUN_TIMEOUT`, `JCG_FAST_PATH`, the pinned
+`MODEL_PIPELINE`, and output filenames.
 
 ## Stage-Level Details
 
-Each stage is an async function that takes `PipelineState`, calls `run_agent()`, and mutates state:
+`pipeline/runner.py` runs, per boundary (stage functions in `pipeline/stages/`, each `@timed`):
 
-1. **stage_generate_report** — main agent analyzes the boundary and produces a reasoning report
-2. **stage_generate_test_case** — generates a minimal Java program that reproduces the unsoundness
-3. **stage_validate_test_case** — checks the test case compiles and reproduces the boundary
-4. **stage_trace_execution** — annotates SA tool to produce execution trace
-5. **stage_root_cause_analysis** — deep reasoning on trace to explain why unsoundness occurs
+| Stage | Function | Checked by the pipeline |
+|---|---|---|
+| 3 report | `stage_generate_report` (fn-edge-analyzer) | format (`report_schema.py`), tool locations exist |
+| 4 test cases | `stage_generate_test_case` (test-case-generator) | — |
+| 5 oracle | `stage_generate_oracle` (instrumentation) | spec lint; symptoms on the reproducing test case; none on the near miss |
+| 5b oracle on program | `stage_check_oracle_on_program` | verdict: found / pattern / spec / infrastructure / unsupported |
+| 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG) |
+| 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
+| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; ≤ 5% of methods; not on the near miss |
+| 9 refine | `stage_refine_report` | — |
 
-Stages accumulate feedback across retry loops (stored in `state.reproduce_feedback` and `state.trace_feedback`) and inject it into the prompt on retry.
+Failures become feedback for the next attempt: `oracle_feedback` (instrumentation agent),
+`reproduce_feedback` (report agent; oracle and reproduction failures), `trace_feedback`
+(annotator, and the report agent on outer retries). Every message names the check that failed,
+what it observed and what that means. Oracle failures that say nothing about the hypothesis
+(timeout, run failure, unsupported pattern) end the boundary with `failure_kind` instead of
+sending the report back.
 
 ## Implementation Notes
 
-- **SA Tool Integration (`pipeline/analysis.py`):** The stubs `run_sa_on_test_case()` and `run_annotated_sa()` must be implemented to invoke your actual SA tool (e.g., via `subprocess.run()` for Java tools). These are the only places where tool-specific logic lives.
+- **SA tool integration:** `pipeline/analysis.py` calls `jcg/analysis_interface.py` (static/dynamic CG and boundaries in Docker) and `jcg/annotation_interface.py` (the annotated tool). The images are built once per run.
 - **Agent Discovery:** Agents are auto-discovered from `.claude/agents/` (project-level) and `~/.claude/agents/` (user-level). Define custom agents as Markdown files with frontmatter in those directories.
-- **Async Loop:** The orchestrator is async and uses `asyncio` for concurrent task execution.
+- **Async:** stages are `async`; agent sessions are capped by `MAX_CONCURRENT_AGENTS`, boundaries run one at a time.
 - **Logging:** All modules use Python's standard `logging` with loggers named `pipeline.*`. Use `log.info()` and `log.error()` with `state.label()` for consistency.
 
 ## Testing
 
-Currently, there are no automated tests. Validation happens through:
-1. Stage success/fail returns in `run_pipeline()`
-2. Retry logic with accumulated feedback
-3. Final result written to `pipeline_result.json`
+No SA tools, Docker or LLM needed (Java 8 + Maven for the oracle agent):
 
-To debug a single boundary, run the `single` mode with verbose logging and inspect intermediate output files.
+```bash
+oracle_agent/test.sh                 # oracle agent: example programs under -Xverify:all
+python tests/oracle_e2e.py           # oracle stages, dedup, runner routing (stubbed LLM)
+python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
+python tests/feedback_test.py        # feedback messages
+python tests/determinism_test.py     # report format, reproducibility script
+python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn
+```
+
+To debug one boundary, run the `single` mode and read its `pipeline.log` and `pipeline_result.json`.
+`jcg/validate_fast_path.py` checks `JCG_FAST_PATH` against the default path on a finished boundary.

@@ -13,7 +13,7 @@ from pipeline.state import PipelineState
 from pipeline.timing import timed
 from pipeline.agents import build_agent_options
 from pipeline.agent_runner import run_agent, parse_json_from_response
-from pipeline.report_schema import validate_file, root_cause_markdown
+from pipeline.report_schema import validate_file
 from config import OUT_REPORT, REPORT_SCHEMA_RETRIES
 
 log = logging.getLogger("pipeline")
@@ -53,8 +53,6 @@ Program under analysis : {state.target_program_path}
 Static analysis tool   : {state.sa_tool_path}
 Tool / Algorithm       : {state.tool_name} / {state.algorithm}
 Main class             : {state.main_class}
-
-{root_cause_markdown()}
 
 ### Boundary entry
 
@@ -111,8 +109,6 @@ async def _enforce_schema(state: PipelineState) -> None:
 {state.unsoundness_report}. Invoke it via the Task tool. Keep the analysis; only fix:
 
 {chr(10).join(f"- {p}" for p in problems)}
-
-{root_cause_markdown()}
 
 Overwrite the file in place. Return JSON only: {{"report_path": "{state.unsoundness_report}"}}""",
             options=build_agent_options(state),
@@ -181,19 +177,22 @@ Return JSON only:
 
 
 def _build_feedback_section(state: PipelineState) -> str:
-    """Build the feedback block injected into the report prompt on retries."""
+    """The feedback block injected into the report prompt on retries."""
     if not state.has_reproduce_feedback() and not state.has_trace_feedback():
         return ""
 
-    lines = ["\n## Feedback from previous attempts\n"]
-    if state.has_reproduce_feedback():
-        lines.append("### Test case did not reproduce the unsoundness:")
-        lines += [f"- Attempt {i+1}: {fb}" for i, fb in enumerate(state.reproduce_feedback)]
+    lines = [
+        "\n## Why the previous attempts were rejected\n",
+        "Each entry says which check failed ([oracle on the real program], [reproduction check] or "
+        "[annotation / trace check]), what it observed, and what that means for the hypothesis.\n",
+    ]
+    for i, fb in enumerate(state.reproduce_feedback):
+        lines.append(f"### Attempt {i + 1}\n{fb}\n")
     if state.has_trace_feedback():
-        lines.append("\n### Execution trace did not contain expected logs:")
-        lines += [f"- Attempt {i+1}: {fb}" for i, fb in enumerate(state.trace_feedback)]
-    lines.append("\nRevise your root cause hypothesis and test case strategy accordingly.")
-
+        lines.append("### Annotation / trace check (the tool code location)")
+        lines += [f"- {fb}" for fb in state.trace_feedback]
+    lines.append("\nRevise the hypothesis — the program evidence, the tool limitation and the test case — so it "
+                 "addresses these observations.")
     return "\n".join(lines)
 
 

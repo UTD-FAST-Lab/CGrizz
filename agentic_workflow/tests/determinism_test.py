@@ -25,7 +25,7 @@ import reproducibility as REPRO
 VALID = {
     "edgeId": "E1", "caller": "a.B.c()", "callerLine": 3, "target": "d.E.f()",
     "evidence": ["src/a/B.java:3 — loads the class by a non-constant name"],
-    "toolLimitation": {"reason": "r", "rootCause": "missing_model",
+    "toolLimitation": {"reason": "r",
                        "toolCodeEvidence": {"relevantFiles": ["core/src/Resolver.java:98"], "codeSnippet": "s"}},
     "potentialTestCase": {"description": "d", "TestCaseMissingEdge": {"caller": "a", "callee": "b"}},
 }
@@ -45,12 +45,12 @@ def test_schema():
 
     bad = copy.deepcopy(VALID)
     bad["pattern_class"] = "reflection"                 # no longer part of the report
-    bad["toolLimitation"]["rootCause"] = "bug"
+    bad["toolLimitation"]["rootCause"] = "missing_model"     # dropped too
     bad["evidence"] = []
     del bad["potentialTestCase"]["TestCaseMissingEdge"]
     problems = validate(bad)
     assert any("unexpected field `pattern_class`" in p for p in problems)
-    assert any("rootCause" in p for p in problems)
+    assert any("unexpected field `toolLimitation.rootCause`" in p for p in problems)
     assert any("`evidence` must list" in p for p in problems)
     assert any("potentialTestCase.TestCaseMissingEdge" in p for p in problems)
     assert validate([]) == ["the report must be a JSON object"]
@@ -106,8 +106,7 @@ def make_results(root: Path, outcomes: dict, groups: dict):
         d.mkdir(parents=True)
         (d / "pipeline_result.json").write_text(json.dumps({
             "success": success,
-            "report": {"tool_locations": [tool_loc] if tool_loc else [], "evidence_locations": ["src/App.java:9"],
-                       "rootCause": "missing_model"},
+            "report": {"tool_locations": [tool_loc] if tool_loc else [], "evidence_locations": ["src/App.java:9"]},
             "annotation": {"file": ann, "line": 10}}))
         if b in groups:
             (d / "pruning_report.json").write_text(json.dumps({"pruned_boundaries": [

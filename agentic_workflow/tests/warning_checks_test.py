@@ -14,7 +14,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pipeline.stages.annotation as A
 from pipeline.state import PipelineState
-from pipeline.warning_checks import check_negative, check_selectivity, warning_callers, warning_lines
+from pipeline.warning_checks import (
+    check_description, check_negative, check_selectivity, warning_callers, warning_descriptions, warning_lines,
+)
 
 LIMITATION = "Class.forName with non-constant name not resolved"
 
@@ -46,6 +48,18 @@ def test_parsing():
     assert len(lines) == 3
     assert warning_callers(lines) == ["com.example.App.main([Ljava/lang/String;)", "a.B.c()"]
     assert warning_callers(["[UNSOUNDNESS] p | caller=x.Y.z()"]) == ["x.Y.z()"]  # no site= part
+
+
+def test_description():
+    good = [line("com.example.App.main()")]
+    assert warning_descriptions(good) == [LIMITATION]
+    assert check_description(good, 60) == (True, "")
+    for bad in ("[UNSOUNDNESS] <description> | caller=a.B.c() | site=s",
+                "[UNSOUNDNESS] reflection_indirect_instantiation pattern_class | caller=a.B.c() | site=s",
+                "[UNSOUNDNESS]  | caller=a.B.c() | site=s",
+                "[UNSOUNDNESS] " + "the tool does not resolve " * 4 + "| caller=a.B.c() | site=s"):
+        ok, fb = check_description([bad], 60)
+        assert not ok and "at most 60 characters" in fb, bad
 
 
 def test_selectivity(root: Path):
@@ -101,13 +115,18 @@ def test_stage(root_factory):
     feedback = A._build_annotation_feedback(s.__class__(**{**s.__dict__, "trace_feedback": [fb]}))
     assert "NON-reproducing" in feedback  # the retry prompt shows the offending lines
 
+    long_desc = f"[UNSOUNDNESS] {'x' * 80} | caller={main} | site=s"
+    ok, fb, runs, _ = run_trace_check(root_factory(), [long_desc], [])
+    assert not ok and "Description check failed" in fb and runs == []
+
     ok, fb, runs, _ = run_trace_check(root_factory(), [line("other.Pkg.m()")], [])
-    assert not ok and "not found in execution trace" in fb  # the original check still applies
+    assert not ok and "none with caller= naming the root-cause method" in fb and "other.Pkg.m()" in fb  # the original check still applies
 
 
 if __name__ == "__main__":
     tmp = lambda: Path(tempfile.mkdtemp())
     test_parsing()
+    test_description()
     test_selectivity(tmp())
     test_negative(tmp())
     test_stage(tmp)

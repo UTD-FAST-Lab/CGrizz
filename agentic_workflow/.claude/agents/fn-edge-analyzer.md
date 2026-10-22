@@ -14,7 +14,7 @@ tool fails to resolve it**, and write the JSON report described below.
 
 Boundary entry (caller, missed callee, what the tool resolved at the site, execution
 traces), target program path (sources and jars), SA tool source path, tool/algorithm,
-main class, report path, and the allowed `rootCause` categories.
+main class and report path.
 
 Facts you can rely on: static and dynamic call graphs were built with the same entry
 point and without exclusions; the caller is reachable in both. The JDK is
@@ -32,9 +32,7 @@ point and without exclusions; the caller is reachable in both. The JDK is
    analyses the caller's call instruction** and drops the callee — never code that
    analyses the callee. Pin down the guard or branch where it gives up and why
    (unmodelled API, constant-only reflection, missing native model, configuration, ...).
-3. **Classify the limitation.** Pick one `rootCause` category (design decision,
-   precision trade-off, missing model, unsound approximation).
-4. **Minimal test case.** Describe the simplest program that has the same root cause and
+3. **Minimal test case.** Describe the simplest program that has the same root cause and
    a simple missed edge — not a copy of the real caller and callee.
 
 ## Output
@@ -53,7 +51,6 @@ Write exactly this JSON object to the report path (no other fields):
   ],
   "toolLimitation": {
     "reason": "Class.forName() is resolved only for constant strings; here the name is a phi of System.getProperty() and a constant.",
-    "rootCause": "precision_tradeoff",
     "toolCodeEvidence": {
       "relevantFiles": ["tool-src/analysis/ClassFactoryContextSelector.java:98"],
       "codeSnippet": "if (symbolTable.isStringConstant(use)) { ... } // only constant strings"

@@ -5,8 +5,8 @@ The unsoundness report format (written by fn-edge-analyzer) and its validation.
 
 The report carries three things: the evidence in the target program, the tool
 limitation (with the tool code that drops the edge) and the minimal test case.
-Validation checks the structure only — never which root cause it is — so new
-root causes are reported as freely as known ones. It also checks that every
+Validation checks the structure only — never which root cause it is, and there
+is no root-cause category — so new root causes are reported as freely as known ones. It also checks that every
 tool location in toolCodeEvidence.relevantFiles is "path:line" and exists in
 the SA tool source, which makes reports comparable across runs (#5).
 """
@@ -16,13 +16,6 @@ import re
 from pathlib import Path
 from typing import Optional
 
-ROOT_CAUSE_KINDS: dict[str, str] = {
-    "design_decision":       "the tool intentionally does not model this pattern",
-    "precision_tradeoff":    "the tool could model it but trades soundness for precision or speed",
-    "missing_model":         "the tool lacks a model for this API or pattern",
-    "unsound_approximation": "the tool's algorithm has a logical error or an overly narrow approximation",
-}
-
 # key → expected type; nested dicts describe nested objects.
 _SCHEMA = {
     "edgeId": str,
@@ -31,7 +24,6 @@ _SCHEMA = {
     "evidence": list,
     "toolLimitation": {
         "reason": str,
-        "rootCause": str,
         "toolCodeEvidence": {"relevantFiles": list, "codeSnippet": str},
     },
     "potentialTestCase": {
@@ -41,12 +33,6 @@ _SCHEMA = {
 }
 _OPTIONAL = {"callerLine"}
 _LOCATION = re.compile(r"^(?P<path>[^:\s]+):(?P<line>\d+)")
-
-
-def root_cause_markdown() -> str:
-    """The toolLimitation.rootCause categories as a Markdown list, for prompts."""
-    return "\n".join(["toolLimitation.rootCause (pick exactly one):"]
-                     + [f"- `{k}` — {v}" for k, v in ROOT_CAUSE_KINDS.items()])
 
 
 def tool_location(entry: str) -> Optional[tuple[str, int]]:
@@ -103,9 +89,6 @@ def validate(report: object, tool_dir: Optional[Path] = None) -> list[str]:
             problems.append("`evidence` entries must be non-empty strings (\"path:line — what it shows\")")
 
     limitation = report.get("toolLimitation")
-    rc = limitation.get("rootCause") if isinstance(limitation, dict) else None
-    if isinstance(rc, str) and rc not in ROOT_CAUSE_KINDS:
-        problems.append(f"`toolLimitation.rootCause` is '{rc}'; it must be one of: {', '.join(ROOT_CAUSE_KINDS)}")
 
     files = (limitation.get("toolCodeEvidence") or {}).get("relevantFiles") if isinstance(limitation, dict) else None
     if isinstance(files, list):

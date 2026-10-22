@@ -30,7 +30,6 @@ def _report_summary(state: PipelineState) -> dict:
     return {
         "evidence_locations": [f"{p}:{n}" for p, n in filter(None, map(tool_location, evidence))],
         "tool_locations": [f"{p}:{n}" for p, n in filter(None, map(tool_location, tool_files))],
-        "rootCause": limitation.get("rootCause"),
         "schema_problems": state.report_schema_problems,
     }
 

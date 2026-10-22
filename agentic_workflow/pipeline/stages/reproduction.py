@@ -11,7 +11,7 @@ from pathlib import Path
 from pipeline.state import PipelineState
 from pipeline.timing import timed
 from pipeline.analysis import run_analysis_interface
-from pipeline.edges import edge_in_boundary, is_reachable
+from pipeline.edges import boundary_edges, edge_in_boundary, edge_in_cg, is_reachable
 
 from pipeline.stages.oracle import generate_oracle_testcase
 
@@ -38,7 +38,8 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
 
     ok = await generate_oracle_testcase(state)  # generates oracle.json in the reproducing test case dir
     if not ok:
-        return False, "Failed to generate oracle test case."
+        return False, ("[reproduction check] The oracle could not run on the rebuilt reproducing test case: it must "
+                       "build with `mvn package` and the main class in its jcg.conf must run to completion.")
 
     # Read oracle from the test case directory
     # Oracle format: {"RC:method@pc": {"method": ..., "pc": ..., "symptoms": [...]}, ...}
@@ -52,7 +53,8 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     # RC entries are top-level values (keys are "RC:..." strings)
     rc_entries = list(oracle.values())
     if not rc_entries:
-        msg = "Oracle does not contain any root causes."
+        msg = ("[reproduction check] After the rebuild the oracle saw no root cause in the reproducing test case, "
+               "so the test case no longer executes the root-cause instruction.")
         log.error(f"{state.label()} {msg}")
         return False, msg
 
@@ -62,7 +64,8 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
         symptoms = rc.get("symptoms", [])
         all_symptoms.extend(symptoms)
     if not all_symptoms:
-        msg = "Oracle root causes do not contain any symptoms."
+        msg = ("[reproduction check] After the rebuild the root cause ran in the reproducing test case, but nothing it "
+               "produced reached a call, so the test case has no missed edge to check.")
         log.error(f"{state.label()} {msg}")
         return False, msg
     
@@ -77,7 +80,7 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
             reproduced, feedback = edge_in_boundary(state.boundary_path, expected_caller, expected_callee)
             if not reproduced:
                 log.error(f"{state.label()} Edge not found for symptom: {feedback}")
-                return False, feedback
+                return False, _not_reproduced(state, expected_caller, expected_callee)
         else:
             msg = "Symptom in oracle missing caller or callee information."
             log.error(f"{state.label()} {msg}")
@@ -85,3 +88,26 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
     
     log.info(f"{state.label()} Reproduction check passed — edge found in boundary.")
     return True, "Reproduction check passed — edge found in boundary."
+
+
+def _not_reproduced(state: PipelineState, caller: str, callee: str) -> str:
+    """Why an oracle symptom of the test case is not a missed edge, and what that implies."""
+    ran = edge_in_cg(state.dyncg_path, caller, callee)
+    resolved = edge_in_cg(state.staticcg_path, caller, callee)
+    yes_no = {True: "yes", False: "no", None: "unknown"}
+    lines = [
+        f"[reproduction check] In the reproducing test case the edge {caller} → {callee} (a symptom of your root "
+        f"cause) is not missed by {state.tool_name}/{state.algorithm}.",
+        f"- executed at run time (dynamic call graph): {yes_no[ran]}",
+        f"- resolved by the tool (static call graph): {yes_no[resolved]}",
+    ]
+    if ran is False:
+        lines.append("Meaning: the test case never executes this call, so it cannot show the unsoundness. Make its "
+                     "main method run the call path.")
+    elif resolved:
+        lines.append(f"Meaning: {state.tool_name} handles the test case's version of the mechanism, so the test case "
+                     "does not hit the limitation. Either the hypothesis does not explain the original miss, or the "
+                     "test case lost the condition under which the tool gives up (see toolLimitation.codeSnippet).")
+    missed = boundary_edges(state.boundary_path)
+    lines.append("Edges the tool does miss in this test case: " + ("; ".join(missed) if missed else "none"))
+    return "\n".join(lines)
