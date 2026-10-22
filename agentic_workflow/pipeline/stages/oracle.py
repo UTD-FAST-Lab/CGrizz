@@ -175,6 +175,13 @@ async def _negative_check(state: PipelineState) -> str:
     )
 
 
+async def revalidate_oracle(state: PipelineState) -> str:
+    """Re-run the spec checks on the (changed) test cases; '' if they still pass, else the problem."""
+    repro = Path(state.reproducing_test_case_path)
+    problem, _ = await _validate_on_test_case(state, oracle.spec_path(repro), repro / OUT_ORACLE)
+    return problem
+
+
 def _archive_spec(state: PipelineState, spec: Path) -> None:
     n = len(list(spec.parent.glob("oracle_spec.attempt*.json")))
     shutil.copy(spec, spec.with_name(f"oracle_spec.attempt{n}.json"))

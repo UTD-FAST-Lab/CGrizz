@@ -15,8 +15,16 @@ You MUST only create, modify, or write files inside the two output directories g
 
 You will receive:
 - **Unsoundness report JSON** — includes `edgeId`, `caller`, `target`, `evidence`, `toolLimitation.reason`, and `potentialTestCase` section
-- **Target program path** — directory containing the original program
 - **Output directories** — where to write test cases or reproducing and non_reproducing
+
+Work from the report alone — `potentialTestCase` and `toolLimitation`. **Do not open or copy
+the target program**: the test case should show the root cause in its simplest form, not
+re-create the program around it.
+
+**Size budget:** at most 150 lines of code (blank lines and comments not counted) in at most
+6 Java files. Smaller is better — most root causes need one class with a `main` and one or two
+small types. The pipeline measures it, asks for a simpler version when it is over budget, and
+later tries to shrink it further, keeping the smaller version only if it still reproduces.
 
 ## Test Case 1: Reproducing (Positive)
 
@@ -24,7 +32,8 @@ You will receive:
 
 **How:**
 1. Read `potentialTestCase` section of the report — it specifies exactly what the test must exercise.
-2. Create the simplest Maven project that reproduces the root cause. This is not necessary replicating the caller and missed edge in the unsoundness report, but a minimal more general test case. 
+2. Create the simplest Maven project that reproduces the root cause — not a replica of the
+   report's caller and missed edge, but the smallest general program with the same root cause.
 3. The edge `caller → target` must NOT be visible to the SA tool (the unsoundness is reproducible).
 4. Write to `<output_dir>/reproducing/`
 5. The Caller of the missed edge and the root cause should be in the application code itself not in a library method. 

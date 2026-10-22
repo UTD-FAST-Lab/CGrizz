@@ -65,6 +65,9 @@ class PipelineState:
     # ── Report validation (pipeline/report_schema.py) ─────────────────────────
     report_schema_problems: list[str] = field(default_factory=list)
 
+    # ── Test case size: {files, lines, budget_simplified_from?, shrunk_from?} ──
+    test_case_size: dict = field(default_factory=dict)
+
     # ── Wall-clock seconds per stage (pipeline.timing.timed) ──────────────────
     stage_seconds: dict[str, float] = field(default_factory=dict)
 
