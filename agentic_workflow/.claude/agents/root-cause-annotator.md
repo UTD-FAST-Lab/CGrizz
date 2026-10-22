@@ -29,11 +29,14 @@ Start from `toolLimitation.toolCodeEvidence` (`relevantFiles`, `codeSnippet`) in
 ## The log
 
 ```java
-System.out.println("[UNSOUNDNESS] " + "<limitation>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>);
+System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_expr> + " | site=" + <site_expr>);
 ```
 
-- `<limitation>` — a short (≤ 10 words) description of the tool limitation, from the report's
-  `toolLimitation.reason` (e.g. `"Class.forName with non-constant name not resolved"`).
+- `<description>` — what the tool could not do, in plain words a user of the tool understands
+  without reading the report. **At most 60 characters**, no placeholders, no jargon from this
+  pipeline. Base it on `toolLimitation.reason`. Examples:
+  `"Class.forName name is not a constant"`, `"Proxy class missing from class hierarchy"`,
+  `"Unsafe.putObject store not modelled"`, `"implicit ClassCastException not modelled"`.
 - `<caller_expr>` — the method **being analysed** (the caller of the missed edge),
   formatted as `package.ClassName.methodName(params)`, e.g.
   `java.nio.charset.CharsetEncoder.replaceWith([B)`. The checker takes the class as
@@ -49,7 +52,7 @@ System.out.println("[UNSOUNDNESS] " + "<limitation>" + " | caller=" + <caller_ex
 The pipeline runs the annotated tool and accepts the annotation only if:
 
 1. on the **reproducing** test case, the log fires with `caller=` naming the root-cause
-   method(s) from the oracle;
+   method(s) from the oracle, and its description is at most 60 characters;
 2. it fires for only a small share of all methods the tool analyses (a log in a generic
    place fails this);
 3. on the **non-reproducing** test case — the same program without the root cause — it

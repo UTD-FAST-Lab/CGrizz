@@ -7,7 +7,6 @@ Compare two or more results directories produced from the same boundaries
   status          same outcome per boundary: reasoned / grouped / failed
   tool files      same tool files in toolLimitation.toolCodeEvidence.relevantFiles
   evidence files  same target-program files in evidence
-  rootCause       same toolLimitation.rootCause category
   annotation      same annotated tool file (and file:line)
   grouping        co-grouped pairs that agree (Jaccard), and the Rand index over all pairs
 
@@ -51,7 +50,7 @@ def _read(path: Path) -> dict:
 
 
 def load_run(root: Path) -> dict[Key, dict]:
-    """key → {status, failure_kind, tool_files, evidence_files, rootCause, annotation, group}"""
+    """key → {status, failure_kind, tool_files, evidence_files, annotation, group}"""
     run: dict[Key, dict] = {}
     pruned: dict[Key, Key] = {}
     for result_file in sorted(root.glob("*/*/*/*/pipeline_result.json")):
@@ -63,14 +62,13 @@ def load_run(root: Path) -> dict[Key, dict]:
             r = _read(d / "unsoundness_report.json")
             limitation = r.get("toolLimitation") or {}
             report = {"tool_locations": (limitation.get("toolCodeEvidence") or {}).get("relevantFiles"),
-                      "evidence_locations": r.get("evidence"), "rootCause": limitation.get("rootCause")}
+                      "evidence_locations": r.get("evidence")}
         ann = res.get("annotation") or {}
         run[key] = {
             "status": "reasoned" if res.get("success") else "failed",
             "failure_kind": res.get("failure_kind"),
             "tool_files": _files(report.get("tool_locations")) or None,
             "evidence_files": _files(report.get("evidence_locations")) or None,
-            "rootCause": report.get("rootCause"),
             "annotation_file": ann.get("file"),
             "annotation_site": f"{ann.get('file')}:{ann.get('line')}" if ann.get("file") else None,
             "group": key,
@@ -113,7 +111,7 @@ def compare(a: dict, b: dict) -> dict:
     out = {"boundaries": len(common), "reasoned_in_both": len(reasoned)}
     s, n = _agree(a, b, common, "status")
     out["status"] = (s, n)
-    for field in ("tool_files", "evidence_files", "rootCause", "annotation_file", "annotation_site"):
+    for field in ("tool_files", "evidence_files", "annotation_file", "annotation_site"):
         out[field] = _agree(a, b, reasoned, field)
     jaccard, rand, union = _grouping(a, b, common)
     out["grouping_jaccard"], out["grouping_rand"], out["co_grouped_pairs"] = jaccard, rand, union
@@ -134,14 +132,14 @@ def main() -> int:
 
     runs = {str(r): load_run(r) for r in args.results}
     rows = []
-    print("| runs | boundaries | status | tool files | evidence files | rootCause | annotation file "
+    print("| runs | boundaries | status | tool files | evidence files | annotation file "
           "| annotation file:line | grouping (Jaccard) | grouping (Rand) |")
-    print("|---|---|---|---|---|---|---|---|---|---|")
+    print("|---|---|---|---|---|---|---|---|---|")
     for (na, a), (nb, b) in itertools.combinations(runs.items(), 2):
         c = compare(a, b)
         rows.append({"a": na, "b": nb, **c})
         print(f"| {Path(na).name} vs {Path(nb).name} | {c['boundaries']} | {pct(c['status'])} "
-              f"| {pct(c['tool_files'])} | {pct(c['evidence_files'])} | {pct(c['rootCause'])} | {pct(c['annotation_file'])} "
+              f"| {pct(c['tool_files'])} | {pct(c['evidence_files'])} | {pct(c['annotation_file'])} "
               f"| {pct(c['annotation_site'])} | {c['grouping_jaccard']:.0%} ({c['co_grouped_pairs']} pairs) "
               f"| {c['grouping_rand']:.0%} |")
     if args.json:

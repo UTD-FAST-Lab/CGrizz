@@ -19,6 +19,7 @@ MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipe
 
 ANNOTATION_MAX_CALLER_FRACTION = 0.05  # [UNSOUNDNESS] may fire for at most this share of reachable methods
 ANNOTATION_NEGATIVE_CHECK      = True  # also run the annotated tool on the non-reproducing test case
+ANNOTATION_MAX_DESCRIPTION_CHARS = 60  # the problem description printed by [UNSOUNDNESS]
 
 # ── Oracle (spec-driven instrumentation, see oracle_agent/SPEC.md) ────────────
 

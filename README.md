@@ -26,7 +26,7 @@ with retry loops in `pipeline/runner.py` (stage functions live in `pipeline/stag
 | 5b. Check oracle on real program | Run the same spec on the actual program and classify the result: edge found, pattern does not explain the edge, invalid spec, or the run failed | — |
 | 6. Reproduction check | Run the SA tool on the test case (via `jcg/analysis_interface.py`) and confirm the edge is genuinely missed | — |
 | 7. Root-cause annotation | Inject one targeted `[UNSOUNDNESS]` log into the SA tool's source at the failure point, then re-run it | `root-cause-annotator` |
-| 8. Trace check | Verify the annotated tool's trace fired the `[UNSOUNDNESS]` log for the root-cause method, for at most `ANNOTATION_MAX_CALLER_FRACTION` of the analysed methods, and not for the non-reproducing test case's own methods | — |
+| 8. Trace check | Verify the annotated tool's trace fired the `[UNSOUNDNESS] <short description> \| caller=… \| site=…` log for the root-cause method, with a description of at most 60 characters, for at most `ANNOTATION_MAX_CALLER_FRACTION` of the analysed methods, and not for the non-reproducing test case's own methods | — |
 | 9. Refine report | Update the report with the confirmed code location | `fn-edge-analyzer` |
 
 If a check fails, feedback is accumulated into `PipelineState` and the relevant stages

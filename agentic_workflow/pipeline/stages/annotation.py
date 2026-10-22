@@ -19,13 +19,20 @@ from pipeline.agents import build_agent_options
 from pipeline.analysis import run_annotated_sa
 from pipeline.agent_runner import run_agent, parse_json_from_response
 from pipeline.edges import is_reachable, rc_in_trace
-from pipeline.warning_checks import check_negative, check_selectivity, warning_lines
+from pipeline.warning_checks import (
+    check_description,
+    check_negative,
+    check_selectivity,
+    warning_callers,
+    warning_lines,
+)
 from config import (
     OUT_ANNOTATED_TOOL_DIR,
     OUT_EXECUTION_TRACE,
     OUT_STATICCG_DIR,
     ANNOTATION_MAX_CALLER_FRACTION,
     ANNOTATION_NEGATIVE_CHECK,
+    ANNOTATION_MAX_DESCRIPTION_CHARS,
 )
 
 log = logging.getLogger("pipeline")
@@ -151,7 +158,10 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     # check for existance of pattern in the trace log
     if len(unsoundness_lines) == 0:
         log.error(f"{state.label()} Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace.")
-        return False, "Trace check failed — no lines with pattern [UNSOUNDNESS] found in execution trace."
+        return False, ("[annotation / trace check] The annotated tool analysed the reproducing test case and printed "
+                       "no [UNSOUNDNESS] line: the log is on a path the tool does not take for this test case, or its "
+                       "guard never holds. Move it to where the tool processes the root-cause instruction "
+                       f"({state.annotated_file or 'see toolCodeEvidence'}).")
 
     # read the root causes from the oracle
     # Oracle format: {"RC:method@pc": {"method": ..., "pc": ..., "symptoms": [...]}, ...}
@@ -173,9 +183,18 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
             continue
         if not rc_in_trace(method, unsoundness_lines):
             log.error(f"{state.label()} Trace check failed — expected root cause method '{method}' not found in execution trace.")
-            return False, f"Trace check failed — expected root cause method '{method}' not found in execution trace."
+            printed = ", ".join(sorted(set(warning_callers(unsoundness_lines)))[:5]) or "none"
+            return False, (f"[annotation / trace check] The [UNSOUNDNESS] log printed {len(unsoundness_lines)} lines, "
+                           f"but none with caller= naming the root-cause method {method} (callers printed: {printed}). "
+                           "Either the log is in code that analyses other methods, or caller= is formatted wrongly "
+                           "(it must be package.Class.method(params)).")
 
-    # The warning must also be specific to the pattern (issue #4).
+    # The warning must say what went wrong, briefly, and be specific to the pattern (issue #4).
+    ok, feedback = check_description(unsoundness_lines, ANNOTATION_MAX_DESCRIPTION_CHARS)
+    if not ok:
+        log.error(f"{state.label()} {feedback.splitlines()[0]}")
+        return False, feedback
+
     ok, feedback = check_selectivity(unsoundness_lines, state.staticcg_path, ANNOTATION_MAX_CALLER_FRACTION)
     if not ok:
         log.error(f"{state.label()} {feedback.splitlines()[0]}")
@@ -254,7 +273,7 @@ def _build_annotation_feedback(state: PipelineState) -> str:
 
     lines += [
         "\n### Required log format (the trace checker parses this):",
-        "  [UNSOUNDNESS] <one-line tool limitation> | caller=<caller_method_fullname> | site=<site>",
+        "  [UNSOUNDNESS] <very short problem description> | caller=<caller_method_fullname> | site=<site>",
         "\nRevise the injection point so the log fires with the correct caller format.",
     ]
 

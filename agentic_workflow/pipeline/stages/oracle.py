@@ -257,3 +257,31 @@ def build_oracle_feedback_section(state: PipelineState, verdict: Verdict) -> str
         "produce symptoms on the test case. Do not run anything against the real program yourself."
     )
     return "\n".join(lines)
+
+
+_MEANING = {
+    "rc_not_matched": "The real program contains no instruction of the kind you named as the root cause (in its "
+                      "application and library code), so it cannot be what makes the tool miss this edge.",
+    "rc_not_hit":     "The instruction you named exists in the real program, but it never runs (under the condition "
+                      "you stated) when the program executes.",
+    "no_symptoms":    "The root cause runs in the real program, but nothing it produces reaches any call.",
+    "edge_missing":   "The root cause runs in the real program and affects other calls, but not the missed call — "
+                      "the receiver (or target) of the missed call comes from somewhere else.",
+}
+
+
+def report_feedback_from_verdict(state: PipelineState, verdict: Verdict) -> str:
+    """What the oracle observed on the real program, phrased for the report agent."""
+    caller_cls, caller_m, callee_cls, callee_m = oracle.boundary_edge(state.boundary)
+    lines = [
+        f"[oracle on the real program] Your root cause was turned into an oracle (spec: {state.oracle_spec_path}) "
+        f"and run on {state.program_name}. It does not explain the missed edge "
+        f"{caller_cls}.{caller_m} → {callee_cls}.{callee_m}.",
+        _MEANING.get(verdict.kind, "The oracle did not observe the missed edge."),
+        f"Details: {verdict.message}",
+    ]
+    if state.target_oracle_path and Path(state.target_oracle_path).exists():
+        lines.append(f"What the oracle observed: {state.target_oracle_path}")
+    lines.append("Go back to the evidence in the program: find the instruction that actually produces the receiver "
+                 "(or the target) of the missed call, and the tool code that drops it.")
+    return "\n".join(lines)

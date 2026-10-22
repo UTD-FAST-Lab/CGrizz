@@ -8,6 +8,7 @@ static CG and execution-trace formats.
 import json
 import logging
 from pathlib import Path
+from typing import Optional
 
 log = logging.getLogger("pipeline")
 
@@ -81,6 +82,45 @@ def edge_in_boundary(
         f"Expected: {expected_caller} → {expected_callee}. "
         f"Searched {Path(boundary_path).name}."
     )
+
+
+def edge_in_cg(cg_path: str, expected_caller: str, expected_callee: str) -> Optional[bool]:
+    """
+    Is caller → callee an edge of a JCG call graph (reachableMethods[].callSites[].targets[])?
+    None if the file cannot be read or has another shape — callers then say "unknown".
+    Matching is the same substring match as entry_matches.
+    """
+    try:
+        methods = json.loads(Path(cg_path).read_text()).get("reachableMethods", [])
+    except Exception:
+        return None
+    saw_call_sites = False
+    for m in methods:
+        caller = m.get("method", {})
+        if not (descriptor_to_classname(caller.get("declaringClass", "")) in expected_caller
+                and caller.get("name", "") in expected_caller):
+            continue
+        for site in m.get("callSites", []) or []:
+            saw_call_sites = True
+            for t in site.get("targets", []) or []:
+                if (descriptor_to_classname(t.get("declaringClass", "")) in expected_callee
+                        and t.get("name", "") in expected_callee):
+                    return True
+    return False if saw_call_sites or methods else None
+
+
+def boundary_edges(boundary_path: str, limit: int = 10) -> list[str]:
+    """'Caller.m → Callee.n' for the first missed edges in a boundaries.json."""
+    try:
+        entries = json.loads(Path(boundary_path).read_text()).get("boundaries", [])
+    except Exception:
+        return []
+    out = []
+    for e in entries[:limit]:
+        c, t = e.get("caller", {}), e.get("missedCallee", {})
+        out.append(f"{descriptor_to_classname(c.get('declaringClass', '?'))}.{c.get('name', '?')} → "
+                   f"{descriptor_to_classname(t.get('declaringClass', '?'))}.{t.get('name', '?')}")
+    return out
 
 
 def rc_in_trace(expected_method: str, trace_log_lines: list[str]) -> bool:
