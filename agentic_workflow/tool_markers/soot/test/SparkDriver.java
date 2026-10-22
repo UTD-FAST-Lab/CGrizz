@@ -27,6 +27,8 @@ public class SparkDriver {
     o.set_process_dir(Collections.singletonList(a[0]));
     o.set_soot_classpath(a[0] + java.io.File.pathSeparator + a[2]);
     o.set_output_format(Options.output_format_none);
+    // Soot creates its output directory even without output; keep it out of the working directory.
+    o.set_output_dir(java.nio.file.Files.createTempDirectory("sootOutput").toString());
     o.setPhaseOption("jb", "use-original-names:true");
     o.setPhaseOption("cg", "safe-forname:false");
     o.setPhaseOption("cg", "safe-newinstance:false");
