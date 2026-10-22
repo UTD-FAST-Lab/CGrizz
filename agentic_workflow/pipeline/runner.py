@@ -19,6 +19,7 @@ from pipeline.outcome import write_final_report, print_success_summary, print_fa
 from pipeline.stages import (
     stage_generate_report,
     stage_generate_test_case,
+    stage_shrink_test_case,
     stage_generate_oracle,
     stage_check_oracle_on_program,
     stage_check_reproduction,
@@ -132,6 +133,9 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
             continue   # → back to stage 3 with reproduce_feedback injected
 
         log.info(f"{state.label()} Reproduced. Proceeding to annotation...")
+
+        # Stage 6b: make the test cases smaller, if every check still passes (never fails the boundary)
+        await stage_shrink_test_case(state)
 
         # Stages 7–8: inner annotation retry loop
         # Retries only the annotation + trace steps; stages 3–6 are NOT re-run here.

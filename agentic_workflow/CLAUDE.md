@@ -124,7 +124,7 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 **Constants (`config.py`)** — loop limits (`MAX_LOOPS`, `ANNOTATION_MAX_RETRIES`,
 `ORACLE_REFINE_ATTEMPTS`, `ORACLE_GENERATE_ATTEMPTS`, `REPORT_SCHEMA_RETRIES`), check settings
 (`ORACLE_NEGATIVE_CHECK`, `ANNOTATION_NEGATIVE_CHECK`, `ANNOTATION_MAX_CALLER_FRACTION`,
-`ANNOTATION_MAX_DESCRIPTION_CHARS`), `ORACLE_RUN_TIMEOUT`, `JCG_FAST_PATH`, the pinned
+`ANNOTATION_MAX_DESCRIPTION_CHARS`, `TEST_CASE_*`), `ORACLE_RUN_TIMEOUT`, `JCG_FAST_PATH`, the pinned
 `MODEL_PIPELINE`, and output filenames.
 
 ## Stage-Level Details
@@ -134,10 +134,11 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 | Stage | Function | Checked by the pipeline |
 |---|---|---|
 | 3 report | `stage_generate_report` (fn-edge-analyzer) | format (`report_schema.py`), tool locations exist |
-| 4 test cases | `stage_generate_test_case` (test-case-generator) | — |
+| 4 test cases | `stage_generate_test_case` (test-case-generator) | size budget (`TEST_CASE_MAX_FILES/LINES`) → one simplify round |
 | 5 oracle | `stage_generate_oracle` (instrumentation) | spec lint; symptoms on the reproducing test case; none on the near miss |
 | 5b oracle on program | `stage_check_oracle_on_program` | verdict: found / pattern / spec / infrastructure / unsupported |
 | 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG) |
+| 6b shrink | `stage_shrink_test_case` (test-case-generator) | smaller version kept only if the oracle checks and reproduction still pass |
 | 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
 | 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; ≤ 5% of methods; not on the near miss |
 | 9 refine | `stage_refine_report` | — |
@@ -165,6 +166,7 @@ oracle_agent/test.sh                 # oracle agent: example programs under -Xve
 python tests/oracle_e2e.py           # oracle stages, dedup, runner routing (stubbed LLM)
 python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
 python tests/feedback_test.py        # feedback messages
+python tests/test_case_size_test.py  # test-case budget and shrinking
 python tests/determinism_test.py     # report format, reproducibility script
 python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn
 ```

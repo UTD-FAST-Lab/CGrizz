@@ -31,6 +31,14 @@ ORACLE_REFINE_ATTEMPTS  = 2     # spec refinements after a failed check on the r
 ORACLE_GENERATE_ATTEMPTS = 2    # attempts to get a valid spec + non-empty oracle on the test case
 ORACLE_NEGATIVE_CHECK   = True  # the spec must produce no symptoms on the non-reproducing (near-miss) test case
 
+# ── Test case size (pipeline/test_case_size.py, issue #3) ──────────────────────
+
+TEST_CASE_MAX_FILES          = 6    # budget for the reproducing test case (src/main/java)
+TEST_CASE_MAX_LINES          = 150  # lines of code, without blanks and comments
+TEST_CASE_SIMPLIFY_ATTEMPTS  = 1    # "simplify" rounds when a new test case is over budget
+TEST_CASE_SHRINK_ABOVE_LINES = 60   # after reproduction passes, try to shrink test cases larger than this
+TEST_CASE_SHRINK_ATTEMPTS    = 1    # each attempt re-runs the oracle checks and the reproduction check
+
 # ── Reports (pipeline/report_schema.py) ───────────────────────────────────────
 
 REPORT_SCHEMA_RETRIES = 1    # times the analyzer may fix a report that does not match the schema

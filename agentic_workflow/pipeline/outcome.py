@@ -75,6 +75,7 @@ def write_final_report(state: PipelineState, success: bool, reason: str,
         "annotation": {"file": state.annotated_file, "line": state.injected_at_line},
         "oracle_verdicts": state.oracle_verdicts,
         "stage_seconds": state.stage_seconds,
+        "test_case_size": state.test_case_size,
         "feedback_history": {
             "reproduce_feedback": state.reproduce_feedback,
             "trace_feedback":     state.trace_feedback,
