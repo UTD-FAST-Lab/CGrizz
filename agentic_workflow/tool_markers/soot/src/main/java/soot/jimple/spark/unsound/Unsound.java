@@ -27,7 +27,8 @@ import soot.tagkit.BytecodeOffsetTag;
  * allocation it cannot resolve, ...) the annotation calls {@link #mark}. That adds a
  * marker object to the value's points-to set. The marker has type {@link NullType}, so
  * SPARK's type filters let it through every cast and declared type, it flows wherever
- * the lost object would have flowed, and call resolution gives it no targets — the call
+ * the lost object would have flowed. SPARK never uses it as a receiver type, string or
+ * argument array, and its fields hold nothing ({@code CGrizzMarkerField}), so the call
  * graph does not change. When it reaches the receiver of a call, {@link #onReceiver}
  * prints one warning per call site:
  *
@@ -99,15 +100,19 @@ public final class Unsound {
     return n instanceof AllocNode && ((AllocNode) n).getNewExpr() instanceof Marker;
   }
 
-  /** Called by OnFlyCallGraph for every object that reaches a receiver variable. */
-  public static void onReceiver(OnFlyCallGraphBuilder ofcgb, Local receiver, AllocNode object) {
+  /**
+   * Called by OnFlyCallGraph for every object that reaches a receiver variable. Returns
+   * whether it is a marker: then SPARK must not use it as a receiver type, since even a
+   * NullType receiver makes the special calls (private methods, super calls) on it reachable.
+   */
+  public static boolean onReceiver(OnFlyCallGraphBuilder ofcgb, Local receiver, AllocNode object) {
     if (!(object.getNewExpr() instanceof Marker)) {
-      return;
+      return false;
     }
     Marker m = (Marker) object.getNewExpr();
     List<VirtualCallSite> sites = ofcgb.cgrizzSitesOf(receiver);
     if (sites == null) {
-      return;
+      return true;
     }
     for (VirtualCallSite site : sites) {
       Stmt s = site.stmt();
@@ -118,6 +123,7 @@ public final class Unsound {
           + site.iie().getMethodRef().getDeclaringClass().getName() + "." + site.iie().getMethodRef().getName()
           + " | line=" + s.getJavaSourceStartLineNumber() + " | pc=" + pc(s) + " | rc=" + m.id);
     }
+    return true;
   }
 
   private static int pc(Stmt s) {

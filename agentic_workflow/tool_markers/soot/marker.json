@@ -1,19 +1,40 @@
 {
   "tool": "Soot",
   "description": "Unsoundness markers for SPARK: Unsound.mark(var, method, id, description) at the give-up point; [UNSOUNDNESS-EDGE] warnings at every call whose receiver the lost value reaches.",
-  "files": ["src/main/java/soot/jimple/spark/unsound/Unsound.java"],
+  "files": [
+    "src/main/java/soot/jimple/spark/unsound/Unsound.java",
+    "src/main/java/soot/jimple/spark/pag/CGrizzMarkerField.java"
+  ],
   "edits": [
     {
       "file": "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java",
       "anchor": "            ofcgb.addType(receiver, context, n.getType(), (AllocNode) n);\n",
+      "insert": "replace",
+      "text": "            if (!soot.jimple.spark.unsound.Unsound.onReceiver(ofcgb, receiver, (AllocNode) n)) { // CGrizz unsoundness marker: warn, no type\n              ofcgb.addType(receiver, context, n.getType(), (AllocNode) n);\n            }\n"
+    },
+    {
+      "file": "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java",
+      "anchor": "          if (n instanceof StringConstantNode) {\n",
       "insert": "before",
-      "text": "            soot.jimple.spark.unsound.Unsound.onReceiver(ofcgb, receiver, (AllocNode) n); // CGrizz unsoundness marker\n"
+      "text": "          if (soot.jimple.spark.unsound.Unsound.isMarker(n)) { // CGrizz unsoundness marker: not a string\n            return;\n          }\n"
+    },
+    {
+      "file": "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java",
+      "anchor": "            AllocNode an = ((AllocNode) n);\n",
+      "insert": "after",
+      "text": "            if (soot.jimple.spark.unsound.Unsound.isMarker(an)) { // CGrizz unsoundness marker: not an argument array\n              return;\n            }\n"
     },
     {
       "file": "src/main/java/soot/jimple/toolkits/callgraph/OnFlyCallGraphBuilder.java",
       "anchor": "  public boolean wantTypes(Local receiver) {\n",
       "insert": "before",
       "text": "  /** CGrizz unsoundness markers: the virtual call sites whose receiver is {@code receiver}. */\n  public List<VirtualCallSite> cgrizzSitesOf(Local receiver) {\n    return receiverToSites.get(receiver);\n  }\n\n"
+    },
+    {
+      "file": "src/main/java/soot/jimple/spark/pag/PAG.java",
+      "anchor": "    AllocDotField ret = an.dot(field);\n",
+      "insert": "after",
+      "text": "    if (ret == null && soot.jimple.spark.unsound.Unsound.isMarker(an)) {\n      ret = new CGrizzMarkerField(this, an, field); // CGrizz unsoundness marker: its fields hold nothing\n    }\n"
     }
   ],
   "usage": "soot/README.md"

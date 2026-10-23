@@ -21,16 +21,21 @@ from pipeline.edge_mapping import map_files
 from pipeline.state import PipelineState
 from pipeline.warning_checks import check_coverage, check_noninterference, warning_records
 
-SOOT_EDITS = [e["file"] for e in tool_markers.spec("Soot")["edits"]]
+SOOT_EDITS = list(dict.fromkeys(e["file"] for e in tool_markers.spec("Soot")["edits"]))
+CALLGRAPH, BUILDER = "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java", \
+    "src/main/java/soot/jimple/toolkits/callgraph/OnFlyCallGraphBuilder.java"
 
 
 def fake_soot(root: Path) -> Path:
     """A tool tree with just the files the Soot module edits, taken from the module's anchors."""
     tool = root / "soot"
+    anchors: dict[str, str] = {}
     for e in tool_markers.spec("Soot")["edits"]:
-        p = tool / e["file"]
+        anchors[e["file"]] = anchors.get(e["file"], "") + e["anchor"]
+    for f, text in anchors.items():
+        p = tool / f
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text("class X {\n" + e["anchor"] + "}\n")
+        p.write_text("class X {\n" + text + "}\n")
     return tool
 
 
@@ -38,14 +43,15 @@ def test_install():
     tool = fake_soot(Path(tempfile.mkdtemp()))
     changed = tool_markers.install("Soot", tool)
     assert (tool / "src/main/java/soot/jimple/spark/unsound/Unsound.java").exists()
-    assert set(SOOT_EDITS) <= set(changed)
+    assert set(SOOT_EDITS) <= set(changed) and len(changed) == len(set(changed))
     once = {f: (tool / f).read_text() for f in SOOT_EDITS}
     tool_markers.install("Soot", tool)                                   # idempotent
     assert {f: (tool / f).read_text() for f in SOOT_EDITS} == once
-    assert "Unsound.onReceiver" in once[SOOT_EDITS[0]] and "cgrizzSitesOf" in once[SOOT_EDITS[1]]
+    assert "Unsound.onReceiver" in once[CALLGRAPH] and "cgrizzSitesOf" in once[BUILDER]
+    assert "CGrizzMarkerField" in once["src/main/java/soot/jimple/spark/pag/PAG.java"]
 
     broken = fake_soot(Path(tempfile.mkdtemp()))
-    (broken / SOOT_EDITS[0]).write_text("class X {}\n")                  # a different tool version
+    (broken / CALLGRAPH).write_text("class X {}\n")                  # a different tool version
     try:
         tool_markers.install("Soot", broken)
         raise AssertionError("expected ToolMarkerError")
