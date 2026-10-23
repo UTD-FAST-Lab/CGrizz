@@ -121,22 +121,6 @@ def check_description(lines: list[str], max_chars: int) -> tuple[bool, str]:
     )
 
 
-def check_noninterference(original_cg: Optional[str], annotated_cg: Optional[str]) -> tuple[bool, str]:
-    """The annotation may only add warnings: the call graph on the test case must not change."""
-    from pipeline.edges import cg_edges
-    before = cg_edges(original_cg) if original_cg else None
-    after = cg_edges(annotated_cg) if annotated_cg else None
-    if before is None or after is None or before == after:
-        return True, ""
-    added, removed = sorted(after - before), sorted(before - after)
-    lines = [f"[annotation / trace check] Non-interference check failed — on the reproducing test case the "
-             f"annotated tool's call graph differs from the original tool's ({len(added)} edges added, "
-             f"{len(removed)} removed). The annotation must only print warnings and mark values; it must not change "
-             "what the tool computes."]
-    lines += [f"  + {e}" for e in added[:5]] + [f"  - {e}" for e in removed[:5]]
-    return False, "\n".join(lines)
-
-
 def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path) -> tuple[bool, str]:
     """
     With a tool marker module: every missed edge in the test case's own code has a

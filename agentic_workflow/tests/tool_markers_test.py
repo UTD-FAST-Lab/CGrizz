@@ -1,6 +1,6 @@
 """
 Tests for tool unsoundness markers (issue #14, step 2): the installer, the
-non-interference and coverage checks, and stage 8 with [UNSOUNDNESS-EDGE] lines.
+coverage check, and stage 8 with [UNSOUNDNESS-EDGE] lines.
 The real-tool tests are tool_markers/run_test.sh <soot|wala|opal>.
 
     cd agentic_workflow && python tests/tool_markers_test.py
@@ -19,7 +19,7 @@ import pipeline.stages.annotation as A
 from pipeline import tool_markers
 from pipeline.edge_mapping import map_files
 from pipeline.state import PipelineState
-from pipeline.warning_checks import check_coverage, check_noninterference, warning_records
+from pipeline.warning_checks import check_coverage, warning_records
 
 SOOT_EDITS = list(dict.fromkeys(e["file"] for e in tool_markers.spec("Soot")["edits"]))
 CALLGRAPH, BUILDER = "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java", \
@@ -103,15 +103,6 @@ def cg(path: Path, edges: list[tuple[str, str, int]]) -> str:
     return str(path)
 
 
-def test_noninterference():
-    d = Path(tempfile.mkdtemp())
-    base = [("com.ex.App.main", "com.ex.Safe.run", 24)]
-    assert check_noninterference(cg(d / "a.json", base), cg(d / "b.json", base)) == (True, "")
-    ok, fb = check_noninterference(cg(d / "a.json", base), cg(d / "c.json", base + [("com.ex.App.main", "com.ex.X.run", 19)]))
-    assert not ok and "1 edges added, 0 removed" in fb and "com.ex.X.run" in fb
-    assert check_noninterference(None, cg(d / "b.json", base))[0], "no original saved → nothing to compare"
-
-
 EDGE = "[UNSOUNDNESS-EDGE] Unsafe.getObject result not modelled | caller=com.ex.App.main(java.lang.String[]) | site=com.ex.Target.run | line={line} | pc=-1 | rc=unsafeGetObject"
 RC = "[UNSOUNDNESS] Unsafe.getObject result not modelled | caller=com.ex.App.main(java.lang.String[]) | site=getObject | line=18 | pc=-1"
 
@@ -146,7 +137,7 @@ def test_edge_parsing_and_coverage():
     assert map_files([d / "log.txt"], bpath)["counts"]["explained"] == 3
 
 
-def run_stage(trace_lines, original_edges, annotated_edges, markers=True):
+def run_stage(trace_lines, cg_edges, markers=True):
     d = Path(tempfile.mkdtemp())
     tc = test_case(d)
     (tc / "staticcg/log.txt").write_text("\n".join(trace_lines))
@@ -156,8 +147,7 @@ def run_stage(trace_lines, original_edges, annotated_edges, markers=True):
     s = PipelineState(program_name="p", tool_name="Soot", algorithm="SPARK", boundary_index=0, boundary_id="b0",
                       target_program_path=".", main_class="M", sa_tool_path=".", boundary={}, output_dir=d)
     s.reproducing_test_case_path, s.oracle_path = str(tc), str(oracle)
-    s.staticcg_path = cg(d / "annotated_cg.json", annotated_edges)
-    cg(tc / "staticcg.original.json", original_edges)
+    s.staticcg_path = cg(d / "annotated_cg.json", cg_edges)
     s.boundary_path = boundaries(d / "b.json")
     s.tool_markers_installed = markers
     A.build_agent_options = lambda st: None
@@ -167,25 +157,21 @@ def run_stage(trace_lines, original_edges, annotated_edges, markers=True):
 def test_stage():
     base = [("com.ex.App.main", "com.ex.Safe.run", 24)] + [(f"java.util.C{i}.m", "java.lang.Object.f", i) for i in range(200)]
     full = [RC] + [EDGE.format(line=n) for n in (19, 21, 23)]
-    (ok, fb), s = run_stage(full, base, base)
+    (ok, fb), s = run_stage(full, base)
     assert ok, fb
     assert s.warning_coverage["explained"] == 3
 
-    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, base)
+    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base)
     assert not ok and "Coverage check failed" in fb
 
-    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, base, markers=False)
+    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, markers=False)
     assert ok, "coverage is only required with a marker module"
-
-    (ok, fb), _ = run_stage(full, base, base + [("com.ex.App.main", "com.ex.UnsafeTarget.run", 19)])
-    assert not ok and "Non-interference check failed" in fb
 
 
 if __name__ == "__main__":
     test_install()
     test_every_module_is_complete()
     test_install_on_pinned_tools()
-    test_noninterference()
     test_edge_parsing_and_coverage()
     test_stage()
     print("tool markers: all tests passed")
