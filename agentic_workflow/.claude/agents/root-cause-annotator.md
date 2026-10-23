@@ -46,7 +46,7 @@ System.out.println("[UNSOUNDNESS] " + "<description>" + " | caller=" + <caller_e
 - `<site_expr>` — the call-site reference in scope (e.g. `site`, `callSite`).
 - `<line_expr>`, `<pc_expr>` — the source line and the bytecode offset of the **call instruction in
   the caller** whose edge the tool drops. They let each warning be matched to a missed edge. Use
-  `-1` for a value the tool does not have, but at least one must be known. Typical sources:
+  `-1` for a value the tool does not have. Typical sources:
   - WALA: for the invoke instruction `call` in `node`'s IR,
     `int pc = ((IBytecodeMethod<?>) node.getMethod()).getBytecodeIndex(call.iIndex());`
     `int line = node.getMethod().getLineNumber(pc);` (catch `InvalidClassFileException` → `-1`).
@@ -70,7 +70,7 @@ The pipeline runs the annotated tool and accepts the annotation only if:
 
 1. on the **reproducing** test case, the log fires with `caller=` naming the root-cause
    method(s) from the oracle, its description is at most 60 characters, and it has `line=` and
-   `pc=` (at least one known);
+   `pc=` (`-1` where the tool has no value);
 2. it fires for only a small share of all methods the tool analyses (a log in a generic
    place fails this);
 3. on the **non-reproducing** test case — the same program without the root cause — it

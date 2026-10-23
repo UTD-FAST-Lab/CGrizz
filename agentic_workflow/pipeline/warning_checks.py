@@ -90,19 +90,18 @@ def warning_records(lines: list[str]) -> list[dict]:
 
 
 def check_location(lines: list[str]) -> tuple[bool, str]:
-    """Every warning names the call instruction: line= and pc= present, at least one of them known."""
-    records = warning_records(lines)
-    missing = [r for r in records if not r["has_location_fields"]]
-    unknown = [r for r in records if r["has_location_fields"] and r["line"] is None and r["pc"] is None]
-    if not missing and not unknown:
+    """
+    Every warning has the line= and pc= fields of the call instruction. Either may be -1: the tool
+    does not always have them (e.g. methods it synthesizes itself have neither).
+    """
+    if all(r["has_location_fields"] for r in warning_records(lines)):
         return True, ""
-    what = ("has no `line=` / `pc=` fields" if missing else "prints line=-1 and pc=-1 (both unknown)")
     return False, (
-        f"[annotation / trace check] Location check failed — the [UNSOUNDNESS] log {what}. Each warning must say "
-        "which call instruction of the caller is affected, so it can be matched to a missed edge: "
-        "[UNSOUNDNESS] <description> | caller=<method> | site=<site> | line=<source line> | pc=<bytecode offset>. "
-        "Use -1 only for a value the tool really does not have, and at least one of the two must be known "
-        "(see the per-tool hints in your instructions)."
+        "[annotation / trace check] Location check failed — the [UNSOUNDNESS] log has no `line=` / `pc=` fields. "
+        "Each warning must say which call instruction of the caller is affected, so it can be matched to a missed "
+        "edge: [UNSOUNDNESS] <description> | caller=<method> | site=<site> | line=<source line> | "
+        "pc=<bytecode offset>, with -1 for a value the tool does not have (see the per-tool hints in your "
+        "instructions)."
     )
 
 
