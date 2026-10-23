@@ -11,7 +11,8 @@ from pathlib import Path
 from pipeline.state import PipelineState
 from pipeline.timing import timed
 from pipeline.analysis import run_analysis_interface
-from pipeline.edges import boundary_edges, edge_in_boundary, edge_in_cg, is_reachable
+from pipeline.edges import (boundary_edges, edge_in_boundary, edge_in_cg, is_reachable, method_reachable,
+                            reflective_edge_in_boundary)
 
 from pipeline.stages.oracle import generate_oracle_testcase
 
@@ -76,6 +77,15 @@ async def stage_check_reproduction(state: PipelineState) -> tuple[bool, str]:
         if expected_caller and expected_callee:
             if not is_reachable(expected_caller, state.staticcg_path):
                 continue
+            if symptom.get("via") == "reflection":
+                # The member a reflective call reaches: the JVM calls it from a JDK reflection accessor.
+                # Missed if the tool cannot reach it at all (it lies behind a missed edge, e.g. the
+                # reflective call itself), or if the accessor's call to it is a missed edge.
+                if method_reachable(expected_callee, state.staticcg_path) is False \
+                        or reflective_edge_in_boundary(state.boundary_path, expected_callee):
+                    continue
+                log.error(f"{state.label()} Reflective target {expected_callee} (from {expected_caller}) is not missed")
+                return False, _not_reproduced(state, expected_caller, expected_callee)
             log.info(f"{state.label()} Checking for edge in boundary: {expected_caller} → {expected_callee}")
             reproduced, feedback = edge_in_boundary(state.boundary_path, expected_caller, expected_callee)
             if not reproduced:

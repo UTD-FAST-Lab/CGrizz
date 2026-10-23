@@ -364,6 +364,12 @@ public final class Tracker {
     }
 
     private static void record(int rcSiteId, Sites.Site at, String calleeOwner, String calleeName, String calleeDesc) {
+        record(rcSiteId, at, calleeOwner, calleeName, calleeDesc, null);
+    }
+
+    /** via: null for a call at the site; "reflection" for the member a reflective call at the site reaches. */
+    private static void record(int rcSiteId, Sites.Site at, String calleeOwner, String calleeName, String calleeDesc,
+                               String via) {
         String callee = calleeOwner + "." + calleeName + calleeDesc;
         String key = at.id + "|" + callee;
         Map<String, Map<String, Object>> bucket = SYMPTOMS.computeIfAbsent(rcSiteId, k -> new ConcurrentHashMap<>());
@@ -373,22 +379,27 @@ public final class Tracker {
         sym.put("callee", callee);
         sym.put("pc", at.index);
         sym.put("line", at.line);
+        if (via != null) sym.put("via", via);
         if (bucket.putIfAbsent(key, sym) == null) {
             dirty = true;
             log("symptom " + at.callerMethod() + " -> " + callee);
         }
     }
 
-    /** Method.invoke / Constructor.newInstance / Class.newInstance also reach the reflected member. */
+    /**
+     * Method.invoke / Constructor.newInstance / Class.newInstance also reach the reflected member.
+     * The JVM makes that call from a JDK reflection accessor (e.g. NativeConstructorAccessorImpl),
+     * not from the site, so the symptom says "via": "reflection".
+     */
     private static void recordReflectiveTarget(int tag, Sites.Site s, Object receiver) {
         if (receiver instanceof Method && s.calleeName.equals("invoke")) {
             Method m = (Method) receiver;
-            record(tag, s, m.getDeclaringClass().getName(), m.getName(), Type.getMethodDescriptor(m));
+            record(tag, s, m.getDeclaringClass().getName(), m.getName(), Type.getMethodDescriptor(m), "reflection");
         } else if (receiver instanceof Constructor && s.calleeName.equals("newInstance")) {
             Constructor<?> c = (Constructor<?>) receiver;
-            record(tag, s, c.getDeclaringClass().getName(), "<init>", Type.getConstructorDescriptor(c));
+            record(tag, s, c.getDeclaringClass().getName(), "<init>", Type.getConstructorDescriptor(c), "reflection");
         } else if (receiver instanceof Class && s.calleeName.equals("newInstance")) {
-            record(tag, s, ((Class<?>) receiver).getName(), "<init>", "()V");
+            record(tag, s, ((Class<?>) receiver).getName(), "<init>", "()V", "reflection");
         }
     }
 

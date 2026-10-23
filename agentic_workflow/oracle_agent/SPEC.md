@@ -205,5 +205,8 @@ false), `symptomsRecorded`, `instrumentationErrors`. Read it first when the orac
 ```
 
 `pc` is the instruction's index within the method (not a byte offset). `rootCauses` lists every
-root cause that applied at the instruction; `rootCause` is the first of them. Only root causes
+root cause that applied at the instruction; `rootCause` is the first of them. A symptom with
+`"via": "reflection"` is the member that a reflective call at that site reaches (`Method.invoke`,
+`Constructor.newInstance`, `Class.newInstance`); the JVM makes that call from a JDK reflection
+accessor, so call graphs show it with the accessor as caller. Only root causes
 with at least one symptom are listed. Output is sorted, so the same run gives the same file.

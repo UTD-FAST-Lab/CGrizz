@@ -169,6 +169,7 @@ python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
 python tests/feedback_test.py        # feedback messages
 python tests/test_case_size_test.py  # test-case budget and shrinking
 python tests/edge_mapping_test.py    # warnings ↔ boundaries (scripts/helpers/warning_coverage.py)
+python tests/reflective_symptoms_test.py  # symptoms "via": "reflection" ↔ JDK reflection-accessor edges
 python tests/tool_markers_test.py    # marker installer, non-interference / coverage checks
 tool_markers/run_test.sh <tool>      # a marker module on the real, pinned tool (needs tools/<tool>)
 python tests/determinism_test.py     # report format, reproducibility script
