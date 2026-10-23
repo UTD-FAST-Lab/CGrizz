@@ -25,7 +25,6 @@ from pipeline.warning_checks import (
     check_description,
     check_location,
     check_negative,
-    check_noninterference,
     edge_warning_lines,
     check_selectivity,
     warning_callers,
@@ -38,7 +37,6 @@ from config import (
     ANNOTATION_MAX_CALLER_FRACTION,
     ANNOTATION_NEGATIVE_CHECK,
     ANNOTATION_MAX_DESCRIPTION_CHARS,
-    ANNOTATION_NONINTERFERENCE_CHECK,
     ANNOTATION_REQUIRE_EDGE_COVERAGE,
     TOOL_MARKERS,
 )
@@ -142,12 +140,6 @@ If the log already exists for the same reason (`skipped: true`):
             f"at line {state.injected_at_line}"
         )
 
-    # Keep the original tool's call graph of the test case (the annotated run overwrites it)
-    # for the non-interference check.
-    original = Path(state.reproducing_test_case_path) / "staticcg.original.json"
-    if not original.exists() and state.staticcg_path and Path(state.staticcg_path).exists():
-        shutil.copyfile(state.staticcg_path, original)
-
     # Run annotated tool → produces the execution trace consumed by stage_check_trace
     state.modified_analysis_path = run_annotated_sa(state)
     return True, ""
@@ -223,10 +215,8 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     edge_lines = edge_warning_lines(trace_log)
     for check in (lambda: check_description(edge_lines, ANNOTATION_MAX_DESCRIPTION_CHARS),
                   lambda: check_location(unsoundness_lines + edge_lines),
-                  lambda: check_noninterference(
-                      str(Path(state.reproducing_test_case_path) / "staticcg.original.json")
-                      if ANNOTATION_NONINTERFERENCE_CHECK else None, state.staticcg_path),
-                  lambda: check_coverage(trace_log, state.boundary_path, Path(state.reproducing_test_case_path))
+                  lambda: check_coverage(trace_log, state.boundary_path, Path(state.reproducing_test_case_path),
+                                         _test_case_symptoms(state))
                   if state.tool_markers_installed and ANNOTATION_REQUIRE_EDGE_COVERAGE else (True, "")):
         ok, feedback = check()
         if not ok:
@@ -270,6 +260,15 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
 
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
+
+
+def _test_case_symptoms(state: PipelineState):
+    """The symptom edges of the reproducing test case's oracle; None if it cannot be read."""
+    from pipeline.oracle import symptom_edges
+    try:
+        return symptom_edges(json.loads(Path(state.oracle_path).read_text()))
+    except Exception:
+        return None
 
 
 def _marker_section(state: PipelineState) -> str:

@@ -132,6 +132,9 @@ def test_changed_sources():
     env = ann.container_env("WALA", str(annotated), fast_path=True)
     assert env == {"SA_FRAMEWORK": "WALA", "JCG_FAST_PATH": "1", "CHANGED_SOURCES": "core/src/A.java:util/D.java"}
     assert ann.container_env("WALA", str(annotated), fast_path=False) == {"SA_FRAMEWORK": "WALA"}
+    os.environ["CGRIZZ_MARKER_SCOPE"] = "application"            # config.TOOL_MARKER_SCOPE, set by the pipeline
+    assert ann.container_env("WALA", str(annotated), fast_path=False)["CGRIZZ_MARKER_SCOPE"] == "application"
+    del os.environ["CGRIZZ_MARKER_SCOPE"]
 
 
 def test_pipeline_passes_flags():

@@ -27,6 +27,12 @@ object Unsound {
 
     private[this] val descriptions = new ConcurrentHashMap[String, String]()
     private[this] val reported = ConcurrentHashMap.newKeySet[String]()
+    /**
+     * CGRIZZ_MARKER_SCOPE=application: warn only at calls outside the JDK. (OPAL's project types do
+     * not tell: JCG adds the JDK to the project when it analyses it.)
+     */
+    private[this] val applicationOnly = "application" == System.getenv("CGRIZZ_MARKER_SCOPE")
+    private[this] val jdkPackages = Seq("java.", "javax.", "jdk.", "sun.", "com.sun.", "com.oracle.", "org.ietf.jgss.", "org.omg.", "org.w3c.dom.", "org.xml.sax.", "org.jcp.xml.")
 
     /** The marker type of root cause `id`; `description`: at most 60 characters, for the tool's user. */
     def markerType(id: String, description: String): ObjectType = {
@@ -36,9 +42,10 @@ object Unsound {
 
     def isMarker(t: ReferenceType): Boolean = t.isObjectType && t.asObjectType.fqn.startsWith(Prefix)
 
+    /** caller: pkg.Cls.m(params). */
     def report(marker: ReferenceType, caller: String, site: String, line: Int, pc: Int): Unit = {
         val id = marker.asObjectType.fqn.substring(Prefix.length)
-        if (reported.add(s"$id|$caller|$pc"))
+        if ((!applicationOnly || !jdkPackages.exists(caller.startsWith)) && reported.add(s"$id|$caller|$pc"))
             println(
                 s"[UNSOUNDNESS-EDGE] ${descriptions.getOrDefault(id, id)} | caller=$caller | site=$site"+
                     s" | line=$line | pc=$pc | rc=$id"

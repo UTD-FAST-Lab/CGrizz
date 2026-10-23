@@ -20,8 +20,8 @@ MAX_CONCURRENT_AGENTS  = 3    # Cap on simultaneous SDK agent sessions (≤ pipe
 ANNOTATION_MAX_CALLER_FRACTION = 0.05  # [UNSOUNDNESS] may fire for at most this share of reachable methods
 ANNOTATION_NEGATIVE_CHECK      = True  # also run the annotated tool on the non-reproducing test case
 ANNOTATION_MAX_DESCRIPTION_CHARS = 60  # the problem description printed by [UNSOUNDNESS]
-ANNOTATION_NONINTERFERENCE_CHECK = True  # the annotated tool's call graph on the test case must equal the original's
 TOOL_MARKERS                   = True  # install tool_markers/<tool> into the annotated tool when it exists (#14)
+TOOL_MARKER_SCOPE              = "all"  # where markers warn: "all", or "application" (not inside the JDK: java.*, sun.*, ...)
 ANNOTATION_REQUIRE_EDGE_COVERAGE = True  # with a marker module: every missed edge of the test case needs a warning
 
 # ── Oracle (spec-driven instrumentation, see oracle_agent/SPEC.md) ────────────

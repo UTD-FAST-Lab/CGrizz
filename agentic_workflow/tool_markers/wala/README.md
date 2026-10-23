@@ -31,7 +31,7 @@ com.ibm.wala.ipa.callgraph.propagation.unsound.Unsound.mark(builder, pointerKey,
 Guard it exactly like the warning: only for this root cause. The marker is an instance key of
 type `java.lang.Object` that is registered with every class, so WALA's type filters (casts,
 declared types) let it through, and `getTargetForCall` gives it no target. **The call graph does
-not change**, and the pipeline checks that.
+not change** (`tool_markers/run_test.sh wala` checks that).
 
 ## Example (WALA W10: the result of the native `Unsafe.getObject` has no model)
 

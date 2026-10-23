@@ -23,6 +23,7 @@ from pipeline.stages import (
     stage_generate_oracle,
     stage_check_oracle_on_program,
     stage_check_reproduction,
+    recheck_reproduction,
     stage_root_cause_annotation,
     stage_check_trace,
     stage_refine_report,
@@ -90,39 +91,61 @@ async def _run_pipeline_inner(state: PipelineState) -> None:
                                reason=f"Oracle generation failed: {state.oracle_failure}")
             return
 
-        # Stage 5b: Check the oracle on the real program
-        verdict = await stage_check_oracle_on_program(state)
-        refinements = 0
-        while verdict.category in (PATTERN, SPEC) and refinements < ORACLE_REFINE_ATTEMPTS:
-            refinements += 1
-            log.info(f"{state.label()} Oracle refinement attempt {refinements}/{ORACLE_REFINE_ATTEMPTS}")
-            if not await stage_generate_oracle(state, feedback=build_oracle_feedback_section(state, verdict)):
-                write_final_report(state, success=False, failure_kind=state.oracle_failure_kind,
-                                   reason=f"Oracle refinement failed: {state.oracle_failure}")
-                return
+        # Stages 5b–6: the oracle on the real program, then the reproduction check. If the test case
+        # reproduces the miss but the spec also names calls the tool resolves, the spec (not the
+        # hypothesis) is wrong: regenerate it and check again, on the same test case.
+        escalate, spec_fixes = False, 0
+        while True:
+            # Stage 5b: Check the oracle on the real program
             verdict = await stage_check_oracle_on_program(state)
+            refinements = 0
+            while verdict.category in (PATTERN, SPEC) and refinements < ORACLE_REFINE_ATTEMPTS:
+                refinements += 1
+                log.info(f"{state.label()} Oracle refinement attempt {refinements}/{ORACLE_REFINE_ATTEMPTS}")
+                if not await stage_generate_oracle(state, feedback=build_oracle_feedback_section(state, verdict)):
+                    write_final_report(state, success=False, failure_kind=state.oracle_failure_kind,
+                                       reason=f"Oracle refinement failed: {state.oracle_failure}")
+                    return
+                verdict = await stage_check_oracle_on_program(state)
 
-        if verdict.category in (INFRA, UNSUPPORTED, SPEC):
-            # The oracle could not be run or expressed: this says nothing about the
-            # hypothesis, so the report is not sent back for refinement.
-            kind = "oracle_unsupported" if verdict.category == UNSUPPORTED else "instrumentation_failure"
-            write_final_report(state, success=False, failure_kind=kind,
-                               reason=f"Oracle check on the real program failed ({verdict.kind}): {verdict.message}")
-            print_failure_summary(state)
-            return
+            if verdict.category in (INFRA, UNSUPPORTED, SPEC):
+                # The oracle could not be run or expressed: this says nothing about the
+                # hypothesis, so the report is not sent back for refinement.
+                kind = "oracle_unsupported" if verdict.category == UNSUPPORTED else "instrumentation_failure"
+                write_final_report(state, success=False, failure_kind=kind,
+                                   reason=f"Oracle check on the real program failed ({verdict.kind}): {verdict.message}")
+                print_failure_summary(state)
+                return
 
-        if verdict.category == PATTERN:
-            # The oracle ran but the pattern does not explain this boundary → revise the hypothesis.
-            state.reproduce_feedback.append(report_feedback_from_verdict(state, verdict))
-            state.report_refine_reason = "oracle_failure"
-            log.info(f"{state.label()} Oracle refinement exhausted ({verdict.kind}). Escalating to report generator.")
+            if verdict.category == PATTERN:
+                # The oracle ran but the pattern does not explain this boundary → revise the hypothesis.
+                state.reproduce_feedback.append(report_feedback_from_verdict(state, verdict))
+                state.report_refine_reason = "oracle_failure"
+                log.info(f"{state.label()} Oracle refinement exhausted ({verdict.kind}). Escalating to report generator.")
+                escalate = True
+                break
+
+            # Stage 6: Check reproduction (the tool runs once per test case)
+            if spec_fixes == 0:
+                reproduced, repr_feedback = await stage_check_reproduction(state)
+            else:
+                reproduced, repr_feedback = await recheck_reproduction(state)
+            if reproduced or not state.spec_too_broad_feedback or spec_fixes >= ORACLE_REFINE_ATTEMPTS:
+                break
+            spec_fixes += 1
+            log.info(f"{state.label()} Spec names calls the tool resolves — regenerating it "
+                     f"({spec_fixes}/{ORACLE_REFINE_ATTEMPTS})")
+            if not await stage_generate_oracle(state, feedback=state.spec_too_broad_feedback):
+                write_final_report(state, success=False, failure_kind=state.oracle_failure_kind,
+                                   reason=f"Oracle regeneration failed: {state.oracle_failure}")
+                return
+
+        if escalate:
             if state.loop_count >= MAX_LOOPS:
                 break
             state.loop_count += 1
             continue  # → back to Stage 3
 
-        # Stage 6: Check reproduction
-        reproduced, repr_feedback = await stage_check_reproduction(state)
         if not reproduced:
             state.reproduce_feedback.append(repr_feedback)
             state.report_refine_reason = "not_reproduced"

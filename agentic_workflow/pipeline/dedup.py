@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from pipeline.state import PipelineState
-from pipeline.oracle import find_spec_from_dir, run_oracle_on_jar, extract_symptoms
+from pipeline.oracle import find_spec_from_dir, run_oracle_on_jar, extract_symptoms, is_symptom
 from config import OUT_PIPELINE_RESULT, OUT_PRUNING_REPORT, OUT_TARGET_ORACLE
 
 log = logging.getLogger("pipeline")
@@ -39,7 +39,7 @@ def prune_queue(
         callee_class  = b.get("missedCallee", {}).get("declaringClass", "").lstrip("L").rstrip(";").replace("/", ".")
         callee_method = b.get("missedCallee", {}).get("name", "")
 
-        if (caller_class, caller_method, callee_class, callee_method) in symptoms:
+        if is_symptom((caller_class, caller_method, callee_class, callee_method), symptoms):
             pruned.append(state)
         else:
             kept.append(state)

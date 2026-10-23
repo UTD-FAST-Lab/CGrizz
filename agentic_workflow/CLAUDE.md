@@ -138,10 +138,10 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 | 4 test cases | `stage_generate_test_case` (test-case-generator) | size budget (`TEST_CASE_MAX_FILES/LINES`) → one simplify round |
 | 5 oracle | `stage_generate_oracle` (instrumentation) | spec lint; symptoms on the reproducing test case; none on the near miss |
 | 5b oracle on program | `stage_check_oracle_on_program` | verdict: found / pattern / spec / infrastructure / unsupported |
-| 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG) |
+| 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG); if some are and the tool resolves the rest, the spec is regenerated (`spec_too_broad_feedback`) |
 | 6b shrink | `stage_shrink_test_case` (test-case-generator) | smaller version kept only if the oracle checks and reproduction still pass |
 | 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
-| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; call graph unchanged; with a marker module every missed edge warned; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
+| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; with a marker module every missed edge that is a symptom warned; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
 | 9 refine | `stage_refine_report` | — |
 
 Failures become feedback for the next attempt: `oracle_feedback` (instrumentation agent),
@@ -169,7 +169,9 @@ python tests/warning_checks_test.py  # [UNSOUNDNESS] checks and stage 8
 python tests/feedback_test.py        # feedback messages
 python tests/test_case_size_test.py  # test-case budget and shrinking
 python tests/edge_mapping_test.py    # warnings ↔ boundaries (scripts/helpers/warning_coverage.py)
-python tests/tool_markers_test.py    # marker installer, non-interference / coverage checks
+python tests/reflective_symptoms_test.py  # symptoms "via": "reflection" ↔ JDK reflection-accessor edges
+python tests/reproduction_test.py    # reproduction check: missed symptoms, a too-broad spec
+python tests/tool_markers_test.py    # marker installer, coverage check
 tool_markers/run_test.sh <tool>      # a marker module on the real, pinned tool (needs tools/<tool>)
 python tests/determinism_test.py     # report format, reproducibility script
 python tests/jcg_interfaces_test.py  # JCG interfaces with fake docker/mvn

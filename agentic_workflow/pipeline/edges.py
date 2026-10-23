@@ -6,9 +6,12 @@ static CG and execution-trace formats.
 """
 
 import json
+import re
 import logging
 from pathlib import Path
 from typing import Optional
+
+from config import JVM_RUNTIME_EXCLUDED_CALLEES
 
 log = logging.getLogger("pipeline")
 
@@ -19,6 +22,17 @@ def descriptor_to_classname(descriptor: str) -> str:
     Already-dotted names (no slashes) are returned as-is.
     """
     return descriptor.lstrip("L").rstrip(";").replace("/", ".")
+
+
+def is_jvm_runtime_boundary(boundary: dict) -> bool:
+    """
+    The missed callee is called by the JVM itself (class loading, finalization, <clinit>, ...),
+    not by the program's code at the call site, so no tool warning can be expected for it.
+    """
+    missed = boundary.get("missedCallee", {})
+    m_class, m_name = missed.get("declaringClass", ""), missed.get("name", "")
+    return any((cls is None or m_class == cls) and (method is None or m_name == method)
+               for cls, method in JVM_RUNTIME_EXCLUDED_CALLEES) or bool(re.search(r'/\d+;?$', m_class))
 
 
 def entry_matches(entry: dict, expected_caller: str, expected_callee: str) -> bool:
@@ -178,3 +192,35 @@ def is_reachable(expected_caller: str, staticcg_path: str) -> bool:
 
     log.warning(f"{expected_caller} is not reachable in the static call graph or the format is not correct")
     return False
+
+
+def _class_and_name(method: str) -> tuple[str, str]:
+    """'pkg.Cls.m(desc)' → ('pkg.Cls', 'm')."""
+    head = method.split("(")[0]
+    return tuple(head.rsplit(".", 1)) if "." in head else ("", head)
+
+
+def method_reachable(method: str, staticcg_path: str) -> Optional[bool]:
+    """Whether the method (exact class and name) is reachable in the call graph; None if unreadable."""
+    try:
+        data = json.loads(Path(staticcg_path).read_text())
+    except Exception:
+        return None
+    cls, name = _class_and_name(method)
+    return any(descriptor_to_classname(m.get("method", {}).get("declaringClass", "")) == cls
+               and m.get("method", {}).get("name") == name for m in data.get("reachableMethods", []))
+
+
+REFLECTION_ACCESSOR_PREFIXES = ("sun.reflect.", "jdk.internal.reflect.")
+
+
+def reflective_edge_in_boundary(boundary_path: str, callee: str) -> bool:
+    """A missed edge to callee from a JDK reflection accessor (how call graphs show reflective calls)."""
+    cls, name = _class_and_name(callee)
+    try:
+        entries = json.loads(Path(boundary_path).read_text()).get("boundaries", [])
+    except Exception:
+        return False
+    return any(descriptor_to_classname(e.get("caller", {}).get("declaringClass", "")).startswith(REFLECTION_ACCESSOR_PREFIXES)
+               and descriptor_to_classname(e.get("missedCallee", {}).get("declaringClass", "")) == cls
+               and e.get("missedCallee", {}).get("name") == name for e in entries)

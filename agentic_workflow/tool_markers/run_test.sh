@@ -6,6 +6,7 @@
 #      and without them
 #   4. the call graphs must be identical, and [UNSOUNDNESS-EDGE] warnings must appear
 #      exactly at the expected lines
+#   5. with CGRIZZ_MARKER_SCOPE=application the same warnings in Main, none in the JDK
 #
 #   agentic_workflow/tool_markers/run_test.sh <soot|wala|opal> [case ...]
 #
@@ -48,21 +49,29 @@ PY
   compile_overlay "$w/tool" "$w/overlay" $changed
   java -Xmx3g -cp "$WORK/driver:$TOOL_CP" "$DRIVER" "$w/classes" Main "$RT" "$w/original.txt" >"$w/original.log" 2>&1
   java -Xmx3g -cp "$WORK/driver:$w/overlay:$TOOL_CP" "$DRIVER" "$w/classes" Main "$RT" "$w/marked.txt" >"$w/marked.log" 2>&1
+  CGRIZZ_MARKER_SCOPE=application java -Xmx3g -cp "$WORK/driver:$w/overlay:$TOOL_CP" "$DRIVER" "$w/classes" Main "$RT" \
+    "$w/scoped.txt" >"$w/scoped.log" 2>&1
   if python3 - "$w" "$case_dir/annotation.json" <<'PY'
 import json, re, sys
 w, expect = sys.argv[1], json.load(open(sys.argv[2]))["expect"]
 log = open(f"{w}/marked.log").read()
 # only the test program's own calls (the tool may also warn inside the JDK, which is correct)
-lines = sorted({int(m) for m in re.findall(r"\[UNSOUNDNESS-EDGE\][^\n]*\| caller=Main[.$][^\n]*\| line=(\d+)", log)})
-jdk = len(re.findall(r"\[UNSOUNDNESS-EDGE\][^\n]*\| caller=(?!Main[.$])", log))
+def main_lines(log):
+    return sorted({int(m) for m in re.findall(r"\[UNSOUNDNESS-EDGE\][^\n]*\| caller=Main[.$][^\n]*\| line=(\d+)", log)})
+def jdk_count(log):
+    return len(re.findall(r"\[UNSOUNDNESS-EDGE\][^\n]*\| caller=(?!Main[.$])", log))
+lines, jdk = main_lines(log), jdk_count(log)
+scoped = open(f"{w}/scoped.log").read()
 original, marked = open(f"{w}/original.txt").read(), open(f"{w}/marked.txt").read()
 problems = []
 if not original.strip(): problems.append("empty call graph")
 if original != marked: problems.append("call graph changed")
 if lines != sorted(expect["edge_warning_lines"]): problems.append(f"edge warnings at lines {lines}, expected {expect['edge_warning_lines']}")
 if set(lines) & set(expect.get("no_warning_lines", [])): problems.append("warning where the tool resolves the call")
+if main_lines(scoped) != lines or jdk_count(scoped):
+    problems.append(f"CGRIZZ_MARKER_SCOPE=application: lines {main_lines(scoped)}, {jdk_count(scoped)} inside the JDK")
 print("  " + ("; ".join(problems) if problems else f"identical call graphs ({len(original.splitlines())} edges), "
-      f"edge warnings in Main at lines {lines} (+{jdk} inside the JDK)"))
+      f"edge warnings in Main at lines {lines} (+{jdk} inside the JDK; 0 with scope=application)"))
 sys.exit(1 if problems else 0)
 PY
   then echo "[$TOOLNAME/$name] ok"; else echo "[$TOOLNAME/$name] FAIL"; grep "UNSOUNDNESS.*caller=Main" "$w/marked.log" || tail -20 "$w/marked.log"; fail=1; fi

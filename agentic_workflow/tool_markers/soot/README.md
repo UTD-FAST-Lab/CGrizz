@@ -28,9 +28,10 @@ soot.jimple.spark.unsound.Unsound.mark(<var>, <method>, "<id>", "<description>")
 - `<description>`: the same at most 60-character description as your `[UNSOUNDNESS]` warning.
 
 Guard it exactly like the warning: only for this root cause. `mark` adds a marker object
-(type `NullType`) to the variable's points-to set. SPARK propagates it like the lost object,
-type filters let it through, and call resolution gives it no targets, so **the call graph
-does not change**. The pipeline checks that, too.
+(type `NullType`) to the variable's points-to set. SPARK propagates it like the lost object
+and type filters let it through, but SPARK never uses it as a receiver, a string or an
+argument array, and its fields hold nothing, so **the call graph does not change**
+(`tool_markers/run_test.sh soot` checks that).
 
 ## Example (Soot S15: `Unsafe.getObject` falls through the no-op native model)
 

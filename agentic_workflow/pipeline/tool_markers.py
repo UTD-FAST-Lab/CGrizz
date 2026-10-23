@@ -46,7 +46,7 @@ def install(tool_name: str, tool_dir: str | Path) -> list[str]:
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src_root / rel, dest)
         changed.append(rel)
-    return changed + apply_edits(s.get("edits", []), tool_dir, f"{tool_name} marker")
+    return list(dict.fromkeys(changed + apply_edits(s.get("edits", []), tool_dir, f"{tool_name} marker")))
 
 
 def apply_edits(edits: list[dict], tool_dir: str | Path, what: str = "edit") -> list[str]:
@@ -66,4 +66,4 @@ def apply_edits(edits: list[dict], tool_dir: str | Path, what: str = "edit") -> 
         new = {"before": e["text"] + e["anchor"], "after": e["anchor"] + e["text"], "replace": e["text"]}[e["insert"]]
         path.write_text(text.replace(e["anchor"], new))
         changed.append(e["file"])
-    return changed
+    return list(dict.fromkeys(changed))

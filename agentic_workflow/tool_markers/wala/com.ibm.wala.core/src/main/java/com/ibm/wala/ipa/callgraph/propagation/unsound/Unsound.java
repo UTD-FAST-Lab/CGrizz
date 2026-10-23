@@ -83,6 +83,22 @@ public final class Unsound {
   private static final Map<String, Marker> MARKERS = new HashMap<>();
   private static final MutableIntSet INDICES = IntSetUtil.getDefaultIntSetFactory().make();
   private static final Set<String> REPORTED = new HashSet<>();
+  /** CGRIZZ_MARKER_SCOPE=application: warn only at calls outside the JDK. */
+  private static final boolean APPLICATION_ONLY = "application".equals(System.getenv("CGRIZZ_MARKER_SCOPE"));
+  private static final String[] JDK_PACKAGES = {"java.", "javax.", "jdk.", "sun.", "com.sun.", "com.oracle.", "org.ietf.jgss.", "org.omg.", "org.w3c.dom.", "org.xml.sax.", "org.jcp.xml."};
+
+  /** className: dotted; WALA's lambda classes (wala.lambda$java$net$X$0) count as their enclosing class. */
+  static boolean isJdk(String className) {
+    String c = className.startsWith("wala.lambda$")
+        ? className.substring("wala.lambda$".length()).replace('$', '.')
+        : className;
+    for (String p : JDK_PACKAGES) {
+      if (c.startsWith(p)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * The value of local {@code valueNumber} in {@code node} is lost by WALA because of root cause
@@ -141,6 +157,9 @@ public final class Unsound {
 
   private static void report(Marker m, CGNode caller, CallSiteReference site) {
     IMethod method = caller.getMethod();
+    if (APPLICATION_ONLY && isJdk(method.getDeclaringClass().getName().toString().substring(1).replace('/', '.'))) {
+      return;
+    }
     int pc = site.getProgramCounter();
     String callerName = name(method);
     if (!REPORTED.add(m.id + "|" + callerName + "|" + pc)) {

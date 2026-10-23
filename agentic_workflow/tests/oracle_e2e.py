@@ -209,6 +209,32 @@ async def main():
     res = json.loads((s5.output_dir / "pipeline_result.json").read_text())
     results["runner on infra failure"] = (res["success"], res["failure_kind"], res["loops_used"], calls)
 
+    # the test case reproduces, but the spec also names a call the tool resolves → the spec is
+    # regenerated with that feedback and checked again without re-running the tool
+    async def found(state):
+        return O.Verdict("found", O.FOUND, "found")
+    R.stage_check_oracle_on_program = found
+    calls = []
+
+    async def oracle_(state, feedback=None):
+        calls.append(("oracle", (feedback or "")[:20]))
+        return True
+    R.stage_generate_oracle = oracle_
+
+    async def repro_broad(state):
+        calls.append("repro")
+        state.spec_too_broad_feedback = "[reproduction check] spec too broad"
+        return False, state.spec_too_broad_feedback
+
+    async def recheck_ok(state):
+        calls.append("recheck")
+        state.spec_too_broad_feedback = None
+        return False, "not reproduced"            # stop here: the report goes back for refinement
+    R.stage_check_reproduction, R.recheck_reproduction = repro_broad, recheck_ok
+    s8 = make_state(boundary("a.B", "c", "d.E", "f"), 8)
+    await R.run_pipeline(s8)
+    results["runner on a too-broad spec"] = calls[:4]
+
 
 asyncio.run(main())
 
@@ -228,6 +254,7 @@ EXPECTED = {
     "timeout: status": "timeout",
     "timeout: verdict": "infrastructure",
     "runner on infra failure": (False, "instrumentation_failure", 0, []),
+    "runner on a too-broad spec": [("oracle", ""), "repro", ("oracle", "[reproduction check]"), "recheck"],
     "negative check: generated": True,
     "negative check: first spec rejected as too broad": True,
     "negative check: conditional spec still finds the real edge": "found",

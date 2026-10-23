@@ -19,6 +19,10 @@ def main(oracle_path: str, expect_path: str) -> int:
     for caller, callee in expect.get("absent", []):
         if has(caller, callee):
             problems.append(f"unexpected symptom {caller} -> {callee}")
+    via = {(s["caller"], s["callee"]): s.get("via") for rc in oracle.values() for s in rc["symptoms"]}
+    for caller, callee in expect.get("viaReflection", []):      # reached by a reflective call at the site
+        if not any(c.startswith(caller + "(") and callee in e and v == "reflection" for (c, e), v in via.items()):
+            problems.append(f"symptom {caller} -> {callee} is not marked \"via\": \"reflection\"")
     for m in expect.get("rootCauseMethods", []):
         if not any(r.startswith(m + "(") for r in rc_methods):
             problems.append(f"missing root cause in {m}")

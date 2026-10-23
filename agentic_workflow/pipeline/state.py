@@ -50,6 +50,7 @@ class PipelineState:
 
     # ── Feedback accumulated across retries ────────────────────────────────────
     reproduce_feedback:   list[str] = field(default_factory=list)
+    spec_too_broad_feedback: Optional[str] = None  # reproduction check: the spec names calls the tool resolves
     trace_feedback:       list[str] = field(default_factory=list)
     oracle_verdicts:      list[dict] = field(default_factory=list) # one classified result per oracle run on the real program
 

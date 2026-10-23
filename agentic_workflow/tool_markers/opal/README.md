@@ -34,8 +34,8 @@ state.includeSharedPointsToSet(
 Guard it exactly like the warning: only for this root cause. The marker type is reserved
 (`cgrizz/unsound/Marker_<id>`). `TypeBasedPointsToSet`'s filters and
 `TypeIterator.isPossibleType` let it through, and `CallGraphAnalysis.handleCall` never resolves a
-target for it (not even an "unknown library call"). **The call graph does not change**, and the
-pipeline checks that.
+target for it (not even an "unknown library call"). **The call graph does not change**
+(`tool_markers/run_test.sh opal` checks that).
 
 ## Example (OPAL O22/O23: the synthetic return value of a body-less method is dropped for abstract types)
 

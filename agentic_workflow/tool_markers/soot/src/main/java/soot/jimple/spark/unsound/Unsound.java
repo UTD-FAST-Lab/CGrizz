@@ -27,7 +27,8 @@ import soot.tagkit.BytecodeOffsetTag;
  * allocation it cannot resolve, ...) the annotation calls {@link #mark}. That adds a
  * marker object to the value's points-to set. The marker has type {@link NullType}, so
  * SPARK's type filters let it through every cast and declared type, it flows wherever
- * the lost object would have flowed, and call resolution gives it no targets — the call
+ * the lost object would have flowed. SPARK never uses it as a receiver type, string or
+ * argument array, and its fields hold nothing ({@code CGrizzMarkerField}), so the call
  * graph does not change. When it reaches the receiver of a call, {@link #onReceiver}
  * prints one warning per call site:
  *
@@ -67,6 +68,21 @@ public final class Unsound {
   }
 
   private static final Set<String> REPORTED = ConcurrentHashMap.newKeySet();
+  /**
+   * CGRIZZ_MARKER_SCOPE=application: warn only at calls outside the JDK. (Soot's application classes
+   * do not tell: JCG analyses the JDK as part of the program.)
+   */
+  private static final boolean APPLICATION_ONLY = "application".equals(System.getenv("CGRIZZ_MARKER_SCOPE"));
+  private static final String[] JDK_PACKAGES = {"java.", "javax.", "jdk.", "sun.", "com.sun.", "com.oracle.", "org.ietf.jgss.", "org.omg.", "org.w3c.dom.", "org.xml.sax.", "org.jcp.xml."};
+
+  static boolean isJdk(String className) {
+    for (String p : JDK_PACKAGES) {
+      if (className.startsWith(p)) {
+        return true;
+      }
+    }
+    return false;
+  }
   private static final Map<String, Marker> MARKERS = new ConcurrentHashMap<>();
 
   /**
@@ -99,17 +115,24 @@ public final class Unsound {
     return n instanceof AllocNode && ((AllocNode) n).getNewExpr() instanceof Marker;
   }
 
-  /** Called by OnFlyCallGraph for every object that reaches a receiver variable. */
-  public static void onReceiver(OnFlyCallGraphBuilder ofcgb, Local receiver, AllocNode object) {
+  /**
+   * Called by OnFlyCallGraph for every object that reaches a receiver variable. Returns
+   * whether it is a marker: then SPARK must not use it as a receiver type, since even a
+   * NullType receiver makes the special calls (private methods, super calls) on it reachable.
+   */
+  public static boolean onReceiver(OnFlyCallGraphBuilder ofcgb, Local receiver, AllocNode object) {
     if (!(object.getNewExpr() instanceof Marker)) {
-      return;
+      return false;
     }
     Marker m = (Marker) object.getNewExpr();
     List<VirtualCallSite> sites = ofcgb.cgrizzSitesOf(receiver);
     if (sites == null) {
-      return;
+      return true;
     }
     for (VirtualCallSite site : sites) {
+      if (APPLICATION_ONLY && isJdk(site.container().getDeclaringClass().getName())) {
+        continue;
+      }
       Stmt s = site.stmt();
       if (!REPORTED.add(m.id + "|" + System.identityHashCode(s))) {
         continue;
@@ -118,6 +141,7 @@ public final class Unsound {
           + site.iie().getMethodRef().getDeclaringClass().getName() + "." + site.iie().getMethodRef().getName()
           + " | line=" + s.getJavaSourceStartLineNumber() + " | pc=" + pc(s) + " | rc=" + m.id);
     }
+    return true;
   }
 
   private static int pc(Stmt s) {

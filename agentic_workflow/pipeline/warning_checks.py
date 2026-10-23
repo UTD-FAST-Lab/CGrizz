@@ -90,19 +90,18 @@ def warning_records(lines: list[str]) -> list[dict]:
 
 
 def check_location(lines: list[str]) -> tuple[bool, str]:
-    """Every warning names the call instruction: line= and pc= present, at least one of them known."""
-    records = warning_records(lines)
-    missing = [r for r in records if not r["has_location_fields"]]
-    unknown = [r for r in records if r["has_location_fields"] and r["line"] is None and r["pc"] is None]
-    if not missing and not unknown:
+    """
+    Every warning has the line= and pc= fields of the call instruction. Either may be -1: the tool
+    does not always have them (e.g. methods it synthesizes itself have neither).
+    """
+    if all(r["has_location_fields"] for r in warning_records(lines)):
         return True, ""
-    what = ("has no `line=` / `pc=` fields" if missing else "prints line=-1 and pc=-1 (both unknown)")
     return False, (
-        f"[annotation / trace check] Location check failed — the [UNSOUNDNESS] log {what}. Each warning must say "
-        "which call instruction of the caller is affected, so it can be matched to a missed edge: "
-        "[UNSOUNDNESS] <description> | caller=<method> | site=<site> | line=<source line> | pc=<bytecode offset>. "
-        "Use -1 only for a value the tool really does not have, and at least one of the two must be known "
-        "(see the per-tool hints in your instructions)."
+        "[annotation / trace check] Location check failed — the [UNSOUNDNESS] log has no `line=` / `pc=` fields. "
+        "Each warning must say which call instruction of the caller is affected, so it can be matched to a missed "
+        "edge: [UNSOUNDNESS] <description> | caller=<method> | site=<site> | line=<source line> | "
+        "pc=<bytecode offset>, with -1 for a value the tool does not have (see the per-tool hints in your "
+        "instructions)."
     )
 
 
@@ -122,33 +121,27 @@ def check_description(lines: list[str], max_chars: int) -> tuple[bool, str]:
     )
 
 
-def check_noninterference(original_cg: Optional[str], annotated_cg: Optional[str]) -> tuple[bool, str]:
-    """The annotation may only add warnings: the call graph on the test case must not change."""
-    from pipeline.edges import cg_edges
-    before = cg_edges(original_cg) if original_cg else None
-    after = cg_edges(annotated_cg) if annotated_cg else None
-    if before is None or after is None or before == after:
-        return True, ""
-    added, removed = sorted(after - before), sorted(before - after)
-    lines = [f"[annotation / trace check] Non-interference check failed — on the reproducing test case the "
-             f"annotated tool's call graph differs from the original tool's ({len(added)} edges added, "
-             f"{len(removed)} removed). The annotation must only print warnings and mark values; it must not change "
-             "what the tool computes."]
-    lines += [f"  + {e}" for e in added[:5]] + [f"  - {e}" for e in removed[:5]]
-    return False, "\n".join(lines)
-
-
-def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path) -> tuple[bool, str]:
+def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path,
+                   symptoms: Optional[set] = None) -> tuple[bool, str]:
     """
-    With a tool marker module: every missed edge in the test case's own code has a
-    warning at its call instruction — [UNSOUNDNESS-EDGE] where the lost value reaches
-    a call, or the root-cause warning itself when the edge is missed right there.
+    With a tool marker module: every missed edge in the test case's own code that the root
+    cause explains has a warning at its call instruction — [UNSOUNDNESS-EDGE] where the lost
+    value reaches a call, or the root-cause warning itself when the edge is missed right there.
+
+    symptoms: the test case oracle's symptom_edges(). Only missed edges among them need a
+    warning: the test case may miss other edges for other reasons (e.g. OPAL misses
+    System.out.println in every program). None: every missed edge.
     """
     from pipeline.edge_mapping import boundary_records, load_boundaries, map_warnings
+    from pipeline.edges import is_jvm_runtime_boundary
+    from pipeline.oracle import boundary_edge, is_symptom
     pkgs = test_case_packages(test_case_dir)
     if not boundary_path or not pkgs:
         return True, ""
-    own = [b for b in boundary_records(load_boundaries(boundary_path))
+    # Calls the JVM makes itself (class loading at Class.forName, <clinit>, ...) are not the tool's to warn about.
+    explained = [b for b in load_boundaries(boundary_path) if not is_jvm_runtime_boundary(b)
+                 and (symptoms is None or is_symptom(boundary_edge(b), symptoms))]
+    own = [b for b in boundary_records(explained)
            if any(b["caller_class"] == p or b["caller_class"].startswith(p + ".") for p in pkgs)]
     if not own:
         return True, ""
@@ -157,8 +150,8 @@ def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir:
     if not missing:
         return True, ""
     return False, (
-        f"[annotation / trace check] Coverage check failed — {len(missing)} of the {len(own)} missed edges in the "
-        "test case have no warning at their call instruction:\n- " + "\n- ".join(missing[:10]) + "\n"
+        f"[annotation / trace check] Coverage check failed — {len(missing)} of the {len(own)} missed edges the root "
+        "cause explains in the test case (symptoms in its oracle) have no warning at their call instruction:\n- " + "\n- ".join(missing[:10]) + "\n"
         "If the root cause loses a value that later reaches these calls, mark it at the give-up point with the "
         "tool's marker (see the marker instructions) so the tool warns at each call ([UNSOUNDNESS-EDGE]). If the edge "
         "is missed at the root-cause instruction itself, the root-cause warning must print that instruction's line/pc."

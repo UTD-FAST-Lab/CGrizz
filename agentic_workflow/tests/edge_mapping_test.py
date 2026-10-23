@@ -48,8 +48,7 @@ def test_records_and_location():
     assert check_location(WARNINGS) == (True, "")
     ok, fb = check_location(["[UNSOUNDNESS] d | caller=a.B.c() | site=s"])
     assert not ok and "no `line=` / `pc=` fields" in fb
-    ok, fb = check_location([w("a.B.c()", -1, -1)])
-    assert not ok and "both unknown" in fb
+    assert check_location([w("a.B$name__1.apply()", -1, -1)]) == (True, ""), "the tool may not have either"
 
 
 def test_mapping():

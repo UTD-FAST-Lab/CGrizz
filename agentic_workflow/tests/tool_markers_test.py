@@ -1,6 +1,6 @@
 """
 Tests for tool unsoundness markers (issue #14, step 2): the installer, the
-non-interference and coverage checks, and stage 8 with [UNSOUNDNESS-EDGE] lines.
+coverage check, and stage 8 with [UNSOUNDNESS-EDGE] lines.
 The real-tool tests are tool_markers/run_test.sh <soot|wala|opal>.
 
     cd agentic_workflow && python tests/tool_markers_test.py
@@ -19,18 +19,23 @@ import pipeline.stages.annotation as A
 from pipeline import tool_markers
 from pipeline.edge_mapping import map_files
 from pipeline.state import PipelineState
-from pipeline.warning_checks import check_coverage, check_noninterference, warning_records
+from pipeline.warning_checks import check_coverage, warning_records
 
-SOOT_EDITS = [e["file"] for e in tool_markers.spec("Soot")["edits"]]
+SOOT_EDITS = list(dict.fromkeys(e["file"] for e in tool_markers.spec("Soot")["edits"]))
+CALLGRAPH, BUILDER = "src/main/java/soot/jimple/spark/solver/OnFlyCallGraph.java", \
+    "src/main/java/soot/jimple/toolkits/callgraph/OnFlyCallGraphBuilder.java"
 
 
 def fake_soot(root: Path) -> Path:
     """A tool tree with just the files the Soot module edits, taken from the module's anchors."""
     tool = root / "soot"
+    anchors: dict[str, str] = {}
     for e in tool_markers.spec("Soot")["edits"]:
-        p = tool / e["file"]
+        anchors[e["file"]] = anchors.get(e["file"], "") + e["anchor"]
+    for f, text in anchors.items():
+        p = tool / f
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text("class X {\n" + e["anchor"] + "}\n")
+        p.write_text("class X {\n" + text + "}\n")
     return tool
 
 
@@ -38,14 +43,15 @@ def test_install():
     tool = fake_soot(Path(tempfile.mkdtemp()))
     changed = tool_markers.install("Soot", tool)
     assert (tool / "src/main/java/soot/jimple/spark/unsound/Unsound.java").exists()
-    assert set(SOOT_EDITS) <= set(changed)
+    assert set(SOOT_EDITS) <= set(changed) and len(changed) == len(set(changed))
     once = {f: (tool / f).read_text() for f in SOOT_EDITS}
     tool_markers.install("Soot", tool)                                   # idempotent
     assert {f: (tool / f).read_text() for f in SOOT_EDITS} == once
-    assert "Unsound.onReceiver" in once[SOOT_EDITS[0]] and "cgrizzSitesOf" in once[SOOT_EDITS[1]]
+    assert "Unsound.onReceiver" in once[CALLGRAPH] and "cgrizzSitesOf" in once[BUILDER]
+    assert "CGrizzMarkerField" in once["src/main/java/soot/jimple/spark/pag/PAG.java"]
 
     broken = fake_soot(Path(tempfile.mkdtemp()))
-    (broken / SOOT_EDITS[0]).write_text("class X {}\n")                  # a different tool version
+    (broken / CALLGRAPH).write_text("class X {}\n")                  # a different tool version
     try:
         tool_markers.install("Soot", broken)
         raise AssertionError("expected ToolMarkerError")
@@ -97,15 +103,6 @@ def cg(path: Path, edges: list[tuple[str, str, int]]) -> str:
     return str(path)
 
 
-def test_noninterference():
-    d = Path(tempfile.mkdtemp())
-    base = [("com.ex.App.main", "com.ex.Safe.run", 24)]
-    assert check_noninterference(cg(d / "a.json", base), cg(d / "b.json", base)) == (True, "")
-    ok, fb = check_noninterference(cg(d / "a.json", base), cg(d / "c.json", base + [("com.ex.App.main", "com.ex.X.run", 19)]))
-    assert not ok and "1 edges added, 0 removed" in fb and "com.ex.X.run" in fb
-    assert check_noninterference(None, cg(d / "b.json", base))[0], "no original saved → nothing to compare"
-
-
 EDGE = "[UNSOUNDNESS-EDGE] Unsafe.getObject result not modelled | caller=com.ex.App.main(java.lang.String[]) | site=com.ex.Target.run | line={line} | pc=-1 | rc=unsafeGetObject"
 RC = "[UNSOUNDNESS] Unsafe.getObject result not modelled | caller=com.ex.App.main(java.lang.String[]) | site=getObject | line=18 | pc=-1"
 
@@ -122,7 +119,9 @@ def boundaries(path: Path) -> str:
     def b(callee, line, caller="Lcom/ex/App;"):
         return {"caller": {"declaringClass": caller, "name": "main"},
                 "missedCallee": {"declaringClass": "Lcom/ex/UnsafeTarget;", "name": callee}, "line": line, "pc": -1}
-    path.write_text(json.dumps({"boundaries": [b("run", 19), b("run", 21), b("hashCode", 23),
+    jvm = {"caller": {"declaringClass": "Lcom/ex/App;", "name": "main"}, "line": 17, "pc": -1,
+           "missedCallee": {"declaringClass": "Ljava/lang/ClassLoader;", "name": "loadClass"}}   # made by the JVM
+    path.write_text(json.dumps({"boundaries": [b("run", 19), b("run", 21), b("hashCode", 23), jvm,
                                                b("x", 5, caller="Ljava/util/HashMap;")]}))   # not the test case's code
     return str(path)
 
@@ -140,18 +139,19 @@ def test_edge_parsing_and_coverage():
     assert map_files([d / "log.txt"], bpath)["counts"]["explained"] == 3
 
 
-def run_stage(trace_lines, original_edges, annotated_edges, markers=True):
+def run_stage(trace_lines, cg_edges, markers=True):
     d = Path(tempfile.mkdtemp())
     tc = test_case(d)
     (tc / "staticcg/log.txt").write_text("\n".join(trace_lines))
     oracle = tc / "oracle.json"
-    oracle.write_text(json.dumps({"RC:x": {"method": "com.ex.App.main([Ljava/lang/String;)V",
-                                           "symptoms": [{"caller": "a", "callee": "b"}]}}))
+    main = "com.ex.App.main([Ljava/lang/String;)V"
+    oracle.write_text(json.dumps({"RC:x": {"method": main, "symptoms": [
+        {"caller": main, "callee": "com.ex.UnsafeTarget.run()V"},
+        {"caller": main, "callee": "com.ex.UnsafeTarget.hashCode()I"}]}}))
     s = PipelineState(program_name="p", tool_name="Soot", algorithm="SPARK", boundary_index=0, boundary_id="b0",
                       target_program_path=".", main_class="M", sa_tool_path=".", boundary={}, output_dir=d)
     s.reproducing_test_case_path, s.oracle_path = str(tc), str(oracle)
-    s.staticcg_path = cg(d / "annotated_cg.json", annotated_edges)
-    cg(tc / "staticcg.original.json", original_edges)
+    s.staticcg_path = cg(d / "annotated_cg.json", cg_edges)
     s.boundary_path = boundaries(d / "b.json")
     s.tool_markers_installed = markers
     A.build_agent_options = lambda st: None
@@ -161,25 +161,37 @@ def run_stage(trace_lines, original_edges, annotated_edges, markers=True):
 def test_stage():
     base = [("com.ex.App.main", "com.ex.Safe.run", 24)] + [(f"java.util.C{i}.m", "java.lang.Object.f", i) for i in range(200)]
     full = [RC] + [EDGE.format(line=n) for n in (19, 21, 23)]
-    (ok, fb), s = run_stage(full, base, base)
+    (ok, fb), s = run_stage(full, base)
     assert ok, fb
     assert s.warning_coverage["explained"] == 3
 
-    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, base)
+    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base)
     assert not ok and "Coverage check failed" in fb
 
-    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, base, markers=False)
+    (ok, fb), _ = run_stage([RC, EDGE.format(line=19)], base, markers=False)
     assert ok, "coverage is only required with a marker module"
 
-    (ok, fb), _ = run_stage(full, base, base + [("com.ex.App.main", "com.ex.UnsafeTarget.run", 19)])
-    assert not ok and "Non-interference check failed" in fb
+
+def test_coverage_only_for_symptoms():
+    d = Path(tempfile.mkdtemp())
+    tc, bpath = test_case(d), boundaries(d / "b.json")
+    data = json.loads(Path(bpath).read_text())
+    data["boundaries"].append({"caller": {"declaringClass": "Lcom/ex/App;", "name": "main"}, "line": 30, "pc": -1,
+                               "missedCallee": {"declaringClass": "Ljava/io/PrintStream;", "name": "println"}})
+    Path(bpath).write_text(json.dumps(data))                # missed for another reason (OPAL: System.out)
+    trace = "\n".join([RC] + [EDGE.format(line=n) for n in (19, 21, 23)])
+    assert not check_coverage(trace, bpath, tc)[0], "without symptoms every missed edge needs a warning"
+    symptoms = {("com.ex.App", "main", "com.ex.UnsafeTarget", "run"), ("com.ex.App", "main", "com.ex.UnsafeTarget", "hashCode")}
+    assert check_coverage(trace, bpath, tc, symptoms) == (True, "")
+    ok, fb = check_coverage("\n".join([RC, EDGE.format(line=19)]), bpath, tc, symptoms)
+    assert not ok and "2 of the 3 missed edges the root cause explains" in fb and "println" not in fb
 
 
 if __name__ == "__main__":
     test_install()
     test_every_module_is_complete()
     test_install_on_pinned_tools()
-    test_noninterference()
     test_edge_parsing_and_coverage()
     test_stage()
+    test_coverage_only_for_symptoms()
     print("tool markers: all tests passed")

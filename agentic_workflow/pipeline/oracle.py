@@ -20,6 +20,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import signal
 import subprocess
 import threading
@@ -131,6 +132,10 @@ def build_classpath(program_jar_path: str) -> Optional[str]:
     return ":".join(str(j) for j in jars) if jars else None
 
 
+_LAUNCH_ERRORS = re.compile(r"^Error: (Could not find or load main class|Main method not found|Unable to access jarfile)"
+                            r"|^Exception in thread \"main\" java\.lang\.NoClassDefFoundError", re.M)
+
+
 def _run_blocking(cmd: list[str], cwd: str, timeout: int) -> tuple[Optional[int], bool, str]:
     """Run the JVM; on timeout send SIGTERM first so shutdown hooks write the oracle."""
     proc = subprocess.Popen(cmd, cwd=cwd, stdin=subprocess.DEVNULL,
@@ -173,7 +178,8 @@ async def run_oracle(
         "-XX:-OmitStackTraceInFastThrow",   # implicit exceptions must keep their stack traces
         f"-javaagent:{jar}={Path(spec).resolve()}",
         f"-Dcgrizz.oracle.out={oracle_path}",
-        "-cp", classpath,
+        # The JVM runs in a scratch dir (below), so relative classpath entries must be made absolute.
+        "-cp", os.pathsep.join(str(Path(p).resolve()) for p in classpath.split(os.pathsep) if p),
         main_class,
     ]
     log.info(f"Running oracle: {' '.join(cmd)}")
@@ -196,7 +202,9 @@ async def run_oracle(
     except Exception:
         pass
 
-    if not stats:
+    if code and _LAUNCH_ERRORS.search(output[:2000]):
+        status = "launch_error"         # the program never ran: the agent writes empty stats at shutdown anyway
+    elif not stats:
         status = "timeout" if timed_out else "no_output"
     elif stats.get("unsupported"):
         status = "unsupported"
@@ -227,8 +235,18 @@ def _split_method(m: str) -> tuple[Optional[str], Optional[str]]:
     return cls, name
 
 
+# A member reached by a reflective call ("via": "reflection") is called by a JDK reflection
+# accessor, not by the call site: in call graphs its caller is one of these classes.
+REFLECTION_CALLER = ("<reflection>", "*")
+REFLECTION_ACCESSOR = re.compile(r"^(sun\.reflect|jdk\.internal\.reflect)\.")
+
+
 def symptom_edges(oracle: dict) -> set[tuple[str, str, str, str]]:
-    """(caller_class, caller_method, callee_class, callee_method) for every symptom."""
+    """
+    (caller_class, caller_method, callee_class, callee_method) for every symptom; a symptom
+    "via": "reflection" also gives (*REFLECTION_CALLER, callee_class, callee_method). Match
+    boundaries with is_symptom().
+    """
     edges = set()
     for rc in oracle.values():
         for sym in rc.get("symptoms", []):
@@ -236,7 +254,15 @@ def symptom_edges(oracle: dict) -> set[tuple[str, str, str, str]]:
             ec, em = _split_method(sym.get("callee", ""))
             if cc and cm and ec and em:
                 edges.add((cc, cm, ec, em))
+                if sym.get("via") == "reflection":
+                    edges.add((*REFLECTION_CALLER, ec, em))
     return edges
+
+
+def is_symptom(edge: tuple[str, str, str, str], symptoms: set[tuple[str, str, str, str]]) -> bool:
+    """Whether a call-graph edge (e.g. a boundary) is one of symptom_edges()."""
+    return edge in symptoms or (bool(REFLECTION_ACCESSOR.match(edge[0]))
+                                and (*REFLECTION_CALLER, edge[2], edge[3]) in symptoms)
 
 
 def extract_symptoms(oracle_path: Path) -> set[tuple[str, str, str, str]]:
@@ -324,7 +350,7 @@ def classify(run: OracleRun, boundary: dict) -> Verdict:
         return Verdict("spec_invalid", SPEC, "The oracle agent rejected the spec:\n- " + "\n- ".join(stats.get("specErrors", [])))
 
     edges = symptom_edges(run.oracle)
-    if edge in edges:
+    if is_symptom(edge, edges):
         return Verdict("found", FOUND, f"Boundary edge {edge_txt} is a symptom.")
 
     if run.status in ("no_output", "launch_error"):

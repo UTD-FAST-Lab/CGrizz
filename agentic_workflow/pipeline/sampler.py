@@ -17,7 +17,6 @@ run_global_dedup_sampler() is deprecated; use the incremental filter instead.
 """
 
 import json
-import re
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -31,7 +30,8 @@ from claude_agent_sdk import (
     SystemMessage,
 )
 
-from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES, OUT_REPRESENTATIVES_REGISTRY, JVM_RUNTIME_EXCLUDED_CALLEES
+from config import MODEL_FAST, OUT_SELECTED_BOUNDARIES, OUT_GLOBAL_SELECTED_BOUNDARIES, OUT_REPRESENTATIVES_REGISTRY
+from pipeline.edges import is_jvm_runtime_boundary
 from pipeline.state import PipelineState
 
 log = logging.getLogger("pipeline.sampler")
@@ -107,20 +107,10 @@ def filter_jvm_runtime_boundaries(
     excluded = 0
 
     for i, b in enumerate(boundaries):
-        missed  = b.get("missedCallee", {})
-        m_name  = missed.get("name", "")
-        m_class = missed.get("declaringClass", "")
-
-        should_exclude = any(
-            (cls is None or m_class == cls) and (method is None or m_name == method)
-            for cls, method in JVM_RUNTIME_EXCLUDED_CALLEES
-        )
-        if not should_exclude:
-            should_exclude = bool(re.search(r'/\d+;?$', m_class))
-            
-        if should_exclude:
+        if is_jvm_runtime_boundary(b):
+            missed = b.get("missedCallee", {})
             excluded += 1
-            log.info(f"Pre-filter: excluded boundary {i} ({m_class}.{m_name})")
+            log.info(f"Pre-filter: excluded boundary {i} ({missed.get('declaringClass', '')}.{missed.get('name', '')})")
         else:
             kept.append(b)
             kept_indices.append(i)
