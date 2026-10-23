@@ -144,8 +144,10 @@ def run_stage(trace_lines, cg_edges, markers=True):
     tc = test_case(d)
     (tc / "staticcg/log.txt").write_text("\n".join(trace_lines))
     oracle = tc / "oracle.json"
-    oracle.write_text(json.dumps({"RC:x": {"method": "com.ex.App.main([Ljava/lang/String;)V",
-                                           "symptoms": [{"caller": "a", "callee": "b"}]}}))
+    main = "com.ex.App.main([Ljava/lang/String;)V"
+    oracle.write_text(json.dumps({"RC:x": {"method": main, "symptoms": [
+        {"caller": main, "callee": "com.ex.UnsafeTarget.run()V"},
+        {"caller": main, "callee": "com.ex.UnsafeTarget.hashCode()I"}]}}))
     s = PipelineState(program_name="p", tool_name="Soot", algorithm="SPARK", boundary_index=0, boundary_id="b0",
                       target_program_path=".", main_class="M", sa_tool_path=".", boundary={}, output_dir=d)
     s.reproducing_test_case_path, s.oracle_path = str(tc), str(oracle)
@@ -170,10 +172,26 @@ def test_stage():
     assert ok, "coverage is only required with a marker module"
 
 
+def test_coverage_only_for_symptoms():
+    d = Path(tempfile.mkdtemp())
+    tc, bpath = test_case(d), boundaries(d / "b.json")
+    data = json.loads(Path(bpath).read_text())
+    data["boundaries"].append({"caller": {"declaringClass": "Lcom/ex/App;", "name": "main"}, "line": 30, "pc": -1,
+                               "missedCallee": {"declaringClass": "Ljava/io/PrintStream;", "name": "println"}})
+    Path(bpath).write_text(json.dumps(data))                # missed for another reason (OPAL: System.out)
+    trace = "\n".join([RC] + [EDGE.format(line=n) for n in (19, 21, 23)])
+    assert not check_coverage(trace, bpath, tc)[0], "without symptoms every missed edge needs a warning"
+    symptoms = {("com.ex.App", "main", "com.ex.UnsafeTarget", "run"), ("com.ex.App", "main", "com.ex.UnsafeTarget", "hashCode")}
+    assert check_coverage(trace, bpath, tc, symptoms) == (True, "")
+    ok, fb = check_coverage("\n".join([RC, EDGE.format(line=19)]), bpath, tc, symptoms)
+    assert not ok and "2 of the 3 missed edges the root cause explains" in fb and "println" not in fb
+
+
 if __name__ == "__main__":
     test_install()
     test_every_module_is_complete()
     test_install_on_pinned_tools()
     test_edge_parsing_and_coverage()
     test_stage()
+    test_coverage_only_for_symptoms()
     print("tool markers: all tests passed")

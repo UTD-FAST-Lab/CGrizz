@@ -121,19 +121,27 @@ def check_description(lines: list[str], max_chars: int) -> tuple[bool, str]:
     )
 
 
-def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path) -> tuple[bool, str]:
+def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir: Path,
+                   symptoms: Optional[set] = None) -> tuple[bool, str]:
     """
-    With a tool marker module: every missed edge in the test case's own code has a
-    warning at its call instruction — [UNSOUNDNESS-EDGE] where the lost value reaches
-    a call, or the root-cause warning itself when the edge is missed right there.
+    With a tool marker module: every missed edge in the test case's own code that the root
+    cause explains has a warning at its call instruction — [UNSOUNDNESS-EDGE] where the lost
+    value reaches a call, or the root-cause warning itself when the edge is missed right there.
+
+    symptoms: the test case oracle's symptom_edges(). Only missed edges among them need a
+    warning: the test case may miss other edges for other reasons (e.g. OPAL misses
+    System.out.println in every program). None: every missed edge.
     """
     from pipeline.edge_mapping import boundary_records, load_boundaries, map_warnings
     from pipeline.edges import is_jvm_runtime_boundary
+    from pipeline.oracle import boundary_edge, is_symptom
     pkgs = test_case_packages(test_case_dir)
     if not boundary_path or not pkgs:
         return True, ""
     # Calls the JVM makes itself (class loading at Class.forName, <clinit>, ...) are not the tool's to warn about.
-    own = [b for b in boundary_records([b for b in load_boundaries(boundary_path) if not is_jvm_runtime_boundary(b)])
+    explained = [b for b in load_boundaries(boundary_path) if not is_jvm_runtime_boundary(b)
+                 and (symptoms is None or is_symptom(boundary_edge(b), symptoms))]
+    own = [b for b in boundary_records(explained)
            if any(b["caller_class"] == p or b["caller_class"].startswith(p + ".") for p in pkgs)]
     if not own:
         return True, ""
@@ -142,8 +150,8 @@ def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir:
     if not missing:
         return True, ""
     return False, (
-        f"[annotation / trace check] Coverage check failed — {len(missing)} of the {len(own)} missed edges in the "
-        "test case have no warning at their call instruction:\n- " + "\n- ".join(missing[:10]) + "\n"
+        f"[annotation / trace check] Coverage check failed — {len(missing)} of the {len(own)} missed edges the root "
+        "cause explains in the test case (symptoms in its oracle) have no warning at their call instruction:\n- " + "\n- ".join(missing[:10]) + "\n"
         "If the root cause loses a value that later reaches these calls, mark it at the give-up point with the "
         "tool's marker (see the marker instructions) so the tool warns at each call ([UNSOUNDNESS-EDGE]). If the edge "
         "is missed at the root-cause instruction itself, the root-cause warning must print that instruction's line/pc."

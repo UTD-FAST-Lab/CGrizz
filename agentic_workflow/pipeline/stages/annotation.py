@@ -215,7 +215,8 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
     edge_lines = edge_warning_lines(trace_log)
     for check in (lambda: check_description(edge_lines, ANNOTATION_MAX_DESCRIPTION_CHARS),
                   lambda: check_location(unsoundness_lines + edge_lines),
-                  lambda: check_coverage(trace_log, state.boundary_path, Path(state.reproducing_test_case_path))
+                  lambda: check_coverage(trace_log, state.boundary_path, Path(state.reproducing_test_case_path),
+                                         _test_case_symptoms(state))
                   if state.tool_markers_installed and ANNOTATION_REQUIRE_EDGE_COVERAGE else (True, "")):
         ok, feedback = check()
         if not ok:
@@ -259,6 +260,15 @@ async def stage_check_trace(state: PipelineState) -> tuple[bool, str]:
 
     log.info(f"{state.label()} Trace check passed — expected logs found in execution trace.")
     return True, "Trace check passed — expected logs found in execution trace."
+
+
+def _test_case_symptoms(state: PipelineState):
+    """The symptom edges of the reproducing test case's oracle; None if it cannot be read."""
+    from pipeline.oracle import symptom_edges
+    try:
+        return symptom_edges(json.loads(Path(state.oracle_path).read_text()))
+    except Exception:
+        return None
 
 
 def _marker_section(state: PipelineState) -> str:

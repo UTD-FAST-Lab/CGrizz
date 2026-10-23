@@ -141,7 +141,7 @@ results/<program>/<tool>/<algorithm>/b<i>_<Caller.method>__<Callee.method>/
 | 6 reproduction | `stage_check_reproduction` | each test-case symptom is a missed edge (JCG); if some are and the tool resolves the rest, the spec is regenerated (`spec_too_broad_feedback`) |
 | 6b shrink | `stage_shrink_test_case` (test-case-generator) | smaller version kept only if the oracle checks and reproduction still pass |
 | 7 annotation | `stage_root_cause_annotation` (root-cause-annotator) | — |
-| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; with a marker module every missed edge warned; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
+| 8 trace | `stage_check_trace` | fires for the root-cause methods; short description; line/pc of the call; with a marker module every missed edge that is a symptom warned; ≤ 5% of methods; not on the near miss; records `warning_coverage` |
 | 9 refine | `stage_refine_report` | — |
 
 Failures become feedback for the next attempt: `oracle_feedback` (instrumentation agent),
