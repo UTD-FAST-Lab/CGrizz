@@ -119,7 +119,9 @@ def boundaries(path: Path) -> str:
     def b(callee, line, caller="Lcom/ex/App;"):
         return {"caller": {"declaringClass": caller, "name": "main"},
                 "missedCallee": {"declaringClass": "Lcom/ex/UnsafeTarget;", "name": callee}, "line": line, "pc": -1}
-    path.write_text(json.dumps({"boundaries": [b("run", 19), b("run", 21), b("hashCode", 23),
+    jvm = {"caller": {"declaringClass": "Lcom/ex/App;", "name": "main"}, "line": 17, "pc": -1,
+           "missedCallee": {"declaringClass": "Ljava/lang/ClassLoader;", "name": "loadClass"}}   # made by the JVM
+    path.write_text(json.dumps({"boundaries": [b("run", 19), b("run", 21), b("hashCode", 23), jvm,
                                                b("x", 5, caller="Ljava/util/HashMap;")]}))   # not the test case's code
     return str(path)
 

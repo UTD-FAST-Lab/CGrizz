@@ -128,10 +128,12 @@ def check_coverage(trace_text: str, boundary_path: Optional[str], test_case_dir:
     a call, or the root-cause warning itself when the edge is missed right there.
     """
     from pipeline.edge_mapping import boundary_records, load_boundaries, map_warnings
+    from pipeline.edges import is_jvm_runtime_boundary
     pkgs = test_case_packages(test_case_dir)
     if not boundary_path or not pkgs:
         return True, ""
-    own = [b for b in boundary_records(load_boundaries(boundary_path))
+    # Calls the JVM makes itself (class loading at Class.forName, <clinit>, ...) are not the tool's to warn about.
+    own = [b for b in boundary_records([b for b in load_boundaries(boundary_path) if not is_jvm_runtime_boundary(b)])
            if any(b["caller_class"] == p or b["caller_class"].startswith(p + ".") for p in pkgs)]
     if not own:
         return True, ""

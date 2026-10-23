@@ -6,9 +6,12 @@ static CG and execution-trace formats.
 """
 
 import json
+import re
 import logging
 from pathlib import Path
 from typing import Optional
+
+from config import JVM_RUNTIME_EXCLUDED_CALLEES
 
 log = logging.getLogger("pipeline")
 
@@ -19,6 +22,17 @@ def descriptor_to_classname(descriptor: str) -> str:
     Already-dotted names (no slashes) are returned as-is.
     """
     return descriptor.lstrip("L").rstrip(";").replace("/", ".")
+
+
+def is_jvm_runtime_boundary(boundary: dict) -> bool:
+    """
+    The missed callee is called by the JVM itself (class loading, finalization, <clinit>, ...),
+    not by the program's code at the call site, so no tool warning can be expected for it.
+    """
+    missed = boundary.get("missedCallee", {})
+    m_class, m_name = missed.get("declaringClass", ""), missed.get("name", "")
+    return any((cls is None or m_class == cls) and (method is None or m_name == method)
+               for cls, method in JVM_RUNTIME_EXCLUDED_CALLEES) or bool(re.search(r'/\d+;?$', m_class))
 
 
 def entry_matches(entry: dict, expected_caller: str, expected_callee: str) -> bool:
