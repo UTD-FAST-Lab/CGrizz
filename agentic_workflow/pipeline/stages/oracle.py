@@ -79,7 +79,7 @@ async def stage_generate_oracle(state: PipelineState, feedback: str = "") -> boo
             log.info(f"{state.label()} Oracle spec validated on the test case → {spec}")
             return True
         log.warning(f"{state.label()} Oracle spec attempt {attempt}/{ORACLE_GENERATE_ATTEMPTS} rejected: {problem}")
-        if kind == "unsupported":
+        if kind in ("unsupported", "launch"):        # rewriting the spec cannot fix these
             break
 
     state.oracle_failure = problem
@@ -128,6 +128,9 @@ async def _validate_on_test_case(state: PipelineState, spec: Path, oracle_path: 
         return f"The spec is marked unsupported: {run.stats.get('unsupported')}", "unsupported"
     if run.status == "spec_invalid":
         return "The oracle agent rejected the spec:\n- " + "\n- ".join(run.stats.get("specErrors", [])), "spec"
+    if run.status == "launch_error":
+        return ("The test case did not start under the oracle (a launch problem, not a spec problem). "
+                f"Output:\n{run.output_tail[-1500:]}"), "launch"
     if run.status != "ok":
         return f"The oracle run on the test case failed ({run.status}). Output:\n{run.output_tail[-1500:]}", "run"
     if not oracle.symptom_edges(run.oracle):

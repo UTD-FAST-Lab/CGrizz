@@ -20,6 +20,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import signal
 import subprocess
 import threading
@@ -131,6 +132,10 @@ def build_classpath(program_jar_path: str) -> Optional[str]:
     return ":".join(str(j) for j in jars) if jars else None
 
 
+_LAUNCH_ERRORS = re.compile(r"^Error: (Could not find or load main class|Main method not found|Unable to access jarfile)"
+                            r"|^Exception in thread \"main\" java\.lang\.NoClassDefFoundError", re.M)
+
+
 def _run_blocking(cmd: list[str], cwd: str, timeout: int) -> tuple[Optional[int], bool, str]:
     """Run the JVM; on timeout send SIGTERM first so shutdown hooks write the oracle."""
     proc = subprocess.Popen(cmd, cwd=cwd, stdin=subprocess.DEVNULL,
@@ -173,7 +178,8 @@ async def run_oracle(
         "-XX:-OmitStackTraceInFastThrow",   # implicit exceptions must keep their stack traces
         f"-javaagent:{jar}={Path(spec).resolve()}",
         f"-Dcgrizz.oracle.out={oracle_path}",
-        "-cp", classpath,
+        # The JVM runs in a scratch dir (below), so relative classpath entries must be made absolute.
+        "-cp", os.pathsep.join(str(Path(p).resolve()) for p in classpath.split(os.pathsep) if p),
         main_class,
     ]
     log.info(f"Running oracle: {' '.join(cmd)}")
@@ -196,7 +202,9 @@ async def run_oracle(
     except Exception:
         pass
 
-    if not stats:
+    if code and _LAUNCH_ERRORS.search(output[:2000]):
+        status = "launch_error"         # the program never ran: the agent writes empty stats at shutdown anyway
+    elif not stats:
         status = "timeout" if timed_out else "no_output"
     elif stats.get("unsupported"):
         status = "unsupported"
