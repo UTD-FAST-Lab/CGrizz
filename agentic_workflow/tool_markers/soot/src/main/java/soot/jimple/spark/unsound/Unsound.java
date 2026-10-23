@@ -68,6 +68,21 @@ public final class Unsound {
   }
 
   private static final Set<String> REPORTED = ConcurrentHashMap.newKeySet();
+  /**
+   * CGRIZZ_MARKER_SCOPE=application: warn only at calls outside the JDK. (Soot's application classes
+   * do not tell: JCG analyses the JDK as part of the program.)
+   */
+  private static final boolean APPLICATION_ONLY = "application".equals(System.getenv("CGRIZZ_MARKER_SCOPE"));
+  private static final String[] JDK_PACKAGES = {"java.", "javax.", "jdk.", "sun.", "com.sun.", "com.oracle.", "org.ietf.jgss.", "org.omg.", "org.w3c.dom.", "org.xml.sax.", "org.jcp.xml."};
+
+  static boolean isJdk(String className) {
+    for (String p : JDK_PACKAGES) {
+      if (className.startsWith(p)) {
+        return true;
+      }
+    }
+    return false;
+  }
   private static final Map<String, Marker> MARKERS = new ConcurrentHashMap<>();
 
   /**
@@ -115,6 +130,9 @@ public final class Unsound {
       return true;
     }
     for (VirtualCallSite site : sites) {
+      if (APPLICATION_ONLY && isJdk(site.container().getDeclaringClass().getName())) {
+        continue;
+      }
       Stmt s = site.stmt();
       if (!REPORTED.add(m.id + "|" + System.identityHashCode(s))) {
         continue;

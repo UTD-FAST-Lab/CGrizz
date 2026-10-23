@@ -54,9 +54,12 @@ def container_env(framework: str, annotated_sa_tool_path: str, fast_path: bool) 
     """
     SA_FRAMEWORK selects the tool rebuilt by TC_entrypoint.sh. With --fast-path,
     CHANGED_SOURCES lets it compile just those files on top of the prebuilt tool
-    (WALA, Soot) instead of rebuilding the whole tool and JCG.
+    (WALA, Soot) instead of rebuilding the whole tool and JCG. CGRIZZ_MARKER_SCOPE
+    (config.TOOL_MARKER_SCOPE) tells the tool's marker module where to warn.
     """
     env = {"SA_FRAMEWORK": framework.upper()}
+    if os.environ.get("CGRIZZ_MARKER_SCOPE"):
+        env["CGRIZZ_MARKER_SCOPE"] = os.environ["CGRIZZ_MARKER_SCOPE"]
     if fast_path:
         original = config.get(f"{framework.upper()}_ORG_PATH")
         files = changed_sources(Path(annotated_sa_tool_path), Path(original)) if original else []

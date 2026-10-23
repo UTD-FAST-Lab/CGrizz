@@ -15,6 +15,7 @@ Two responsibilities:
 
 import importlib.util
 import logging
+import os
 import subprocess
 from pathlib import Path
 import sys
@@ -22,6 +23,7 @@ import sys
 from pipeline.state import PipelineState
 from config import (
     JCG_FAST_PATH,
+    TOOL_MARKER_SCOPE,
     OUT_STATICCG_DIR,
     OUT_DYNCG_DIR,
     OUT_BOUNDARY_DIR,
@@ -130,9 +132,9 @@ def run_annotated_sa(state: PipelineState, project: str = "reproducing", test_ca
             '--annotated_sa_tool_path', str(Path(state.annotated_sa_tool_path).resolve()),
             '--boundary_id', str(state.boundary_id),
             *_fast_path_args(),
-        ]
+        ],
+        env={**os.environ, "CGRIZZ_MARKER_SCOPE": TOOL_MARKER_SCOPE},
     )
-    
 
     log.info(f"{state.label()} Annotated output → {out_path}")
     return out_path
